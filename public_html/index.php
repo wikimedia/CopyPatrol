@@ -19,7 +19,7 @@ if ( $result->num_rows > 0 ) {
 		$wiki = "https://" . $row['lang'] . '.' . $row['project'] . '.org';
 		$html .= '<tr class="trow">'
 					.'<td>'. $wiki . '</td>'
-					.'<td><a href="'. $wiki . '?diff=prev&oldid='. $row['diff'].'">'. $row['diff'] .'</td>'
+					.'<td><a href="'. $wiki . '?oldid='. $row['diff'].'">'. $row['diff'] .'</td>'
 					.'<td>'. $row['diff_timestamp'] .'</td>'
 				.'</tr>';
 	}
