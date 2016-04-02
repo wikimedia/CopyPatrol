@@ -4,7 +4,7 @@ $db = parse_ini_file( '/../replica.my.cnf' );
 
 $link = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51396__copyright_p' );
 
-echo 'Hello, I\'m plagiabot!';
+echo $db['user'];
 
 $query = "SELECT * FROM copyright_diffs LIMIT 10";
 
