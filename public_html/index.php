@@ -38,9 +38,10 @@ function getWikiprojects( $wiki, $page ) {
 	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
 	$result = json_decode( curl_exec( $curl ), true );
 	curl_close( $curl );
-	foreach ( $result['query']['pages']['templates'] as $r ) {
-		echo $r;
-	}
+	// foreach ( $result['query']['pages']['templates'] as $r ) {
+	// 	echo $r;
+	// }
+	var_dump( $result['query']['pages']['templates'] );
 	return $result;
 }
 
