@@ -36,10 +36,12 @@ function getWikiprojects( $wiki, $page ) {
 	curl_setopt( $curl, CURLOPT_PUT, 1 );
 	curl_setopt( $curl, CURLOPT_URL, $url );
 	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-	$result = curl_exec( $curl );
+	$result = json_decode( curl_exec( $curl ), true );
 	curl_close( $curl );
-	echo $url, $result, '-----', $json;
-    return $result;
+	foreach ( $result['query']['pages']['templates'] as $r ) {
+		echo $r;
+	}
+	return $result;
 }
 
 echo $html;
