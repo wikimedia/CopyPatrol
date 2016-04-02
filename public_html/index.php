@@ -11,6 +11,7 @@ $result = mysqli_query( $link, $query );
 $html = '<table>';
 $html .= '<tr>
 			<th>Wiki</th>
+			<th>Page</th>
 			<th>Diff</th>
 			<th>Date</th>
 		</tr>';
@@ -19,7 +20,8 @@ if ( $result->num_rows > 0 ) {
 		$wiki = "https://" . $row['lang'] . '.' . $row['project'] . '.org';
 		$html .= '<tr class="trow">'
 					.'<td>'. $wiki . '</td>'
-					.'<td><a href="'. $wiki . '?diff='. $row['diff'].'">'. $row['diff'] .'</td>'
+					.'<td>'. $row['page_title'] . '</td>'
+					.'<td><a href="'. $wiki . '/w/index.php?title=' . $row['page_title'] .'&diff='. $row['diff'].'">'. $row['diff'] .'</td>'
 					.'<td>'. $row['diff_timestamp'] .'</td>'
 				.'</tr>';
 	}
