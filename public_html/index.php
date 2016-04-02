@@ -4,7 +4,7 @@ $db = parse_ini_file( '../replica.my.cnf' );
 
 $link = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51306__copyright_p' );
 
-$query = "SELECT * FROM copyright_diffs LIMIT 10";
+$query = "SELECT * FROM copyright_diffs ORDER BY diff_timestamp DESC LIMIT 10";
 
 $result = mysqli_query( $link, $query );
 
