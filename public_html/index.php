@@ -31,13 +31,14 @@ if ( $result->num_rows > 0 ) {
 
 function getWikiprojects( $wiki, $page ) {
 	$curl = curl_init();
-	$url = $wiki . '/w/api.php?action=query&titles=Talk:' . $page . '&prop=templates&tllimit=max&formatversion=2';
+	$url = $wiki . '/w/api.php?action=query&titles=Talk:' . $page . '&prop=templates&tllimit=max&formatversion=2&format=json';
+	$json = file_get_contents( $url );
 	curl_setopt( $curl, CURLOPT_PUT, 1 );
 	curl_setopt( $curl, CURLOPT_URL, $url );
 	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
 	$result = curl_exec( $curl );
 	curl_close( $curl );
-	echo $url, $result;
+	echo $url, $result, '-----', $json;
     return $result;
 }
 
