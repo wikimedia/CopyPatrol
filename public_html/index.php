@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__FILE__) . '/../config.php';
+$db = parse_ini_file( '/../replica.my.cnf' );
 
-$link = mysqli_connect( $credentials['host'], $credentials['user'], $credentials['pass'], $credentials['db'] );
+$link = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51306__copyright_p' );
 
 echo 'Hello, I\'m plagiabot!';
 
