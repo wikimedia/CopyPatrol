@@ -16,7 +16,7 @@ $html .= '<tr>
 		</tr>';
 if ( $result->num_rows > 0 ) {
 	while ( $row = $result->fetch_assoc() ) {
-		$wiki = "https://" + $row['lang'] + '.' + $row['project'] + '.org';
+		$wiki = "https://" . $row['lang'] . '.' . $row['project'] . '.org';
 		$html .= '<tr class="trow">'
 					.'<td>'. $wiki . '</td>'
 					.'<td><a href="'. $wiki . '?diff=prev&oldid='. $row['diff'].'">'. $row['diff'] .'</td>'
