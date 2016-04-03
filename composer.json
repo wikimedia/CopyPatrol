@@ -1,0 +1,5 @@
+{
+    "require": {
+        "addwiki/mediawiki-api-base": "~2.1"
+    }
+}

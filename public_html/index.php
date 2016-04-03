@@ -1,5 +1,10 @@
 <?php
 
+require __DIR__ . '/../vendor/autoload.php';
+
+use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\FluentRequest;
+
 $db = parse_ini_file( '../replica.my.cnf' );
 
 $link = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51306__copyright_p' );
@@ -26,23 +31,28 @@ if ( $result->num_rows > 0 ) {
 					.'<td><a href="'. $wiki . '/w/index.php?title=' . $row['page_title'] .'&diff='. $row['diff'].'">'. $row['diff'] .'</td>'
 					.'<td>'. $row['diff_timestamp'] .'</td>'
 				.'</tr>';
+		// echo $wikiprojects;
 	}
 }
 
 function getWikiprojects( $wiki, $page ) {
-	$curl = curl_init();
-	$url = $wiki . '/w/api.php?action=query&titles=Talk:' . $page . '&prop=templates&tllimit=max&formatversion=2&format=json';
-	$json = file_get_contents( $url );
-	curl_setopt( $curl, CURLOPT_PUT, 1 );
-	curl_setopt( $curl, CURLOPT_URL, $url );
-	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-	$result = json_decode( curl_exec( $curl ), true );
-	curl_close( $curl );
-	// foreach ( $result['query']['pages']['templates'] as $r ) {
-	// 	echo $r;
-	// }
-	var_dump( $result['query']['pages']['templates'] );
-	return $result;
+	$api = MediawikiApi::newFromPage( $wiki . '/wiki/Talk:' . $page );
+	$projects = array();
+	$queryResponse = $api->getRequest(
+		FluentRequest::factory()->setAction( 'query' )
+			->setParam( 'prop', 'templates' )
+			->setParam( 'titles', 'Talk:Professor Green' )
+			->setParam( 'tllimit', 'max' )
+			->setParam( 'formatversion', 2 )
+		);
+	foreach( $queryResponse['query']['pages'][0]['templates'] as $key => $value ){
+		if( strpos( $value['title'], "Template:WikiProject " ) !== false ) {
+			if( strpos( $value['title'], "/") == false ) {
+				$projects[] = $value['title'];
+			}
+		}
+	};
+	var_dump( $projects );
 }
 
 echo $html;
