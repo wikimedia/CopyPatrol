@@ -35,17 +35,17 @@ if ( $result->num_rows > 0 ) {
 		$editTime[] = $row['diff_timestamp'];
 		$editPage[] = $row['page_title'];
 		$editDiff[] = $row['diff'];
-		// $html .= '<tr class="trow">'
-		// 			.'<td>'. $wiki . '</td>'
-		// 			.'<td>'. $row['page_title'] . '</td>'
-		// 			.'<td><a href="'. $wiki . '/w/index.php?title=' . $row['page_title'] .'&diff='. $row['diff'].'">'. $row['diff'] .'</td>'
-		// 			.'<td>'. $row['diff_timestamp'] .'</td>'
-		// 		.'</tr>';
-		// echo $row['page_title'], $wikiprojects;
+		$html .= '<tr class="trow">'
+					.'<td>'. $wiki . '</td>'
+					.'<td>'. $row['page_title'] . '</td>'
+					.'<td><a href="'. $wiki . '/w/index.php?title=' . $row['page_title'] .'&diff='. $row['diff'].'">'. $row['diff'] .'</td>'
+					.'<td>'. $row['diff_timestamp'] .'</td>'
+				.'</tr>';
 	}
 
 	$editProjects = getWikiprojects( $editWiki, $editPage );
 	var_dump( $editProjects );
+	echo $html;
 }
 
 // $wikis = array( 'https://en.wikipedia.org', 'https://en.wikipedia.org', 'https://en.wikipedia.org' );
