@@ -93,14 +93,6 @@ function getWikiprojects( $wikis, $pages ) {
 	<head>
 		<title>Plagiabot</title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<script src="js/randomColor.js" type="text/javascript"></script>
-		<script src="js/wikiprojects.js" type="text/javascript"></script>
-	</head>
-<script>
-	$( document ).ready( function(){
-		colorizeWikiprojects(<?=array_values( $allProjects )?> );
-	});
-	</script>
 <body>
 	<?php echo $html; ?>
 </body>
