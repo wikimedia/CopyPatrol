@@ -47,9 +47,6 @@ if ( $result->num_rows > 0 ) {
 					.'<td>'. $editTime[$i] .'</td><td>';
 		foreach ( $editProjects[$editPage[$i]] as $key => $value ) {
 			$html .= $value . ', ';
-			if( $value not in $allProjects ) {
-				$allProjects[] = $value;
-			}
 		}
 		$html .= '</td></tr>';
 	}
@@ -59,7 +56,7 @@ if ( $result->num_rows > 0 ) {
 function getWikiprojects( $wikis, $pages ) {
 	$api = MediawikiApi::newFromApiEndpoint( 'http://en.wikipedia.org/w/api.php' );
 	$requestPromises = array();
-	for ( $i=0;  $i < count($pages);  $i++ ) {
+	for ( $i=0;  $i < count( $pages );  $i++ ) {
 		$requestPromises[$pages[$i]] = $api->getRequestAsync( FluentRequest::factory()->setAction( 'query' )
 			->setParam( 'prop', 'templates' )
 			->setParam( 'titles', 'Talk:' . $pages[$i] )
@@ -86,7 +83,7 @@ function getWikiprojects( $wikis, $pages ) {
 
 ?>
 
-
+<!--
 <html>
 	<head>
 		<title>IA bot logs</title>
@@ -95,4 +92,4 @@ function getWikiprojects( $wikis, $pages ) {
 <body>
 	<?=$html?>
 </body>
-</html>
+</html> -->
