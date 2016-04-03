@@ -45,7 +45,7 @@ if ( $result->num_rows > 0 ) {
 					.'<td>'. $editPage[$i] . '</td>'
 					.'<td><a href="'. $editWiki[$i] . '/w/index.php?title=' . $editPage[$i] .'&diff='. $editDiff[$i] .'">'. $editDiff[$i] .'</td>'
 					.'<td>'. $editTime[$i] .'</td><td>';
-		foreach ( $editProjects[$i] as $key => $value ) {
+		foreach ( $editProjects[$editPage[$i]] as $key => $value ) {
 			$html .= $value . ', ';
 		}
 		$html .= '</td></tr>';
