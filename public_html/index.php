@@ -42,7 +42,7 @@ function getWikiprojects( $wiki, $page ) {
 	$queryResponse = $api->getRequest(
 		FluentRequest::factory()->setAction( 'query' )
 			->setParam( 'prop', 'templates' )
-			->setParam( 'titles', 'Talk:Professor Green' )
+			->setParam( 'titles', 'Talk:' . $page )
 			->setParam( 'tllimit', 'max' )
 			->setParam( 'formatversion', 2 )
 		);
