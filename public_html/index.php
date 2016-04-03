@@ -96,10 +96,10 @@ function getWikiprojects( $wikis, $pages ) {
 		<script src="js/randomColor.js" type="text/javascript"></script>
 		<script src="js/wikiprojects.js" type="text/javascript"></script>
 	</head>
-	<script>
-		$( document ).ready( function(){
-			colorizeWikiprojects(<?=array_values( $allProjects ) );
-		})
+<script>
+	$( document ).ready( function(){
+		colorizeWikiprojects(<?=array_values( $allProjects )?> );
+	});
 	</script>
 <body>
 	<?php echo $html; ?>
