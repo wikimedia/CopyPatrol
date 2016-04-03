@@ -10,7 +10,7 @@ $db = parse_ini_file( '../replica.my.cnf' );
 
 $link = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51306__copyright_p' );
 
-$query = "SELECT * FROM copyright_diffs ORDER BY diff_timestamp DESC LIMIT 10";
+$query = "SELECT * FROM copyright_diffs ORDER BY diff_timestamp DESC LIMIT 30";
 
 $result = mysqli_query( $link, $query );
 
@@ -40,10 +40,11 @@ if ( $result->num_rows > 0 ) {
 	$editProjects = getWikiprojects( $editWiki, $editPage );
 
 	for( $i = 0; $i < count( $editPage ); $i++ ) {
+		$pageLink = $editWiki[$i] . '/w/index.php?title=' . $editPage[$i];
 		$html .= '<tr class="trow">'
 					.'<td>'. $editWiki[$i] . '</td>'
-					.'<td>'. $editPage[$i] . '</td>'
-					.'<td><a href="'. $editWiki[$i] . '/w/index.php?title=' . $editPage[$i] .'&diff='. $editDiff[$i] .'">'. $editDiff[$i] .'</td>'
+					.'<td><a href="' . $pageLink . '">' . $editPage[$i] . '</td>'
+					.'<td><a href="' . $pageLink . '&diff='. $editDiff[$i] .'">'. $editDiff[$i] .'</td>'
 					.'<td>'. $editTime[$i] .'</td><td>';
 		foreach ( $editProjects[$editPage[$i]] as $key => $value ) {
 			$html .= $value . ', ';
@@ -85,7 +86,7 @@ function getWikiprojects( $wikis, $pages ) {
 <html>
 	<head>
 		<title>Plagiabot</title>
-		<link href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="bootstrap.min.css" rel="stylesheet">
 	</head>
 <body>
 	<?php echo $html; ?>
