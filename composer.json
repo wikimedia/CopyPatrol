@@ -1,5 +1,6 @@
 {
     "require": {
-        "addwiki/mediawiki-api-base": "~2.1"
+        "addwiki/mediawiki-api-base": "~2.1",
+        "twbs/bootstrap": "^3.3"
     }
 }

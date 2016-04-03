@@ -14,6 +14,8 @@ $query = "SELECT * FROM copyright_diffs ORDER BY diff_timestamp DESC LIMIT 10";
 
 $result = mysqli_query( $link, $query );
 
+$allProjects = array();
+
 $html = '<table>';
 $html .= '<tr>
 			<th>Wiki</th>
@@ -45,11 +47,13 @@ if ( $result->num_rows > 0 ) {
 					.'<td>'. $editTime[$i] .'</td><td>';
 		foreach ( $editProjects[$editPage[$i]] as $key => $value ) {
 			$html .= $value . ', ';
+			if( $value not in $allProjects ) {
+				$allProjects[] = $value;
+			}
 		}
 		$html .= '</td></tr>';
 	}
-
-	echo $html;
+	$html .= '</table>';
 }
 
 function getWikiprojects( $wikis, $pages ) {
@@ -81,3 +85,14 @@ function getWikiprojects( $wikis, $pages ) {
 }
 
 ?>
+
+
+<html>
+	<head>
+		<title>IA bot logs</title>
+		<link href="../vendor/twbs/bootstrap/bootstrap.min.css" rel="stylesheet">
+	</head>
+<body>
+	<?=$html?>
+</body>
+</html>
