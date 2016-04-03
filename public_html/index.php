@@ -98,7 +98,7 @@ function getWikiprojects( $wikis, $pages ) {
 		<script src="js/randomColor.js" type="text/javascript"></script>
 		<script>
 		$( document ).ready( function(){
-			colorizeWikiprojects( <?=array_values( $allProjects )?> );
+			colorizeWikiprojects( <?=json_encode( array_values( $allProjects ) )?> );
 		});
 	</script>
 	<body>

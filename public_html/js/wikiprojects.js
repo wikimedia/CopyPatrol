@@ -1,11 +1,11 @@
 //
 function colorizeWikiprojects( projects ) {
-	$colors = randomColor({
+	colors = randomColor({
 		count: projects.length,
 		luminosity: 'random',
 		hue: 'random',
 		format: 'rgb'
 	});
-	console.log( $colors );
+	console.log( colors );
 }
 
