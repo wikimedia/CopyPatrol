@@ -31,9 +31,10 @@ if ( $result->num_rows > 0 ) {
 					.'<td><a href="'. $wiki . '/w/index.php?title=' . $row['page_title'] .'&diff='. $row['diff'].'">'. $row['diff'] .'</td>'
 					.'<td>'. $row['diff_timestamp'] .'</td>'
 				.'</tr>';
-		// echo $wikiprojects;
 	}
 }
+
+echo $html;
 
 function getWikiprojects( $wiki, $page ) {
 	$api = MediawikiApi::newFromPage( $wiki . '/wiki/Talk:' . $page );
@@ -55,5 +56,4 @@ function getWikiprojects( $wiki, $page ) {
 	var_dump( $projects );
 }
 
-echo $html;
 ?>
