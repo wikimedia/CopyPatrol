@@ -48,10 +48,12 @@ if ( $result->num_rows > 0 ) {
 					.'<td>'. $editTime[$i] .'</td><td>';
 		foreach ( $editProjects[$editPage[$i]] as $key => $value ) {
 			$value = str_replace( 'Template:', '', $value );
-			if( $value not in $allProjects ) {
-				$allProjects[$value] = randomColor();
+			if( $value != "Wikiproject banner shell" ) {
+				if( $value not in $allProjects ) {
+					$allProjects[] = $value;
+				}
+				$html .= '<div class="wikiproject-div">' . $value . '</div>';
 			}
-			$html .= '<div class="wikiproject-div" style="background-color:'. $allProjects[$value] .'">' . $value . '</div>';
 		}
 		$html .= '</td></tr>';
 	}
@@ -86,16 +88,19 @@ function getWikiprojects( $wikis, $pages ) {
 	return $projects;
 }
 
-function randomColor() {
-	return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
-}
-
 ?>
 <html>
 	<head>
 		<title>Plagiabot</title>
-		<link href="bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<script src="js/randomColor.js" type="text/javascript"></script>
+		<script src="js/wikiprojects.js" type="text/javascript"></script>
 	</head>
+	<script>
+		$( document ).ready( function(){
+			colorizeWikiprojects(<?=array_values( $allProjects ) );
+		})
+	</script>
 <body>
 	<?php echo $html; ?>
 </body>
