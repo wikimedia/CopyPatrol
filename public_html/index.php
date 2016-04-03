@@ -48,7 +48,10 @@ if ( $result->num_rows > 0 ) {
 					.'<td>'. $editTime[$i] .'</td><td>';
 		foreach ( $editProjects[$editPage[$i]] as $key => $value ) {
 			$value = str_replace( 'Template:', '', $value );
-			$html .= $value . ', ';
+			if( $value not in $allProjects ) {
+				$allProjects[$value] = randomColor();
+			}
+			$html .= '<div class="wikiproject-div" style="background-color:'. $allProjects[$value] .'">' . $value . '</div>';
 		}
 		$html .= '</td></tr>';
 	}
@@ -81,6 +84,10 @@ function getWikiprojects( $wikis, $pages ) {
 		}
 	}
 	return $projects;
+}
+
+function randomColor() {
+	return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
 }
 
 ?>
