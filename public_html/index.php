@@ -49,7 +49,7 @@ if ( $result->num_rows > 0 ) {
 		foreach ( $editProjects[$editPage[$i]] as $key => $value ) {
 			$value = str_replace( 'Template:', '', $value );
 			if( $value != "Wikiproject banner shell" ) {
-				if( $value not in $allProjects ) {
+				if( in_array( $value, $allProjects ) ) {
 					$allProjects[] = $value;
 				}
 				$html .= '<div class="wikiproject-div">' . $value . '</div>';
@@ -93,7 +93,14 @@ function getWikiprojects( $wikis, $pages ) {
 	<head>
 		<title>Plagiabot</title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
-<body>
-	<?php echo $html; ?>
-</body>
+		<script src="js/wikiprojects.js" type="text/javascript"></script>
+		<script src="js/randomColor.js" type="text/javascript"></script>
+		<script>
+		$( document ).ready( function(){
+			colorizeWikiprojects( <?=array_values( $allProjects )?> );
+		});
+	</script>
+	<body>
+		<?php echo $html; ?>
+	</body>
 </html>
