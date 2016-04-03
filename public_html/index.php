@@ -14,8 +14,6 @@ $query = "SELECT * FROM copyright_diffs ORDER BY diff_timestamp DESC LIMIT 30";
 
 $result = mysqli_query( $link, $query );
 
-$allProjects = array();
-
 $html = '<table class="table">';
 $html .= '<tr>
 			<th>Wiki</th>
@@ -49,9 +47,6 @@ if ( $result->num_rows > 0 ) {
 		foreach ( $editProjects[$editPage[$i]] as $key => $value ) {
 			$value = str_replace( 'Template:', '', $value );
 			if( $value != "Wikiproject banner shell" ) {
-				if( in_array( $value, $allProjects ) ) {
-					$allProjects[] = $value;
-				}
 				$html .= '<div class="wikiproject-div">' . $value . '</div>';
 			}
 		}
@@ -98,9 +93,9 @@ function getWikiprojects( $wikis, $pages ) {
 		<script src="js/randomColor.js" type="text/javascript"></script>
 		<script>
 		$( document ).ready( function(){
-			colorizeWikiprojects( <?=json_encode( array_values( $allProjects ) )?> );
+			colorizeWikiprojects();
 		});
-	</script>
+		</script>
 	<body>
 		<?php echo $html; ?>
 	</body>
