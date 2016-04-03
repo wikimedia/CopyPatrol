@@ -21,6 +21,8 @@ $html .= '<tr>
 			<th>Date</th>
 		</tr>';
 
+		var_dump( $result );
+
 if ( $result->num_rows > 0 ) {
 	while ( $row = $result->fetch_assoc() ) {
 		$wiki = "https://" . $row['lang'] . '.' . $row['project'] . '.org';
@@ -34,8 +36,6 @@ if ( $result->num_rows > 0 ) {
 		echo $row['page_title'], $wikiprojects;
 	}
 }
-
-echo $html;
 
 function getWikiprojects( $wiki, $page ) {
 	$api = MediawikiApi::newFromPage( $wiki . '/wiki/Talk:' . $page );
