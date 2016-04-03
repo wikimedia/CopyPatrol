@@ -23,8 +23,6 @@ $html .= '<tr>
 			<th>Wikiprojects</th>
 		</tr>';
 
-var_dump( $result );
-
 if ( $result->num_rows > 0 ) {
 	$editProjects = array();
 	$editDiff = array();
@@ -51,13 +49,8 @@ if ( $result->num_rows > 0 ) {
 		$html .= '</td></tr>';
 	}
 
-//	var_dump( $editProjects );
 	echo $html;
 }
-
-// $wikis = array( 'https://en.wikipedia.org', 'https://en.wikipedia.org', 'https://en.wikipedia.org' );
-// $pages = array( 'Donald Trump', 'Professor Green', 'Donald Duck' );
-// getWikiprojects( $wikis, $pages );
 
 function getWikiprojects( $wikis, $pages ) {
 	$api = MediawikiApi::newFromApiEndpoint( 'http://en.wikipedia.org/w/api.php' );
