@@ -85,7 +85,7 @@ function getWikiprojects( $wikis, $pages ) {
 <html>
 	<head>
 		<title>Plagiabot</title>
-		<link href="../vendor/twbs/bootstrap/bootstrap.min.css" rel="stylesheet">
+		<link href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 <body>
 	<?php echo $html; ?>
