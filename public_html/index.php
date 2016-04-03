@@ -10,7 +10,7 @@ $db = parse_ini_file( '../replica.my.cnf' );
 
 $link = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51306__copyright_p' );
 
-$query = "SELECT * FROM copyright_diffs ORDER BY diff_timestamp DESC LIMIT 40";
+$query = "SELECT * FROM copyright_diffs ORDER BY diff_timestamp DESC LIMIT 10";
 
 $result = mysqli_query( $link, $query );
 
@@ -20,6 +20,7 @@ $html .= '<tr>
 			<th>Page</th>
 			<th>Diff</th>
 			<th>Date</th>
+			<th>Wikiprojects</th>
 		</tr>';
 
 var_dump( $result );
@@ -35,16 +36,22 @@ if ( $result->num_rows > 0 ) {
 		$editTime[] = $row['diff_timestamp'];
 		$editPage[] = $row['page_title'];
 		$editDiff[] = $row['diff'];
+	}
+	$editProjects = getWikiprojects( $editWiki, $editPage );
+
+	for( $i = 0; $i < count( $editPage ); $i++ ) {
 		$html .= '<tr class="trow">'
-					.'<td>'. $wiki . '</td>'
-					.'<td>'. $row['page_title'] . '</td>'
-					.'<td><a href="'. $wiki . '/w/index.php?title=' . $row['page_title'] .'&diff='. $row['diff'].'">'. $row['diff'] .'</td>'
-					.'<td>'. $row['diff_timestamp'] .'</td>'
-				.'</tr>';
+					.'<td>'. $editWiki[$i] . '</td>'
+					.'<td>'. $editPage[$i] . '</td>'
+					.'<td><a href="'. $editWiki[$i] . '/w/index.php?title=' . $editPage[$i] .'&diff='. $editDiff[$i] .'">'. $editDiff[$i] .'</td>'
+					.'<td>'. $editTime[$i] .'</td><td>';
+		foreach ( $editProjects[$i] as $key => $value ) {
+			$html .= $value . ', ';
+		}
+		$html .= '</td></tr>';
 	}
 
-	$editProjects = getWikiprojects( $editWiki, $editPage );
-	var_dump( $editProjects );
+//	var_dump( $editProjects );
 	echo $html;
 }
 
