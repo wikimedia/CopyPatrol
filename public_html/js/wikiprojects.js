@@ -1,5 +1,6 @@
 //
-function colorizeWikiprojects( projects ) {
+function colorizeWikiprojects() {
+	projects = $( '.wikiproject-div' );
 	colors = randomColor({
 		count: projects.length,
 		luminosity: 'random',
