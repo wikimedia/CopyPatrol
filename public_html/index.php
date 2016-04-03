@@ -31,6 +31,7 @@ if ( $result->num_rows > 0 ) {
 					.'<td><a href="'. $wiki . '/w/index.php?title=' . $row['page_title'] .'&diff='. $row['diff'].'">'. $row['diff'] .'</td>'
 					.'<td>'. $row['diff_timestamp'] .'</td>'
 				.'</tr>';
+		echo $row['page_title'], $wikiprojects;
 	}
 }
 
@@ -53,7 +54,7 @@ function getWikiprojects( $wiki, $page ) {
 			}
 		}
 	};
-	var_dump( $projects );
+	return $projects;
 }
 
 ?>
