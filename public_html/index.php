@@ -47,6 +47,7 @@ if ( $result->num_rows > 0 ) {
 					.'<td><a href="' . $pageLink . '&diff='. $editDiff[$i] .'">'. $editDiff[$i] .'</td>'
 					.'<td>'. $editTime[$i] .'</td><td>';
 		foreach ( $editProjects[$editPage[$i]] as $key => $value ) {
+			$value = str_replace( 'Template:', '', $value );
 			$html .= $value . ', ';
 		}
 		$html .= '</td></tr>';
