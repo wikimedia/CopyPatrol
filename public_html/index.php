@@ -16,7 +16,7 @@ $result = mysqli_query( $link, $query );
 
 $allProjects = array();
 
-$html = '<table>';
+$html = '<table class="table">';
 $html .= '<tr>
 			<th>Wiki</th>
 			<th>Page</th>
@@ -82,14 +82,12 @@ function getWikiprojects( $wikis, $pages ) {
 }
 
 ?>
-
-<!--
 <html>
 	<head>
-		<title>IA bot logs</title>
+		<title>Plagiabot</title>
 		<link href="../vendor/twbs/bootstrap/bootstrap.min.css" rel="stylesheet">
 	</head>
 <body>
-	<?=$html?>
+	<?php echo $html; ?>
 </body>
-</html> -->
+</html>
