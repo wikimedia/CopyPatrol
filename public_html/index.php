@@ -2,17 +2,15 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Mediawiki\Api\MediawikiApi;
-use Mediawiki\Api\FluentRequest;
-use GuzzleHttp\Promise\Promise;
-
 $db = parse_ini_file( '../replica.my.cnf' );
 
-$link = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51306__copyright_p' );
+// Link to plagiabot database
+$linkPl = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51306__copyright_p' );
+// Link to wikiproject database
+$linkWp = mysqli_connect( 'labsdb1004.eqiad.wmnet', $db['user'], $db['password'], 's52475__wpx_p' );
 
-$query = "SELECT * FROM copyright_diffs ORDER BY diff_timestamp DESC LIMIT 6";
-
-$result = mysqli_query( $link, $query );
+$queryPl = "SELECT * FROM copyright_diffs ORDER BY diff_timestamp DESC LIMIT 30";
+$resultPl = mysqli_query( $linkPl, $queryPl );
 
 $html = '<table class="table">';
 $html .= '<tr>
@@ -34,8 +32,8 @@ if ( $result->num_rows > 0 ) {
 		$editTime[] = $row['diff_timestamp'];
 		$editPage[] = $row['page_title'];
 		$editDiff[] = $row['diff'];
+		$editProjects[] = getWikiprojects( $row['page_title'], $linkWp );
 	}
-	$editProjects = getWikiprojects( $editWiki, $editPage );
 
 	for( $i = 0; $i < count( $editPage ); $i++ ) {
 		$pageLink = $editWiki[$i] . '/w/index.php?title=' . $editPage[$i];
@@ -43,44 +41,24 @@ if ( $result->num_rows > 0 ) {
 					.'<td>'. $editWiki[$i] . '</td>'
 					.'<td><a href="' . $pageLink . '">' . $editPage[$i] . '</td>'
 					.'<td><a href="' . $pageLink . '&diff='. $editDiff[$i] .'">'. $editDiff[$i] .'</td>'
-					.'<td>'. $editTime[$i] .'</td><td>';
-		foreach ( $editProjects[$editPage[$i]] as $key => $value ) {
-			$value = str_replace( 'Template:', '', $value );
-			if( $value != "Wikiproject banner shell" ) {
-				$html .= '<div class="wikiproject-div">' . $value . '</div>';
-			}
-		}
-		$html .= '</td></tr>';
+					.'<td>'. $editTime[$i] .'</td>'
+					.'<td>'. $editProjects[$i] .'</td>'
+				.'</tr>';
 	}
 	$html .= '</table>';
 }
 
-function getWikiprojects( $wikis, $pages ) {
-	$api = MediawikiApi::newFromApiEndpoint( 'http://en.wikipedia.org/w/api.php' );
-	$requestPromises = array();
-	for ( $i=0;  $i < count( $pages );  $i++ ) {
-		$requestPromises[$pages[$i]] = $api->getRequestAsync( FluentRequest::factory()->setAction( 'query' )
-			->setParam( 'prop', 'templates' )
-			->setParam( 'titles', 'Talk:' . $pages[$i] )
-			->setParam( 'tllimit', 'max' )
-			->setParam( 'formatversion', 2 )
-		);
-	}
-	$requestPromises;
-
-	$results = GuzzleHttp\Promise\unwrap( $requestPromises );
-
-	$projects = array();
-	foreach ( $results as $key1 => $value1 ) {
-		foreach ( $value1['query']['pages'][0]['templates'] as $key2 => $value2 ) {
-			if( strpos( $value2['title'], "Template:WikiProject " ) !== false ) {
-				if( strpos( $value2['title'], "/") == false ) {
-					$projects[$key1][] = $value2['title'];
-				}
-			}
+// TODO: Make this function work with different wikis when the time comes
+function getWikiprojects( $page, $link ) {
+	$q = "SELECT * FROM projectindex WHERE pi_page = 'Talk:".$p."'";
+	$r = mysqli_query( $link, $q );
+	$result = array();
+	if ( $r->num_rows > 0 ) {
+		while ( $row = $r->fetch_assoc() ) {
+			$result[] = $r['pi_project'];
 		}
 	}
-	return $projects;
+	return $result;
 }
 
 ?>
