@@ -21,13 +21,13 @@ $html .= '<tr>
 			<th>Wikiprojects</th>
 		</tr>';
 
-if ( $result->num_rows > 0 ) {
+if ( $resultPl->num_rows > 0 ) {
 	$editProjects = array();
 	$editDiff = array();
 	$editPage = array();
 	$editWiki = array();
 	$editTime = array();
-	while ( $row = $result->fetch_assoc() ) {
+	while ( $row = $resultPl->fetch_assoc() ) {
 		$editWiki[] = 'https://' . $row['lang'] . '.' . $row['project'] . '.org';
 		$editTime[] = $row['diff_timestamp'];
 		$editPage[] = $row['page_title'];
@@ -41,21 +41,23 @@ if ( $result->num_rows > 0 ) {
 					.'<td>'. $editWiki[$i] . '</td>'
 					.'<td><a href="' . $pageLink . '">' . $editPage[$i] . '</td>'
 					.'<td><a href="' . $pageLink . '&diff='. $editDiff[$i] .'">'. $editDiff[$i] .'</td>'
-					.'<td>'. $editTime[$i] .'</td>'
-					.'<td>'. $editProjects[$i] .'</td>'
-				.'</tr>';
+					.'<td>'. $editTime[$i] .'</td><td>';
+		foreach ( $editProjects[$i] as $project ) {
+			$html .= '<div class="wp">'. $project .'</div>';
+		}
+		$html .= '<td></tr>';
 	}
 	$html .= '</table>';
 }
 
 // TODO: Make this function work with different wikis when the time comes
 function getWikiprojects( $page, $link ) {
-	$q = "SELECT * FROM projectindex WHERE pi_page = 'Talk:".$p."'";
+	$q = "SELECT * FROM projectindex WHERE pi_page = 'Talk:". $page ."'";
 	$r = mysqli_query( $link, $q );
 	$result = array();
 	if ( $r->num_rows > 0 ) {
 		while ( $row = $r->fetch_assoc() ) {
-			$result[] = $r['pi_project'];
+			$result[] = $row['pi_project'];
 		}
 	}
 	return $result;
