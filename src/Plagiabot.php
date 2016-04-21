@@ -1,6 +1,7 @@
 <?php
 namespace Plagiabot\Web;
 
+
 /**
  * @author Niharika Kohli
  * Main class for the project
@@ -67,11 +68,11 @@ class Plagiabot {
 			if ( $result->num_rows > 0 ) {
 				$data = array();
 				while ( $row = mysqli_fetch_assoc( $result ) ) {
-					$data['diff'] = $row['diff'];
-					$data['project'] = $row['lang'] . $row['project'];
-					$data['timestamp'] = $row['diff_timestamp'];
-					$data['page'] = $row['page_title'];
-					$data['turnitin_report'] = $row['report'];
+					$data[]['diff'] = $row['diff'];
+					$data[]['project'] = $row['lang'] . $row['project'];
+					$data[]['timestamp'] = $row['diff_timestamp'];
+					$data[]['page'] = $row['page_title'];
+					$data[]['turnitin_report'] = $row['report'];
 //					$data[ 'turnitin_report' ] = $this->getReportLink( $row[ 'ithenticate_id' ] );
 				}
 				return $data;
