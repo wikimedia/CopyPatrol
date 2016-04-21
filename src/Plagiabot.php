@@ -1,12 +1,12 @@
 <?php
 namespace Plagiabot\Web;
 
-
 /**
  * @author Niharika Kohli
  * Main class for the project
  */
 class Plagiabot {
+
 	/**
 	 * @var $linkPlagiabot \mysqli connection link for getting Plagiabot records
 	 */
@@ -50,7 +50,8 @@ class Plagiabot {
 		$result = array();
 		if ( $r->num_rows > 0 ) {
 			while ( $row = mysqli_fetch_assoc( $r ) ) {
-				$result[] = $row['pi_project'];
+				$project = substr( $row['pi_project'], 10 );
+				$result[] = $project;
 			}
 		}
 		return $result;
@@ -77,8 +78,6 @@ class Plagiabot {
 					$data[$cnt]['turnitin_report'] = $this->getReportLink( $row['ithenticate_id'] );
 					$cnt++;
 				}
-				echo 'Original: ';
-				var_dump( $data );
 				return $data;
 			}
 		}

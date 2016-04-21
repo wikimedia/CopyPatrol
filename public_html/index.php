@@ -11,7 +11,6 @@ $html = '<tr>
 			<th>Page</th>
 			<th>Report</th>
 			<th>Wikiprojects</th>';
-var_dump( $data );
 foreach ( $data as $k => $d ) {
 	$html .= '<tr>'
 		. '<td>' . $d['diff'] . '</td>'
@@ -21,7 +20,7 @@ foreach ( $data as $k => $d ) {
 		. '<td><a href="' . $d['turnitin_report'] . '">Report</a></td>'
 		. '<td>';
 	foreach ( $d['wikiprojects'] as $w ) {
-		$html .= '<div class="col-md-6">' . $w . '</div>';
+		$html .= '<div>' . $w . '</div>';
 	}
 	$html .= '</td></tr>';
 }
@@ -42,7 +41,7 @@ foreach ( $data as $k => $d ) {
 		</script>
 	</head>
 	<body>
-		<table class="table">
+		<table class="table table-striped table-hover">
 			<?= $html ?>
 		</table>
 	</body>
