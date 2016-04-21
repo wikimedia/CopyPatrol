@@ -12,7 +12,11 @@ foreach ( $data as $d ) {
 		. '<td>' . $d['project'] . '</td>'
 		. '<td>' . $d['page'] . '</td>'
 		. '<td>' . $d['report'] . '</td>'
-		. '</tr>';
+		. '<td>';
+	foreach ( $d['wikiprojects'] as $w ) {
+		$html .= '<div class="col-md-4">' . $w . '</div>';
+	}
+	$html .= '</tr>';
 }
 ?>
 
@@ -31,7 +35,7 @@ foreach ( $data as $d ) {
 		</script>
 	</head>
 	<body>
-		<table>
+		<table class="table">
 			<?= $html ?>
 		</table>
 	</body>

@@ -34,7 +34,7 @@ class Plagiabot {
 	public function run() {
 		$viewData = $this->getPlagiarismRecords();
 		foreach ( $viewData as $v ) {
-			$v['projects'] = $this->getWikiProjects( $v['page'] );
+			$v['wikiprojects'] = $this->getWikiProjects( $v['page'] );
 		}
 		return $viewData;
 	}
