@@ -73,9 +73,9 @@ class Plagiabot {
 					$data[$cnt]['project'] = $row['lang'] . $row['project'];
 					$data[$cnt]['timestamp'] = $row['diff_timestamp'];
 					$data[$cnt]['page'] = $row['page_title'];
-					$data[$cnt]['turnitin_report'] = $row['report'];
+					// $data[$cnt]['turnitin_report'] = $row['report'];
+					$data[$cnt]['turnitin_report'] = $this->getReportLink( $row['ithenticate_id'] );
 					$cnt++;
-//					$data[ 'turnitin_report' ] = $this->getReportLink( $row[ 'ithenticate_id' ] );
 				}
 				echo 'Original: ';
 				var_dump( $data );

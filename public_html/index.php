@@ -18,10 +18,10 @@ foreach ( $data as $k => $d ) {
 		. '<td>' . $d['timestamp'] . '</td>'
 		. '<td>' . $d['project'] . '</td>'
 		. '<td>' . $d['page'] . '</td>'
-		. '<td>' . $d['turnitin_report'] . '</td>'
+		. '<td><a href="' . $d['turnitin_report'] . '">Report</a></td>'
 		. '<td>';
 	foreach ( $d['wikiprojects'] as $w ) {
-		$html .= '<div class="col-md-4">' . $w . '</div>';
+		$html .= '<div class="col-md-6">' . $w . '</div>';
 	}
 	$html .= '</td></tr>';
 }
