@@ -1,6 +1,10 @@
 {
-    "require": {
-        "addwiki/mediawiki-api-base": "~2.1",
-        "twbs/bootstrap": "^3.3"
-    }
+	"require": {
+		"twbs/bootstrap": "^3.3"
+	},
+	"autoload": {
+		"psr-4": {
+			"Plagiabot\\Web\\": "src/"
+		}
+	}
 }
