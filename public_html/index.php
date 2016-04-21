@@ -16,7 +16,7 @@ foreach ( $data as $d ) {
 	foreach ( $d['wikiprojects'] as $w ) {
 		$html .= '<div class="col-md-4">' . $w . '</div>';
 	}
-	$html .= '</tr>';
+	$html .= '</td></tr>';
 }
 ?>
 
