@@ -33,9 +33,9 @@ class Plagiabot {
 	 */
 	public function run() {
 		$viewData = $this->getPlagiarismRecords();
-		foreach ( $viewData as $v ) {
-			$v['wikiprojects'] = $this->getWikiProjects( $v['page'] );
-		}
+//		foreach ( $viewData as $k => $value ) {
+//			$value['wikiprojects'] = $this->getWikiProjects( $value['page'] );
+//		}
 		return $viewData;
 	}
 
@@ -61,20 +61,24 @@ class Plagiabot {
 	 * @param int $n Number of records asked for
 	 * @return array Data for plagiabot db records
 	 */
-	public function getPlagiarismRecords( $n = 30 ) {
+	public function getPlagiarismRecords( $n = 20 ) {
 		$query = 'SELECT * FROM copyright_diffs ORDER BY diff_timestamp DESC LIMIT ' . $n;
 		if ( isset( $this->linkPlagiabot ) ) {
 			$result = mysqli_query( $this->linkPlagiabot, $query );
 			if ( $result->num_rows > 0 ) {
 				$data = array();
+				$cnt = 0;
 				while ( $row = mysqli_fetch_assoc( $result ) ) {
-					$data[]['diff'] = $row['diff'];
-					$data[]['project'] = $row['lang'] . $row['project'];
-					$data[]['timestamp'] = $row['diff_timestamp'];
-					$data[]['page'] = $row['page_title'];
-					$data[]['turnitin_report'] = $row['report'];
+					$data[$cnt]['diff'] = $row['diff'];
+					$data[$cnt]['project'] = $row['lang'] . $row['project'];
+					$data[$cnt]['timestamp'] = $row['diff_timestamp'];
+					$data[$cnt]['page'] = $row['page_title'];
+					$data[$cnt]['turnitin_report'] = $row['report'];
+					$cnt++;
 //					$data[ 'turnitin_report' ] = $this->getReportLink( $row[ 'ithenticate_id' ] );
 				}
+				echo 'Original: ';
+				var_dump( $data );
 				return $data;
 			}
 		}

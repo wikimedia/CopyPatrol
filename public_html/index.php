@@ -11,18 +11,19 @@ $html = '<tr>
 			<th>Page</th>
 			<th>Report</th>
 			<th>Wikiprojects</th>';
+var_dump( $data );
 foreach ( $data as $k => $d ) {
 	$html .= '<tr>'
 		. '<td>' . $d['diff'] . '</td>'
 		. '<td>' . $d['timestamp'] . '</td>'
 		. '<td>' . $d['project'] . '</td>'
 		. '<td>' . $d['page'] . '</td>'
-		. '<td>' . $d['report'] . '</td>'
-		. '<td>';
-	foreach ( $d['wikiprojects'] as $w ) {
-		$html .= '<div class="col-md-4">' . $w . '</div>';
-	}
-	$html .= '</td></tr>';
+		. '<td>' . $d['report'] . '</td>';
+	//. '<td>';
+//	foreach ( $d['wikiprojects'] as $w ) {
+//		$html .= '<div class="col-md-4">' . $w . '</div>';
+//	}
+	$html .= '</tr>';
 }
 ?>
 
