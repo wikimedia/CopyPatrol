@@ -4,8 +4,14 @@ require __DIR__ . '/../vendor/autoload.php';
 $db = parse_ini_file( '../replica.my.cnf' );
 $plagiabot = new Plagiabot( $db );
 $data = $plagiabot->run();
-$html = '';
-foreach ( $data as $d ) {
+$html = '<tr>
+			<th>Diff</th>
+			<th>Timestamp</th>
+			<th>Project</th>
+			<th>Page</th>
+			<th>Report</th>
+			<th>Wikiprojects</th>';
+foreach ( $data as $k => $d ) {
 	$html .= '<tr>'
 		. '<td>' . $d['diff'] . '</td>'
 		. '<td>' . $d['timestamp'] . '</td>'
