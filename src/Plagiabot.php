@@ -79,7 +79,8 @@ class Plagiabot {
 				while ( $row = mysqli_fetch_assoc( $result ) ) {
 					$data[$cnt]['diff'] = $this->getDiffLink( $row['page_title'], $row['diff'] );
 					$data[$cnt]['timestamp'] = $this->formatTimestamp( $row['diff_timestamp'] );
-					$data[$cnt]['page'] = $this->getPageLink( $row['page_title'] );
+					$data[$cnt]['page_link'] = $this->getPageLink( $row['page_title'] );
+					$data[$cnt]['page'] = $row['page_title'];
 					$data[$cnt]['turnitin_report'] = $this->getReportLink( $row['ithenticate_id'] );
 					$cnt++;
 				}

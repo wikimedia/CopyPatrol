@@ -14,7 +14,7 @@ foreach ( $data as $k => $d ) {
 	$html .= '<tr class="container-fluid">'
 		. '<td class="col-md-1 text-center"><a href="' . $d['diff'] . '">Diff</a></td>'
 		. '<td class="col-md-1 text-center">' . $d['timestamp'] . '</td>'
-		. '<td class="col-md-4 text-center">' . $d['page'] . '</td>'
+		. '<td class="col-md-4 text-center"><a href="' . $d['page_link'] . '">' . $d['page'] . '</a></td>'
 		. '<td class="col-md-2 text-center"><a href="' . $d['turnitin_report'] . '">Report</a></td>'
 		. '<td class="col-md-3 text-center"><ul class="list-inline">';
 	foreach ( $d['wikiprojects'] as $w ) {
