@@ -4,31 +4,30 @@ require __DIR__ . '/../vendor/autoload.php';
 $db = parse_ini_file( '../replica.my.cnf' );
 $plagiabot = new Plagiabot( $db );
 $data = $plagiabot->run();
-$html = '<tr>
-			<th>Diff</th>
-			<th>Timestamp</th>
-			<th>Project</th>
-			<th>Page</th>
-			<th>Report</th>
-			<th>Wikiprojects</th>';
+$html = '<tr class="container-fluid">
+			<th class="col-md-1">Diff</th>
+			<th class="col-md-1">Timestamp</th>
+			<th class="col-md-2">Project</th>
+			<th class="col-md-4">Page</th>
+			<th class="col-md-1">Report</th>
+			<th class="col-md-3">Wikiprojects</th>';
 foreach ( $data as $k => $d ) {
-	$html .= '<tr>'
-		. '<td>' . $d['diff'] . '</td>'
-		. '<td>' . $d['timestamp'] . '</td>'
-		. '<td>' . $d['project'] . '</td>'
-		. '<td>' . $d['page'] . '</td>'
-		. '<td><a href="' . $d['turnitin_report'] . '">Report</a></td>'
-		. '<td>';
+	$html .= '<tr class="container-fluid">'
+		. '<td class="col-md-1">' . $d['diff'] . '</td>'
+		. '<td class="col-md-1">' . $d['timestamp'] . '</td>'
+		. '<td class="col-md-2">' . $d['project'] . '</td>'
+		. '<td class="col-md-4">' . $d['page'] . '</td>'
+		. '<td class="col-md-1"><a href="' . $d['turnitin_report'] . '">Report</a></td>'
+		. '<td class="col-md-3"><ul class="list-inline">';
 	foreach ( $d['wikiprojects'] as $w ) {
-		$html .= '<div>' . $w . '</div>';
+		$html .= '<li>' . $w . '</li>';
 	}
-	$html .= '</td></tr>';
+	$html .= '</ul></td></tr>';
 }
 ?>
 
 <!--@foff-->
 <html>
-	<?php require_once( 'templates/header.php' ); ?>
 	<head>
 		<title>Plagiabot</title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -36,13 +35,13 @@ foreach ( $data as $k => $d ) {
 		<script src="js/wikiprojects.js" type="text/javascript"></script>
 		<script src="js/randomColor.js" type="text/javascript"></script>
 		<script>
-			$(document).ready(function () {
+			$( document ).ready( function () {
 				colorizeWikiprojects();
 			});
 		</script>
 	</head>
 	<body>
-		
+		<?php require_once( 'templates/header.php' ); ?>
 	</body>
 </html>
 <!--@fon-->
