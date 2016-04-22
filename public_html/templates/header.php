@@ -20,17 +20,17 @@
 
 	<div class="tab-content">
 		<div id="tab1" class="tab-pane fade in active">
-			<table class="table table-striped table-hover">
-				<?= $html ?>
-			</table>
+			<p>Dummy text here</p>
 		</div>
 		<div id="tab2" class="tab-pane fade">
 			<h3>Menu 1</h3>
 			<p>Some content in menu 1.</p>
 		</div>
 		<div id="tab3" class="tab-pane fade">
-			<h3>Menu 2</h3>
-			<p>Some content in menu 2.</p>
+			<table class="table table-striped table-hover padded">
+				<?= $html ?>
+			</table>
 		</div>
 	</div>
 </div>
+</body>

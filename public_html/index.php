@@ -8,14 +8,14 @@ $html = '<tr class="container-fluid">
 			<th class="col-md-1">Diff</th>
 			<th class="col-md-1">Timestamp</th>
 			<th class="col-md-4">Page</th>
-			<th class="col-md-1">Report</th>
+			<th class="col-md-2">Turnitin Report</th>
 			<th class="col-md-3">Wikiprojects</th>';
 foreach ( $data as $k => $d ) {
 	$html .= '<tr class="container-fluid">'
 		. '<td class="col-md-1"><a href="' . $d['diff'] . '">Diff</a></td>'
 		. '<td class="col-md-1">' . $d['timestamp'] . '</td>'
 		. '<td class="col-md-4">' . $d['page'] . '</td>'
-		. '<td class="col-md-1"><a href="' . $d['turnitin_report'] . '">Report</a></td>'
+		. '<td class="col-md-2"><a href="' . $d['turnitin_report'] . '">Report</a></td>'
 		. '<td class="col-md-3"><ul class="list-inline">';
 	foreach ( $d['wikiprojects'] as $w ) {
 		$html .= '<li>' . $w . '</li>';

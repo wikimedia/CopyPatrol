@@ -15,6 +15,11 @@ class Plagiabot {
 	 * @var $linkProjects \mysqli connection link for getting WikiProjects
 	 */
 	private $linkProjects;
+	/**
+	 * @var $wikipedia string wikipedia project for the class instance
+	 * @todo Make this customizable in future as bot runs on different wikis
+	 */
+	public $wikipedia;
 
 
 	/**
@@ -24,6 +29,7 @@ class Plagiabot {
 	public function __construct( $db ) {
 		$this->linkPlagiabot = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51306__copyright_p' );
 		$this->linkProjects = mysqli_connect( 'labsdb1004.eqiad.wmnet', $db['user'], $db['password'], 's52475__wpx_p' );
+		$this->wikipedia = 'https://en.wikipedia.org';
 	}
 
 
@@ -73,8 +79,7 @@ class Plagiabot {
 				while ( $row = mysqli_fetch_assoc( $result ) ) {
 					$data[$cnt]['diff'] = $this->getDiffLink( $row['page_title'], $row['diff'] );
 					$data[$cnt]['timestamp'] = $this->formatTimestamp( $row['diff_timestamp'] );
-					$data[$cnt]['page'] = $row['page_title'];
-					// $data[$cnt]['turnitin_report'] = $row['report'];
+					$data[$cnt]['page'] = $this->getPageLink( $row['page_title'] );
 					$data[$cnt]['turnitin_report'] = $this->getReportLink( $row['ithenticate_id'] );
 					$cnt++;
 				}
@@ -88,11 +93,20 @@ class Plagiabot {
 
 	/**
 	 * @param $page string Page title
+	 * @return string url of wiki page on enwiki
+	 */
+	public function getPageLink( $page ) {
+		return $this->wikipedia . '/wiki/' . $page;
+	}
+
+
+	/**
+	 * @param $page string Page title
 	 * @param $diff string Diff id
 	 * @return string link to diff
 	 */
 	public function getDiffLink( $page, $diff ) {
-		return 'https://en.wikipedia.org/w/index.php?title=' . $page . '&diff=' . $diff;
+		return $this->wikipedia . '/w/index.php?title=' . $page . '&diff=' . $diff;
 	}
 
 
