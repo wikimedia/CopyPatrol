@@ -13,9 +13,9 @@
 		<center>Plagiabot</center>
 	</h1>
 	<ul class="nav global nav-pills nav-justified">
-		<li class="active"><a data-toggle="pill" href="#tab1">Unchecked</a></li>
-		<li><a data-toggle="pill" href="#tab2">Recent changes</a></li>
-		<li><a data-toggle="pill" href="#tab3">True positives</a></li>
+		<li class="active"><a data-toggle="pill" href="#tab1">Recent changes</a></li>
+		<li><a data-toggle="pill" href="#tab2">True positives</a></li>
+		<li><a data-toggle="pill" href="#tab3">False positives</a></li>
 	</ul>
 
 	<div class="tab-content">

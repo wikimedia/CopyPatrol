@@ -5,18 +5,18 @@ $db = parse_ini_file( '../replica.my.cnf' );
 $plagiabot = new Plagiabot( $db );
 $data = $plagiabot->run();
 $html = '<tr class="container-fluid">
-			<th class="col-md-1">Diff</th>
-			<th class="col-md-1">Timestamp</th>
-			<th class="col-md-4">Page</th>
-			<th class="col-md-2">Turnitin Report</th>
-			<th class="col-md-3">Wikiprojects</th>';
+			<th class="col-md-1 text-center">Diff</th>
+			<th class="col-md-1 text-center">Timestamp</th>
+			<th class="col-md-4 text-center">Page</th>
+			<th class="col-md-2 text-center">Turnitin Report</th>
+			<th class="col-md-3 text-center">Wikiprojects</th>';
 foreach ( $data as $k => $d ) {
 	$html .= '<tr class="container-fluid">'
-		. '<td class="col-md-1"><a href="' . $d['diff'] . '">Diff</a></td>'
-		. '<td class="col-md-1">' . $d['timestamp'] . '</td>'
-		. '<td class="col-md-4">' . $d['page'] . '</td>'
-		. '<td class="col-md-2"><a href="' . $d['turnitin_report'] . '">Report</a></td>'
-		. '<td class="col-md-3"><ul class="list-inline">';
+		. '<td class="col-md-1 text-center"><a href="' . $d['diff'] . '">Diff</a></td>'
+		. '<td class="col-md-1 text-center">' . $d['timestamp'] . '</td>'
+		. '<td class="col-md-4 text-center">' . $d['page'] . '</td>'
+		. '<td class="col-md-2 text-center"><a href="' . $d['turnitin_report'] . '">Report</a></td>'
+		. '<td class="col-md-3 text-center"><ul class="list-inline">';
 	foreach ( $d['wikiprojects'] as $w ) {
 		$html .= '<li>' . $w . '</li>';
 	}
@@ -29,8 +29,9 @@ foreach ( $data as $k => $d ) {
 	<head>
 		<title>Plagiabot</title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/index.css" rel="stylesheet">
 		<script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 		<script src="js/wikiprojects.js" type="text/javascript"></script>
 		<script src="js/randomColor.js" type="text/javascript"></script>
 		<script>
