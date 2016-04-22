@@ -20,16 +20,15 @@
 
 	<div class="tab-content">
 		<div id="tab1" class="tab-pane fade in active">
-			<p>Dummy text here</p>
-		</div>
-		<div id="tab2" class="tab-pane fade">
-			<h3>Menu 1</h3>
-			<p>Some content in menu 1.</p>
-		</div>
-		<div id="tab3" class="tab-pane fade">
 			<table class="table table-striped table-hover padded">
 				<?= $html ?>
 			</table>
+		</div>
+		<div id="tab2" class="tab-pane fade">
+			<h3>Coming soon</h3>
+		</div>
+		<div id="tab3" class="tab-pane fade">
+			<h3>Coming soon</h3>
 		</div>
 	</div>
 </div>

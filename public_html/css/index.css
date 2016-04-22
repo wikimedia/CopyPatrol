@@ -2,3 +2,9 @@
     width: 90%;
     margin: 10px auto;
 }
+
+.wproject {
+    font-size: 8px;
+    border: 1px solid gray;
+    background: #a7a7a7;
+}

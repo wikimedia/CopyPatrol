@@ -16,11 +16,11 @@ foreach ( $data as $k => $d ) {
 		. '<td class="col-md-1 text-center">' . $d['timestamp'] . '</td>'
 		. '<td class="col-md-4 text-center"><a href="' . $d['page_link'] . '">' . $d['page'] . '</a></td>'
 		. '<td class="col-md-2 text-center"><a href="' . $d['turnitin_report'] . '">Report</a></td>'
-		. '<td class="col-md-3 text-center"><ul class="list-inline">';
+		. '<td class="col-md-3 text-center">';
 	foreach ( $d['wikiprojects'] as $w ) {
-		$html .= '<li>' . $w . '</li>';
+		$html .= '<div class="wproject">' . $w . '</div>';
 	}
-	$html .= '</ul></td></tr>';
+	$html .= '</td></tr>';
 }
 ?>
 
