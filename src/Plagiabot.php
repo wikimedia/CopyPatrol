@@ -71,9 +71,8 @@ class Plagiabot {
 				$data = array();
 				$cnt = 0;
 				while ( $row = mysqli_fetch_assoc( $result ) ) {
-					$data[$cnt]['diff'] = $row['diff'];
-					$data[$cnt]['project'] = $row['lang'] . $row['project'];
-					$data[$cnt]['timestamp'] = $row['diff_timestamp'];
+					$data[$cnt]['diff'] = $this->getDiffLink( $row['page_title'], $row['diff'] );
+					$data[$cnt]['timestamp'] = $this->formatTimestamp( $row['diff_timestamp'] );
 					$data[$cnt]['page'] = $row['page_title'];
 					// $data[$cnt]['turnitin_report'] = $row['report'];
 					$data[$cnt]['turnitin_report'] = $this->getReportLink( $row['ithenticate_id'] );
@@ -88,10 +87,31 @@ class Plagiabot {
 
 
 	/**
+	 * @param $page string Page title
+	 * @param $diff string Diff id
+	 * @return string link to diff
+	 */
+	public function getDiffLink( $page, $diff ) {
+		return 'https://en.wikipedia.org/w/index.php?title=' . $page . '&diff=' . $diff;
+	}
+
+
+	/**
 	 * @param $ithenticate_id int Report id for Turnitin
 	 * @return string Link to report
 	 */
 	public function getReportLink( $ithenticate_id ) {
 		return 'https://tools.wmflabs.org/eranbot/ithenticate.py?rid=' . $ithenticate_id;
 	}
+
+
+	/**
+	 * @param $datetime string Datetime of edit
+	 * @return string Reformatted date
+	 */
+	public function formatTimestamp( $datetime ) {
+		$datetime = strtotime( $datetime );
+		return date( 'd-m-y', $datetime );
+	}
 }
+
