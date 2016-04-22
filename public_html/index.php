@@ -42,9 +42,7 @@ foreach ( $data as $k => $d ) {
 		</script>
 	</head>
 	<body>
-		<table class="table table-striped table-hover">
-			<?= $html ?>
-		</table>
+		
 	</body>
 </html>
 <!--@fon-->

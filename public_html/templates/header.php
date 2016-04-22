@@ -9,15 +9,20 @@
 
 <body>
 <div id="header">
-	<h1>Plagiabot</h1>
+	<h1>
+		<center>Plagiabot</center>
+	</h1>
 	<ul class="nav global nav-pills nav-justified">
-		<li><a data-toggle="pill" href="#tab1">Unchecked</a></li>
+		<li class="active"><a data-toggle="pill" href="#tab1">Unchecked</a></li>
 		<li><a data-toggle="pill" href="#tab2">Recent changes</a></li>
 		<li><a data-toggle="pill" href="#tab3">True positives</a></li>
 	</ul>
 
 	<div class="tab-content">
 		<div id="tab1" class="tab-pane fade in active">
+			<table class="table table-striped table-hover">
+				<?= $html ?>
+			</table>
 		</div>
 		<div id="tab2" class="tab-pane fade">
 			<h3>Menu 1</h3>
