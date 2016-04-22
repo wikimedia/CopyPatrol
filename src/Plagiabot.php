@@ -41,6 +41,7 @@ class Plagiabot {
 		$viewData = $this->getPlagiarismRecords();
 		foreach ( $viewData as $k => $value ) {
 			$viewData[$k]['wikiprojects'] = $this->getWikiProjects( $value['page'] );
+			$value['page'] = $this->removeUnderscores( $value['page'] );
 		}
 		return $viewData;
 	}
@@ -59,7 +60,7 @@ class Plagiabot {
 				// Remove "Wikipedia:Wikiproject_" part from the string before use
 				$project = substr( $row['pi_project'], 22 );
 				// Replace underscores by spaces
-				$result[] = str_replace( '_', ' ', $project );
+				$result[] = $this->removeUnderscores( $project );
 			}
 		}
 		return $result;
@@ -82,7 +83,7 @@ class Plagiabot {
 					$data[$cnt]['timestamp'] = $this->formatTimestamp( $row['diff_timestamp'] );
 					$data[$cnt]['page_link'] = $this->getPageLink( $row['page_title'] );
 					// Replace underscores with spaces
-					$data[$cnt]['page'] = str_replace( '_', ' ', $row['page_title'] );
+					$data[$cnt]['page'] = $row['page_title'];
 					$data[$cnt]['turnitin_report'] = $this->getReportLink( $row['ithenticate_id'] );
 					$cnt++;
 				}
@@ -129,6 +130,15 @@ class Plagiabot {
 	public function formatTimestamp( $datetime ) {
 		$datetime = strtotime( $datetime );
 		return date( 'd-m-y', $datetime );
+	}
+
+
+	/**
+	 * @param $title String to change underscores to spaces for
+	 * @return string
+	 */
+	private function removeUnderscores( $title ) {
+		return str_replace( '_', ' ', $title );
 	}
 }
 
