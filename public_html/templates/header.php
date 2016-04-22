@@ -20,7 +20,7 @@
 
 	<div class="tab-content">
 		<div id="tab1" class="tab-pane fade in active">
-			<table class="table table-striped table-hover padded">
+			<table class="table table-bordered table-hover padded">
 				<?= $html ?>
 			</table>
 		</div>
