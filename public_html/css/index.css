@@ -4,11 +4,11 @@
 }
 
 .wproject {
-    font-size: 12px;
-    border: 1px groove;
+    font-size: 13px;
+    border: 1px #181818;
     background: #d0d0d0;
-    margin: 3px;
-    padding: 4px;
+    margin: 4px;
+    padding: 6px;
     float: left;
-    border-radius: 30%;
+    border-radius: 10px;
 }
