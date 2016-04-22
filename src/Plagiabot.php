@@ -58,7 +58,8 @@ class Plagiabot {
 			while ( $row = mysqli_fetch_assoc( $r ) ) {
 				// Remove "Wikipedia:Wikiproject_" part from the string before use
 				$project = substr( $row['pi_project'], 22 );
-				$result[] = $project;
+				// Replace underscores by spaces
+				$result[] = str_replace( '_', ' ', $project );
 			}
 		}
 		return $result;
@@ -80,7 +81,8 @@ class Plagiabot {
 					$data[$cnt]['diff'] = $this->getDiffLink( $row['page_title'], $row['diff'] );
 					$data[$cnt]['timestamp'] = $this->formatTimestamp( $row['diff_timestamp'] );
 					$data[$cnt]['page_link'] = $this->getPageLink( $row['page_title'] );
-					$data[$cnt]['page'] = $row['page_title'];
+					// Replace underscores with spaces
+					$data[$cnt]['page'] = str_replace( '_', ' ', $row['page_title'] );
 					$data[$cnt]['turnitin_report'] = $this->getReportLink( $row['ithenticate_id'] );
 					$cnt++;
 				}
