@@ -50,7 +50,8 @@ class Plagiabot {
 		$result = array();
 		if ( $r->num_rows > 0 ) {
 			while ( $row = mysqli_fetch_assoc( $r ) ) {
-				$project = substr( $row['pi_project'], 10 );
+				// Remove "Wikipedia:Wikiproject_" part from the string before use
+				$project = substr( $row['pi_project'], 22 );
 				$result[] = $project;
 			}
 		}

@@ -28,6 +28,7 @@ foreach ( $data as $k => $d ) {
 
 <!--@foff-->
 <html>
+	<?php require_once( 'templates/header.php' ); ?>
 	<head>
 		<title>Plagiabot</title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
