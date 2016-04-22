@@ -41,7 +41,7 @@ class Plagiabot {
 		$viewData = $this->getPlagiarismRecords();
 		foreach ( $viewData as $k => $value ) {
 			$viewData[$k]['wikiprojects'] = $this->getWikiProjects( $value['page'] );
-			$value['page'] = $this->removeUnderscores( $value['page'] );
+			$viewData[$k]['page'] = $this->removeUnderscores( $value['page'] );
 		}
 		return $viewData;
 	}
