@@ -24,9 +24,9 @@ foreach ( $data as $k => $d ) {
 	}
 	$html .= '</td>';
 	$html .= '<td class="col-md-2 text-center">
-				<button type="button" class="btn btn-success" title=" The edit was a copyright violation and has been reverted">Page fixed</button>
-				<button type="button" class="btn btn-warning" title="The edit looks like copyright violation. Requesting someone else to take a look.">Request second opinion</button>
-				<button type="button" class="btn btn-danger" title="The edit is a false positive, nothing needs to be done">No action needed</button>
+				<button type="button" class="btn btn-success-outline btn-sm" title=" The edit was a copyright violation and has been reverted">Page fixed</button>
+				<button type="button" class="btn btn-warning-outline btn-sm" title="The edit looks like copyright violation. Requesting someone else to take a look.">Request second opinion</button>
+				<button type="button" class="btn btn-danger-outline btn-sm" title="The edit is a false positive, nothing needs to be done">No action needed</button>
 			</td>';
 	$html .= '</tr>';
 }
