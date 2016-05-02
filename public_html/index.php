@@ -37,10 +37,10 @@ foreach ( $data as $k => $d ) {
 <html>
 	<head>
 		<title>Plagiabot</title>
-		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/index.css" rel="stylesheet">
 		<script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
+		<script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script src="js/wikiprojects.js" type="text/javascript"></script>
 		<script src="js/randomColor.js" type="text/javascript"></script>
 		<script>
