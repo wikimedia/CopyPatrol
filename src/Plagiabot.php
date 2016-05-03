@@ -28,7 +28,7 @@ class Plagiabot {
 	 */
 	public function __construct( $db ) {
 		$this->linkPlagiabot = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51306__copyright_p' );
-		$this->linkProjects = mysqli_connect( 'labsdb1004.eqiad.wmnet', $db['user'], $db['password'], 's52475__wpx_p', 3309 );
+		$this->linkProjects = mysqli_connect( 'labsdb1004.eqiad.wmnet', $db['user'], $db['password'], 's52475__wpx_p' );
 		$this->wikipedia = 'https://en.wikipedia.org';
 	}
 
@@ -146,6 +146,7 @@ class Plagiabot {
 	public function removeUnderscores( $title ) {
 		return str_replace( '_', ' ', $title );
 	}
+
 
 	/**
 	 * @param
