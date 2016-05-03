@@ -2,3 +2,4 @@
 public_html/.DS_Store
 vendor/*
 .idea/*
+replica.my.cnf
