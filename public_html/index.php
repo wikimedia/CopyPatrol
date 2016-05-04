@@ -27,9 +27,9 @@ if ( $data === false ) {
 		}
 		$html .= '</td>';
 		$html .= '<td class="col-md-2 text-center">
-					<input type="button" class="btn btn-success btn-block" title="The edit was a copyright violation and has been reverted" value="Page fixed" onclick="saveState('. $d['ithenticate_id'] .', \'Success\')">
-					<input type="button" class="btn btn-warning btn-block" title="The edit looks like copyright violation. Requesting someone else to take a look" value="Request second opinion" onclick="saveState('. $d['ithenticate_id'] .', \'Warning\')">
-					<input type="button" class="btn btn-danger btn-block" title="The edit is a false positive, nothing needs to be done" value="No action needed" onclick="saveState('. $d['ithenticate_id'] .', \'Danger\')">
+					<input type="button" id=success' . $d['ithenticate_id'] . '  class="btn btn-success btn-block" title="The edit was a copyright violation and has been reverted" value="Page fixed" onclick="saveState(' . $d['ithenticate_id'] . ', \'Success\')">
+					<input type="button" id=warning' . $d['ithenticate_id'] . ' class="btn btn-warning btn-block" title="The edit looks like copyright violation. Requesting someone else to take a look" value="Request second opinion" onclick="saveState(' . $d['ithenticate_id'] . ', \'Warning\')">
+					<input type="button" id=danger' . $d['ithenticate_id'] . ' class="btn btn-danger btn-block" title="The edit is a false positive, nothing needs to be done" value="No action needed" onclick="saveState(' . $d['ithenticate_id'] . ', \'Danger\')">
 				</td>';
 		$html .= '</tr>';
 	}

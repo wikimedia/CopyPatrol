@@ -17,16 +17,34 @@
     background: white;
     -webkit-transition: background linear 350ms;
     color: #5cb85c;
+    /*border: 1px solid #5cb85c;*/
+}
+
+.btn-success-clicked {
+    background: #5cb85c;
+    color: white;
 }
 
 .btn-warning {
     background: white;
     -webkit-transition: background linear 350ms;
     color: #ec971f;
+    /*border: 1px solid #ec971f;*/
+}
+
+.btn-warning-clicked {
+    background: #ec971f;
+    color: white;
 }
 
 .btn-danger {
     background: white;
     -webkit-transition: background linear 350ms;
     color: #d9534f;
+    /*border: 1px solid #d9534f;*/
+}
+
+.btn-danger-clicked {
+    background: #d9534f;
+    color: white;
 }
