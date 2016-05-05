@@ -20,9 +20,9 @@
 
 	<div class="tab-content">
 		<div id="tab1" class="tab-pane fade in active">
-			<!--			<table class="table table-bordered table-hover padded">-->
-			<?= $html ?>
-			<!--			</table>-->
+			<table class="table table-bordered table-hover padded">
+				<?= $html ?>
+			</table>
 		</div>
 		<div id="tab2" class="tab-pane fade">
 			<h3>Coming soon</h3>

@@ -155,7 +155,6 @@ class Plagiabot {
 				$urls[] = $value;
 			}
 		}
-		var_dump( $urls );
 		return $urls;
 	}
 
