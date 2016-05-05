@@ -28,7 +28,7 @@ class Plagiabot {
 	 */
 	public function __construct( $db ) {
 		$this->linkPlagiabot = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51306__copyright_p' );
-		$this->linkProjects = mysqli_connect( 'labsdb1004.eqiad.wmnet', $db['user'], $db['password'], 's52475__wpx_p' );
+		$this->linkProjects = mysqli_connect( 'labsdb1004.eqiad.wmnet', $db['user'], $db['password'], 's52475__wpx_p', 3309 );
 		$this->wikipedia = 'https://en.wikipedia.org';
 	}
 
@@ -74,7 +74,7 @@ class Plagiabot {
 	 * @param int $n Number of records asked for
 	 * @return array|false Data for plagiabot db records or false if no data is not returned
 	 */
-	public function getPlagiarismRecords( $n = 20 ) {
+	public function getPlagiarismRecords( $n = 50 ) {
 		$query = 'SELECT * FROM copyright_diffs ORDER BY diff_timestamp DESC LIMIT ' . $n;
 		if ( $this->linkPlagiabot ) {
 			$result = mysqli_query( $this->linkPlagiabot, $query );
@@ -91,6 +91,7 @@ class Plagiabot {
 					$data[$cnt]['page'] = $row['page_title'];
 					$data[$cnt]['turnitin_report'] = $this->getReportLink( $row['ithenticate_id'] );
 					$data[$cnt]['ithenticate_id'] = $row['ithenticate_id'];
+					$data[$cnt]['status'] = $row['status'];
 					$cnt++;
 				}
 			}

@@ -1,26 +1,39 @@
 function saveState( id, val ) {
     str = 'id=' + id + '&value=' + val;
+    buttonId = null;
+    unusedButtonId = null;
+    buttonClass = null;
+    unusedButtonClass = null;
+    if ( val == 'Success' ) {
+        buttonId = '#success' + id;
+        unusedButtonId = '#danger' + id;
+        buttonClass = 'success';
+        unusedButtonClass = 'danger';
+    } else if ( val == 'Danger' ) {
+        buttonId = '#danger' + id;
+        unusedButtonId = '#success' + id;
+        unusedButtonClass = 'success';
+        buttonClass = 'danger';
+    }
+
     $.ajax( {
         type: "POST",
         dataType: "text",
         url: "response.php",
         data: str,
+        beforeSend: function () {
+            $( buttonId ).removeClass( 'btn-' + buttonClass ).addClass( 'btn-' + buttonClass + '-clicked' ).blur();
+            $( unusedButtonId ).removeClass( 'btn-' + unusedButtonClass ).addClass( 'btn-secondary' ).prop( 'disabled', 'disabled' ).blur();
+        },
+        complete: function () {
+        },
         success: function ( ret ) {
-            // Move the button style changes here after the database edit rights are granted.
-            console.log( ret ); // For testing purposes
+            if ( !ret ) {
+                $( buttonId ).addClass( 'btn-' + buttonClass ).removeClass( 'btn-' + buttonClass + '-clicked' ).blur();
+                $( unusedButtonId ).removeClass( 'btn-secondary' ).prop( 'disabled', false ).addClass( 'btn-' + unusedButtonClass );
+                alert( 'There was an error in connecting to database.' );
+            }
         }
     } );
-    if ( val == 'Success' ) {
-        $( '#success' + id ).removeClass( 'btn-success' ).addClass( 'btn-success-clicked' );
-        $( '#warning' + id ).prop( 'disabled', 'disabled' );
-        $( '#danger' + id ).prop( 'disabled', 'disabled' );
-    } else if ( val == 'Warning' ) {
-        $( '#warning' + id ).removeClass( 'btn-warning' ).addClass( 'btn-warning-clicked' );
-        $( '#success' + id ).prop( 'disabled', 'disabled' );
-        $( '#danger' + id ).prop( 'disabled', 'disabled' );
-    } else if ( val == 'Danger' ) {
-        $( '#danger' + id ).removeClass( 'btn-danger' ).addClass( 'btn-danger-clicked' );
-        $( '#warning' + id ).prop( 'disabled', 'disabled' );
-        $( '#success' + id ).prop( 'disabled', 'disabled' );
-    }
+
 }

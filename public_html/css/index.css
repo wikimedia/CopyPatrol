@@ -25,16 +25,10 @@
     color: white;
 }
 
-.btn-warning {
+.btn-secondary {
+    color: darkgrey;
     background: white;
-    -webkit-transition: background linear 350ms;
-    color: #ec971f;
-    /*border: 1px solid #ec971f;*/
-}
-
-.btn-warning-clicked {
-    background: #ec971f;
-    color: white;
+    border: 1px solid darkgrey;
 }
 
 .btn-danger {
