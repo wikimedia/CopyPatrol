@@ -28,7 +28,7 @@ class Plagiabot {
 	 */
 	public function __construct( $db ) {
 		$this->linkPlagiabot = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51306__copyright_p' );
-		$this->linkProjects = mysqli_connect( 'labsdb1004.eqiad.wmnet', $db['user'], $db['password'], 's52475__wpx_p', 3309 );
+		$this->linkProjects = mysqli_connect( 'labsdb1004.eqiad.wmnet', $db['user'], $db['password'], 's52475__wpx_p' );
 		$this->wikipedia = 'https://en.wikipedia.org';
 	}
 
@@ -38,13 +38,14 @@ class Plagiabot {
 	 * @return array Data to be rendered in html view
 	 */
 	public function run() {
-		$viewData = $this->getPlagiarismRecords();
+		$viewData = $this->getPlagiarismRecords( 5 );
 		if ( $viewData === false ) {
 			return false;
 		}
 		foreach ( $viewData as $k => $value ) {
 			$viewData[$k]['wikiprojects'] = $this->getWikiProjects( $value['page'] );
 			$viewData[$k]['page'] = $this->removeUnderscores( $value['page'] );
+			$viewData[$k]['copvios'] = $this->getCopyvioUrls( $value['report'] );
 		}
 		return $viewData;
 	}
@@ -92,6 +93,7 @@ class Plagiabot {
 					$data[$cnt]['turnitin_report'] = $this->getReportLink( $row['ithenticate_id'] );
 					$data[$cnt]['ithenticate_id'] = $row['ithenticate_id'];
 					$data[$cnt]['status'] = $row['status'];
+					$data[$cnt]['report'] = $row['report'];
 					$cnt++;
 				}
 			}
@@ -137,6 +139,24 @@ class Plagiabot {
 	public function formatTimestamp( $datetime ) {
 		$datetime = strtotime( $datetime );
 		return date( 'd-m-y', $datetime );
+	}
+
+
+	/**
+	 * Get links to compare with
+	 * @param $text string Blob from db
+	 * @return array matched urls
+	 */
+	public function getCopyvioUrls( $text ) {
+		preg_match_all( '#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#', $text, $match );
+		$urls = array();
+		foreach ( $match[0] as $value ) {
+			if ( !in_array( $value, $urls ) ) {
+				$urls[] = $value;
+			}
+		}
+		var_dump( $urls );
+		return $urls;
 	}
 
 
