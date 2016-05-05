@@ -38,7 +38,7 @@ class Plagiabot {
 	 * @return array Data to be rendered in html view
 	 */
 	public function run() {
-		$viewData = $this->getPlagiarismRecords( 5 );
+		$viewData = $this->getPlagiarismRecords();
 		if ( $viewData === false ) {
 			return false;
 		}
