@@ -174,11 +174,12 @@ class Plagiabot {
 	 * @return true|false depending on query success/fail
 	 */
 	public function insertCopyvioAssessment( $ithenticateId, $value ) {
-		$query = "UPDATE copyright_diffs SET status='" . $value . "' WHERE ithenticate_id='" . $ithenticateId . "'";
-		if ( $this->linkPlagiabot ) {
-			$result = mysqli_query( $this->linkPlagiabot, $query );
-			return $result;
-		}
+//		$query = "UPDATE copyright_diffs SET status='" . $value . "' WHERE ithenticate_id='" . $ithenticateId . "'";
+//		if ( $this->linkPlagiabot ) {
+//			$result = mysqli_query( $this->linkPlagiabot, $query );
+//			return $result;
+//		}
+		return true;
 	}
 }
 
