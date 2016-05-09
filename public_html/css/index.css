@@ -42,3 +42,58 @@
     background: #d9534f;
     color: white;
 }
+
+.page-div {
+    padding-left: 20px;
+}
+
+.header-div {
+    /*border: 1px solid blue;*/
+    margin: 10px;
+    padding: 5px 20px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    border-bottom: 2px solid black;
+}
+
+.header-col {
+    font-weight: 700;
+    margin: auto;
+}
+
+.row-container {
+    /*border: 1px solid green;*/
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.row-div {
+    /*border: 1px solid yellow;*/
+}
+
+.compare-div {
+    /*border: 1px solid orangered;*/
+    width: 70%;
+    height: 100px;
+    display: none;
+    margin: auto;
+}
+
+.compare-button {
+    margin-left: 10%;
+    margin-right: 20px;
+}
+
+.compare-links-container {
+    /*border: 1px solid purple;*/
+    padding: 10px;
+    border-bottom: 1px solid darkgrey;
+}
+
+/*.page-div .diff-div .report-div .wikiproject-div {*/
+/*border-right: 1px solid darkgrey;*/
+/*}*/
+

@@ -94,6 +94,7 @@ class Plagiabot {
 					$data[$cnt]['ithenticate_id'] = $row['ithenticate_id'];
 					$data[$cnt]['status'] = $row['status'];
 					$data[$cnt]['report'] = $row['report'];
+					$data[$cnt]['copyvios'] = $this->getCopyvioUrls( $row['report'] );
 					$cnt++;
 				}
 			}
@@ -138,7 +139,7 @@ class Plagiabot {
 	 */
 	public function formatTimestamp( $datetime ) {
 		$datetime = strtotime( $datetime );
-		return date( 'd-m-y', $datetime );
+		return date( 'd-m-y h:m', $datetime );
 	}
 
 
