@@ -28,7 +28,7 @@ class Plagiabot {
 	 */
 	public function __construct( $db ) {
 		$this->linkPlagiabot = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51306__copyright_p' );
-		$this->linkProjects = mysqli_connect( 'labsdb1004.eqiad.wmnet', $db['user'], $db['password'], 's52475__wpx_p', 3309 );
+		$this->linkProjects = mysqli_connect( 'labsdb1004.eqiad.wmnet', $db['user'], $db['password'], 's52475__wpx_p' );
 		$this->wikipedia = 'https://en.wikipedia.org';
 	}
 
@@ -38,7 +38,7 @@ class Plagiabot {
 	 * @return array Data to be rendered in html view
 	 */
 	public function run() {
-		$viewData = $this->getPlagiarismRecords( 6 );
+		$viewData = $this->getPlagiarismRecords();
 		if ( $viewData === false ) {
 			return false;
 		}
