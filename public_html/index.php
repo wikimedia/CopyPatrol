@@ -8,18 +8,18 @@ if ( $data === false ) {
 	$html = 'No records found or there was a connection error';
 } else {
 	$html = '<div class="header-div container-fluid">
-				<div class="header-col col-md-2 text-center">Page</div>
-				<div class="header-col col-md-2 text-center">Diff</div>
+				<div class="header-col col-md-3 text-center">Page</div>
+				<div class="header-col col-md-1 text-center">Diff</div>
 				<div class="header-col col-md-2 text-center">Editor</div>
 				<div class="header-col col-md-3 text-center">Wikiprojects</div>
-				<div class="header-col col-md-2" text-center">Review</div>
+				<div class="header-col col-md-2 text-center">Review</div>
 			</div>';
 	foreach ( $data as $k => $d ) {
 		$html .= '<div class="row-container container-fluid">
-				<div class="row-div col-md-2 page-div">
+				<div class="row-div col-md-3 page-div">
 					<b><a href="' . $d['page_link'] . '" target="_blank">' . $d['page'] . '</a></b>
 				</div>
-				<div class="row-div col-md-2 text-center diff-div">
+				<div class="row-div col-md-1 text-center diff-div">
 					<a href="' . $d['diff'] . '" target="_blank">Diff</a>
 					<div>' . $d['timestamp'] . '</div>
 				</div>
@@ -29,11 +29,11 @@ if ( $data === false ) {
 					<a href="#">talk and contribs</a>
 					<a href="#">Edit count</a>
 				</div>
-				<div class="row-div col-md-3 text-center wikiproject-div">';
+				<div class="row-div col-md-3 text-center wikiproject-div"><center>';
 		foreach ( $d['wikiprojects'] as $w ) {
 			$html .= '<div class="row-div wproject">' . $w . '</div>';
 		}
-		$html .= '</div>';
+		$html .= '</center></div>';
 		if ( $d['status'] == 'fixed' ) {
 			$html .= '<div class="row-div col-md-2 text-center status-div">
 						<input type="button" id=success' . $d['ithenticate_id'] . '  class="btn btn-success-clicked btn-block" title="The edit was a copyright violation and has been reverted" value="Page fixed" onclick="saveState(' . $d['ithenticate_id'] . ', \'Success\')">
@@ -52,11 +52,18 @@ if ( $data === false ) {
 		}
 		$html .= '</div><div class="compare-links-container">';
 		foreach ( $d['copyvios'] as $key => $copyvio ) {
-			$html .= '<button class="btn btn-default dropdown-toggle compare-button" onclick="compare( \'' . htmlspecialchars( $copyvio ) . '\', \'' . htmlspecialchars( $d['page_link'] ) . '\', \'' . $k . $key . '\')" >
+			$html .= '<button class="btn btn-xs btn-primary dropdown-toggle compare-button" onclick="compare( \'' . htmlspecialchars( $copyvio ) . '\', \'' . htmlspecialchars( $d['page_link'] ) . '\', \'' . $k . $key . '\')" >
 						<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
 					Compare</button>
 					<a href="' . $copyvio . '">' . htmlspecialchars( $copyvio ) . '</a><br/>
-					<div class="compare-div" id="comp' . $k . $key . '">Testing if this works....</div>';
+					<div class="compare-div" id="comp' . $k . $key . '">
+						<div class="compare-edit compare-pane">
+							Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna.
+						</div>
+						<div class="compare-website compare-pane">
+							Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna.
+						</div>
+					</div>';
 		}
 		$html .= '</div>';
 	}

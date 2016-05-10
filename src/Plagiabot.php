@@ -28,7 +28,7 @@ class Plagiabot {
 	 */
 	public function __construct( $db ) {
 		$this->linkPlagiabot = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51306__copyright_p' );
-		$this->linkProjects = mysqli_connect( 'labsdb1004.eqiad.wmnet', $db['user'], $db['password'], 's52475__wpx_p' );
+		$this->linkProjects = mysqli_connect( 'labsdb1004.eqiad.wmnet', $db['user'], $db['password'], 's52475__wpx_p', 3309 );
 		$this->wikipedia = 'https://en.wikipedia.org';
 	}
 
@@ -38,7 +38,7 @@ class Plagiabot {
 	 * @return array Data to be rendered in html view
 	 */
 	public function run() {
-		$viewData = $this->getPlagiarismRecords();
+		$viewData = $this->getPlagiarismRecords( 6 );
 		if ( $viewData === false ) {
 			return false;
 		}
@@ -153,7 +153,18 @@ class Plagiabot {
 		$urls = array();
 		foreach ( $match[0] as $value ) {
 			if ( !in_array( $value, $urls ) ) {
-				$urls[] = $value;
+				// Determine if $value is a substring of an existing url, and if so, discard it
+				// This is because of the way Plagiabot currently stores reports in its database
+				// At some point, fix this in Plagiabot code instead of this hack here
+				$flag = false;
+				foreach ( $urls as $u ) {
+					if ( strpos( $u, $value ) !== false ) {
+						$flag = true;
+					}
+				}
+				if ( $flag === false ) {
+					$urls[] = $value;
+				}
 			}
 		}
 		return $urls;

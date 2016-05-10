@@ -7,10 +7,15 @@
     font-size: 13px;
     border: 1px #181818;
     background: #d0d0d0;
-    margin: 4px;
+    margin: 3px;
+    display: inline-block;
     padding: 6px;
     float: left;
     border-radius: 10px;
+}
+
+.btn-xs {
+    margin: 2px;
 }
 
 .btn-success {
@@ -44,16 +49,21 @@
 }
 
 .page-div {
-    padding-left: 20px;
+    padding-left: 80px;
 }
 
-.header-div {
-    /*border: 1px solid blue;*/
-    margin: 10px;
-    padding: 5px 20px;
+.wikiproject-div {
+    align-items: center;
+    text-align: center;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
+}
+
+.header-div {
+    margin: 10px;
+    padding: 5px;
+    align-items: center;
     border-bottom: 2px solid black;
 }
 
@@ -63,37 +73,39 @@
 }
 
 .row-container {
-    /*border: 1px solid green;*/
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
+    align-items: center;
     padding: 10px;
 }
 
 .row-div {
-    /*border: 1px solid yellow;*/
 }
 
 .compare-div {
-    /*border: 1px solid orangered;*/
-    width: 70%;
-    height: 100px;
+    width: 100%;
+    height: 120px;
     display: none;
     margin: auto;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    text-align: center;
 }
 
 .compare-button {
-    margin-left: 10%;
+    margin-left: 80px;
     margin-right: 20px;
 }
 
 .compare-links-container {
-    /*border: 1px solid purple;*/
     padding: 10px;
-    border-bottom: 1px solid darkgrey;
+    border-bottom: 1px dashed darkgrey;
 }
 
-/*.page-div .diff-div .report-div .wikiproject-div {*/
-/*border-right: 1px solid darkgrey;*/
-/*}*/
-
+.compare-pane {
+    width: 47%;
+    margin: 2px 1%;
+    float: left;
+    overflow-y: auto;
+    height: 120px;
+    display: inline-block;
+    border: 1px solid black;
+}
