@@ -22,6 +22,10 @@ if ( $data === false ) {
 				<div class="row-div col-md-1 text-center diff-div">
 					<a href="' . $d['diff'] . '" target="_blank">Diff</a>
 					<div>' . $d['timestamp'] . '</div>
+					<a class="btn btn-xs btn-primary" href="' . $d['turnitin_report'] . '" target="_blank">
+						<span class="glyphicon glyphicon-new-window"></span>
+						Turnitin report
+					</a><br>
 				</div>
 				<div class="row-div col-md-2 text-center report-div">
 					<a href="' . $d['turnitin_report'] . '" target="_blank">Report</a>
@@ -40,21 +44,26 @@ if ( $data === false ) {
 						<input type="button" id=danger' . $d['ithenticate_id'] . ' class="btn btn-secondary btn-block" title="The edit is a false positive, nothing needs to be done" value="No action needed" onclick="saveState(' . $d['ithenticate_id'] . ', \'Danger\')" disabled>
 					</div>';
 		} elseif ( $d['status'] == 'falsepositive' ) {
-			$html .= '<div class="row-div col-md-2 text-center">
+			$html .= '<div class="row-div col-md-2 text-center status-div">
 						<input type="button" id=success' . $d['ithenticate_id'] . '  class="btn btn-secondary btn-block" title="The edit was a copyright violation and has been reverted" value="Page fixed" onclick="saveState(' . $d['ithenticate_id'] . ', \'Success\')" disabled>
 						<input type="button" id=danger' . $d['ithenticate_id'] . ' class="btn btn-danger-clicked btn-block" title="The edit is a false positive, nothing needs to be done" value="No action needed" onclick="saveState(' . $d['ithenticate_id'] . ', \'Danger\')">
 					</div>';
 		} else {
-			$html .= '<div class="row-div col-md-2 text-center">
+			$html .= '<div class="row-div col-md-2 text-center status-div">
 						<input type="button" id=success' . $d['ithenticate_id'] . '  class="btn btn-success btn-block" title="The edit was a copyright violation and has been reverted" value="Page fixed" onclick="saveState(' . $d['ithenticate_id'] . ', \'Success\')">
 						<input type="button" id=danger' . $d['ithenticate_id'] . ' class="btn btn-danger btn-block" title="The edit is a false positive, nothing needs to be done" value="No action needed" onclick="saveState(' . $d['ithenticate_id'] . ', \'Danger\')">
 					</div>';
 		}
 		$html .= '</div><div class="compare-links-container">';
+		$html .= '<a class="btn btn-xs btn-primary compare-button" href="' . $d['turnitin_report'] . '" target="_blank">
+					<span class="glyphicon glyphicon-new-window"></span>
+					Turnitin report
+				</a><br>';
 		foreach ( $d['copyvios'] as $key => $copyvio ) {
 			$html .= '<button class="btn btn-xs btn-primary dropdown-toggle compare-button" onclick="compare( \'' . htmlspecialchars( $copyvio ) . '\', \'' . htmlspecialchars( $d['page_link'] ) . '\', \'' . $k . $key . '\')" >
 						<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-					Compare</button>
+						Compare
+					</button>
 					<a href="' . $copyvio . '">' . htmlspecialchars( $copyvio ) . '</a><br/>
 					<div class="compare-div" id="comp' . $k . $key . '">
 						<div class="compare-edit compare-pane">

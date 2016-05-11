@@ -61,12 +61,25 @@ class Plagiabot {
 		$result = array();
 		if ( $r->num_rows > 0 ) {
 			while ( $row = mysqli_fetch_assoc( $r ) ) {
-				// Remove "Wikipedia:Wikiproject_" part from the string before use
-				$project = substr( $row['pi_project'], 22 );
-				// Replace underscores by spaces
-				$result[] = $this->removeUnderscores( $project );
+				// Skip projects without 'Wikipoject' in title as they are partnership-based Wikiprojects
+				if ( stripos( $row['pi_project'], 'WikiProject' ) !== false ) {
+					// Remove "Wikipedia:Wikiproject_" part from the string before use
+					$project = substr( $row['pi_project'], 22 );
+					// Remove subprojects
+					if ( stripos( $project, '/' ) !== false ) {
+						$project = substr( $project, 0, stripos( $project, '/' ) );
+					}
+					// Replace underscores by spaces
+					$project = ( string )$this->removeUnderscores( $project );
+					// Add to array if not already in it
+					if ( !in_array( $project, $result ) ) {
+						$result[] = $project;
+					}
+				}
 			}
 		}
+		// Return alphabetized list
+		sort( $result );
 		return $result;
 	}
 
