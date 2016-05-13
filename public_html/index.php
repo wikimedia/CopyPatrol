@@ -27,12 +27,15 @@ if ( $data === false ) {
 		if ( $d['editor'] ) {
 			$html .= '<a href="' . $d['editor_page'] . '" target="_blank">' . $d['editor'] . '</a><br>
 						<small>
-							<a href="' . $d['editor_talk'] . '" target="_blank">Talk</a>
+							<a href="' . $d['editor_talk'] . '" target="_blank">Talk</a> | 
 							<a href="' . $d['editor_contribs'] . '" target="_blank">Contributions</a>
 						<br>
 						<div>Edit count: ' . $d['editcount'] . '</div></small>';
 		} else {
-			$html .= '<div class="text-muted" data-toggle="tooltip" data-placement="bottom" title="This usually means that the editor was anonymous. It may also mean that the data is not available in Labs database yet."> Editor not found </div>';
+			$html .= '<span class="glyphicon glyphicon-exclamation-sign"></span>
+					  <div class="text-muted" data-toggle="tooltip" data-placement="bottom" 
+						title="This usually means that the editor was anonymous. It may also mean that the data is not available in Labs database yet."> Editor not found
+					  </div>';
 		}
 		$html .= '</div><div class="row-div col-md-3 text-center wikiproject-div"><center>';
 		foreach ( $d['wikiprojects'] as $w ) {
