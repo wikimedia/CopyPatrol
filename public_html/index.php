@@ -21,19 +21,20 @@ if ( $data === false ) {
 				</div>
 				<div class="row-div col-md-1 text-center diff-div">
 					<a href="' . $d['diff'] . '" target="_blank">Diff</a>
-					<div>' . $d['timestamp'] . '</div>
-					<a class="btn btn-xs btn-primary" href="' . $d['turnitin_report'] . '" target="_blank">
-						<span class="glyphicon glyphicon-new-window"></span>
-						Turnitin report
-					</a><br>
+					<small><div>' . $d['timestamp'] . '</div></small>
 				</div>
-				<div class="row-div col-md-2 text-center report-div">
-					<a href="' . $d['turnitin_report'] . '" target="_blank">Report</a>
-					<a href="#">Editor name</a>
-					<a href="#">talk and contribs</a>
-					<a href="#">Edit count</a>
-				</div>
-				<div class="row-div col-md-3 text-center wikiproject-div"><center>';
+				<div class="row-div col-md-2 text-center report-div">';
+		if ( $d['editor'] ) {
+			$html .= '<a href="' . $d['editor_page'] . '" target="_blank">' . $d['editor'] . '</a><br>
+						<small>
+							<a href="' . $d['editor_talk'] . '" target="_blank">Talk</a>
+							<a href="' . $d['editor_contribs'] . '" target="_blank">Contributions</a>
+						<br>
+						<div>Edit count: ' . $d['editcount'] . '</div></small>';
+		} else {
+			$html .= '<div class="text-muted" data-toggle="tooltip" data-placement="bottom" title="This usually means that the editor was anonymous. It may also mean that the data is not available in Labs database yet."> Editor not found </div>';
+		}
+		$html .= '</div><div class="row-div col-md-3 text-center wikiproject-div"><center>';
 		foreach ( $d['wikiprojects'] as $w ) {
 			$html .= '<div class="row-div wproject">' . $w . '</div>';
 		}
@@ -60,11 +61,11 @@ if ( $data === false ) {
 					Turnitin report
 				</a><br>';
 		foreach ( $d['copyvios'] as $key => $copyvio ) {
-			$html .= '<button class="btn btn-xs btn-primary dropdown-toggle compare-button" onclick="compare( \'' . htmlspecialchars( $copyvio ) . '\', \'' . htmlspecialchars( $d['page_link'] ) . '\', \'' . $k . $key . '\')" >
+			$html .= '<button class="btn btn-xs btn-primary dropdown-toggle compare-button" onclick="compare( \'' . addslashes( $copyvio ) . '\', \'' . addslashes( $d['page_link'] ) . '\', \'' . $k . $key . '\')" >
 						<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
 						Compare
 					</button>
-					<a href="' . $copyvio . '">' . htmlspecialchars( $copyvio ) . '</a><br/>
+					<a href="' . $copyvio . '">' . $copyvio . '</a><br/>
 					<div class="compare-div" id="comp' . $k . $key . '">
 						<div class="compare-edit compare-pane">
 							Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna.
@@ -89,6 +90,11 @@ if ( $data === false ) {
 		<script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script src="js/saveResult.js" type="text/javascript"></script>
 		<script src="js/compare.js" type="text/javascript"></script>
+		<script>
+			$( document ).ready( function(){
+				$( '[data-toggle="tooltip"]' ).tooltip();
+			});
+		</script>
 	</head>
 	<body>
 		<?php require_once( 'templates/header.php' ); ?>

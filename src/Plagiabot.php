@@ -16,6 +16,10 @@ class Plagiabot {
 	 */
 	private $linkProjects;
 	/**
+	 * @var $linkEnwiki \mysqli connection link for getting revision details
+	 */
+	private $linkEnwiki;
+	/**
 	 * @var $wikipedia string wikipedia project for the class instance
 	 * @todo Make this customizable in future as bot runs on different wikis
 	 */
@@ -28,6 +32,7 @@ class Plagiabot {
 	 */
 	public function __construct( $db ) {
 		$this->linkPlagiabot = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 's51306__copyright_p' );
+		$this->linkEnwiki = mysqli_connect( 'enwiki.labsdb', $db['user'], $db['password'], 'enwiki_p' );
 		$this->linkProjects = mysqli_connect( 'labsdb1004.eqiad.wmnet', $db['user'], $db['password'], 's52475__wpx_p' );
 		$this->wikipedia = 'https://en.wikipedia.org';
 	}
@@ -108,6 +113,12 @@ class Plagiabot {
 					$data[$cnt]['status'] = $row['status'];
 					$data[$cnt]['report'] = $row['report'];
 					$data[$cnt]['copyvios'] = $this->getCopyvioUrls( $row['report'] );
+					$userDetails = $this->getUserDetails( $row['diff'] );
+					$data[$cnt]['editor'] = $userDetails['editor'];
+					$data[$cnt]['editor_page'] = $this->getUserPage( $userDetails['editor'] );
+					$data[$cnt]['editor_talk'] = $this->getUserTalk( $userDetails['editor'] );
+					$data[$cnt]['editor_contribs'] = $this->getUserContribs( $userDetails['editor'] );
+					$data[$cnt]['editcount'] = $userDetails['editcount'];
 					$cnt++;
 				}
 			}
@@ -152,7 +163,7 @@ class Plagiabot {
 	 */
 	public function formatTimestamp( $datetime ) {
 		$datetime = strtotime( $datetime );
-		return date( 'd-m-y h:m', $datetime );
+		return date( 'd-m-y h:m:s', $datetime );
 	}
 
 
@@ -188,7 +199,8 @@ class Plagiabot {
 	 * @param $title String to change underscores to spaces for
 	 * @return string
 	 */
-	public function removeUnderscores( $title ) {
+	public
+	function removeUnderscores( $title ) {
 		return str_replace( '_', ' ', $title );
 	}
 
@@ -205,6 +217,64 @@ class Plagiabot {
 //			return $result;
 //		}
 		return true;
+	}
+
+
+	/**
+	 * @param $diff int Diff revision ID
+	 */
+	public function getUserDetails( $diff ) {
+		$query = "SELECT r.rev_id, r.rev_user, r.rev_user_text, u.user_editcount, u.user_name
+				  FROM revision r
+				  JOIN user u ON r.rev_user = u.user_id
+				  WHERE r.rev_id = " . (int)$diff;
+		$data = array(
+			'editor' => false,
+			'editcount' => false
+		);
+		$result = mysqli_query( $this->linkEnwiki, $query );
+		if ( $result == false ) {
+			return $data;
+		} elseif ( $result->num_rows > 0 ) {
+			while ( $row = mysqli_fetch_assoc( $result ) ) {
+				$data['editor'] = $row['rev_user_text'];
+				$data['editcount'] = $row['user_editcount'];
+			}
+		}
+		return $data;
+	}
+
+
+	/**
+	 * @param $user string User name
+	 */
+	public function getUserTalk( $user ) {
+		if ( !$user ) {
+			return false;
+		}
+		return $this->wikipedia . '/wiki/User_talk:' . str_replace( ' ', '_', $user );
+	}
+
+
+	/**
+	 * @param $user string User name
+	 */
+	public function getUserPage( $user ) {
+		if ( !$user ) {
+			return false;
+		}
+		return $this->wikipedia . '/wiki/User:' . str_replace( ' ', '_', $user );
+	}
+
+
+	/**
+	 * @param $user string User name
+	 */
+	public function getUserContribs( $user ) {
+		if ( !$user ) {
+			return false;
+		}
+		return $this->wikipedia . '/wiki/Special:Contributions/' . str_replace( ' ', '_', $user );
 	}
 }
 

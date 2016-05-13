@@ -12,6 +12,12 @@
 	<h1>
 		<center>Plagiabot</center>
 	</h1>
+	<div class="alert alert-success">
+		<strong>Hello!</strong> This is a web-version of Plagiabot. Database writes for this tool are disabled at the
+		moment.
+		Feel free to play around and log your complaints, feature requests and appreciations
+		<a href="https://en.wikipedia.org/wiki/User_talk:EranBot/Copyright/rc">here</a>.
+	</div>
 	<ul class="nav global nav-pills nav-justified">
 		<li class="active"><a data-toggle="pill" href="#tab1">Recent changes</a></li>
 		<li><a data-toggle="pill" href="#tab2">True positives</a></li>

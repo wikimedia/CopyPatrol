@@ -110,3 +110,8 @@
     display: inline-block;
     border: 1px solid black;
 }
+
+/* Some margin for our flash message */
+.alert-success {
+    margin: 20px;
+}
