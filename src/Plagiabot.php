@@ -76,13 +76,11 @@ class Plagiabot {
 					}
 					// Replace underscores by spaces
 					$project = ( string )$this->removeUnderscores( $project );
-					// Add to array if not already in it
-					if ( !in_array( $project, $result ) ) {
-						$result[] = $project;
-					}
+					$result[$project] = true;
 				}
 			}
 		}
+		$result = array_keys( $result );
 		// Return alphabetized list
 		sort( $result );
 		return $result;
