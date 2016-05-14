@@ -134,6 +134,7 @@ class Plagiabot {
 	 * @return string url of wiki page on enwiki
 	 */
 	public function getPageLink( $page ) {
+		$this->checkDeadLink( $page );
 		return $this->wikipedia . '/wiki/' . $page;
 	}
 
@@ -247,6 +248,7 @@ class Plagiabot {
 
 	/**
 	 * @param $user string User name
+	 * @return string Talk page for a user on $this->wikipedia
 	 */
 	public function getUserTalk( $user ) {
 		if ( !$user ) {
@@ -258,6 +260,7 @@ class Plagiabot {
 
 	/**
 	 * @param $user string User name
+	 * @return string User page for a user on $this->wikipedia
 	 */
 	public function getUserPage( $user ) {
 		if ( !$user ) {
@@ -269,6 +272,7 @@ class Plagiabot {
 
 	/**
 	 * @param $user string User name
+	 * @return string Contributions page for a user on $this->wikipedia
 	 */
 	public function getUserContribs( $user ) {
 		if ( !$user ) {
