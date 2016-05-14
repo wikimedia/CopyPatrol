@@ -134,7 +134,7 @@ class Plagiabot {
 	 * @return string url of wiki page on enwiki
 	 */
 	public function getPageLink( $page ) {
-		$this->checkDeadLink( $page );
+//		$this->checkDeadLink( $page );
 		return $this->wikipedia . '/wiki/' . $page;
 	}
 
@@ -280,5 +280,24 @@ class Plagiabot {
 		}
 		return $this->wikipedia . '/wiki/Special:Contributions/' . str_replace( ' ', '_', $user );
 	}
+
+//
+//	/**
+//	 * We do an API query here because testing proved API query to be faster for looking up deleted page titles
+//	 * @param $title string Page title
+//	 * @return true|false depending on page dead or alive
+//	 */
+//	public function checkDeadLink( $title ) {
+//		$url = $this->wikipedia . '/w/api.php?action=query&format=json&titles=' . $title . '&formatversion=2';
+//		$ch = curl_init();
+//		curl_setopt( $ch, CURLOPT_URL, $url );
+//		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
+//		$result = curl_exec( $ch );
+//		$json = json_decode( $result );
+////		if ( $json->query->pages->missing ) {
+////			echo 'Woot!';
+////		}
+//		var_dump( $json->query->pages );
+//	}
 }
 
