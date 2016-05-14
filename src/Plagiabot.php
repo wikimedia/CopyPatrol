@@ -67,7 +67,7 @@ class Plagiabot {
 		if ( $r->num_rows > 0 ) {
 			while ( $row = mysqli_fetch_assoc( $r ) ) {
 				// Skip projects without 'Wikipoject' in title as they are partnership-based Wikiprojects
-				if ( stripos( $row['pi_project'], 'WikiProject' ) !== false ) {
+				if ( stripos( $row['pi_project'], 'Wikipedia:WikiProject_' ) !== false ) {
 					// Remove "Wikipedia:Wikiproject_" part from the string before use
 					$project = substr( $row['pi_project'], 22 );
 					// Remove subprojects
