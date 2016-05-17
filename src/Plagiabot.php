@@ -117,6 +117,9 @@ class Plagiabot {
 					$data[$cnt]['editor_talk'] = $this->getUserTalk( $userDetails['editor'] );
 					$data[$cnt]['editor_contribs'] = $this->getUserContribs( $userDetails['editor'] );
 					$data[$cnt]['editcount'] = $userDetails['editcount'];
+					$data[$cnt]['page_dead'] = $this->checkDeadLink( $row['page_title'] );
+					$data[$cnt]['user_page_dead'] = $this->checkDeadLink( 'User:' . $userDetails['editor'] );
+					$data[$cnt]['user_talk_dead'] = $this->checkDeadLink( 'User_talk:' . $userDetails['editor'] );
 					$cnt++;
 				}
 			}
@@ -132,7 +135,6 @@ class Plagiabot {
 	 * @return string url of wiki page on enwiki
 	 */
 	public function getPageLink( $page ) {
-//		$this->checkDeadLink( $page );
 		return $this->wikipedia . '/wiki/' . $page;
 	}
 
@@ -279,23 +281,31 @@ class Plagiabot {
 		return $this->wikipedia . '/wiki/Special:Contributions/' . str_replace( ' ', '_', $user );
 	}
 
-//
-//	/**
-//	 * We do an API query here because testing proved API query to be faster for looking up deleted page titles
-//	 * @param $title string Page title
-//	 * @return true|false depending on page dead or alive
-//	 */
-//	public function checkDeadLink( $title ) {
-//		$url = $this->wikipedia . '/w/api.php?action=query&format=json&titles=' . $title . '&formatversion=2';
-//		$ch = curl_init();
-//		curl_setopt( $ch, CURLOPT_URL, $url );
-//		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
-//		$result = curl_exec( $ch );
-//		$json = json_decode( $result );
-////		if ( $json->query->pages->missing ) {
-////			echo 'Woot!';
-////		}
-//		var_dump( $json->query->pages );
-//	}
+
+	/**
+	 * We do an API query here because testing proved API query to be faster for looking up deleted page titles
+	 * @param $title string Page title
+	 * @return true|false depending on page dead or alive
+	 */
+	public function checkDeadLink( $title ) {
+		if ( !$title ) {
+			return false;
+		}
+		$url = $this->wikipedia . '/w/api.php?action=query&format=json&titles=' . urlencode( $title ) . '&formatversion=2';
+		$ch = curl_init();
+		curl_setopt( $ch, CURLOPT_URL, $url );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
+		$result = curl_exec( $ch );
+		$json = json_decode( $result );
+		foreach ( $json->query->pages as $p ) {
+			if ( $p->missing == true ) {
+				// Please note that this returns a false positive when the user account has a global User page and
+				// not a local one
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
 }
 

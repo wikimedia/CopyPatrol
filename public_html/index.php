@@ -17,7 +17,11 @@ if ( $data === false ) {
 	foreach ( $data as $k => $d ) {
 		$html .= '<div class="row-container container-fluid">
 				<div class="row-div col-md-3 page-div">
-					<b><a href="' . $d['page_link'] . '" target="_blank">' . $d['page'] . '</a></b>
+					<b><a href="' . $d['page_link'] . '"';
+		if ( $d['page_dead'] ) {
+			$html .= 'class="text-danger"';
+		}
+		$html .= 'target="_blank">' . $d['page'] . '</a></b>
 				</div>
 				<div class="row-div col-md-1 text-center diff-div">
 					<a href="' . $d['diff'] . '" target="_blank">Diff</a>
@@ -25,9 +29,17 @@ if ( $data === false ) {
 				</div>
 				<div class="row-div col-md-2 text-center report-div">';
 		if ( $d['editor'] ) {
-			$html .= '<a href="' . $d['editor_page'] . '" target="_blank">' . $d['editor'] . '</a><br>
+			$html .= '<a href="' . $d['editor_page'] . '"';
+			if ( $d['user_page_dead'] ) {
+				$html .= 'class="text-danger"';
+			}
+			$html .= ' target="_blank">' . $d['editor'] . '</a><br>
 						<small>
-							<a href="' . $d['editor_talk'] . '" target="_blank">Talk</a> | 
+							<a href="' . $d['editor_talk'] . '"';
+			if ( $d['user_page_dead'] ) {
+				$html .= 'class="text-danger"';
+			}
+			$html .= ' target="_blank">Talk</a> | 
 							<a href="' . $d['editor_contribs'] . '" target="_blank">Contributions</a>
 						<br>
 						<div>Edit count: ' . $d['editcount'] . '</div></small>';
