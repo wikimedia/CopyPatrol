@@ -37,3 +37,17 @@ function saveState( id, val ) {
     } );
 
 }
+
+function loginRequest() {
+    $.ajax( {
+        type: "POST",
+        dataType: "text",
+        url: "response.php",
+        data: 'login',
+        success: function ( ret ) {
+            console.log( ret );
+            // alert( ret );
+            // location.href = ret;
+        }
+    } );
+}

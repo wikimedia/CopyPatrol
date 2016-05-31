@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block records %}
+    {% if records is not empty %}
+        {% for row in records %}
+            <div class="row-container container-fluid">
+                <div class="row-div col-md-3 page-div">
+                    <b><a href="https://www.google.com">{{ row.page_title }}</a></b>
+                </div>
+                <div class="row-div col-md-1 text-center diff-div">
+                    <a href="https://www.google.com">{{ row.diff }}</a>
+                    <small>
+                        <span>{{ row.timestamp }}</span>
+                    </small>
+                </div>
+                <div class="row-div col-md-2 text-center report-div">
+                    {% if row.editor %}
+                        <a href="#">{{ row.editor }}</a>
+                        <small>
+                            <span>{{ row.editor_talk }} Talk | </span>
+                            <span>{{ row.editor_contribs }}</span>
+                        </small>
+                    {% else %}
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        <div class="text-muted" data-toggle="tooltip" data-placement="bottom"
+                             title="This usually means that the editor was anonymous. It may also mean that the data is not available in Labs database yet.">
+                            Editor not found
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="row-div col-md-3 text-center wikiproject-div">
+                    {% if row.wikiprojects is not empty %}
+                        {% for wp in row.wikiprojects %}
+                            <div class="row-div wproject">{{ wp }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="row-div col-md-2 text-center status-div">
+                    {% if row.status == 'fixed' %}
+                        <input type="button" id="{{ 'success' ~ row.ithenticate_id }}"
+                               class="btn btn-success-clicked btn-block"
+                               title="The edit was a copyright violation and has been reverted" value="Page fixed"
+                               onclick="">
+                        <input type="button" id="{{ 'danger' ~ row.ithenticate_id }}"
+                               class="btn btn-secondary btn-block"
+                               title="The edit is a false positive, nothing needs to be done" value="No action needed"
+                               onclick="" disabled>
+                    {% elseif row.status == 'false' %}
+                        <input type="button" id="{{ 'success' ~ row.ithenticate_id }}"
+                               class="btn btn-success-clicked btn-block"
+                               title="The edit was a copyright violation and has been reverted" value="Page fixed"
+                               onclick="" disabled>
+                        <input type="button" id="{{ 'danger' ~ row.ithenticate_id }}"
+                               class="btn btn-secondary btn-block"
+                               title="The edit is a false positive, nothing needs to be done" value="No action needed"
+                               onclick="">
+                    {% else %}
+                        <input type="button" id="{{ 'success' ~ row.ithenticate_id }}"
+                               class="btn btn-success-clicked btn-block"
+                               title="The edit was a copyright violation and has been reverted" value="Page fixed"
+                               onclick="">
+                        <input type="button" id="{{ 'danger' ~ row.ithenticate_id }}"
+                               class="btn btn-secondary btn-block"
+                               title="The edit is a false positive, nothing needs to be done" value="No action needed"
+                               onclick="">
+                    {% endif %}
+                </div>
+                <div class="compare-links-container">
+                    <a class="btn btn-xs btn-primary compare-button" href="#" target="_blank">
+                        <span class="glyphicon glyphicon-new-window"></span>
+                        Turnitin report
+                    </a>
+                </div>
+                {% if row.copyvios is not empty %}
+                    {% for copy in row.copyvios %}
+                        <button class="btn btn-xs btn-primary dropdown-toggle compare-button" onclick="">
+                            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                            Compare
+                        </button>
+                        <a href="#">' . $copyvio . '</a><br/>
+                        <div class="compare-div" id="{{ 'comp' }}">
+                            <div class="compare-edit compare-pane">
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                dolor.
+                            </div>
+                            <div class="compare-website compare-pane">
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                dolor.
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

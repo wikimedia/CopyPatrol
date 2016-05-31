@@ -19,28 +19,8 @@
  * @author Niharika Kohli <nkohli@wikimedia.org>
  * @copyright © 2016 Niharika Kohli and contributors.
  */
-require __DIR__ . '/../vendor/autoload.php';
-use Plagiabot\Web\App;
+namespace Plagiabot\Web\Dao;
 
-if ( !defined( 'APP_ROOT' ) ) {
-	define( 'APP_ROOT', dirname( __DIR__ ) );
-}
-require_once APP_ROOT . '/vendor/autoload.php';
-// Ensure that a default timezone is set
-set_error_handler( function ( $errno, $errstr ) {
-	throw new Exception( $errstr );
-} );
-try {
-	date_default_timezone_get();
-} catch ( Exception $e ) {
-	// Use UTC if not specified anywhere in .ini
-	date_default_timezone_set( 'UTC' );
-}
-restore_error_handler();
-// Load environment settings from .env if present
-if ( is_readable( APP_ROOT . '/.env' ) ) {
-	\Wikimedia\Slimapp\Config::load( APP_ROOT . '/.env' );
-}
-$app = new App( APP_ROOT );
-$app->run();
+class AuthDao {
 
+}
