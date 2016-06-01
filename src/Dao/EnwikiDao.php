@@ -91,7 +91,7 @@ class EnwikiDao extends AbstractDao {
 		$result = curl_exec( $ch );
 		$json = json_decode( $result );
 		foreach ( $json->query->pages as $p ) {
-			if ( $p->missing == true ) {
+			if ( isset( $p->missing ) ) {
 				// Please note that this returns a false positive when the user account has a global User page and
 				// not a local one
 				return true;
