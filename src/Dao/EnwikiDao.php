@@ -47,25 +47,28 @@ class EnwikiDao extends AbstractDao {
 
 
 	/**
+	 * Get editor details
+	 *
 	 * @param $diff int Diff revision ID
+	 * @return array|false If editor exists, return array with params 'editor', 'editcount'. Else, false.
 	 */
 	public function getUserDetails( $diff ) {
-		$query = "SELECT r.rev_id, r.rev_user, r.rev_user_text, u.user_editcount, u.user_name
-				  FROM revision r
-				  JOIN user u ON r.rev_user = u.user_id
-				  WHERE r.rev_id = " . (int)$diff;
+		$query = self::concat(
+			'SELECT r.rev_id, r.rev_user, r.rev_user_text, u.user_editcount, u.user_name',
+			'FROM revision r',
+			'JOIN user u ON r.rev_user = u.user_id',
+			'WHERE r.rev_id = ?'
+		);
 		$data = array(
 			'editor' => false,
 			'editcount' => false
 		);
-		$result = mysqli_query( $this->linkEnwiki, $query );
+		$result = $this->fetch( $query, array( (int)$diff ) );
 		if ( $result == false ) {
 			return $data;
-		} elseif ( $result->num_rows > 0 ) {
-			while ( $row = mysqli_fetch_assoc( $result ) ) {
-				$data['editor'] = $row['rev_user_text'];
-				$data['editcount'] = $row['user_editcount'];
-			}
+		} else {
+			$data['editor'] = $result['rev_user_text'];
+			$data['editcount'] = $result['user_editcount'];
 		}
 		return $data;
 	}
@@ -96,5 +99,6 @@ class EnwikiDao extends AbstractDao {
 				return false;
 			}
 		}
+		return true;
 	}
 }

@@ -51,28 +51,31 @@ class WikiprojectDao extends AbstractDao {
 	 * @return array Wikiprojects for a given page title on enwiki
 	 */
 	public function getWikiProjects( $title ) {
-		$query = "SELECT * FROM projectindex WHERE pi_page = 'Talk:" . $title . "'";
-		$r = mysqli_query( $this->linkProjects, $query );
-		$result = array();
-		if ( $r->num_rows > 0 ) {
-			while ( $row = mysqli_fetch_assoc( $r ) ) {
+		$query = self::concat(
+			'SELECT * FROM projectindex',
+			'WHERE pi_page = ?'
+		);
+		$result = $this->fetchAll( $query, array( 'Talk:' . $title ) );
+		$data = array();
+		if ( $result ) {
+			foreach ( $result as $r ) {
 				// Skip projects without 'Wikipoject' in title as they are partnership-based Wikiprojects
-				if ( stripos( $row['pi_project'], 'Wikipedia:WikiProject_' ) !== false ) {
+				if ( stripos( $r['pi_project'], 'Wikipedia:WikiProject_' ) !== false ) {
 					// Remove "Wikipedia:Wikiproject_" part from the string before use
-					$project = substr( $row['pi_project'], 22 );
+					$project = substr( $r['pi_project'], 22 );
 					// Remove subprojects
 					if ( stripos( $project, '/' ) !== false ) {
 						$project = substr( $project, 0, stripos( $project, '/' ) );
 					}
-					// Replace underscores by spaces
-					$project = ( string )$this->removeUnderscores( $project );
-					$result[$project] = true;
+					$data[$project] = true;
 				}
 			}
+		} else {
+			return array();
 		}
-		$result = array_keys( $result );
+		$data = array_keys( $data );
 		// Return alphabetized list
-		sort( $result );
-		return $result;
+		sort( $data );
+		return $data;
 	}
 }

@@ -11,7 +11,6 @@
     margin: 3px;
     display: inline-block;
     padding: 6px;
-    float: left;
     border-radius: 10px;
 }
 
@@ -50,15 +49,18 @@
 }
 
 .page-div {
-    padding-left: 80px;
+    /*margin-left: 30px;*/
+    /*border: 1px solid deeppink;*/
+    word-wrap: break-word;
 }
 
 .wikiproject-div {
     align-items: center;
     text-align: center;
-    display: flex;
+    display: block;
     flex-flow: row wrap;
-    justify-content: space-around;
+    /*justify-content: space-around;*/
+    /*border: 1px solid black;*/
 }
 
 .header-div {
@@ -79,6 +81,7 @@
 }
 
 .row-div {
+    /*border: 1px solid yellowgreen;*/
 }
 
 .compare-div {
@@ -89,10 +92,11 @@
     flex-flow: row wrap;
     justify-content: space-around;
     text-align: center;
+    /*border: 1px solid red;*/
 }
 
 .compare-button {
-    margin-left: 80px;
+    margin-left: 30px;
     margin-right: 20px;
 }
 
@@ -108,10 +112,46 @@
     overflow-y: auto;
     height: 120px;
     display: inline-block;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 /* Some margin for our flash message */
 .alert-success {
     margin: 20px;
+}
+
+.diff-div {
+    /*border: 1px solid blue;*/
+}
+
+.report-div {
+    /*border: 1px solid green;*/
+}
+
+.status-div {
+    /*border: 1px solid red;*/
+}
+
+.record-container {
+    /*padding-left: 20px;*/
+}
+
+#body {
+    padding: 12px;
+}
+
+#login-btn {
+    display: block;
+    width: 100px;
+    margin: 4px auto;
+    /*border-radius: 10px;*/
+}
+
+#top-banner {
+    text-align: center;
+}
+
+h1 {
+    width: 300px;
+    margin: 5px auto;
 }

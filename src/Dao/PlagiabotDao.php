@@ -26,7 +26,7 @@ use Wikimedia\Slimapp\Dao\AbstractDao;
 class PlagiabotDao extends AbstractDao {
 
 	/**
-	 * @var int $wikipedia
+	 * @var int $wikipedia String wikipedia url (enwiki by default)
 	 */
 	protected $wikipedia;
 

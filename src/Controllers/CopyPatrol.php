@@ -25,16 +25,28 @@ use Wikimedia\Slimapp\Controller;
 
 class CopyPatrol extends Controller {
 
+	/**
+	 * @var int $wikipedia String wikipedia url (enwiki by default)
+	 */
+	protected $wikipedia;
+
+	/**
+	 * @var $enwikiDao  \Wikimedia\Slimapp\Dao\ object for enwiki access
+	 */
 	protected $enwikiDao;
 
+	/**
+	 * @var $wikiprojectDao \Wikimedia\Slimapp\Dao\ object for wikiprojects access
+	 */
 	protected $wikiprojectDao;
 
 
 	/**
 	 * @param \Slim\Slim $slim Slim application
 	 */
-	public function __construct( \Slim\Slim $slim = null ) {
+	public function __construct( \Slim\Slim $slim = null, $wiki = 'https://en.wikipedia.org' ) {
 		parent::__construct( $slim );
+		$this->wikipedia = $wiki;
 	}
 
 
@@ -54,10 +66,51 @@ class CopyPatrol extends Controller {
 	}
 
 
+	/**
+	 * Handle GET route for app
+	 *
+	 * @return array with following params:
+	 * page_title: Page with copyvio edit
+	 * page_link: Link to page
+	 * diff_timestamp: Timestamp of edit
+	 * turnitin_report: Link to turnitin report
+	 * status: 'fp' or 'tp'
+	 * report: Report blob from plagiabot db
+	 * copyvios: List of copyvio urls
+	 * editor: Username of editor
+	 * editor_page: Link to editor user page
+	 * editor_talk: Link to editor talk page
+	 * editor_contribs: Link to editor Special:Contributions
+	 * editcount: Edit count of user
+	 * page_dead: Bool. Is article page non-existent?
+	 * editor_page_dead: Bool. Is editor page non-existent?
+	 * editor_talk_dead: Bool. Is editor talk page non-existent?
+	 */
 	protected function handleGet() {
-		$records = $this->dao->getPlagiarismRecords( 5 );
-		foreach ( $records as $record ) {
-			$record['timestamp'] = '100';
+		$records = $this->dao->getPlagiarismRecords( 3 );
+		foreach ( $records as $key => $record ) {
+			$editor = $this->enwikiDao->getUserDetails( $record['diff'] );
+			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );
+			$records[$key]['diff'] = $this->getDiffLink( $record['page_title'], $record['diff'] );
+			$records[$key]['page_link'] = $this->getPageLink( $record['page_title'] );
+			$records[$key]['turnitin_report'] = $this->getReportLink( $record['ithenticate_id'] );
+			$records[$key]['copyvios'] = $this->getCopyvioUrls( $record['report'] );
+			$records[$key]['editor'] = $editor['editor'];
+			$records[$key]['editor_page'] = $this->getUserPage( $editor['editor'] );
+			$records[$key]['editor_talk'] = $this->getUserTalk( $editor['editor'] );
+			$records[$key]['editor_contribs'] = $this->getUserContribs( $editor['editor'] );
+			$records[$key]['editcount'] = $editor['editcount'];
+			$records[$key]['page_dead'] = $this->enwikiDao->checkDeadLink( $record['page_title'] );
+			$records[$key]['editor_page_dead'] = $this->enwikiDao->checkDeadLink( 'User:' . $editor['editor'] );
+			$records[$key]['editor_talk_dead'] = $this->enwikiDao->checkDeadLink( 'User_talk:' . $editor['editor'] );
+			$records[$key]['wikiprojects'] = $this->wikiprojectDao->getWikiProjects( $record['page_title'] );
+			$records[$key]['page_title'] = $this->removeUnderscores( $record['page_title'] );
+			$cleanWikiprojects = array();
+			foreach ( $records[$key]['wikiprojects'] as $k => $wp ) {
+				$wp = $this->removeUnderscores( $wp );
+				$cleanWikiprojects[] = $wp;
+			}
+			$records[$key]['wikiprojects'] = $cleanWikiprojects;
 		}
 		$this->view->set( 'records', $records );
 		$this->render( 'index.html' );
