@@ -101,8 +101,13 @@ class CopyPatrol extends Controller {
 			$records[$key]['editor_contribs'] = $this->getUserContribs( $editor['editor'] );
 			$records[$key]['editcount'] = $editor['editcount'];
 			$records[$key]['page_dead'] = $this->enwikiDao->checkDeadLink( $record['page_title'] );
-			$records[$key]['editor_page_dead'] = $this->enwikiDao->checkDeadLink( 'User:' . $editor['editor'] );
-			$records[$key]['editor_talk_dead'] = $this->enwikiDao->checkDeadLink( 'User_talk:' . $editor['editor'] );
+			if ( $editor['editor'] ) {
+				$records[$key]['editor_page_dead'] = $this->enwikiDao->checkDeadLink( 'User:' . $editor['editor'] );
+				$records[$key]['editor_talk_dead'] = $this->enwikiDao->checkDeadLink( 'User_talk:' . $editor['editor'] );
+			} else {
+				$records[$key]['editor_page_dead'] = false;
+				$records[$key]['editor_talk_dead'] = false;
+			}
 			$records[$key]['wikiprojects'] = $this->wikiprojectDao->getWikiProjects( $record['page_title'] );
 			$records[$key]['page_title'] = $this->removeUnderscores( $record['page_title'] );
 			$cleanWikiprojects = array();
