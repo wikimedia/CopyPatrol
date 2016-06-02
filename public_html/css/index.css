@@ -8,7 +8,7 @@
     font-size: 13px;
     border: 1px #181818;
     background: #d0d0d0;
-    margin: 3px;
+    margin: 1px;
     display: inline-block;
     padding: 6px;
     border-radius: 10px;
@@ -141,17 +141,21 @@
 }
 
 #login-btn {
-    display: block;
+    display: inline-block;
     width: 100px;
     margin: 4px auto;
+    float: right;
     /*border-radius: 10px;*/
 }
 
 #top-banner {
     text-align: center;
+    border: 1px solid deepskyblue;
 }
 
 h1 {
     width: 300px;
     margin: 5px auto;
+    border: 1px solid green;
+    display: inline-block;
 }

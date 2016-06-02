@@ -6,7 +6,7 @@
     {% block stylesheets %}
         <link href="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css"
               rel="stylesheet">
-        <link href="{{ siteUrl('/css/index.css') }}" type="text/css" rel="stylesheet"/>
+        <link href="{{ siteUrl('../css/index.css') }}" type="text/css" rel="stylesheet"/>
     {% endblock %}
     {% block scripts %}
         <script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/1.12.0/jquery.min.js"
@@ -24,7 +24,10 @@
 <div id="body">
     <div id="top-banner">
         <h1>CopyPatrol</h1>
-        {#<div id="login-btn" class="btn btn-xs btn-default" onclick="">Login here!</div>#}
+        <a href='{{ urlFor( 'oauth_init' ) }}' id="login-btn" class="btn btn-sm btn-default">
+            <span class=" glyphicon glyphicon-log-in"></span>
+            Login
+        </a>
     </div>
     {% block banners %}
         <div class="alert alert-success">

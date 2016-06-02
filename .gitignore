@@ -4,3 +4,5 @@ vendor/*
 .idea/*
 replica.my.cnf
 .env
+.lighttpd.conf
+

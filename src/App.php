@@ -24,6 +24,7 @@ namespace Plagiabot\Web;
 use Wikimedia\Slimapp\AbstractApp;
 use Wikimedia\Slimapp\Config;
 use Wikimedia\Slimapp\HeaderMiddleware;
+use Wikimedia\Slimapp\Auth\AuthManager;
 
 class App extends AbstractApp {
 
@@ -37,8 +38,8 @@ class App extends AbstractApp {
 			'displayErrorDetails' => true,
 			'debug' => true,
 			'oauth.enable' => Config::getBool( 'USE_OAUTH', false ),
-			'oauth.consumer_token' => Config::getStr( 'OAUTH_CONSUMER_TOKEN' ),
-			'oauth.secret_token' => Config::getStr( 'OAUTH_SECRET_TOKEN' ),
+			'oauth.consumer_token' => Config::getStr( 'OAUTH_CONSUMER_TOKEN_NIHARIKA' ),
+			'oauth.secret_token' => Config::getStr( 'OAUTH_SECRET_TOKEN_NIHARIKA' ),
 			'oauth.endpoint' => Config::getStr( 'OAUTH_ENDPOINT' ),
 			'oauth.redir' => Config::getStr( 'OAUTH_REDIR' ),
 			'oauth.callback' => Config::getStr( 'OAUTH_CALLBACK' ),
@@ -100,6 +101,17 @@ class App extends AbstractApp {
 				$c->settings['db.user'], $c->settings['db.pass']
 			);
 		} );
+		// User manager
+		$container->singleton( 'userManager', function ( $c ) {
+			return new Controllers\OAuthUserManager(
+				$c->oauthClient,
+				$c->log
+			);
+		} );
+		//
+		$container->singleton( 'authManager', function ( $c ) {
+			return new AuthManager( $c->userManager );
+		} );
 	}
 
 
@@ -133,6 +145,21 @@ class App extends AbstractApp {
 					$page->setWikiprojectDao( $slim->wikiprojectDao );
 					$page();
 				} )->name( 'home' );
+			}
+		);
+		$slim->group( '/oauth/',
+			function () use ( $slim ) {
+				$slim->get( '', function () use ( $slim ) {
+					$page = new Controllers\AuthHandler( $slim );
+					$page->setOAuth( $slim->oauthClient );
+					$page( 'init' );
+				} )->name( 'oauth_init' );
+				$slim->get( 'callback', function () use ( $slim ) {
+					$page = new Controllers\AuthHandler( $slim );
+					$page->setOAuth( $slim->oauthClient );
+					$page->setUserManager( $slim->userManager );
+					$page( 'callback' );
+				} )->name( 'oauth_callback' );
 			}
 		);
 	}
