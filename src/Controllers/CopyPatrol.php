@@ -87,7 +87,7 @@ class CopyPatrol extends Controller {
 	 * editor_talk_dead: Bool. Is editor talk page non-existent?
 	 */
 	protected function handleGet() {
-		$records = $this->dao->getPlagiarismRecords( 0 );
+		$records = $this->dao->getPlagiarismRecords();
 		foreach ( $records as $key => $record ) {
 			$editor = $this->enwikiDao->getUserDetails( $record['diff'] );
 			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );

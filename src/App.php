@@ -38,8 +38,8 @@ class App extends AbstractApp {
 			'displayErrorDetails' => true,
 			'debug' => true,
 			'oauth.enable' => Config::getBool( 'USE_OAUTH', false ),
-			'oauth.consumer_token' => Config::getStr( 'OAUTH_CONSUMER_TOKEN_NIHARIKA' ),
-			'oauth.secret_token' => Config::getStr( 'OAUTH_SECRET_TOKEN_NIHARIKA' ),
+			'oauth.consumer_token' => Config::getStr( 'OAUTH_CONSUMER_TOKEN' ),
+			'oauth.secret_token' => Config::getStr( 'OAUTH_SECRET_TOKEN' ),
 			'oauth.endpoint' => Config::getStr( 'OAUTH_ENDPOINT' ),
 			'oauth.redir' => Config::getStr( 'OAUTH_REDIR' ),
 			'oauth.callback' => Config::getStr( 'OAUTH_CALLBACK' ),
@@ -136,7 +136,22 @@ class App extends AbstractApp {
 	 * @param \Slim\Slim $slim Application
 	 */
 	protected function configureRoutes( \Slim\Slim $slim ) {
+		$middleware = array(
+			'must-revalidate' => function () use ( $slim ) {
+				$slim->response->headers->set(
+					'Cache-Control', 'private, must-revalidate, max-age=0'
+				);
+				$slim->response->headers->set(
+					'Expires', 'Thu, 01 Jan 1970 00:00:00 GMT'
+				);
+			},
+			'inject-user' => function () use ( $slim ) {
+				$user = $slim->authManager->getUserData();
+				$slim->view->set( 'user', $user );
+			},
+		);
 		$slim->group( '/',
+			$middleware['inject-user'],
 			function () use ( $slim ) {
 				$slim->get( '/', function () use ( $slim ) {
 					$page = new Controllers\CopyPatrol( $slim );
@@ -145,6 +160,12 @@ class App extends AbstractApp {
 					$page->setWikiprojectDao( $slim->wikiprojectDao );
 					$page();
 				} )->name( 'home' );
+				$slim->get( 'logout',
+					function () use ( $slim ) {
+						$slim->authManager->logout();
+						$slim->redirect( $slim->urlFor( 'home' ) );
+					}
+				)->name( 'logout' );
 			}
 		);
 		$slim->group( '/oauth/',

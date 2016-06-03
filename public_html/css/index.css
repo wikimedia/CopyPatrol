@@ -115,11 +115,6 @@
     /*border: 1px solid black;*/
 }
 
-/* Some margin for our flash message */
-.alert-success {
-    margin: 20px;
-}
-
 .diff-div {
     /*border: 1px solid blue;*/
 }
@@ -142,7 +137,7 @@
 
 #login-btn {
     display: inline-block;
-    width: 100px;
+    /*width: 100px;*/
     margin: 4px auto;
     float: right;
     /*border-radius: 10px;*/
@@ -150,12 +145,12 @@
 
 #top-banner {
     text-align: center;
-    border: 1px solid deepskyblue;
+    /*border: 1px solid deepskyblue;*/
 }
 
 h1 {
     width: 300px;
     margin: 5px auto;
-    border: 1px solid green;
+    /*border: 1px solid green;*/
     display: inline-block;
 }

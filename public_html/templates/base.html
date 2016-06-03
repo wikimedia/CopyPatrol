@@ -24,19 +24,51 @@
 <div id="body">
     <div id="top-banner">
         <h1>CopyPatrol</h1>
-        <a href='{{ urlFor( 'oauth_init' ) }}' id="login-btn" class="btn btn-sm btn-default">
-            <span class=" glyphicon glyphicon-log-in"></span>
-            Login
-        </a>
+        {% if user %}
+            <a href='{{ urlFor( 'logout' ) }}' id="login-btn" class="btn btn-sm btn-default">
+                <span class=" glyphicon glyphicon-log-in"></span> Logout <br>
+                <small>You are logged in as {{ user.name }}</small>
+            </a>
+        {% else %}
+            <a href='{{ urlFor( 'oauth_init' ) }}' id="login-btn" class="btn btn-sm btn-default">
+                <span class=" glyphicon glyphicon-log-in"></span> Login
+            </a>
+        {% endif %}
     </div>
     {% block banners %}
-        <div class="alert alert-success">
+        <div class="alert alert-success alert-dismissable">
             <strong>Hello!</strong> This is a web-version of Plagiabot. Database writes for this tool are disabled at
-            the
-            moment.
-            Feel free to play around and log your complaints, feature requests and appreciations
+            the moment. Feel free to play around and log your complaints, feature requests and appreciations
             <a href="https://en.wikipedia.org/wiki/User_talk:EranBot/Copyright/rc">here</a>.
         </div>
+        {% block flashes %}
+            {% if flash|default(false) %}
+                {% if flash.error|default(false) %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ flash.error }}
+                    </div>
+                {% endif %}
+                {% if flash.success|default(false) %}
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ flash.info }}
+                    </div>
+                {% endif %}
+                {% if flash.warning|default(false) %}
+                    <div class="alert alert-warning alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ flash.info }}
+                    </div>
+                {% endif %}
+                {% if flash.info|default(false) %}
+                    <div class="alert alert-info alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ flash.info }}
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endblock flashes %}
     {% endblock %}
     <div class="header-div container-fluid">
         <div class="header-col col-sm-3 text-center">Page</div>

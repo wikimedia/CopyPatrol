@@ -111,7 +111,9 @@ class AuthHandler extends Controller {
 				$accessToken = $this->oauth->complete( $token, $verifyCode );
 				$user = $this->manager->getUserData( $accessToken );
 				$this->authManager->login( $user );
-				$this->flash( 'info', 'Succesfully logged in!' );
+				$this->flash( 'info', 'You are now succesfully logged in as ' . $user->getName() );
+				$this->flash( 'error', 'Please note that this tool is set up to credit users for their reviews.
+				Your reviewer username will be publicly visible and retained indefinitely.' );
 			} catch ( \Exception $e ) {
 				$this->flash( 'error', 'Logging in attempt aborted. Error!' );
 			}

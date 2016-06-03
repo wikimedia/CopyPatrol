@@ -70,31 +70,31 @@
                                onclick="">
                     {% endif %}
                 </div>
-                <div class="compare-links-container">
-                    <a class="btn btn-xs btn-primary compare-button" href="#" target="_blank">
-                        <span class="glyphicon glyphicon-new-window"></span>
-                        Turnitin report
-                    </a><br>
-                    {% if row.copyvios is not empty %}
-                        {% for copy in row.copyvios %}
-                            <button class="btn btn-xs btn-primary dropdown-toggle compare-button" onclick="">
-                                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                                Compare
-                            </button>
-                            <a href="#">{{ copy }}</a><br/>
-                            <div class="compare-div" id="{{ 'comp' }}">
-                                <div class="compare-edit compare-pane">
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                    dolor.
-                                </div>
-                                <div class="compare-website compare-pane">
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                    dolor.
-                                </div>
+            </div>
+            <div class="compare-links-container">
+                <a class="btn btn-xs btn-primary compare-button" href='{{ row.turnitin_report }}' target="_blank">
+                    <span class="glyphicon glyphicon-new-window"></span>
+                    Turnitin report
+                </a><br>
+                {% if row.copyvios is not empty %}
+                    {% for copy in row.copyvios %}
+                        <button class="btn btn-xs btn-primary dropdown-toggle compare-button" onclick="">
+                            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                            Compare
+                        </button>
+                        <a href="#">{{ copy }}</a><br/>
+                        <div class="compare-div" id="{{ 'comp' }}">
+                            <div class="compare-edit compare-pane">
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                dolor.
                             </div>
-                        {% endfor %}
-                    {% endif %}
-                </div>
+                            <div class="compare-website compare-pane">
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                dolor.
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         {% endfor %}
     {% endif %}
