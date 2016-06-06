@@ -127,7 +127,7 @@ class CopyPatrol extends Controller {
 	 * @return string url of wiki page on enwiki
 	 */
 	public function getPageLink( $page ) {
-		return $this->wikipedia . '/wiki/' . $page;
+		return $this->wikipedia . '/wiki/' . urlencode( $page );
 	}
 
 
@@ -137,7 +137,7 @@ class CopyPatrol extends Controller {
 	 * @return string link to diff
 	 */
 	public function getDiffLink( $page, $diff ) {
-		return urlencode( $this->wikipedia . '/w/index.php?title=' . $page . '&diff=' . $diff );
+		return $this->wikipedia . '/w/index.php?title=' . urlencode( $page ) . '&diff=' . urlencode( $diff );
 	}
 
 
@@ -146,7 +146,7 @@ class CopyPatrol extends Controller {
 	 * @return string Link to report
 	 */
 	public function getReportLink( $ithenticateId ) {
-		return urlencode( 'https://tools.wmflabs.org/eranbot/ithenticate.py?rid=' . $ithenticateId );
+		return 'https://tools.wmflabs.org/eranbot/ithenticate.py?rid=' . urlencode( $ithenticateId );
 	}
 
 
@@ -177,7 +177,7 @@ class CopyPatrol extends Controller {
 		if ( !$user ) {
 			return false;
 		}
-		return urlencode( $this->wikipedia . '/wiki/User_talk:' . str_replace( ' ', '_', $user ) );
+		return $this->wikipedia . '/wiki/User_talk:' . urlencode( str_replace( ' ', '_', $user ) );
 	}
 
 
@@ -189,7 +189,7 @@ class CopyPatrol extends Controller {
 		if ( !$user ) {
 			return false;
 		}
-		return urlencode( $this->wikipedia . '/wiki/User:' . str_replace( ' ', '_', $user ) );
+		return $this->wikipedia . '/wiki/User:' . urlencode( str_replace( ' ', '_', $user ) );
 	}
 
 
@@ -201,7 +201,7 @@ class CopyPatrol extends Controller {
 		if ( !$user ) {
 			return false;
 		}
-		return urlencode( $this->wikipedia . '/wiki/Special:Contributions/' . str_replace( ' ', '_', $user ) );
+		return $this->wikipedia . '/wiki/Special:Contributions/' . urlencode( str_replace( ' ', '_', $user ) );
 	}
 
 
