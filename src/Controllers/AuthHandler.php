@@ -64,7 +64,6 @@ class AuthHandler extends Controller {
 
 
 	protected function handleGet( $stage ) {
-		var_dump( $stage );
 		switch ( $stage ) {
 			case 'callback':
 				$this->handleCallback();
