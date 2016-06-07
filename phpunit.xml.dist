@@ -6,12 +6,6 @@
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
          verbose="true">
-    <testsuites>
-        <testsuite name="wikimedia-slimapp">
-            <directory suffix="Test.php">./tests</directory>
-        </testsuite>
-    </testsuites>
-
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>
