@@ -35,21 +35,21 @@ class App extends AbstractApp {
 	 */
 	protected function configureSlim( \Slim\Slim $slim ) {
 		$slim->config( [
-			'displayErrorDetails' => true,
-			'debug' => true,
-			'oauth.enable' => Config::getBool( 'USE_OAUTH', false ),
-			'oauth.consumer_token' => Config::getStr( 'OAUTH_CONSUMER_TOKEN' ),
-			'oauth.secret_token' => Config::getStr( 'OAUTH_SECRET_TOKEN' ),
-			'oauth.endpoint' => Config::getStr( 'OAUTH_ENDPOINT' ),
-			'oauth.redir' => Config::getStr( 'OAUTH_REDIR' ),
-			'oauth.callback' => Config::getStr( 'OAUTH_CALLBACK' ),
-			'db.dsnwp' => Config::getStr( 'DB_DSN_WIKIPROJECT' ),
-			'db.dsnen' => Config::getStr( 'DB_DSN_ENWIKI' ),
-			'db.dsnpl' => Config::getStr( 'DB_DSN_PLAGIABOT' ),
-			'db.user' => Config::getStr( 'DB_USER' ),
-			'db.pass' => Config::getStr( 'DB_PASS' ),
-			'templates.path' => '../public_html/templates'
-		] );
+						   'displayErrorDetails' => true,
+						   'debug' => true,
+						   'oauth.enable' => Config::getBool( 'USE_OAUTH', false ),
+						   'oauth.consumer_token' => Config::getStr( 'OAUTH_CONSUMER_TOKEN' ),
+						   'oauth.secret_token' => Config::getStr( 'OAUTH_SECRET_TOKEN' ),
+						   'oauth.endpoint' => Config::getStr( 'OAUTH_ENDPOINT' ),
+						   'oauth.redir' => Config::getStr( 'OAUTH_REDIR' ),
+						   'oauth.callback' => Config::getStr( 'OAUTH_CALLBACK' ),
+						   'db.dsnwp' => Config::getStr( 'DB_DSN_WIKIPROJECT' ),
+						   'db.dsnen' => Config::getStr( 'DB_DSN_ENWIKI' ),
+						   'db.dsnpl' => Config::getStr( 'DB_DSN_PLAGIABOT' ),
+						   'db.user' => Config::getStr( 'DB_USER' ),
+						   'db.pass' => Config::getStr( 'DB_PASS' ),
+						   'templates.path' => '../public_html/templates'
+					   ] );
 	}
 
 
@@ -66,9 +66,9 @@ class App extends AbstractApp {
 			);
 			$conf->setRedirUrl( $c->settings['oauth.redir'] );
 			$conf->setConsumer( new \MediaWiki\OAuthClient\Consumer(
-				$c->settings['oauth.consumer_token'],
-				$c->settings['oauth.secret_token']
-			) );
+									$c->settings['oauth.consumer_token'],
+									$c->settings['oauth.secret_token']
+								) );
 			return $conf;
 		} );
 		// OAuth Client
@@ -122,8 +122,8 @@ class App extends AbstractApp {
 	 */
 	protected function configureView( \Slim\View $view ) {
 		$view->replace( [
-			'app' => $this->slim,
-		] );
+							'app' => $this->slim,
+						] );
 		$view->parserExtensions = [
 			new \Slim\Views\TwigExtension()
 		];
@@ -151,7 +151,7 @@ class App extends AbstractApp {
 			},
 		);
 		$slim->group( '/',
-			$middleware['inject-user'],
+					  $middleware['inject-user'],
 			function () use ( $slim ) {
 				$slim->get( '/', function () use ( $slim ) {
 					$page = new Controllers\CopyPatrol( $slim );
@@ -160,12 +160,16 @@ class App extends AbstractApp {
 					$page->setWikiprojectDao( $slim->wikiprojectDao );
 					$page();
 				} )->name( 'home' );
-				$slim->get( 'logout',
-					function () use ( $slim ) {
-						$slim->authManager->logout();
-						$slim->redirect( $slim->urlFor( 'home' ) );
-					}
-				)->name( 'logout' );
+				$slim->get( 'addreview', function () use ( $slim ) {
+					$page = new Controllers\Review( $slim );
+					$page->setDao( $slim->plagiabotDao );
+					$data = $page();
+					echo json_encode( $data );
+				} )->name( 'add_review' );
+				$slim->get( 'logout', function () use ( $slim ) {
+					$slim->authManager->logout();
+					$slim->redirect( $slim->urlFor( 'home' ) );
+				} )->name( 'logout' );
 			}
 		);
 		$slim->group( '/oauth/',
@@ -193,21 +197,21 @@ class App extends AbstractApp {
 	 */
 	protected function setHeaderMiddleware() {
 		return new HeaderMiddleware( array(
-			'Vary' => 'Cookie',
-			'X-Frame-Options' => 'DENY',
-			'Content-Security-Policy' =>
-				"default-src 'self' *; " .
-				"frame-src 'none'; " .
-				"object-src 'none'; " .
-				// Needed for css data:... sprites
-				"img-src 'self' data:; " .
-				// Needed for jQuery and Modernizr feature detection
-				"style-src 'self' * 'unsafe-inline';" .
-				"script-src 'self' * 'unsafe-exec' 'unsafe-inline'",
-			// Don't forget to override this for any content that is not
-			// actually HTML (e.g. json)
-			'Content-Type' => 'text/html; charset=UTF-8',
-		) );
+										 'Vary' => 'Cookie',
+										 'X-Frame-Options' => 'DENY',
+										 'Content-Security-Policy' =>
+											 "default-src 'self' *; " .
+											 "frame-src 'none'; " .
+											 "object-src 'none'; " .
+											 // Needed for css data:... sprites
+											 "img-src 'self' data:; " .
+											 // Needed for jQuery and Modernizr feature detection
+											 "style-src 'self' * 'unsafe-inline';" .
+											 "script-src 'self' * 'unsafe-exec' 'unsafe-inline'",
+										 // Don't forget to override this for any content that is not
+										 // actually HTML (e.g. json)
+										 'Content-Type' => 'text/html; charset=UTF-8',
+									 ) );
 	}
 
 }

@@ -16,7 +16,7 @@
                 </div>
                 <div class="row-div col-sm-2 text-center report-div">
                     {% if row.editor %}
-                        <a href='{{ row.editor_page }}'
+                        <a href='{{ row.editor }}'
                            class={{ row.editor_page_dead ? 'text-danger' : '' }}>{{ row.editor }}</a><br>
                         <small>
                             <span><a href='{{ row.editor_talk }}'
@@ -45,34 +45,34 @@
                         <input type="button" id="{{ 'success' ~ row.ithenticate_id }}"
                                class="btn btn-success-clicked btn-block"
                                title="The edit was a copyright violation and has been reverted" value="Page fixed"
-                               onclick="">
+                               onclick="saveState({{ row.ithenticate_id }}, 'fixed')">
                         <input type="button" id="{{ 'danger' ~ row.ithenticate_id }}"
                                class="btn btn-secondary btn-block"
                                title="The edit is a false positive, nothing needs to be done" value="No action needed"
-                               onclick="" disabled>
-                    {% elseif row.status == 'falsepositive' %}
+                               disabled>
+                    {% elseif row.status == 'false' %}
                         <input type="button" id="{{ 'success' ~ row.ithenticate_id }}"
-                               class="btn btn-success-clicked btn-block"
+                               class="btn btn-success btn-block"
                                title="The edit was a copyright violation and has been reverted" value="Page fixed"
-                               onclick="" disabled>
+                               disabled>
                         <input type="button" id="{{ 'danger' ~ row.ithenticate_id }}"
-                               class="btn btn-secondary btn-block"
+                               class="btn btn-danger-clicked btn-block"
                                title="The edit is a false positive, nothing needs to be done" value="No action needed"
-                               onclick="">
+                               onclick="saveState({{ row.ithenticate_id }}, 'false')">
                     {% elseif row.status == NULL %}
                         <input type="button" id="{{ 'success' ~ row.ithenticate_id }}"
                                class="btn btn-success btn-outline btn-block"
                                title="The edit was a copyright violation and has been reverted" value="Page fixed"
-                               onclick="">
+                               onclick="saveState({{ row.ithenticate_id }}, 'fixed')">
                         <input type="button" id="{{ 'danger' ~ row.ithenticate_id }}"
                                class="btn btn-danger btn-block"
                                title="The edit is a false positive, nothing needs to be done" value="No action needed"
-                               onclick="">
+                               onclick="saveState({{ row.ithenticate_id }}, 'false')">
                     {% endif %}
                 </div>
             </div>
             <div class="compare-links-container">
-                <a class="btn btn-xs btn-primary compare-button" href='{{ row.turnitin_report }}' target="_blank">
+                <a class="btn btn-xs btn-primary compare-button" href='{{ r }}' target="_blank">
                     <span class="glyphicon glyphicon-new-window"></span>
                     Turnitin report
                 </a><br>
