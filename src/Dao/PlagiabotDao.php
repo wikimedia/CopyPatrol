@@ -64,16 +64,20 @@ class PlagiabotDao extends AbstractDao {
 	/**
 	 * @param $value string Value of the state saved by user
 	 * @param $ithenticateId int Ithenticate ID of the report
+	 * @param $user string the reviewer's username
+	 * @param $timestamp date timestamp of when the review took place
 	 * @return true|false depending on query success/fail
 	 */
-	public function insertCopyvioAssessment( $ithenticateId, $value ) {
+	public function insertCopyvioAssessment( $ithenticateId, $value, $user, $timestamp ) {
 		$sql = self::concat(
 			'UPDATE copyright_diffs',
-			'SET status = :status',
+			'SET status = :status, status_user = :status_user, review_timestamp = :review_timestamp',
 			'WHERE ithenticate_id = :id'
 		);
 		return $this->update( $sql, [
 			'status' => $value,
+			'status_user' => $user,
+			'review_timestamp' => $timestamp,
 			'id' => $ithenticateId
 		] );
 	}

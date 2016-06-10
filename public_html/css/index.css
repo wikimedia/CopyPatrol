@@ -77,7 +77,8 @@
 
 .row-container {
     align-items: center;
-    padding: 10px;
+    border-bottom: 1px dashed darkgrey;
+    padding: 20px 10px;
 }
 
 .row-div {
@@ -100,11 +101,6 @@
     margin-right: 20px;
 }
 
-.compare-links-container {
-    padding: 10px;
-    border-bottom: 1px dashed darkgrey;
-}
-
 .compare-pane {
     width: 47%;
     margin: 2px 1%;
@@ -117,6 +113,10 @@
 
 .diff-div {
     /*border: 1px solid blue;*/
+}
+
+.diff-div-timestamp {
+    white-space: nowrap;
 }
 
 .report-div {
@@ -153,4 +153,19 @@ h1 {
     margin: 5px auto;
     /*border: 1px solid green;*/
     display: inline-block;
+}
+
+.status-div-reviewer {
+    margin-top: 10px;
+    white-space: nowrap;
+}
+
+.none {
+    display: none;
+}
+
+/* make anchor tags with empty href unclickable */
+a[href=''] {
+    color: inherit;
+    pointer-events: none;
 }

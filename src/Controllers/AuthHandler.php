@@ -110,7 +110,7 @@ class AuthHandler extends Controller {
 				$accessToken = $this->oauth->complete( $token, $verifyCode );
 				$user = $this->manager->getUserData( $accessToken );
 				$this->authManager->login( $user );
-				$this->flash( 'info', 'You are now succesfully logged in as ' . $user->getName() . '. Please note that
+				$this->flash( 'info', 'You are now successfully logged in as ' . $user->getName() . '. Please note that
 				this tool is set up to credit users for their reviews. Your username will be assocated with your
 				reviews, be publicly visible and retained indefinitely' );
 			} catch ( \Exception $e ) {
