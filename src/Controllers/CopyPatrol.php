@@ -100,10 +100,10 @@ class CopyPatrol extends Controller {
 			$records[$key]['editor_talk'] = $this->getUserTalk( $editor['editor'] );
 			$records[$key]['editor_contribs'] = $this->getUserContribs( $editor['editor'] );
 			$records[$key]['editcount'] = $editor['editcount'];
-			$records[$key]['page_dead'] = $this->enwikiDao->checkDeadLink( $record['page_title'] );
+			$records[$key]['page_dead'] = $this->enwikiDao->isPageDead( $record['page_title'] );
 			if ( $editor['editor'] ) {
-				$records[$key]['editor_page_dead'] = $this->enwikiDao->checkDeadLink( 'User:' . $editor['editor'] );
-				$records[$key]['editor_talk_dead'] = $this->enwikiDao->checkDeadLink( 'User_talk:' . $editor['editor'] );
+				$records[$key]['editor_page_dead'] = $this->enwikiDao->isPageDead( 'User:' . $editor['editor'] );
+				$records[$key]['editor_talk_dead'] = $this->enwikiDao->isPageDead( 'User_talk:' . $editor['editor'] );
 			} else {
 				$records[$key]['editor_page_dead'] = false;
 				$records[$key]['editor_talk_dead'] = false;
@@ -213,23 +213,23 @@ class CopyPatrol extends Controller {
 	 */
 	public function getCopyvioUrls( $text ) {
 		preg_match_all( '#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#', $text, $match );
-		$urls = array();
-		foreach ( $match[0] as $value ) {
-			if ( !in_array( $value, $urls ) ) {
+		$uniqueCopyvioUrls = array();
+		foreach ( $match[0] as $foundUrl ) {
+			if ( !in_array( $foundUrl, $uniqueCopyvioUrls ) ) {
 				// Determine if $value is a substring of an existing url, and if so, discard it
 				// This is because of the way Plagiabot currently stores reports in its database
 				// At some point, fix this in Plagiabot code instead of this hack here
-				$flag = false;
-				foreach ( $urls as $u ) {
-					if ( strpos( $u, $value ) !== false ) {
-						$flag = true;
+				$isSubstring = false;
+				foreach ( $uniqueCopyvioUrls as $u ) {
+					if ( strpos( $u, $foundUrl ) !== false ) {
+						$isSubstring = true;
 					}
 				}
-				if ( $flag === false ) {
-					$urls[] = $value;
+				if ( $isSubstring === false ) {
+					$uniqueCopyvioUrls[] = $foundUrl;
 				}
 			}
 		}
-		return $urls;
+		return $uniqueCopyvioUrls;
 	}
 }

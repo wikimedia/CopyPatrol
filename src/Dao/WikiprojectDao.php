@@ -35,7 +35,7 @@ class WikiprojectDao extends AbstractDao {
 	 * @param string $dsn PDO data source name
 	 * @param string $user Database user
 	 * @param string $pass Database password
-	 * @param int|bool $uid Authenticated user
+	 * @param string $wiki Wikipedia URL
 	 * @param array $settings Configuration settings
 	 * @param LoggerInterface $logger Log channel
 	 */

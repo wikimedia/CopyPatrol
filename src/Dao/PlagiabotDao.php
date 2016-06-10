@@ -35,7 +35,7 @@ class PlagiabotDao extends AbstractDao {
 	 * @param string $dsn PDO data source name
 	 * @param string $user Database user
 	 * @param string $pass Database password
-	 * @param int|bool $uid Authenticated user
+	 * @param string $wiki Wikipedia URL
 	 * @param array $settings Configuration settings
 	 * @param LoggerInterface $logger Log channel
 	 */
@@ -51,11 +51,11 @@ class PlagiabotDao extends AbstractDao {
 	 * @return array|false Data for plagiabot db records or false if no data is not returned
 	 */
 	public function getPlagiarismRecords( $n = 50 ) {
-		$limit = 'LIMIT ' . $n;
+//		$limit = 'LIMIT ' . $n;
 		$sql = self::concat(
 			'SELECT * FROM copyright_diffs',
 			'ORDER BY diff_timestamp DESC',
-			$limit
+			'LIMIT ' . $n
 		);
 		return $this->fetchAll( $sql );
 	}

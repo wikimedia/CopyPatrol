@@ -17,6 +17,7 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Niharika Kohli <nkohli@wikimedia.org>
+ * @author Bryan Davis <bdavis@wikimedia.org>
  * @copyright © 2016 Niharika Kohli and contributors.
  */
 namespace Plagiabot\Web;
@@ -54,7 +55,9 @@ class App extends AbstractApp {
 
 
 	/**
-	 * Configure inversion of control/dependency injection container.
+	 * Pre-prepare our class objects for use, with the appropriate parameters
+	 * They can now be accessed directly as, for example, $slim->oauthClient
+	 * anywhere which has access to the $slim object
 	 *
 	 * @param \Slim\Helper\Set $container IOC container
 	 */
@@ -121,9 +124,7 @@ class App extends AbstractApp {
 	 * @param \Slim\View $view Default view
 	 */
 	protected function configureView( \Slim\View $view ) {
-		$view->replace( [
-							'app' => $this->slim,
-						] );
+		$view->replace( [ 'app' => $this->slim, ] );
 		$view->parserExtensions = [
 			new \Slim\Views\TwigExtension()
 		];

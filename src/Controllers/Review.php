@@ -36,8 +36,7 @@ class Review extends Controller {
 	protected function handleGet() {
 		$id = $this->request->get( 'id' );
 		$val = $this->request->get( 'val' );
-		//$ret = $this->dao->insertCopyvioAssessment( $id, $val );
-		echo false;
-		return false;
+		$ret = $this->dao->insertCopyvioAssessment( $id, $val );
+		echo $ret;
 	}
 }

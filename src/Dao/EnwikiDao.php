@@ -35,7 +35,7 @@ class EnwikiDao extends AbstractDao {
 	 * @param string $dsn PDO data source name
 	 * @param string $user Database user
 	 * @param string $pass Database password
-	 * @param int|bool $uid Authenticated user
+	 * @param string $wiki Wikipedia URL
 	 * @param array $settings Configuration settings
 	 * @param LoggerInterface $logger Log channel
 	 */
@@ -78,9 +78,9 @@ class EnwikiDao extends AbstractDao {
 	 * We do an API query here because testing proved API query to be faster for looking up deleted page titles
 	 *
 	 * @param $title string Page title
-	 * @return true|false depending on page dead or alive
+	 * @return bool depending on page dead or alive
 	 */
-	public function checkDeadLink( $title ) {
+	public function isPageDead( $title ) {
 		if ( !$title ) {
 			return false;
 		}
