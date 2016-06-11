@@ -17,13 +17,18 @@ function saveState( id, val ) {
     $( buttonId ).removeClass( 'btn-' + buttonClass ).addClass( 'btn-' + buttonClass + '-clicked' ).blur();
     $( unusedButtonId ).removeClass( 'btn-' + unusedButtonClass ).addClass( 'btn-secondary' ).prop( 'disabled', 'disabled' ).blur();
 
-    $.get( 'addreview',
+    $.get( 'review/add',
         { id: id, val: val }
     ).done( function ( ret ) {
-            if ( ret == false ) {
+            console.log( ret );
+            if ( ret == 'false' ) {
                 $( buttonId ).addClass( 'btn-' + buttonClass ).removeClass( 'btn-' + buttonClass + '-clicked' ).blur();
                 $( unusedButtonId ).removeClass( 'btn-secondary' ).prop( 'disabled', false ).addClass( 'btn-' + unusedButtonClass );
                 alert( 'There was an error in connecting to database.' );
+            } else if ( ret == 'Unauthorized' ) {
+                alert( 'You need to be logged in to be able to review.' );
+                $( buttonId ).addClass( 'btn-' + buttonClass ).removeClass( 'btn-' + buttonClass + '-clicked' ).blur();
+                $( unusedButtonId ).removeClass( 'btn-secondary' ).prop( 'disabled', false ).addClass( 'btn-' + unusedButtonClass );
             }
         }
     );
