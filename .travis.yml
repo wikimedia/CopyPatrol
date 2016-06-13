@@ -11,5 +11,3 @@ matrix:
 sudo: false
 install:
   - composer install
-script:
-  - composer test
