@@ -1,6 +1,8 @@
 # PlagiabotWeb
 This is a web interface for [Plagiabot's Copyright RC feed](https://en.wikipedia.org/wiki/User:EranBot/Copyright/rc).
 
+[![Build Status](https://travis-ci.org/Niharika29/PlagiabotWeb.svg?branch=master)](https://travis-ci.org/Niharika29/PlagiabotWeb)
+
 #### To test locally:
 1. Run `composer install` and `composer update` after cloning the repository
 2. Setup your .env file with the following params:
