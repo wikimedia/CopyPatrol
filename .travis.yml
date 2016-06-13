@@ -8,6 +8,7 @@ php:
 matrix:
   allow_failures:
     - php: 'hhvm' # https://github.com/facebook/hhvm/issues/5836
+    - php: '5.4' # Does not support latest codesniffer release
 sudo: false
 install:
   - composer install
