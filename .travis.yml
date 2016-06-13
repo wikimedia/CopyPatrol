@@ -13,3 +13,4 @@ install:
   - composer install
 script:
   - phpunit
+  - vendor/bin/parallel-lint --exclude vendor .

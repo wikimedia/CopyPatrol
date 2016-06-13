@@ -8,19 +8,18 @@
       "Plagiabot\\Web\\": "src/"
     },
     "require-dev": {
-      "jakub-onderka/php-parallel-lint": "0.9.*",
-      "mediawiki/mediawiki-codesniffer": "0.5.1",
       "phpunit/phpunit": "~4.8"
     },
     "scripts": {
-      "lint": "parallel-lint . --exclude vendor",
       "phpcs": "phpcs $PHPCS_ARGS",
       "fix": "phpcbf",
       "test": [
-        "composer lint",
-        "phpunit $PHPUNIT_ARGS",
         "composer phpcs"
       ]
     }
+  },
+  "require-dev": {
+    "jakub-onderka/php-parallel-lint": "^0.9.2",
+    "mediawiki/mediawiki-codesniffer": "^0.7.2"
   }
 }
