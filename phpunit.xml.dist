@@ -6,8 +6,13 @@
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
          verbose="true">
+    <testsuites>
+        <testsuite name="Copypatrol">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
     <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true">
+        <whitelist>
             <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>

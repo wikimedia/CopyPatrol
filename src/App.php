@@ -173,7 +173,7 @@ class App extends AbstractApp {
 		$slim->group( '/review/',
 			function () use ( $slim ) {
 				$slim->get( 'add', function () use ( $slim ) {
-					// @TODO: Ideally the authentication step should be taken care of by a middleware
+					// TODO: Ideally the authentication step should be taken care of by a middleware
 					// but I haven't found a way to make it work with AJAX requests so far
 					if ( $slim->authManager->isAuthenticated() ) {
 						$page = new Controllers\Review( $slim );
@@ -206,24 +206,22 @@ class App extends AbstractApp {
 	 *
 	 * @return \Wikimedia\Slimapp\HeaderMiddleware
 	 */
-	protected function setHeaderMiddleware() {
-		return new HeaderMiddleware(
-			array(
-				'Vary' => 'Cookie',
-				'X-Frame-Options' => 'DENY',
-				'Content-Security-Policy' =>
-					"default-src 'self' *; " .
-					"frame-src 'none'; " .
-					"object-src 'none'; " .
-					// Needed for css data:... sprites
-					"img-src 'self' data:; " .
-					// Needed for jQuery and Modernizr feature detection
-					"style-src 'self' * 'unsafe-inline';" .
-					"script-src 'self' * 'unsafe-exec' 'unsafe-inline'",
-				// Don't forget to override this for any content that is not
-				// actually HTML (e.g. json)
-				'Content-Type' => 'text/html; charset=UTF-8',
-			)
+	protected function configureHeaderMiddleware() {
+		return array(
+			'Vary' => 'Cookie',
+			'X-Frame-Options' => 'DENY',
+			'Content-Security-Policy' =>
+				"default-src 'self' *; " .
+				"frame-src 'none'; " .
+				"object-src 'none'; " .
+				// Needed for css data:... sprites
+				"img-src 'self' data:; " .
+				// Needed for jQuery and Modernizr feature detection
+				"style-src 'self' * 'unsafe-inline';" .
+				"script-src 'self' * 'unsafe-exec' 'unsafe-inline'",
+			// Don't forget to override this for any content that is not
+			// actually HTML (e.g. json)
+			'Content-Type' => 'text/html; charset=UTF-8',
 		);
 	}
 

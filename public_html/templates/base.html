@@ -37,11 +37,11 @@
         {% endif %}
     </div>
     {% block banners %}
-        <div class="alert alert-success alert-dismissable">
+        <div class="alert alert-warning alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>Hello!</strong> This is a web-version of Plagiabot. Database writes for this tool are disabled at
-            the moment. Feel free to play around and log your complaints, feature requests and appreciations
-            <a href="https://en.wikipedia.org/wiki/User_talk:EranBot/Copyright/rc">here</a>.
+            <strong>Hello!</strong> This is a web-version of Plagiabot. Database writes for this tool are <b>now
+                enabled</b>. You can start conducting reviews after you log in. You can drop your feedback
+            <a href="https://en.wikipedia.org/wiki/User_talk:EranBot/Copyright/rc"> here</a>.
         </div>
         {% block flashes %}
             {% if flash|default(false) %}

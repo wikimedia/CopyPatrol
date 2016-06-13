@@ -19,24 +19,3 @@
  * @author Niharika Kohli <nkohli@wikimedia.org>
  * @copyright © 2016 Niharika Kohli and contributors.
  */
-namespace Plagiabot\Web\Controllers;
-
-use Wikimedia\Slimapp\Controller;
-
-class Review extends Controller {
-
-	/**
-	 * @param \Slim\Slim $slim Slim application
-	 */
-	public function __construct( \Slim\Slim $slim = null ) {
-		parent::__construct( $slim );
-	}
-
-
-	protected function handleGet() {
-		$id = $this->request->get( 'id' );
-		$val = $this->request->get( 'val' );
-		$ret = $this->dao->insertCopyvioAssessment( $id, $val );
-		echo $ret;
-	}
-}
