@@ -11,3 +11,5 @@ matrix:
 sudo: false
 install:
   - composer install
+script:
+  - phpunit

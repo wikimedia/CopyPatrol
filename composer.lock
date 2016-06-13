@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8e82976709bee4383bc855b4adf62fb8",
+    "hash": "9a4a25946f493656cfaf89e6e40a9e5a",
     "content-hash": "0af5582eb7b26ff692aad05c20141314",
     "packages": [
         {
@@ -500,12 +500,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/wikimedia/wikimedia-slimapp.git",
-                "reference": "f378e80b8160732cd76e2eeb16a5532586e281fe"
+                "reference": "9ac5b4f6a03ed4114763c8c99accd19afc08a91c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikimedia/wikimedia-slimapp/zipball/f378e80b8160732cd76e2eeb16a5532586e281fe",
-                "reference": "f378e80b8160732cd76e2eeb16a5532586e281fe",
+                "url": "https://api.github.com/repos/wikimedia/wikimedia-slimapp/zipball/9ac5b4f6a03ed4114763c8c99accd19afc08a91c",
+                "reference": "9ac5b4f6a03ed4114763c8c99accd19afc08a91c",
                 "shasum": ""
             },
             "require": {
@@ -545,7 +545,7 @@
             ],
             "description": "Common classes to help with creating an application using the Slim micro framework and Twig template engine.",
             "homepage": "https://github.com/wikimedia/wikimedia-slimapp",
-            "time": "2016-05-02 14:45:49"
+            "time": "2016-06-10 17:27:10"
         }
     ],
     "packages-dev": [],
