@@ -99,8 +99,8 @@
 .compare-pane {
     width: 95%;
     margin: 2px auto;
-    height: 160px;
-    border: 1px solid dimgrey;
+    height: 300px;
+    border: 2px double dimgrey;
     text-align: justify;
     display: none;
     justify-content: space-between;
@@ -110,7 +110,7 @@
     width: 49.8%;
     display: inline-block;
     margin: 0 auto;
-    height: inherit;
+    height: 98%;
     padding: 8px;
     overflow: scroll;
 }
@@ -178,4 +178,17 @@ h1 {
 a[href=''] {
     color: inherit;
     pointer-events: none;
+}
+
+/* CSS for compare panels, like Earwig's tool */
+span.cv-hl {
+    background: #FFC264;
+}
+
+span.cv-hl-in {
+    background: linear-gradient(to left, #FFC264, #FFF);
+}
+
+span.cv-hl-out {
+    background: linear-gradient(to right, #FFC264, #FFF);
 }

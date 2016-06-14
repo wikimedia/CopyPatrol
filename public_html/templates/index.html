@@ -104,8 +104,12 @@
 							</button>
 							<a href="{{ copy }}" target="_blank">{{ copy }}</a><br/>
 							<div class="compare-pane" id="{{ 'comp' ~ row.ithenticate_id ~ '-' ~ loop.index }}">
-								<div class="compare-pane-left"><span class="text-muted">Loading...</span></div>
-								<div class="compare-pane-right"><span class="text-muted">Loading...</span></div>
+								<div class="compare-pane-left">
+									<span class="text-muted">Loading article revision...</span>
+								</div>
+								<div class="compare-pane-right">
+									<span class="text-muted">Loading copyvio source...</span>
+								</div>
 							</div>
 						</div>
 					{% endfor %}

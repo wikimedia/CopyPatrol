@@ -36,26 +36,24 @@ class Review extends CopyPatrol {
 	protected function handleGet() {
 		$id = $this->request->get( 'id' );
 		$val = $this->request->get( 'val' );
-
 		$userData = $this->authManager->getUserData();
 		$user = $userData ? $userData->getName() : NULL;
-
 		// Get current UTC time as ISO 8601 timestamp.
 		$timestamp = gmdate( 'c' );
-
 		$ret = $this->dao->insertCopyvioAssessment( $id, $val, $user, $timestamp );
-
 		// Return JSON with username and review timestamp if review was successful
 		if ( $ret === true ) {
-			echo json_encode( array(
-				'user' => $user,
-				'userpage' => $this->getUserPage( $user ),
-				'timestamp' => $this->formatTimestamp( $timestamp )
-			) );
+			echo json_encode(
+				array(
+					'user' => $user,
+					'userpage' => $this->getUserPage( $user ),
+					'timestamp' => $this->formatTimestamp( $timestamp )
+				) );
 		} else {
-			echo json_encode( array(
-				'error' => $ret
-			));
+			echo json_encode(
+				array(
+					'error' => 'false'
+				) );
 		}
 	}
 }

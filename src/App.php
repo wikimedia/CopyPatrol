@@ -180,7 +180,7 @@ class App extends AbstractApp {
 						$page->setDao( $slim->plagiabotDao );
 						$page();
 					} else {
-						echo 'Unauthorized';
+						echo json_encode( array( 'error' => 'Unauthorized' ) );
 					}
 				} )->name( 'add_review' );
 			} );
