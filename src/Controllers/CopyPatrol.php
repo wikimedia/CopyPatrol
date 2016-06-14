@@ -91,7 +91,7 @@ class CopyPatrol extends Controller {
 		foreach ( $records as $key => $record ) {
 			$editor = $this->enwikiDao->getUserDetails( $record['diff'] );
 			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );
-			$records[$key]['diff'] = $this->getDiffLink( $record['page_title'], $record['diff'] );
+			$records[$key]['diff_link'] = $this->getDiffLink( $record['page_title'], $record['diff'] );
 			$records[$key]['page_link'] = $this->getPageLink( $record['page_title'] );
 			$records[$key]['turnitin_report'] = $this->getReportLink( $record['ithenticate_id'] );
 			$records[$key]['copyvios'] = $this->getCopyvioUrls( $record['report'] );

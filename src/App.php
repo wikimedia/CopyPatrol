@@ -212,8 +212,8 @@ class App extends AbstractApp {
 			'X-Frame-Options' => 'DENY',
 			'Content-Security-Policy' =>
 				"default-src 'self' *; " .
-				"frame-src 'none'; " .
-				"object-src 'none'; " .
+				"frame-src 'self'; " .
+				"object-src 'self'; " .
 				// Needed for css data:... sprites
 				"img-src 'self' data:; " .
 				// Needed for jQuery and Modernizr feature detection

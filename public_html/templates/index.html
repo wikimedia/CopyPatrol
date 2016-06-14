@@ -9,7 +9,7 @@
                           class={{ row.page_dead ? 'text-danger' : '' }}>{{ row.page_title }}</a></b>
                 </div>
                 <div class="row-div col-sm-1 text-center diff-div">
-                    <a href='{{ row.diff }}' target="_blank">Diff</a><br>
+                    <a href='{{ row.diff_link }}' target="_blank">Diff</a><br>
                     <small>
                         <span>{{ row.diff_timestamp }}</span>
                     </small>
@@ -78,19 +78,16 @@
                 </a><br>
                 {% if row.copyvios is not empty %}
                     {% for copy in row.copyvios %}
-                        <button class="btn btn-xs btn-primary dropdown-toggle compare-button" onclick="">
-                            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                            Compare
-                        </button>
-                        <a href="{{ copy }}" target="_blank">{{ copy }}</a><br/>
-                        <div class="compare-div" id="{{ 'comp' }}">
-                            <div class="compare-edit compare-pane">
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                dolor.
-                            </div>
-                            <div class="compare-website compare-pane">
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                dolor.
+                        <div class="compare-div">
+                            <button class="btn btn-xs btn-primary dropdown-toggle compare-button"
+                                    onclick="toggleComparePane( {{ row.ithenticate_id }}, {{ loop.index }}, '{{ copy }}', {{ row.diff }} )">
+                                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                Compare
+                            </button>
+                            <a href="{{ copy }}" target="_blank">{{ copy }}</a><br/>
+                            <div class="compare-pane" id="{{ 'comp' ~ row.ithenticate_id ~ '-' ~ loop.index }}">
+                                <div class="compare-pane-left"><span class="text-muted">Loading...</span></div>
+                                <div class="compare-pane-right"><span class="text-muted">Loading...</span></div>
                             </div>
                         </div>
                     {% endfor %}
