@@ -34,13 +34,13 @@ function saveState( id, val ) {
 			$reviewerNode.find( '.reviewer-timestamp' ).text( ret.timestamp );
 			$reviewerNode.fadeIn( 'slow' );
 			$( unusedButtonId ).removeClass( 'btn-secondary' ).prop( 'disabled', true ).addClass( 'btn-' + unusedButtonClass );
+			$( buttonId ).addClass( 'btn-' + buttonClass ).removeClass( 'btn-' + buttonClass + '-clicked' ).blur();
+			$( unusedButtonId ).removeClass( 'btn-secondary' ).prop( 'disabled', false ).addClass( 'btn-' + unusedButtonClass );
 		} else if ( ret.error === 'Unauthorized' ) {
 			alert( 'You need to be logged in to be able to review.' );
 		} else {
 			alert( 'There was an error in connecting to database.' );
 		}
-		$( buttonId ).addClass( 'btn-' + buttonClass ).removeClass( 'btn-' + buttonClass + '-clicked' ).blur();
-		$( unusedButtonId ).removeClass( 'btn-secondary' ).prop( 'disabled', false ).addClass( 'btn-' + unusedButtonClass );
 	} );
 }
 
