@@ -108,6 +108,11 @@ class CopyPatrol extends Controller {
 				$records[$key]['editor_page_dead'] = false;
 				$records[$key]['editor_talk_dead'] = false;
 			}
+			$records[$key]['reviewed'] = $record['status_user'] ? true : false;
+			if ( $records[$key]['reviewed'] ) {
+				$records[$key]['reviewed_by_url'] = $this->getUserPage( $record['status_user'] );
+				$records[$key]['review_timestamp'] = $this->formatTimestamp( $record['review_timestamp'] );
+			}
 			$records[$key]['wikiprojects'] = $this->wikiprojectDao->getWikiProjects( $record['page_title'] );
 			$records[$key]['page_title'] = $this->removeUnderscores( $record['page_title'] );
 			$cleanWikiprojects = array();
@@ -156,7 +161,7 @@ class CopyPatrol extends Controller {
 	 */
 	public function formatTimestamp( $datetime ) {
 		$datetime = strtotime( $datetime );
-		return date( 'd-m-y h:m:s', $datetime );
+		return date( 'Y-m-d h:m', $datetime );
 	}
 
 
