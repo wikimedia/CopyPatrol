@@ -2,7 +2,7 @@
 {% import _self as macros %}
 
 {% macro reviewer_node( row ) %}
-	<div class="status-div-reviewer{{ row.reviewed ? '': ' none' }} status-div-reviewer-{{ row.ithenticate_id }}">
+	<div class="status-div-reviewer{{ row.status_user ? '': ' none' }} status-div-reviewer-{{ row.ithenticate_id }}">
 		<small>Reviewed by
 			<span>
 				<a class="reviewer-link" href="{{ row.reviewed_by_url }}" target="_blank">{{ row.status_user }}</a>

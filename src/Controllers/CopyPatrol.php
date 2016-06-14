@@ -108,8 +108,7 @@ class CopyPatrol extends Controller {
 				$records[$key]['editor_page_dead'] = false;
 				$records[$key]['editor_talk_dead'] = false;
 			}
-			$records[$key]['reviewed'] = $record['status_user'] ? true : false;
-			if ( $records[$key]['reviewed'] ) {
+			if ( $records[$key]['status_user'] ) {
 				$records[$key]['reviewed_by_url'] = $this->getUserPage( $record['status_user'] );
 				$records[$key]['review_timestamp'] = $this->formatTimestamp( $record['review_timestamp'] );
 			}
