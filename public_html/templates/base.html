@@ -2,89 +2,89 @@
 
 <html lang="en">
 <head>
-    <title>CopyPatrol</title>
-    {% block stylesheets %}
-        <link href="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css"
-              rel="stylesheet">
-        <link href="{{ siteUrl('css/index.css') }}" type="text/css" rel="stylesheet"/>
-    {% endblock %}
-    {% block scripts %}
-        <script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/1.12.0/jquery.min.js"
-                type="text/javascript"></script>
-        <script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"
-                type="text/javascript"></script>
-        <script src="{{ siteUrl('js/index.js') }}" type="text/javascript"></script>
-        <script type="text/javascript">
-            $( document ).ready( function () {
-                $( '[data-toggle="tooltip"]' ).tooltip();
-            } );
-        </script>
-    {% endblock %}
+	<title>CopyPatrol</title>
+	{% block stylesheets %}
+		<link href="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css"
+		      rel="stylesheet"/>
+		<link href="{{ siteUrl('css/index.css') }}" type="text/css" rel="stylesheet"/>
+	{% endblock %}
+	{% block scripts %}
+		<script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/1.12.0/jquery.min.js"
+		        type="text/javascript"></script>
+		<script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"
+		        type="text/javascript"></script>
+		<script src="{{ siteUrl('js/index.js') }}" type="text/javascript"></script>
+		<script type="text/javascript">
+			$( document ).ready( function () {
+				$( '[data-toggle="tooltip"]' ).tooltip();
+			} );
+		</script>
+	{% endblock %}
 </head>
 <body>
 <div id="body">
-    <div id="top-banner">
-        <h1>CopyPatrol</h1>
-        {% if user %}
-            <a href='{{ urlFor( 'logout' ) }}' id="login-btn" class="btn btn-sm btn-default">
-                <span class=" glyphicon glyphicon-log-in"></span> Logout <br>
-                <small>You are logged in as {{ user.name }}</small>
-            </a>
-        {% else %}
-            <a href='{{ urlFor( 'oauth_init' ) }}' id="login-btn" class="btn btn-sm btn-default">
-                <span class=" glyphicon glyphicon-log-in"></span> Login
-            </a>
-        {% endif %}
-    </div>
-    {% block banners %}
-        <div class="alert alert-warning alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>Hello!</strong> This is a web-version of Plagiabot. Database writes for this tool are <b>now
-                enabled</b>. You can start conducting reviews after you log in. You can drop your feedback
-            <a href="https://en.wikipedia.org/wiki/User_talk:EranBot/Copyright/rc"> here</a>.
-        </div>
-        {% block flashes %}
-            {% if flash|default(false) %}
-                {% if flash.error|default(false) %}
-                    <div class="alert alert-danger alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        {{ flash.error }}
-                    </div>
-                {% endif %}
-                {% if flash.success|default(false) %}
-                    <div class="alert alert-success alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        {{ flash.info }}
-                    </div>
-                {% endif %}
-                {% if flash.warning|default(false) %}
-                    <div class="alert alert-warning alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        {{ flash.info }}
-                    </div>
-                {% endif %}
-                {% if flash.info|default(false) %}
-                    <div class="alert alert-info alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        {{ flash.info }}
-                    </div>
-                {% endif %}
-            {% endif %}
-        {% endblock flashes %}
-    {% endblock %}
-    {% block rowheader %}
-        <div class="header-div container-fluid">
-            <div class="header-col col-sm-3 text-center">Page</div>
-            <div class="header-col col-sm-1 text-center">Diff</div>
-            <div class="header-col col-sm-2 text-center">Editor</div>
-            <div class="header-col col-sm-3 text-center">Wikiprojects</div>
-            <div class="header-col col-sm-2 text-center">Review</div>
-        </div>
-    {% endblock %}
-    <div class="record-container">
-        {% block records %}
-        {% endblock %}
-    </div>
+	<div id="top-banner">
+		<h1>CopyPatrol</h1>
+		{% if user %}
+			<a href='{{ urlFor( 'logout' ) }}' id="login-btn" class="btn btn-sm btn-default">
+				<span class=" glyphicon glyphicon-log-in"></span> Logout <br>
+				<small>You are logged in as {{ user.name }}</small>
+			</a>
+		{% else %}
+			<a href='{{ urlFor( 'oauth_init' ) }}' id="login-btn" class="btn btn-sm btn-default">
+				<span class=" glyphicon glyphicon-log-in"></span> Login
+			</a>
+		{% endif %}
+	</div>
+	{% block banners %}
+		<div class="alert alert-warning alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<strong>Hello!</strong> This is a web-version of Plagiabot. Database writes for this tool are <b>now
+				enabled</b>. You can start conducting reviews after you log in. You can drop your feedback
+			<a href="https://en.wikipedia.org/wiki/User_talk:EranBot/Copyright/rc"> here</a>.
+		</div>
+		{% block flashes %}
+			{% if flash|default(false) %}
+				{% if flash.error|default(false) %}
+					<div class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						{{ flash.error }}
+					</div>
+				{% endif %}
+				{% if flash.success|default(false) %}
+					<div class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						{{ flash.info }}
+					</div>
+				{% endif %}
+				{% if flash.warning|default(false) %}
+					<div class="alert alert-warning alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						{{ flash.info }}
+					</div>
+				{% endif %}
+				{% if flash.info|default(false) %}
+					<div class="alert alert-info alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						{{ flash.info }}
+					</div>
+				{% endif %}
+			{% endif %}
+		{% endblock flashes %}
+	{% endblock %}
+	{% block rowheader %}
+		<div class="header-div container-fluid">
+			<div class="header-col col-sm-3 text-center">Page</div>
+			<div class="header-col col-sm-1 text-center">Diff</div>
+			<div class="header-col col-sm-2 text-center">Editor</div>
+			<div class="header-col col-sm-3 text-center">Wikiprojects</div>
+			<div class="header-col col-sm-2 text-center">Review</div>
+		</div>
+	{% endblock %}
+	<div class="record-container">
+		{% block records %}
+		{% endblock %}
+	</div>
 </div>
 </body>
 </html>
