@@ -22,8 +22,8 @@
 	{% endblock %}
 </head>
 <body>
-<div id="body">
-	<div id="top-banner">
+<main id="body">
+	<section id="top-banner">
 		<h1>CopyPatrol</h1>
 		{% if user %}
 			<a href='{{ urlFor( 'logout' ) }}' id="login-btn" class="btn btn-sm btn-default">
@@ -35,56 +35,78 @@
 				<span class=" glyphicon glyphicon-log-in"></span> Login
 			</a>
 		{% endif %}
-	</div>
+	</section>
 	{% block banners %}
-		<div class="alert alert-warning alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<strong>Hello!</strong> This is a web-version of Plagiabot. Database writes for this tool are <b>now
-				enabled</b>. You can start conducting reviews after you log in. You can drop your feedback
-			<a href="https://en.wikipedia.org/wiki/User_talk:EranBot/Copyright/rc"> here</a>.
-		</div>
-		{% block flashes %}
-			{% if flash|default(false) %}
-				{% if flash.error|default(false) %}
-					<div class="alert alert-danger alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						{{ flash.error }}
-					</div>
+		<section class="banners">
+			<div class="alert alert-warning alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<strong>Hello!</strong> This is a web-version of Plagiabot. Database writes for this tool are <b>now
+					enabled</b>. You can start conducting reviews after you log in. You can drop your feedback
+				<a href="https://en.wikipedia.org/wiki/User_talk:EranBot/Copyright/rc"> here</a>.
+			</div>
+			{% block flashes %}
+				{% if flash|default(false) %}
+					{% if flash.error|default(false) %}
+						<div class="alert alert-danger alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							{{ flash.error }}
+						</div>
+					{% endif %}
+					{% if flash.success|default(false) %}
+						<div class="alert alert-success alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							{{ flash.success }}
+						</div>
+					{% endif %}
+					{% if flash.warning|default(false) %}
+						<div class="alert alert-warning alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							{{ flash.warning }}
+						</div>
+					{% endif %}
+					{% if flash.info|default(false) %}
+						<div class="alert alert-info alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							{{ flash.info }}
+						</div>
+					{% endif %}
 				{% endif %}
-				{% if flash.success|default(false) %}
-					<div class="alert alert-success alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						{{ flash.info }}
-					</div>
-				{% endif %}
-				{% if flash.warning|default(false) %}
-					<div class="alert alert-warning alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						{{ flash.info }}
-					</div>
-				{% endif %}
-				{% if flash.info|default(false) %}
-					<div class="alert alert-info alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						{{ flash.info }}
-					</div>
-				{% endif %}
-			{% endif %}
-		{% endblock flashes %}
+			{% endblock flashes %}
+		</section>
 	{% endblock %}
-	{% block rowheader %}
-		<div class="header-div container-fluid">
-			<div class="header-col col-sm-3 text-center">Page</div>
-			<div class="header-col col-sm-1 text-center">Diff</div>
-			<div class="header-col col-sm-2 text-center">Editor</div>
-			<div class="header-col col-sm-3 text-center">Wikiprojects</div>
-			<div class="header-col col-sm-2 text-center">Review</div>
-		</div>
-	{% endblock %}
-	<div class="record-container">
-		{% block records %}
+
+	<section class="filters container-fluid">
+		<form>
+			<fieldset class="form-group filters-fieldset">
+				{% for type, description in filterTypes %}
+					<span class="radio-inline">
+						<label>
+							<input type="radio" name="filter" value="{{ type }}"
+								{% if filter == type %}checked="checked"{% endif %}
+							/> {{ description }}
+						</label>
+					</span>
+				{% endfor %}
+				<button type="submit" class="btn btn-primary btn-sm btn-submit-filters">Submit</button>
+			</fieldset>
+		</form>
+	</section>
+
+	<section class="records">
+		{% block rowheader %}
+			<div class="header-div container-fluid">
+				<div class="header-col col-sm-3 text-center">Page</div>
+				<div class="header-col col-sm-1 text-center">Diff</div>
+				<div class="header-col col-sm-2 text-center">Editor</div>
+				<div class="header-col col-sm-3 text-center">Wikiprojects</div>
+				<div class="header-col col-sm-2 text-center">Review</div>
+			</div>
 		{% endblock %}
-	</div>
-</div>
+		<div class="record-container">
+			{% block records %}
+			{% endblock %}
+		</div>
+	</section>
+</main>
 </body>
 </html>

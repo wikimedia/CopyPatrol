@@ -87,7 +87,44 @@ class CopyPatrol extends Controller {
 	 * editor_talk_dead: Bool. Is editor talk page non-existent?
 	 */
 	protected function handleGet() {
-		$records = $this->dao->getPlagiarismRecords();
+		$userData = $this->authManager->getUserData();
+		$currentUser = $userData ? $userData->getName() : NULL;
+		$filter = 'open'; // this will be the default
+		$filterUser = NULL;
+
+		// set filter types and descriptions that will be rendered as checkboxes in the view
+		$filterTypes = array(
+			'all' => 'All cases',
+			'open' => 'Open cases',
+			'fixed' => 'All "page fixed" cases',
+			'noaction' => 'All "no action needed" cases'
+		);
+		// add 'My reviews' to filter options if user is logged in
+		if ( isset( $currentUser ) ) {
+			$filterTypes['mine'] = 'My reviews';
+		}
+
+		// use given filter if set, or the default 'open' if filter is 'mine' and user is logged out
+		if ( isset( $_GET['filter'] ) ) {
+			if ( $_GET['filter'] === 'mine' ) {
+				if ( isset( $currentUser ) ) {
+					$filter = 'mine';
+					$filterUser = $currentUser;
+				} else {
+					$this->flashNow( 'warning', 'You must be logged in to view your own reviews.' );
+				}
+			} else {
+				$filterTypeKeys = array_keys( $filterTypes );
+				if ( in_array( $_GET['filter'], $filterTypeKeys ) ) {
+					$filter = $_GET['filter'];
+				} else {
+					$this->flashNow( 'error', 'Invalid filter. Values must be one of: ' . join( $filterTypeKeys, ', ' ) );
+				}
+			}
+		}
+
+		$records = $this->dao->getPlagiarismRecords( 50, $filter, $filterUser );
+
 		foreach ( $records as $key => $record ) {
 			$editor = $this->enwikiDao->getUserDetails( $record['diff'] );
 			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );
@@ -121,7 +158,10 @@ class CopyPatrol extends Controller {
 			}
 			$records[$key]['wikiprojects'] = $cleanWikiprojects;
 		}
+
 		$this->view->set( 'records', $records );
+		$this->view->set( 'filter', $filter );
+		$this->view->set( 'filterTypes', $filterTypes );
 		$this->render( 'index.html' );
 	}
 
