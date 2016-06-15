@@ -48,12 +48,40 @@ class PlagiabotDao extends AbstractDao {
 
 	/**
 	 * @param int $n Number of records asked for
+	 * @param string $filter Filter SQL to show a certian status, one of 'all', 'fixed', 'noaction', 'open' or 'mine'
+	 * @param string $filterUser Filter SQL to only return records reviewed by given user
 	 * @return array|false Data for plagiabot db records or false if no data is not returned
 	 */
-	public function getPlagiarismRecords( $n = 50 ) {
-//		$limit = 'LIMIT ' . $n;
+	public function getPlagiarismRecords( $n = 50, $filter = 'all', $filterUser = NULL ) {
+		$filters = array();
+		$filterSql = '';
+
+		// ensures only valid filters are used
+		switch ( $filter ) {
+			case 'fixed':
+				$filters[] = "status = 'fixed'";
+				break;
+			case 'noaction':
+				$filters[] = "status = 'false'";
+				break;
+			case 'open':
+				$filters[] = "status IS NULL";
+				break;
+		}
+
+		// allow filtering by user and status
+		if ( isset( $filterUser ) ) {
+			$filters[] = "status_user = '$filterUser'";
+		}
+
+		// construct necessary SQL based on filters
+		if ( !empty( $filters ) ) {
+			$filterSql = 'WHERE ' . join( ' AND ', $filters );
+		}
+
 		$sql = self::concat(
 			'SELECT * FROM copyright_diffs',
+			$filterSql,
 			'ORDER BY diff_timestamp DESC',
 			'LIMIT ' . $n
 		);

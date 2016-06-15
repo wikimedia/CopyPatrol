@@ -68,6 +68,7 @@
     padding: 5px;
     align-items: center;
     border-bottom: 2px solid black;
+    border-top: 2px solid black;
 }
 
 .header-col {
@@ -153,11 +154,11 @@
 
 #top-banner {
     text-align: center;
+    margin-bottom: 20px; /* prevent header from overlapping subsequent section */
     /*border: 1px solid deepskyblue;*/
 }
 
 h1 {
-    width: 300px;
     margin: 5px auto;
     /*border: 1px solid green;*/
     display: inline-block;
@@ -190,4 +191,16 @@ span.cv-hl-in {
 
 span.cv-hl-out {
     background: linear-gradient(to right, #FFC264, #FFF);
+}
+
+.filter-legend {
+    margin-bottom: 10px;
+}
+
+.btn-submit-filters {
+    margin-left: 10px;
+}
+
+.filters-fieldset {
+    text-align: center;
 }
