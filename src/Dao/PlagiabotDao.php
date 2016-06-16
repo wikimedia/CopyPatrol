@@ -55,9 +55,9 @@ class PlagiabotDao extends AbstractDao {
 	public function getPlagiarismRecords( $n = 50, $options ) {
 		$filters = array();
 		$filterSql = '';
-		$lastId = $options['last_id'];
-		$filter = $options['filter'];
-		$filterUser = $options['filer_user'];
+		$lastId = isset( $options['last_id'] ) ? $options['last_id'] : null;
+		$filter = isset( $options['filter'] ) ? $options['filter'] : 'all';
+		$filterUser = isset( $options['filter_user'] ) ? $options['filter_user'] : null;
 		// ensures only valid filters are used
 		switch ( $filter ) {
 			case 'fixed':
