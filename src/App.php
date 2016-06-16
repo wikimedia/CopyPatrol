@@ -161,6 +161,11 @@ class App extends AbstractApp {
 					$page->setDao( $slim->plagiabotDao );
 					$page->setEnwikiDao( $slim->enwikiDao );
 					$page->setWikiprojectDao( $slim->wikiprojectDao );
+
+					// determine if we are on the staging environment, so we can show a banner in the view
+					$rootUri = $slim->request->getRootUri();
+					$slim->view->set( 'staging', preg_match( '/\/plagiabot/', $rootUri ) );
+
 					$page();
 				} )->name( 'home' );
 				$slim->get( 'login', function () use ( $slim ) {

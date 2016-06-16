@@ -123,6 +123,7 @@ class CopyPatrol extends Controller {
 			$records[$key]['wikiprojects'] = $cleanWikiprojects;
 		}
 		$this->view->set( 'records', $records );
+
 		$this->render( 'index.html' );
 	}
 
