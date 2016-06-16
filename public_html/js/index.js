@@ -84,3 +84,21 @@ function toggleComparePane( id, index, copyvio, diffId ) {
 		} );
 	}
 }
+
+
+function loadMoreResults() {
+	$( '#btn-load-more' ).text( '' ).addClass( 'btn-loading' );
+	var lastId = $( '.ithenticate-id:last' ).text();
+	console.log( lastId );
+	$.ajax( {
+		url: 'copypatrol/loadmore',
+		data: {
+			lastId: lastId
+		}
+	} ).done( function ( ret ) {
+		$( '#btn-load-more' ).text( 'Load More' ).removeClass( 'btn-loading' );
+		$newRecords = $( ret ).find( '.record-container' );
+		console.log( $newRecords );
+		$( '.record-container' ).append( $newRecords.html() );
+	} );
+}

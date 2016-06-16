@@ -86,12 +86,15 @@ class CopyPatrol extends Controller {
 	 * editor_page_dead: Bool. Is editor page non-existent?
 	 * editor_talk_dead: Bool. Is editor talk page non-existent?
 	 */
-	protected function handleGet() {
+	protected function handleGet( $lastId = 0 ) {
+		$options = array();
+		if ( $lastId > 0 ) {
+			$options['last_id'] = $lastId;
+		}
 		$userData = $this->authManager->getUserData();
 		$currentUser = $userData ? $userData->getName() : NULL;
 		$filter = 'open'; // this will be the default
 		$filterUser = NULL;
-
 		// set filter types and descriptions that will be rendered as checkboxes in the view
 		$filterTypes = array(
 			'all' => 'All cases',
@@ -103,7 +106,6 @@ class CopyPatrol extends Controller {
 		if ( isset( $currentUser ) ) {
 			$filterTypes['mine'] = 'My reviews';
 		}
-
 		// use given filter if set, or the default 'open' if filter is 'mine' and user is logged out
 		if ( isset( $_GET['filter'] ) ) {
 			if ( $_GET['filter'] === 'mine' ) {
@@ -122,9 +124,7 @@ class CopyPatrol extends Controller {
 				}
 			}
 		}
-
-		$records = $this->dao->getPlagiarismRecords( 50, $filter, $filterUser );
-
+		$records = $this->dao->getPlagiarismRecords( 50, $filter, $filterUser, $options );
 		foreach ( $records as $key => $record ) {
 			$editor = $this->enwikiDao->getUserDetails( $record['diff'] );
 			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );
@@ -158,7 +158,6 @@ class CopyPatrol extends Controller {
 			}
 			$records[$key]['wikiprojects'] = $cleanWikiprojects;
 		}
-
 		$this->view->set( 'records', $records );
 		$this->view->set( 'filter', $filter );
 		$this->view->set( 'filterTypes', $filterTypes );

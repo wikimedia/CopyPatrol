@@ -18,8 +18,9 @@
 			<div class="row-container">
 				<div class="container-fluid">
 					<div class="row-div col-sm-3 page-div">
-						<b><a href='{{ row.page_link }}' target="_blank"
-						      class={{ row.page_dead ? 'text-danger' : '' }}>{{ row.page_title }}</a></b>
+						<b><a href='{{ row.page_link }}' target="_blank" class={{ row.page_dead ? 'text-danger' : '' }}>
+								{{ row.page_title }}
+							</a></b>
 					</div>
 					<div class="row-div col-sm-1 text-center diff-div">
 						<a href='{{ row.diff_link }}' target="_blank">Diff</a><br>
@@ -89,6 +90,7 @@
 					</div>
 				</div>
 			</div>
+			<div class="ithenticate-id">{{ row.ithenticate_id }}</div>
 			<div class="compare-links-container">
 				<a class="btn btn-xs btn-primary compare-button" href='{{ row.turnitin_report }}' target="_blank">
 					<span class="glyphicon glyphicon-new-window"></span>

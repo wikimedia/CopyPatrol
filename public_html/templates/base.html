@@ -82,7 +82,7 @@
 					<span class="radio-inline">
 						<label>
 							<input type="radio" name="filter" value="{{ type }}"
-								{% if filter == type %}checked="checked"{% endif %}
+							       {% if filter == type %}checked="checked"{% endif %}
 							/> {{ description }}
 						</label>
 					</span>
@@ -104,6 +104,11 @@
 		{% endblock %}
 		<div class="record-container">
 			{% block records %}
+			{% endblock %}
+		</div>
+		<div class="load-more-div">
+			{% block loadmore %}
+				<button id="btn-load-more" class="btn btn-md btn-primary" onclick="loadMoreResults()">Load More</button>
 			{% endblock %}
 		</div>
 	</section>

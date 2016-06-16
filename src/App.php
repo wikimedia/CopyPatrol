@@ -169,6 +169,14 @@ class App extends AbstractApp {
 					$slim->authManager->logout();
 					$slim->redirect( $slim->urlFor( 'home' ) );
 				} )->name( 'logout' );
+				$slim->get( 'loadmore', function () use ( $slim ) {
+					$lastId = $slim->request->get( 'lastId' );
+					$page = new Controllers\CopyPatrol( $slim );
+					$page->setDao( $slim->plagiabotDao );
+					$page->setEnwikiDao( $slim->enwikiDao );
+					$page->setWikiprojectDao( $slim->wikiprojectDao );
+					$page( $lastId );
+				} );
 			} );
 		$slim->group( '/review/',
 			function () use ( $slim ) {

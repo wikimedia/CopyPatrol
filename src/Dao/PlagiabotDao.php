@@ -52,10 +52,10 @@ class PlagiabotDao extends AbstractDao {
 	 * @param string $filterUser Filter SQL to only return records reviewed by given user
 	 * @return array|false Data for plagiabot db records or false if no data is not returned
 	 */
-	public function getPlagiarismRecords( $n = 50, $filter = 'all', $filterUser = NULL ) {
+	public function getPlagiarismRecords( $n = 50, $filter = 'all', $filterUser = NULL, $options = NULL ) {
 		$filters = array();
 		$filterSql = '';
-
+		$lastId = $options['last_id'];
 		// ensures only valid filters are used
 		switch ( $filter ) {
 			case 'fixed':
@@ -68,17 +68,18 @@ class PlagiabotDao extends AbstractDao {
 				$filters[] = "status IS NULL";
 				break;
 		}
-
 		// allow filtering by user and status
 		if ( isset( $filterUser ) ) {
 			$filters[] = "status_user = '$filterUser'";
 		}
-
+		// see if this is a load more click
+		if ( isset( $lastId ) ) {
+			$filters[] = "ithenticate_id < '$lastId'";
+		}
 		// construct necessary SQL based on filters
 		if ( !empty( $filters ) ) {
 			$filterSql = 'WHERE ' . join( ' AND ', $filters );
 		}
-
 		$sql = self::concat(
 			'SELECT * FROM copyright_diffs',
 			$filterSql,

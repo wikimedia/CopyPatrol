@@ -204,3 +204,20 @@ span.cv-hl-out {
 .filters-fieldset {
     text-align: center;
 }
+
+#btn-load-more {
+    width: 100%;
+    margin: 5px;
+    height: 40px;
+}
+
+.ithenticate-id {
+    display: none;
+}
+
+.btn-loading {
+    background-image: url('../images/loading.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
