@@ -87,43 +87,7 @@ class CopyPatrol extends Controller {
 	 * editor_talk_dead: Bool. Is editor talk page non-existent?
 	 */
 	protected function handleGet() {
-		$userData = $this->authManager->getUserData();
-		$currentUser = $userData ? $userData->getName() : NULL;
-		$filter = 'open'; // this will be the default
-		$filterUser = NULL;
-
-		// set filter types and descriptions that will be rendered as checkboxes in the view
-		$filterTypes = array(
-			'all' => 'All cases',
-			'open' => 'Open cases',
-			'fixed' => 'All "page fixed" cases',
-			'noaction' => 'All "no action needed" cases'
-		);
-		// add 'My reviews' to filter options if user is logged in
-		if ( isset( $currentUser ) ) {
-			$filterTypes['mine'] = 'My reviews';
-		}
-
-		// use given filter if set, or the default 'open' if filter is 'mine' and user is logged out
-		if ( isset( $_GET['filter'] ) ) {
-			if ( $_GET['filter'] === 'mine' ) {
-				if ( isset( $currentUser ) ) {
-					$filter = 'mine';
-					$filterUser = $currentUser;
-				} else {
-					$this->flashNow( 'warning', 'You must be logged in to view your own reviews.' );
-				}
-			} else {
-				$filterTypeKeys = array_keys( $filterTypes );
-				if ( in_array( $_GET['filter'], $filterTypeKeys ) ) {
-					$filter = $_GET['filter'];
-				} else {
-					$this->flashNow( 'error', 'Invalid filter. Values must be one of: ' . join( $filterTypeKeys, ', ' ) );
-				}
-			}
-		}
-
-		$records = $this->dao->getPlagiarismRecords( 50, $filter, $filterUser );
+		$records = $this->getRecords();
 
 		foreach ( $records as $key => $record ) {
 			$editor = $this->enwikiDao->getUserDetails( $record['diff'] );
@@ -160,9 +124,58 @@ class CopyPatrol extends Controller {
 		}
 
 		$this->view->set( 'records', $records );
+		$this->render( 'index.html' );
+	}
+
+
+	/**
+	 * Get plagiarism records based on URL parameters and whether or not the user is logged in
+	 * This function also sets view variables for the filters, which get rendered as radio options
+	 * @return array collection of plagiarism records
+	 */
+	protected function getRecords() {
+		$userData = $this->authManager->getUserData();
+		$currentUser = $userData ? $userData->getName() : NULL;
+		$filter = 'open'; // this will be the default
+		$filterUser = NULL;
+
+		// set filter types and descriptions that will be rendered as checkboxes in the view
+		$filterTypes = array(
+			'all' => 'All cases',
+			'open' => 'Open cases',
+			'fixed' => 'All "page fixed" cases',
+			'noaction' => 'All "no action needed" cases'
+		);
+		// add 'My reviews' to filter options if user is logged in
+		if ( isset( $currentUser ) ) {
+			$filterTypes['mine'] = 'My reviews';
+		}
+
+		// use given filter if set, or the default 'open' if filter is 'mine' and user is logged out
+		if ( isset( $_GET['filter'] ) ) {
+			if ( $_GET['filter'] === 'mine' ) {
+				if ( isset( $currentUser ) ) {
+					$filter = 'mine';
+					$filterUser = $currentUser;
+				} else {
+					$this->flashNow( 'warning', 'You must be logged in to view your own reviews.' );
+				}
+			} else {
+				$filterTypeKeys = array_keys( $filterTypes );
+				if ( in_array( $_GET['filter'], $filterTypeKeys ) ) {
+					$filter = $_GET['filter'];
+				} else {
+					$this->flashNow( 'error', 'Invalid filter. Values must be one of: ' . join( $filterTypeKeys, ', ' ) );
+				}
+			}
+		}
+
 		$this->view->set( 'filter', $filter );
 		$this->view->set( 'filterTypes', $filterTypes );
-		$this->render( 'index.html' );
+
+		// make this easier when working locally
+		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 5 : 50;
+		return $this->dao->getPlagiarismRecords( $numRecords, $filter, $filterUser );
 	}
 
 

@@ -26,6 +26,7 @@ use Wikimedia\Slimapp\AbstractApp;
 use Wikimedia\Slimapp\Config;
 use Wikimedia\Slimapp\HeaderMiddleware;
 use Wikimedia\Slimapp\Auth\AuthManager;
+use Less_Cache;
 
 class App extends AbstractApp {
 
@@ -169,6 +170,18 @@ class App extends AbstractApp {
 					$slim->authManager->logout();
 					$slim->redirect( $slim->urlFor( 'home' ) );
 				} )->name( 'logout' );
+				$slim->get( 'index.css', function () use ( $slim ) {
+					// Compile LESS if need be, otherwise serve cached asset
+					// Cached files get automatically deleted if they are over a week old
+					// The value for the .less key defines the root of assets within the Less
+					//   e.g. /copypatrol/ makes url('image.gif') route to /copypatrol/image.gif
+					$rootUri = $slim->request->getRootUri();
+					$lessFiles = array( APP_ROOT . '/src/Less/index.less' => $rootUri . '/' );
+					$options = array( 'cache_dir' => APP_ROOT . '/src/Less/cache' );
+					$cssFileName = Less_Cache::Get( $lessFiles, $options );
+					$slim->response->headers->set( 'Content-Type', 'text/css' );
+					$slim->response->setBody( file_get_contents( APP_ROOT . '/src/Less/cache/' . $cssFileName ) );
+				} );
 			} );
 		$slim->group( '/review/',
 			function () use ( $slim ) {
