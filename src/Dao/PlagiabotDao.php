@@ -52,10 +52,12 @@ class PlagiabotDao extends AbstractDao {
 	 * @param string $filterUser Filter SQL to only return records reviewed by given user
 	 * @return array|false Data for plagiabot db records or false if no data is not returned
 	 */
-	public function getPlagiarismRecords( $n = 50, $filter = 'all', $filterUser = NULL, $options = NULL ) {
+	public function getPlagiarismRecords( $n = 50, $options ) {
 		$filters = array();
 		$filterSql = '';
 		$lastId = $options['last_id'];
+		$filter = $options['filter'];
+		$filterUser = $options['filer_user'];
 		// ensures only valid filters are used
 		switch ( $filter ) {
 			case 'fixed':

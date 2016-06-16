@@ -1,8 +1,8 @@
 .DS_Store
-public_html/.DS_Store
 vendor/*
 .idea/*
 replica.my.cnf
 .env
 .lighttpd.conf
-
+src/Less/cache/*
+!.gitkeep
