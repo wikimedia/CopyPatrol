@@ -33,7 +33,7 @@ class Review extends CopyPatrol {
 	}
 
 
-	protected function handleGet() {
+	protected function handleGet( $lastId = 0 ) {
 		$id = $this->request->get( 'id' );
 		$val = $this->request->get( 'val' );
 		$userData = $this->authManager->getUserData();
