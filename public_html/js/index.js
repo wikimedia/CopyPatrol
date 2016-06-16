@@ -91,7 +91,7 @@ function loadMoreResults() {
 	var lastId = $( '.ithenticate-id:last' ).text();
 	console.log( lastId );
 	$.ajax( {
-		url: 'copypatrol/loadmore',
+		url: 'loadmore',
 		data: {
 			lastId: lastId
 		}
