@@ -138,7 +138,7 @@ class CopyPatrol extends Controller {
 		$userData = $this->authManager->getUserData();
 		$filterUser = $userData ? $userData->getName() : NULL;
 		$filter = $this->request->get( 'filter' ) ? $this->request->get( 'filter' ) : 'open'; // this will be the default
-		$lastId = $this->request->get( 'lastId' );
+		$lastId = $this->request->get( 'lastId' ) ? $this->request->get( 'lastId' ) : 0;
 		// set filter types and descriptions that will be rendered as checkboxes in the view
 		$filterTypes = array(
 			'all' => 'All cases',
@@ -161,15 +161,18 @@ class CopyPatrol extends Controller {
 			if ( !in_array( $filter, $filterTypeKeys ) ) {
 				$this->flashNow( 'error', 'Invalid filter. Values must be one of: ' . join( $filterTypeKeys, ', ' ) );
 			}
+			$filter = 'open'; // Set to default
 		}
 		// make this easier when working locally
 		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 3 : 50;
 		// compile all options in an array
 		$options = array(
 			'filter' => $filter,
-			'filter_user' => $filterUser,
 			'last_id' => $lastId > 0 ? $lastId : null
 		);
+		if ( $filter == 'mine' && isset( $filterUser ) ) {
+			$options['filter_user'] = $filterUser;
+		}
 		$this->view->set( 'filter', $filter );
 		$this->view->set( 'filterTypes', $filterTypes );
 		return $this->dao->getPlagiarismRecords( $numRecords, $options );
