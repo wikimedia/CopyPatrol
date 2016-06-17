@@ -113,11 +113,8 @@
 						{% for copy in row.copyvios %}
 							<div class="compare-div">
 								<button class="btn btn-xs btn-primary dropdown-toggle compare-button js-compare-button"
-					        data-id="{{ row.ithenticate_id }}"
-									data-index="{{ loop.index }}"
-									data-copyvio="{{ copy }}"
-									data-diffId="{{ row.diff }}"
-								>
+								        data-id="{{ row.ithenticate_id }}" data-index="{{ loop.index }}"
+								        data-copyvio="{{ copy }}" data-diffId="{{ row.diff }}">
 									<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
 									Compare
 								</button>
