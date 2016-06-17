@@ -1,8 +1,8 @@
 $( document ).ready( function () {
 	/** Listeners */
-	$('body').tooltip({
+	$( 'body' ).tooltip( {
 		selector: '[data-toggle="tooltip"]'
-	});
+	} );
 	$( '.records' ).on( 'click', '.js-save-state', function () {
 		saveState( $( this ).data( 'id' ), $( this ).data( 'status' ) );
 	} );
@@ -96,6 +96,9 @@ $( document ).ready( function () {
 	}
 
 
+	/**
+	 * Load more results to the page when 'Load More' is clicked
+	 */
 	function loadMoreResults() {
 		$( '#btn-load-more' ).text( '' ).addClass( 'btn-loading' );
 		var lastId = $( '.ithenticate-id:last' ).text();

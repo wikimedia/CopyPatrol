@@ -152,20 +152,20 @@ class App extends AbstractApp {
 			'inject-user' => function () use ( $slim ) {
 				$user = $slim->authManager->getUserData();
 				$slim->view->set( 'user', $user );
+			},
+			'set-environment' => function () use ( $slim ) {
+				// determine if we are on the staging environment, so we can show a banner in the view
+				$rootUri = $slim->request->getRootUri();
+				$slim->view->set( 'staging', strpos( $rootUri, 'copypat' ) >= 0 );
 			}
 		);
-		$slim->group( '/', $middleware['inject-user'],
+		$slim->group( '/', $middleware['inject-user'], $middleware['set-environment'],
 			function () use ( $slim ) {
-				$slim->get( '', function () use ( $slim ) {
+				$slim->get( '/?', function () use ( $slim ) {
 					$page = new Controllers\CopyPatrol( $slim );
 					$page->setDao( $slim->plagiabotDao );
 					$page->setEnwikiDao( $slim->enwikiDao );
 					$page->setWikiprojectDao( $slim->wikiprojectDao );
-
-					// determine if we are on the staging environment, so we can show a banner in the view
-					$rootUri = $slim->request->getRootUri();
-					$slim->view->set( 'staging', preg_match( '/\/plagiabot/', $rootUri ) );
-
 					$page();
 				} )->name( 'home' );
 				$slim->get( 'login', function () use ( $slim ) {
@@ -196,7 +196,7 @@ class App extends AbstractApp {
 					$slim->response->setBody( file_get_contents( APP_ROOT . '/src/Less/cache/' . $cssFileName ) );
 				} )->name( 'index.css' );
 			} );
-		$slim->group( '/review/',
+		$slim->group( '(/)review/',
 			function () use ( $slim ) {
 				$slim->get( 'add', function () use ( $slim ) {
 					// TODO: Ideally the authentication step should be taken care of by a middleware
