@@ -48,8 +48,10 @@ class PlagiabotDao extends AbstractDao {
 
 	/**
 	 * @param int $n Number of records asked for
-	 * @param string $filter Filter SQL to show a certian status, one of 'all', 'fixed', 'noaction', 'open' or 'mine'
-	 * @param string $filterUser Filter SQL to only return records reviewed by given user
+	 * @param array $options filter and filter user options, should look like:
+	 *   string 'filter' Filter SQL to show a certian status, one of 'all', 'open', 'reviewed' or 'mine'
+	 *   string 'filter_user' Filter SQL to only return records reviewed by given user
+	 *   integer 'last_id' offset of where to start fetching records, going by 'ithenticate_id'
 	 * @return array|false Data for plagiabot db records or false if no data is not returned
 	 */
 	public function getPlagiarismRecords( $n = 50, $options ) {
@@ -60,11 +62,8 @@ class PlagiabotDao extends AbstractDao {
 		$filterUser = isset( $options['filter_user'] ) ? $options['filter_user'] : null;
 		// ensures only valid filters are used
 		switch ( $filter ) {
-			case 'fixed':
-				$filters[] = "status = 'fixed'";
-				break;
-			case 'noaction':
-				$filters[] = "status = 'false'";
+			case 'reviewed':
+				$filters[] = "status IS NOT NULL";
 				break;
 			case 'open':
 				$filters[] = "status IS NULL";
