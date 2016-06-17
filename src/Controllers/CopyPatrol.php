@@ -160,8 +160,8 @@ class CopyPatrol extends Controller {
 			$filterTypeKeys = array_keys( $filterTypes ); // Check that the filter value was valid
 			if ( !in_array( $filter, $filterTypeKeys ) ) {
 				$this->flashNow( 'error', 'Invalid filter. Values must be one of: ' . join( $filterTypeKeys, ', ' ) );
+				$filter = 'open';  // Set to default
 			}
-			$filter = 'open'; // Set to default
 		}
 		// make this easier when working locally
 		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 3 : 50;
