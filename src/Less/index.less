@@ -1,74 +1,43 @@
+@import 'bootstrap/variables';
+@import 'bootstrap/mixins/vendor-prefixes.less';
+@import 'bootstrap/mixins/buttons.less';
+
 /* Glyphicons supported by http://glyphicons.com via Bootstrap */
 .padded {
-  width: 100%;
   margin: 15px auto;
+  width: 100%;
 }
 
 .wproject {
-  font-size: 13px;
-  border: 1px #181818;
   background: #d0d0d0;
-  margin: 1px;
-  display: inline-block;
-  padding: 6px;
   border-radius: 10px;
+  display: inline-block;
+  font-size: 13px;
+  margin: 1px;
+  padding: 6px;
 }
 
 .btn-xs {
   margin: 2px;
 }
 
-.btn-success {
-  background: white;
-  -webkit-transition: background linear 350ms;
-  color: #5cb85c;
-  /*border: 1px solid #5cb85c;*/
-}
-
-.btn-success-clicked {
-  background: #5cb85c;
-  color: white;
-}
-
-.btn-secondary {
-  color: darkgrey;
-  background: white;
-  border: 1px solid darkgrey;
-}
-
-.btn-danger {
-  background: white;
-  -webkit-transition: background linear 350ms;
-  color: #d9534f;
-  /*border: 1px solid #d9534f;*/
-}
-
-.btn-danger-clicked {
-  background: #d9534f;
-  color: white;
-}
-
 .page-div {
-  /*margin-left: 30px;*/
-  /*border: 1px solid deeppink;*/
   word-wrap: break-word;
 }
 
 .wikiproject-div {
   align-items: center;
-  text-align: center;
   display: block;
   flex-flow: row wrap;
-  /*justify-content: space-around;*/
-  /*border: 1px solid black;*/
+  text-align: center;
 }
 
 .header-div {
-  margin: 10px;
-  padding: 5px;
   align-items: center;
   border-bottom: 2px solid black;
   border-top: 2px solid black;
+  margin: 10px;
+  padding: 5px;
 }
 
 .header-col {
@@ -76,15 +45,97 @@
   margin: auto;
 }
 
-.row-container {
-  align-items: center;
-  /*border-bottom: 1px dashed darkgrey;*/
-  /*padding: 20px 10px;*/
+/** button styles */
+.btn {
+  .transition(background linear 350ms);
+  position: relative;
+}
+
+.btn-grayed {
+  background: white;
+  border-color: darkgrey;
+  color: darkgrey;
+}
+
+.btn-undo {
+  content: "Undo review";
+  height: 100%;
+  left: 0;
+  line-height: 32px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+/** record styles and state changes */
+.record {
+  border-bottom: 1px dashed darkgrey;
   padding: 10px;
 }
 
-.row-div {
-  /*border: 1px solid yellowgreen;*/
+.record-status-open {
+  .btn-fixed, .btn-no-action {
+    background: white;
+  }
+
+  .btn-fixed {
+    .button-variant(@brand-success; white; @brand-success);
+
+    &:hover {
+      color: white;
+      background: @brand-success;
+    }
+  }
+
+  .btn-no-action {
+    .button-variant(@brand-danger; white; @brand-danger);
+
+    &:hover {
+      color: white;
+      background: @brand-danger;
+    }
+  }
+}
+
+.record-status-fixed, .record-status-false {
+  .not-clickable {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.record-status-fixed {
+  .btn-no-action {
+    .btn-grayed;
+
+    &.clickable:hover {
+      .button-variant(white; @brand-danger; @brand-danger);
+    }
+  }
+
+  .btn-fixed.clickable:hover::after {
+    .btn-undo;
+    background: darken(@brand-success, 10%);
+  }
+}
+
+.record-status-false {
+  .btn-fixed {
+    .btn-grayed;
+
+    &.clickable:hover {
+      .button-variant(white; @brand-success; @brand-success);
+    }
+  }
+
+  .btn-no-action.clickable:hover::after {
+    .btn-undo;
+    background: darken(@brand-danger, 10%);
+  }
+}
+
+.row-container {
+  align-items: center;
 }
 
 .compare-button {
@@ -92,51 +143,27 @@
   margin-right: 20px;
 }
 
-.compare-links-container {
-  padding: 10px;
-  border-bottom: 1px dashed darkgrey;
-}
-
 .compare-pane {
-  width: 95%;
-  margin: 2px auto;
-  height: 300px;
   border: 2px double dimgrey;
-  text-align: justify;
   display: none;
+  height: 300px;
   justify-content: space-between;
+  margin: 2px auto;
+  text-align: justify;
+  width: 95%;
 }
 
 .compare-pane-left, .compare-pane-right {
-  width: 49%;
   display: inline-block;
-  margin: 0 auto;
   height: 98%;
-  padding: 8px;
+  margin: 0 auto;
   overflow: scroll;
+  padding: 8px;
+  width: 49%;
 }
 
 .compare-pane-right {
   border-left: 1px dashed dimgrey;
-}
-
-.diff-div {
-  /*border: 1px solid blue;*/
-}
-
-.diff-div-timestamp {
-}
-
-.report-div {
-  /*border: 1px solid green;*/
-}
-
-.status-div {
-  /*border: 1px solid red;*/
-}
-
-.record-container {
-  /*padding-left: 20px;*/
 }
 
 #body {
@@ -144,29 +171,25 @@
 }
 
 #login-btn {
-  display: inline-block;
-  /*width: 100px;*/
-  margin: 4px auto;
-  float: right;
-  /*border-radius: 10px;*/
+  position: absolute;
+  right: 12px;
+  top: 16px;
 }
 
 #top-banner {
   text-align: center;
   margin-bottom: 20px; /* prevent header from overlapping subsequent section */
-  /*border: 1px solid deepskyblue;*/
-}
 
-h1 {
-  margin: 5px auto;
-  /*border: 1px solid green;*/
-  display: inline-block;
+  h1 {
+    display: inline-block;
+    margin: 5px auto;
+  }
 }
 
 .status-div-reviewer {
   margin-top: 10px;
-  white-space: nowrap;
   text-align: center;
+  white-space: nowrap;
 }
 
 .none {
@@ -180,16 +203,16 @@ a[href=''] {
 }
 
 /* CSS for compare panels, like Earwig's tool */
-span.cv-hl {
+.cv-hl {
   background: #FFC264;
 }
 
-span.cv-hl-in {
-  background: linear-gradient(to left, #FFC264, #FFF);
+.cv-hl-in {
+  background: linear-gradient(to left, #FFC264, white);
 }
 
-span.cv-hl-out {
-  background: linear-gradient(to right, #FFC264, #FFF);
+.cv-hl-out {
+  background: linear-gradient(to right, #FFC264, white);
 }
 
 .filter-legend {
@@ -200,37 +223,33 @@ span.cv-hl-out {
   margin-left: 10px;
 }
 
-.filters-fieldset {
-  text-align: center;
-}
-
 .load-more-div {
+  padding: 10px;
   text-align: center;
   width: 100%;
-  padding: 10px;
 }
 
 #btn-load-more {
-  width: 50%;
+  background-color: white;
+  color: @brand-primary;
   height: 40px;
-  background-color: #fff;
-  color: #337ab7;
-  -webkit-transition: background linear 350ms;
-}
+  width: 50%;
+  .transition(background-color linear 350ms);
 
-#btn-load-more:hover {
-  background-color: #337ab7;
-  color: #fff;
+  &:hover {
+    background-color: @brand-primary;
+    color: white;
+  }
+
+  &.btn-loading {
+    background-color: white;
+    background-image: url('images/loading2.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
 }
 
 .ithenticate-id {
   display: none;
-}
-
-.btn-loading {
-  background-color: #337ab7;
-  background-image: url('images/loading2.gif');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
 }
