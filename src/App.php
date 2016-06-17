@@ -176,12 +176,11 @@ class App extends AbstractApp {
 					$slim->redirect( $slim->urlFor( 'home' ) );
 				} )->name( 'logout' );
 				$slim->get( 'loadmore', function () use ( $slim ) {
-					$lastId = $slim->request->get( 'lastId' );
 					$page = new Controllers\CopyPatrol( $slim );
 					$page->setDao( $slim->plagiabotDao );
 					$page->setEnwikiDao( $slim->enwikiDao );
 					$page->setWikiprojectDao( $slim->wikiprojectDao );
-					$page( $lastId );
+					$page();
 				} )->name( 'loadmore' );
 				$slim->get( 'index.css', function () use ( $slim ) {
 					// Compile LESS if need be, otherwise serve cached asset

@@ -56,63 +56,60 @@ $( document ).ready( function () {
 	}
 
 	/**
-	 * Open the compare pane and do an AJAX request to Copyvios to fetch comparison data
-	 * @param id Ithenticate ID of record
-	 * @param index Index of the link in the copyvios list for the record
-	 * @param copyvio Copyvio URL
-	 * @param diffId Oldid of diff
-	 */
-	function toggleComparePane( id, index, copyvio, diffId ) {
-		var compareDiv = '#comp' + id + '-' + index;
-		$( compareDiv ).slideToggle( 500 );
-		if ( !$( compareDiv ).hasClass( 'copyvios-fetched' ) ) {
-			$.ajax( {
-				type: 'GET',
-				url: 'https://tools.wmflabs.org/copyvios/api.json',
-				data: {
-					oldid: diffId,
-					url: copyvio,
-					action: 'compare',
-					project: 'wikipedia',
-					lang: 'en',
-					format: 'json',
-					detail: 'true'
-				},
-				dataType: 'json',
-				jsonpCallback: 'callback'
-			} ).done( function ( ret ) {
-				console.log( 'XHR Success' );
-				if ( ret.detail ) {
-					// Add a class to the compare panel once we fetch the details to avoid making repetitive API requests
-					$( compareDiv ).find( '.compare-pane-left' ).html( ret.detail.article );
-					$( compareDiv ).find( '.compare-pane-right' ).html( ret.detail.source );
-				} else {
-					$( compareDiv ).find( '.compare-pane-left' ).html( '<span class="text-danger">Error! API returned no data.</span>' );
-					$( compareDiv ).find( '.compare-pane-right' ).html( '<span class="text-danger">Error! API returned no data.</span>' );
-				}
-				$( compareDiv ).addClass( 'copyvios-fetched' );
-			} );
-		}
-	}
-
-
-	/**
 	 * Load more results to the page when 'Load More' is clicked
 	 */
 	function loadMoreResults() {
 		$( '#btn-load-more' ).text( '' ).addClass( 'btn-loading' );
 		var lastId = $( '.ithenticate-id:last' ).text();
-		console.log( lastId );
 		$.ajax( {
 			url: 'loadmore',
 			data: {
-				lastId: lastId
+				lastId: lastId,
+				filter: $( 'input[name=filter]:checked' ).val()
 			}
 		} ).done( function ( ret ) {
 			$( '#btn-load-more' ).text( 'Load More' ).removeClass( 'btn-loading' );
 			$newRecords = $( ret ).find( '.record-container' );
-			console.log( $newRecords );
 			$( '.record-container' ).append( $newRecords.html() );
 		} );
 	}
 } );
+
+/**
+ * Open the compare pane and do an AJAX request to Copyvios to fetch comparison data
+ * @param id Ithenticate ID of record
+ * @param index Index of the link in the copyvios list for the record
+ * @param copyvio Copyvio URL
+ * @param diffId Oldid of diff
+ */
+function toggleComparePane( id, index, copyvio, diffId ) {
+	var compareDiv = '#comp' + id + '-' + index;
+	$( compareDiv ).slideToggle( 500 );
+	if ( !$( compareDiv ).hasClass( 'copyvios-fetched' ) ) {
+		$.ajax( {
+			type: 'GET',
+			url: 'https://tools.wmflabs.org/copyvios/api.json',
+			data: {
+				oldid: diffId,
+				url: copyvio,
+				action: 'compare',
+				project: 'wikipedia',
+				lang: 'en',
+				format: 'json',
+				detail: 'true'
+			},
+			dataType: 'json',
+			jsonpCallback: 'callback'
+		} ).done( function ( ret ) {
+			if ( ret.detail ) {
+				// Add a class to the compare panel once we fetch the details to avoid making repetitive API requests
+				$( compareDiv ).find( '.compare-pane-left' ).html( ret.detail.article );
+				$( compareDiv ).find( '.compare-pane-right' ).html( ret.detail.source );
+			} else {
+				$( compareDiv ).find( '.compare-pane-left' ).html( '<span class="text-danger">Error! API returned no data.</span>' );
+				$( compareDiv ).find( '.compare-pane-right' ).html( '<span class="text-danger">Error! API returned no data.</span>' );
+			}
+			$( compareDiv ).addClass( 'copyvios-fetched' );
+		} );
+	}
+}

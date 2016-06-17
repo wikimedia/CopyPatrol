@@ -204,10 +204,23 @@ span.cv-hl-out {
   text-align: center;
 }
 
-#btn-load-more {
+.load-more-div {
+  text-align: center;
   width: 100%;
-  margin: 5px;
+  padding: 10px;
+}
+
+#btn-load-more {
+  width: 50%;
   height: 40px;
+  background-color: #fff;
+  color: #337ab7;
+  -webkit-transition: background linear 350ms;
+}
+
+#btn-load-more:hover {
+  background-color: #337ab7;
+  color: #fff;
 }
 
 .ithenticate-id {
@@ -215,7 +228,8 @@ span.cv-hl-out {
 }
 
 .btn-loading {
-  background-image: url('images/loading.gif');
+  background-color: #337ab7;
+  background-image: url('images/loading2.gif');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

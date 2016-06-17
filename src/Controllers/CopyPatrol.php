@@ -87,8 +87,8 @@ class CopyPatrol extends Controller {
 	 * editor_page_dead: Bool. Is editor page non-existent?
 	 * editor_talk_dead: Bool. Is editor talk page non-existent?
 	 */
-	protected function handleGet( $lastId = 0 ) {
-		$records = $this->getRecords( $lastId );
+	protected function handleGet() {
+		$records = $this->getRecords();
 		foreach ( $records as $key => $record ) {
 			$editor = $this->enwikiDao->getUserDetails( $record['diff'] );
 			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );
@@ -123,7 +123,6 @@ class CopyPatrol extends Controller {
 			$records[$key]['wikiprojects'] = $cleanWikiprojects;
 		}
 		$this->view->set( 'records', $records );
-
 		$this->render( 'index.html' );
 	}
 
@@ -135,11 +134,11 @@ class CopyPatrol extends Controller {
 	 * @param $lastId int Ithenticate ID of last record on page
 	 * @return array collection of plagiarism records
 	 */
-	protected function getRecords( $lastId = 0 ) {
+	protected function getRecords() {
 		$userData = $this->authManager->getUserData();
-		$currentUser = $userData ? $userData->getName() : NULL;
-		$filter = 'open'; // this will be the default
-		$filterUser = NULL;
+		$filterUser = $userData ? $userData->getName() : NULL;
+		$filter = $this->request->get( 'filter' ) ? $this->request->get( 'filter' ) : 'open'; // this will be the default
+		$lastId = $this->request->get( 'lastId' );
 		// set filter types and descriptions that will be rendered as checkboxes in the view
 		$filterTypes = array(
 			'all' => 'All cases',
@@ -148,29 +147,21 @@ class CopyPatrol extends Controller {
 			'noaction' => 'All "no action needed" cases'
 		);
 		// add 'My reviews' to filter options if user is logged in
-		if ( isset( $currentUser ) ) {
+		if ( isset( $filterUser ) ) {
 			$filterTypes['mine'] = 'My reviews';
 		}
-		// use given filter if set, or the default 'open' if filter is 'mine' and user is logged out
-		if ( isset( $_GET['filter'] ) ) {
-			if ( $_GET['filter'] === 'mine' ) {
-				if ( isset( $currentUser ) ) {
-					$filter = 'mine';
-					$filterUser = $currentUser;
-				} else {
-					$this->flash( 'warning', 'You must be logged in to view your own reviews.' );
-				}
-			} else {
-				$filterTypeKeys = array_keys( $filterTypes );
-				if ( in_array( $_GET['filter'], $filterTypeKeys ) ) {
-					$filter = $_GET['filter'];
-				} else {
-					$this->flash( 'error', 'Invalid filter. Values must be one of: ' . join( $filterTypeKeys, ', ' ) );
-				}
+		// check user is logged in if filter requested is 'mine', if not, use 'open' by default
+		if ( $filter === 'mine' ) {
+			if ( !isset( $filterUser ) ) {
+				$this->flashNow( 'warning', 'You must be logged in to view your own reviews.' );
+			}
+			$filter = 'open';
+		} else {
+			$filterTypeKeys = array_keys( $filterTypes ); // Check that the filter value was valid
+			if ( !in_array( $filter, $filterTypeKeys ) ) {
+				$this->flashNow( 'error', 'Invalid filter. Values must be one of: ' . join( $filterTypeKeys, ', ' ) );
 			}
 		}
-		$this->view->set( 'filter', $filter );
-		$this->view->set( 'filterTypes', $filterTypes );
 		// make this easier when working locally
 		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 3 : 50;
 		// compile all options in an array
@@ -179,6 +170,8 @@ class CopyPatrol extends Controller {
 			'filter_user' => $filterUser,
 			'last_id' => $lastId > 0 ? $lastId : null
 		);
+		$this->view->set( 'filter', $filter );
+		$this->view->set( 'filterTypes', $filterTypes );
 		return $this->dao->getPlagiarismRecords( $numRecords, $options );
 	}
 
