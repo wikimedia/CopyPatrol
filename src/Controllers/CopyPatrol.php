@@ -143,8 +143,7 @@ class CopyPatrol extends Controller {
 		$filterTypes = array(
 			'all' => 'All cases',
 			'open' => 'Open cases',
-			'fixed' => 'All "page fixed" cases',
-			'noaction' => 'All "no action needed" cases'
+			'reviewed' => 'Reviewed cases'
 		);
 		// add 'My reviews' to filter options if user is logged in
 		if ( isset( $filterUser ) ) {
