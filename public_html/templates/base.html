@@ -14,11 +14,6 @@
 		<script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"
 		        type="text/javascript"></script>
 		<script src="{{ siteUrl('js/index.js') }}" type="text/javascript"></script>
-		<script type="text/javascript">
-			$( document ).ready( function () {
-				$( '[data-toggle="tooltip"]' ).tooltip();
-			} );
-		</script>
 	{% endblock %}
 </head>
 <body>
@@ -38,16 +33,20 @@
 	</section>
 	{% block banners %}
 		<section class="banners">
-			<div class="alert alert-warning alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong>Hello!</strong> This is a web-version of Plagiabot. Database writes for this tool are <b>now
-					enabled</b>. You can start conducting reviews after you log in.
-				<a href="https://meta.wikimedia.org/wiki/Talk:Community_Tech/Improve_the_plagiarism_detection_bot">
-					You can drop your feedback here</a>. <a href="https://tools.wmflabs.org/copypatrol/">Copypatrol</a>
-				is our live, ready-to-use
-				tool, while <a href="https://tools.wmflabs.org/plagiabot/">Plagiabot</a> is our testing playground.
-				Please do not use Plagiabot to record your edits.
-			</div>
+			{% if staging %}
+				<div class="alert alert-danger text-center">
+					This is a staging environment. Please do not use this tool to record your reviews. For the actual
+					CopyPatrol tool, please use <a href="https://tools.wmflabs.org/copypatrol/">tools.wmflabs.org/copypatrol</a>.
+				</div>
+			{% else %}
+				<div class="alert alert-warning alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>Hello!</strong> This is a web-version of Plagiabot. Database writes for this tool are <b>now
+						enabled</b>. You can start conducting reviews after you log in.
+					<a href="https://meta.wikimedia.org/wiki/Talk:Community_Tech/Improve_the_plagiarism_detection_bot">
+						You can drop your feedback here</a>.
+				</div>
+			{% endif %}
 			{% block flashes %}
 				{% if flash|default(false) %}
 					{% if flash.error|default(false) %}
@@ -98,21 +97,21 @@
 
 	<section class="records">
 		{% block rowheader %}
-			<div class="header-div container-fluid">
+			<header class="header-div container-fluid">
 				<div class="header-col col-sm-3 text-center">Page</div>
 				<div class="header-col col-sm-1 text-center">Diff</div>
 				<div class="header-col col-sm-2 text-center">Editor</div>
 				<div class="header-col col-sm-3 text-center">Wikiprojects</div>
 				<div class="header-col col-sm-2 text-center">Review</div>
-			</div>
+			</header>
 		{% endblock %}
-		<div class="record-container">
+		<section class="record-container">
 			{% block records %}
 			{% endblock %}
-		</div>
+		</section>
 		<div class="load-more-div">
 			{% block loadmore %}
-				<button id="btn-load-more" class="btn btn-md btn-primary" onclick="loadMoreResults()">Load More</button>
+				<button id="btn-load-more" class="btn btn-md btn-primary js-load-more">Load More</button>
 			{% endblock %}
 		</div>
 	</section>
