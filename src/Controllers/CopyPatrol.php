@@ -212,7 +212,7 @@ class CopyPatrol extends Controller {
 	 */
 	public function formatTimestamp( $datetime ) {
 		$datetime = strtotime( $datetime );
-		return date( 'Y-m-d h:m', $datetime );
+		return date( 'Y-m-d H:i', $datetime );
 	}
 
 
