@@ -154,8 +154,8 @@ class CopyPatrol extends Controller {
 		if ( $filter === 'mine' ) {
 			if ( !isset( $filterUser ) ) {
 				$this->flashNow( 'warning', 'You must be logged in to view your own reviews.' );
+				$filter = 'open';
 			}
-			$filter = 'open';
 		} else {
 			$filterTypeKeys = array_keys( $filterTypes ); // Check that the filter value was valid
 			if ( !in_array( $filter, $filterTypeKeys ) ) {
@@ -170,7 +170,7 @@ class CopyPatrol extends Controller {
 			'filter' => $filter,
 			'last_id' => $lastId > 0 ? $lastId : null
 		);
-		if ( $filter == 'mine' && isset( $filterUser ) ) {
+		if ( $filter === 'mine' && isset( $filterUser ) ) {
 			$options['filter_user'] = $filterUser;
 		}
 		$this->view->set( 'filter', $filter );
