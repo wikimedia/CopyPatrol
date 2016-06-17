@@ -6,6 +6,10 @@ $( document ).ready( function () {
 	$( '.records' ).on( 'click', '.js-save-state', function () {
 		saveState( $( this ).data( 'id' ), $( this ).data( 'status' ) );
 	} );
+	$( '.records' ).on( 'click', '.js-compare-button', function () {
+		// pass the dataset of the element as an object to toggleComparePane
+		toggleComparePane.call(this, this.dataset);
+	});
 	$( '.js-load-more' ).on( 'click', loadMoreResults );
 
 	/**
@@ -73,43 +77,45 @@ $( document ).ready( function () {
 			$( '.record-container' ).append( $newRecords.html() );
 		} );
 	}
-} );
 
-/**
- * Open the compare pane and do an AJAX request to Copyvios to fetch comparison data
- * @param id Ithenticate ID of record
- * @param index Index of the link in the copyvios list for the record
- * @param copyvio Copyvio URL
- * @param diffId Oldid of diff
- */
-function toggleComparePane( id, index, copyvio, diffId ) {
-	var compareDiv = '#comp' + id + '-' + index;
-	$( compareDiv ).slideToggle( 500 );
-	if ( !$( compareDiv ).hasClass( 'copyvios-fetched' ) ) {
-		$.ajax( {
-			type: 'GET',
-			url: 'https://tools.wmflabs.org/copyvios/api.json',
-			data: {
-				oldid: diffId,
-				url: copyvio,
-				action: 'compare',
-				project: 'wikipedia',
-				lang: 'en',
-				format: 'json',
-				detail: 'true'
-			},
-			dataType: 'json',
-			jsonpCallback: 'callback'
-		} ).done( function ( ret ) {
-			if ( ret.detail ) {
-				// Add a class to the compare panel once we fetch the details to avoid making repetitive API requests
-				$( compareDiv ).find( '.compare-pane-left' ).html( ret.detail.article );
-				$( compareDiv ).find( '.compare-pane-right' ).html( ret.detail.source );
-			} else {
-				$( compareDiv ).find( '.compare-pane-left' ).html( '<span class="text-danger">Error! API returned no data.</span>' );
-				$( compareDiv ).find( '.compare-pane-right' ).html( '<span class="text-danger">Error! API returned no data.</span>' );
-			}
-			$( compareDiv ).addClass( 'copyvios-fetched' );
-		} );
+	/**
+	 * Open the compare pane and do an AJAX request to Copyvios to fetch comparison data
+	 * @oaram object params a hash of the necessary params, should include:
+	 *   integer id Ithenticate ID of record
+	 *   integer index Index of the link in the copyvios list for the record
+	 *   string copyvio Copyvio URL
+	 *   integer diffid Oldid of diff
+	 */
+	function toggleComparePane(params) {
+		var compareDiv = '#comp' + params.id + '-' + params.index;
+		$( compareDiv ).slideToggle( 500 );
+		if ( !$( compareDiv ).hasClass( 'copyvios-fetched' ) ) {
+			$.ajax( {
+				type: 'GET',
+				url: 'https://tools.wmflabs.org/copyvios/api.json',
+				data: {
+					oldid: params.diffid,
+					url: params.copyvio,
+					action: 'compare',
+					project: 'wikipedia',
+					lang: 'en',
+					format: 'json',
+					detail: 'true'
+				},
+				dataType: 'json',
+				jsonpCallback: 'callback'
+			} ).done( function ( ret ) {
+				console.log( 'XHR Success' );
+				if ( ret.detail ) {
+					// Add a class to the compare panel once we fetch the details to avoid making repetitive API requests
+					$( compareDiv ).find( '.compare-pane-left' ).html( ret.detail.article );
+					$( compareDiv ).find( '.compare-pane-right' ).html( ret.detail.source );
+				} else {
+					$( compareDiv ).find( '.compare-pane-left' ).html( '<span class="text-danger">Error! API returned no data.</span>' );
+					$( compareDiv ).find( '.compare-pane-right' ).html( '<span class="text-danger">Error! API returned no data.</span>' );
+				}
+				$( compareDiv ).addClass( 'copyvios-fetched' );
+			} );
+		}
 	}
-}
+} );
