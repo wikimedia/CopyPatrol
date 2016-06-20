@@ -27,6 +27,9 @@
 									{{ row.page_title }}
 								</a>
 							</strong>
+							<div class="small">
+								(<a href='{{ row.history_link }}' target="_blank">history</a>)
+							</div>
 						</div>
 						{# Div for diff information and link #}
 						<div class="row-div col-sm-1 text-center diff-div">
@@ -103,10 +106,16 @@
 								<a href="{{ copy }}" target="_blank">{{ copy }}</a><br/>
 								<div class="compare-pane" id="{{ 'comp' ~ row.ithenticate_id ~ '-' ~ loop.index }}">
 									<div class="compare-pane-left">
-										<span class="text-muted">Loading article revision...</span>
+										<h4 class="compare-pane-title">Article</h4>
+										<div class="compare-pane-left-body compare-pane-body">
+											<span class="text-muted">Loading article revision...</span>
+										</div>
 									</div>
 									<div class="compare-pane-right">
-										<span class="text-muted">Loading copyvio source...</span>
+										<h4 class="compare-pane-title">Source</h4>
+										<div class="compare-pane-right-body compare-pane-body">
+											<span class="text-muted">Loading copyvio source...</span>
+										</div>
 									</div>
 								</div>
 							</div>

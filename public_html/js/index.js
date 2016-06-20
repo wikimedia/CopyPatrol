@@ -147,11 +147,11 @@ $( document ).ready( function () {
 				console.log( 'XHR Success' );
 				if ( ret.detail ) {
 					// Add a class to the compare panel once we fetch the details to avoid making repetitive API requests
-					$( compareDiv ).find( '.compare-pane-left' ).html( ret.detail.article );
-					$( compareDiv ).find( '.compare-pane-right' ).html( ret.detail.source );
+					$( compareDiv ).find( '.compare-pane-left-body' ).html( ret.detail.article );
+					$( compareDiv ).find( '.compare-pane-right-body' ).html( ret.detail.source );
 				} else {
-					$( compareDiv ).find( '.compare-pane-left' ).html( '<span class="text-danger">Error! API returned no data.</span>' );
-					$( compareDiv ).find( '.compare-pane-right' ).html( '<span class="text-danger">Error! API returned no data.</span>' );
+					$( compareDiv ).find( '.compare-pane-left-body' ).html( '<span class="text-danger">Error! API returned no data.</span>' );
+					$( compareDiv ).find( '.compare-pane-right-body' ).html( '<span class="text-danger">Error! API returned no data.</span>' );
 				}
 				$( compareDiv ).addClass( 'copyvios-fetched' );
 			} );

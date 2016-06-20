@@ -1,6 +1,7 @@
 @import 'bootstrap/variables';
 @import 'bootstrap/mixins/vendor-prefixes.less';
 @import 'bootstrap/mixins/buttons.less';
+@import 'bootstrap/mixins/gradients.less';
 
 /* Glyphicons supported by http://glyphicons.com via Bootstrap */
 .padded {
@@ -149,17 +150,33 @@
   height: 300px;
   justify-content: space-between;
   margin: 2px auto;
+  overflow: hidden;
+  padding: 5px 0;
   text-align: justify;
   width: 95%;
+
+  h4 {
+    // -webkit-gradient(linear, 0 100%, 0 65%, from(rgba(255, 255, 255, 0)), to(rgba(255, 255, 255, 1)))
+    #gradient.vertical(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0), 65%, 100%);
+    margin: 0;
+    padding-bottom: 12px;
+    position: absolute;
+    width: 100%;
+  }
 }
 
 .compare-pane-left, .compare-pane-right {
-  display: inline-block;
-  height: 98%;
-  margin: 0 auto;
+  float: left;
+  height: 100%;
+  padding: 0 8px;
+  position: relative;
+  width: 50%;
+}
+
+.compare-pane-body {
+  height: 100%;
   overflow: scroll;
-  padding: 8px;
-  width: 49%;
+  padding: 25px 0 8px;
 }
 
 .compare-pane-right {
@@ -208,11 +225,11 @@ a[href=''] {
 }
 
 .cv-hl-in {
-  background: linear-gradient(to left, #FFC264, white);
+  #gradient.horizontal(white, #FFC264);
 }
 
 .cv-hl-out {
-  background: linear-gradient(to right, #FFC264, white);
+  #gradient.horizontal(#FFC264, white);
 }
 
 .filter-legend {
