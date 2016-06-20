@@ -15,14 +15,15 @@
 {% block records %}
 	{% if records is not empty %}
 		{% for row in records %}
-			<article class="record">
+			<article class="record record-status-{{ row.status ? row.status : 'open' }} record-{{ row.ithenticate_id }}" data-status="{{ row.status }}">
 				<div class="row-container">
 					<div class="container-fluid">
 						{# Div for page title #}
 						<div class="row-div col-sm-3 page-div">
 							<strong>
 								<a href='{{ row.page_link }}' target="_blank"
-								   class={{ row.page_dead ? 'text-danger' : '' }}>
+									class={{ row.page_dead ? 'text-danger' : '' }}
+								>
 									{{ row.page_title }}
 								</a>
 							</strong>
@@ -38,24 +39,21 @@
 						{# Div for editor information #}
 						<div class="row-div col-sm-2 text-center report-div">
 							{% if row.editor %}
-								<a href='{{ row.editor }}' class="{{ row.editor_page_dead ? 'text-danger' : '' }}">
-									{{ row.editor }}</a>
+								<a href='{{ row.editor }}' class="{{ row.editor_page_dead ? 'text-danger' : '' }}">{{ row.editor }}</a>
 								<br/>
 								<small>
-									<span>
-										<a href='{{ row.editor_talk }}'
-										   class="{{ row.editor_talk_dead ? 'text-danger' : '' }}" target="_blank">
-											Talk
-										</a> |
-									</span>
-									<span><a href='{{ row.editor_contribs }}' target="_blank">Contributions</a></span>
-									<br/>
-									<span>Edit count: {{ row.editcount }}</span>
+									<a href='{{ row.editor_talk }}' class="{{ row.editor_talk_dead ? 'text-danger' : '' }}" target="_blank">Talk</a>
+									|
+									<a href='{{ row.editor_contribs }}' target="_blank">
+										Contributions
+									</a>
+									<div>Edit count: {{ row.editcount }}</div>
 								</small>
 							{% else %}
-								<span class=" glyphicon glyphicon-exclamation-sign"></span>
+								<span class="glyphicon glyphicon-exclamation-sign"></span>
 								<div class="text-muted" data-toggle="tooltip" data-placement="bottom"
-								     title="This usually means that the editor was anonymous. It may also mean that the data is not available in Labs database yet.">
+									title="This usually means that the editor was anonymous. It may also mean that the data is not available in Labs database yet."
+								>
 									Editor not found
 								</div>
 							{% endif %}
@@ -68,37 +66,20 @@
 							{% endif %}
 						</div>
 						<div class="row-div col-sm-2 text-center status-div">
-							{% if row.status == 'fixed' %}
-								<button id="{{ 'success' ~ row.ithenticate_id }}" data-id="{{ row.ithenticate_id }}"
-								        data-status="fixed" class="btn btn-success-clicked btn-block js-save-state"
-								        title="The edit was a copyright violation and has been reverted"> Page fixed
-								</button>
-								<button id="{{ 'danger' ~ row.ithenticate_id }}" class="btn btn-secondary btn-block"
-								        title="The edit is a false positive, nothing needs to be done"
-								        disabled> No action needed
-								</button>
-							{% elseif row.status == 'false' %}
-								<button id="{{ 'success' ~ row.ithenticate_id }}" class="btn btn-secondary btn-block"
-								        title="The edit was a copyright violation and has been reverted"
-								        disabled> Page fixed
-								</button>
-								<button id="{{ 'danger' ~ row.ithenticate_id }}"
-								        data-id="{{ row.ithenticate_id }}" data-status="false"
-								        class="btn btn-danger-clicked btn-block js-save-state"
-								        title="The edit is a false positive, nothing needs to be done"> No action needed
-								</button>
-							{% elseif row.status == NULL %}
-								<button id="{{ 'success' ~ row.ithenticate_id }}"
-								        data-id="{{ row.ithenticate_id }}" data-status="fixed"
-								        class="btn btn-success btn-outline btn-block js-save-state"
-								        title="The edit was a copyright violation and has been reverted"> Page fixed
-								</button>
-								<button id="{{ 'danger' ~ row.ithenticate_id }}"
-								        data-id="{{ row.ithenticate_id }}" data-status="false"
-								        class="btn btn-danger btn-block js-save-state"
-								        title="The edit is a false positive, nothing needs to be done"> No action needed
-								</button>
-							{% endif %}
+							<button data-id="{{ row.ithenticate_id }}"
+								data-status="fixed"
+								class="btn btn-success btn-block btn-fixed js-save-state {{ user ? 'clickable' : 'not-clickable' }}"
+								title="The edit was a copyright violation and has been reverted"
+							>
+								Page fixed
+							</button>
+							<button data-id="{{ row.ithenticate_id }}"
+								data-status="false"
+								class="btn btn-danger btn-block btn-no-action js-save-state {{ user ? 'clickable' : 'not-clickable' }}"
+								title="The edit is a false positive, nothing needs to be done"
+							>
+								No action needed
+							</button>
 							{{ macros.reviewer_node( row ) }}
 						</div>
 					</div>
@@ -113,8 +94,9 @@
 						{% for copy in row.copyvios %}
 							<div class="compare-div">
 								<button class="btn btn-xs btn-primary dropdown-toggle compare-button js-compare-button"
-								        data-id="{{ row.ithenticate_id }}" data-index="{{ loop.index }}"
-								        data-copyvio="{{ copy }}" data-diffId="{{ row.diff }}">
+									data-id="{{ row.ithenticate_id }}" data-index="{{ loop.index }}"
+									data-copyvio="{{ copy }}" data-diffId="{{ row.diff }}"
+								>
 									<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
 									Compare
 								</button>

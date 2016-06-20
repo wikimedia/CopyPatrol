@@ -4,12 +4,20 @@ $( document ).ready( function () {
 		selector: '[data-toggle="tooltip"]'
 	} );
 	$( '.records' ).on( 'click', '.js-save-state', function () {
-		saveState( $( this ).data( 'id' ), $( this ).data( 'status' ) );
+		var status = $( this ).data( 'status' ),
+			id = $( this ).data( 'id' );
+
+		// undo review if they click on the button with the same status as the record
+		if ( status === $( '.record-' + id ).data( 'status' ) ) {
+			undoReview( id, status );
+		} else {
+			saveState( id, status );
+		}
 	} );
 	$( '.records' ).on( 'click', '.js-compare-button', function () {
 		// pass the dataset of the element as an object to toggleComparePane
 		toggleComparePane.call(this, this.dataset);
-	});
+	} );
 	$( '.js-load-more' ).on( 'click', loadMoreResults );
 
 	/**
@@ -18,21 +26,8 @@ $( document ).ready( function () {
 	 * @param val string Save value 'fixed' or 'false'
 	 */
 	function saveState( id, val ) {
-		var buttonId, unusedButtonId, buttonClass, unusedButtonClass;
-
-		if ( val === 'fixed' ) {
-			buttonId = '#success' + id;
-			unusedButtonId = '#danger' + id;
-			buttonClass = 'success';
-			unusedButtonClass = 'danger';
-		} else if ( val.toString() === 'false' ) { // needs toString() as jQuery's .data will assume 'false' to be boolean
-			buttonId = '#danger' + id;
-			unusedButtonId = '#success' + id;
-			unusedButtonClass = 'success';
-			buttonClass = 'danger';
-		}
-		$( buttonId ).removeClass( 'btn-' + buttonClass ).addClass( 'btn-' + buttonClass + '-clicked' ).blur();
-		$( unusedButtonId ).removeClass( 'btn-' + unusedButtonClass ).addClass( 'btn-secondary' ).prop( 'disabled', 'disabled' ).blur();
+		// update styles before AJAX to make it seem more responsive
+		setReviewState( id, val );
 
 		$.ajax( {
 			url: 'review/add',
@@ -49,14 +44,58 @@ $( document ).ready( function () {
 				$reviewerNode.fadeIn( 'slow' );
 			} else if ( ret.error === 'Unauthorized' ) {
 				alert( 'You need to be logged in to be able to review.' );
-				$( buttonId ).addClass( 'btn-' + buttonClass ).removeClass( 'btn-' + buttonClass + '-clicked' ).blur();
-				$( unusedButtonId ).removeClass( 'btn-secondary' ).prop( 'disabled', false ).addClass( 'btn-' + unusedButtonClass );
+				// go back to initial state
+				setReviewState( id, 'open' );
 			} else {
 				alert( 'There was an error in connecting to database.' );
-				$( buttonId ).addClass( 'btn-' + buttonClass ).removeClass( 'btn-' + buttonClass + '-clicked' ).blur();
-				$( unusedButtonId ).removeClass( 'btn-secondary' ).prop( 'disabled', false ).addClass( 'btn-' + unusedButtonClass );
+				setReviewState( id, 'open' );
 			}
+
+			document.activeElement.blur(); // remove focus from button
 		} );
+	}
+
+	/**
+	 * Undo a review
+	 * @param id int ID of the record
+	 * @param oldStatus string current review state of the record
+	 */
+	function undoReview( id, oldStatus ) {
+		// update styles before AJAX to make it seem more responsive
+		setReviewState( id, 'open' );
+
+		$.ajax( {
+			url: 'review/add',
+			data: {
+				id: id,
+				undo: true
+			},
+			dataType: 'json'
+		} ).done( function ( ret ) {
+			if ( ret.user ) {
+				$reviewerNode = $( '.status-div-reviewer-' + id );
+				$reviewerNode.fadeOut( 'slow' );
+			} else {
+				alert( 'There was an error in connecting to database.' );
+				setReviewState( id, oldStatus ); // revert back to old state
+			}
+
+			document.activeElement.blur(); // remove focus from button
+		} );
+	}
+
+	/**
+	 * Set the CSS class of the record in view, which updates the appearance of the review buttons
+	 * @param id int ID of the record
+	 * @param state string record state, must be 'open', 'fixed' or 'false'
+	 */
+	function setReviewState( id, state ) {
+		$( '.record-' + id )
+			.removeClass( 'record-status-open' )
+			.removeClass( 'record-status-false' )
+			.removeClass( 'record-status-fixed' )
+			.addClass( 'record-status-' + state )
+			.data( 'status', state );
 	}
 
 	/**
