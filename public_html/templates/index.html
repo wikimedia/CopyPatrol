@@ -42,7 +42,7 @@
 						{# Div for editor information #}
 						<div class="row-div col-sm-2 text-center report-div">
 							{% if row.editor %}
-								<a href='{{ row.editor }}' class="{{ row.editor_page_dead ? 'text-danger' : '' }}">{{ row.editor }}</a>
+								<a href='{{ row.editor_page }}' class="{{ row.editor_page_dead ? 'text-danger' : '' }}" target="_blank">{{ row.editor }}</a>
 								<br/>
 								<small>
 									<a href='{{ row.editor_talk }}' class="{{ row.editor_talk_dead ? 'text-danger' : '' }}" target="_blank">Talk</a>
@@ -50,7 +50,9 @@
 									<a href='{{ row.editor_contribs }}' target="_blank">
 										Contributions
 									</a>
-									<div>Edit count: {{ row.editcount }}</div>
+									{% if row.editcount %}
+										<div>Edit count: {{ row.editcount }}</div>
+									{% endif %}
 								</small>
 							{% else %}
 								<span class="glyphicon glyphicon-exclamation-sign"></span>

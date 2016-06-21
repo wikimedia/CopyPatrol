@@ -56,7 +56,7 @@ class EnwikiDao extends AbstractDao {
 		$query = self::concat(
 			'SELECT r.rev_id, r.rev_user, r.rev_user_text, u.user_editcount, u.user_name',
 			'FROM revision r',
-			'JOIN user u ON r.rev_user = u.user_id',
+			'LEFT JOIN user u ON r.rev_user = u.user_id',
 			'WHERE r.rev_id = ?'
 		);
 		$data = array(
