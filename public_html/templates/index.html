@@ -22,18 +22,18 @@
 						<div class="row-div col-sm-3 page-div">
 							<strong>
 								<a href='{{ row.page_link }}' target="_blank"
-									class={{ row.page_dead ? 'text-danger' : '' }}
+									class="{{ row.page_dead ? 'text-danger' : '' }}"
 								>
 									{{ row.page_title }}
 								</a>
 							</strong>
 							<div class="small">
-								(<a href='{{ row.history_link }}' target="_blank">history</a>)
+								(<a href='{{ row.history_link }}' target="_blank" class="{{ row.page_dead ? 'text-danger' : '' }}">history</a>)
 							</div>
 						</div>
 						{# Div for diff information and link #}
 						<div class="row-div col-sm-1 text-center diff-div">
-							<a href='{{ row.diff_link }}' target="_blank">Diff</a>
+							<a href='{{ row.diff_link }}' target="_blank" class="{{ row.page_dead ? 'text-danger' : '' }}">Diff</a>
 							<br/>
 							<small class="diff-div-timestamp">
 								<time datetime="{{ row.diff_timestamp }}">{{ row.diff_timestamp }}</time>

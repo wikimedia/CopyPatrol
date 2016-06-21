@@ -127,6 +127,7 @@ $( document ).ready( function () {
 	 */
 	function toggleComparePane(params) {
 		var compareDiv = '#comp' + params.id + '-' + params.index;
+
 		$( compareDiv ).slideToggle( 500 );
 		if ( !$( compareDiv ).hasClass( 'copyvios-fetched' ) ) {
 			$.ajax( {
@@ -143,15 +144,15 @@ $( document ).ready( function () {
 				},
 				dataType: 'json',
 				jsonpCallback: 'callback'
-			} ).done( function ( ret ) {
-				console.log( 'XHR Success' );
-				if ( ret.detail ) {
+			} ).always( function ( ret ) { // use always to handle 500s, etc.
+				if ( ret.detail ) { // ret.detail means we had success
 					// Add a class to the compare panel once we fetch the details to avoid making repetitive API requests
 					$( compareDiv ).find( '.compare-pane-left-body' ).html( ret.detail.article );
 					$( compareDiv ).find( '.compare-pane-right-body' ).html( ret.detail.source );
 				} else {
-					$( compareDiv ).find( '.compare-pane-left-body' ).html( '<span class="text-danger">Error! API returned no data.</span>' );
-					$( compareDiv ).find( '.compare-pane-right-body' ).html( '<span class="text-danger">Error! API returned no data.</span>' );
+					// use API-provided error message, otherwise a blanket unknown error message as it could be unrelated to the API
+					var errorMessage = ret.error && ret.error.info ? ret.error.info : 'An unknown error occurred.';
+					$( compareDiv ).find( '.compare-pane-body' ).html( '<span class="text-danger">' + errorMessage + '</span>' );
 				}
 				$( compareDiv ).addClass( 'copyvios-fetched' );
 			} );
