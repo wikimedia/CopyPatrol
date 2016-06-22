@@ -94,6 +94,7 @@ class CopyPatrol extends Controller {
 			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );
 			$records[$key]['diff_link'] = $this->getDiffLink( $record['page_title'], $record['diff'] );
 			$records[$key]['page_link'] = $this->getPageLink( $record['page_title'] );
+			$records[$key]['history_link'] = $this->getHistoryLink( $record['page_title'] );
 			$records[$key]['turnitin_report'] = $this->getReportLink( $record['ithenticate_id'] );
 			$records[$key]['copyvios'] = $this->getCopyvioUrls( $record['report'] );
 			$records[$key]['editor'] = $editor['editor'];
@@ -212,7 +213,7 @@ class CopyPatrol extends Controller {
 	 */
 	public function formatTimestamp( $datetime ) {
 		$datetime = strtotime( $datetime );
-		return date( 'Y-m-d h:m', $datetime );
+		return date( 'Y-m-d H:i', $datetime );
 	}
 
 
@@ -222,6 +223,16 @@ class CopyPatrol extends Controller {
 	 */
 	public function removeUnderscores( $title ) {
 		return str_replace( '_', ' ', $title );
+	}
+
+
+	/**
+	 * Get URL for revision history of given page
+	 * @param $title string page title
+	 * @return string the URL
+	 */
+	public function getHistoryLink( $title ) {
+		return $this->wikipedia . '/wiki/' . urlencode( $title ) . '?action=history';
 	}
 
 

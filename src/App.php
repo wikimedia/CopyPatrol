@@ -157,6 +157,12 @@ class App extends AbstractApp {
 				// determine if we are on the staging environment, so we can show a banner in the view
 				$rootUri = $slim->request->getRootUri();
 				$slim->view->set( 'staging', strpos( $rootUri, 'plagiabot' ) );
+			},
+			'require-auth' => function () use ( $slim ) {
+				if ( !$slim->authManager->isAuthenticated() ) {
+					echo json_encode( array( 'error' => 'Unauthorized' ) );
+					$slim->stop();
+				}
 			}
 		);
 		$slim->group( '/', $middleware['inject-user'], $middleware['set-environment'],
@@ -195,19 +201,18 @@ class App extends AbstractApp {
 					$slim->response->setBody( file_get_contents( APP_ROOT . '/src/Less/cache/' . $cssFileName ) );
 				} )->name( 'index.css' );
 			} );
-		$slim->group( '(/)review/',
+		$slim->group( '(/)review/', $middleware['require-auth'],
 			function () use ( $slim ) {
 				$slim->get( 'add', function () use ( $slim ) {
-					// TODO: Ideally the authentication step should be taken care of by a middleware
-					// but I haven't found a way to make it work with AJAX requests so far
-					if ( $slim->authManager->isAuthenticated() ) {
-						$page = new Controllers\Review( $slim );
-						$page->setDao( $slim->plagiabotDao );
-						$page();
-					} else {
-						echo json_encode( array( 'error' => 'Unauthorized' ) );
-					}
+					$page = new Controllers\AddReview( $slim );
+					$page->setDao( $slim->plagiabotDao );
+					$page();
 				} )->name( 'add_review' );
+				$slim->get( 'undo', function () use ( $slim ) {
+					$page = new Controllers\UndoReview( $slim );
+					$page->setDao( $slim->plagiabotDao );
+					$page();
+				} )->name( 'undo_review' );
 			} );
 		$slim->group( '/oauth/',
 			function () use ( $slim ) {
