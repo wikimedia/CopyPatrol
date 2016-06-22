@@ -68,10 +68,9 @@
 			setReviewState( id, 'open' );
 
 			$.ajax( {
-				url: 'review/add',
+				url: 'review/undo',
 				data: {
-					id: id,
-					undo: true
+					id: id
 				},
 				dataType: 'json'
 			} ).done( function ( ret ) {
