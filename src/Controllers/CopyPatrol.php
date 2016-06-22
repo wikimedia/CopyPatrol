@@ -89,23 +89,60 @@ class CopyPatrol extends Controller {
 	 */
 	protected function handleGet() {
 		$records = $this->getRecords();
+		$diffIds = array();
+		$pageTitles = array();
+		$editors = array();
+		$editorPages = array();
+		$editorTalkPages = array();
+
+		// first build arrays of diff IDs and page titles so we can use them to make mass queries
+		foreach ( $records as $record ) {
+			$diffIds[] = $record['diff'];
+			$pageTitles[] = $record['page_title'];
+		}
+
+		// get info for each revision (editor, editcount, etc) and build datasets from it
+		$revisions = $this->enwikiDao->getRevisionDetailsMulti( $diffIds );
+		foreach ( $revisions as $revision ) {
+			$userText = $revision['rev_user_text'];
+			if ( isset( $userText ) ) {
+				// associative array for editor info with the revision ID as the key,
+				// this makes it easier to access what we need when looping through the copyvio records
+				$editors[$revision['rev_id']] = array(
+					'editor' => $userText,
+					'editcount' => $revision['user_editcount']
+				);
+				// build arrays for editor page and talk page so we can mass-query if they are dead
+				$editorPages[] = 'User:' . $userText;
+				$editorTalkPages[] = 'User talk:' . $userText;
+			}
+		}
+		// get all the dead pages in 3 goes; these cannot be done at the same time as we can only query for 50 pages max
+		$deadPages = $this->enwikiDao->getDeadPages( $pageTitles );
+		$deadEditorPages = $this->enwikiDao->getDeadPages( $editorPages );
+		$deadEditorTalkPages = $this->enwikiDao->getDeadPages( $editorTalkPages );
+
+		// now all external requests and database queries (except WikiProjects) have been completed,
+		// let's loop through the records once more to build the complete dataset to be rendered into view
 		foreach ( $records as $key => $record ) {
-			$editor = $this->enwikiDao->getUserDetails( $record['diff'] );
+			$editor = isset( $editors[$record['diff']] ) ? $editors[$record['diff']] : NULL;
 			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );
 			$records[$key]['diff_link'] = $this->getDiffLink( $record['page_title'], $record['diff'] );
 			$records[$key]['page_link'] = $this->getPageLink( $record['page_title'] );
 			$records[$key]['history_link'] = $this->getHistoryLink( $record['page_title'] );
 			$records[$key]['turnitin_report'] = $this->getReportLink( $record['ithenticate_id'] );
 			$records[$key]['copyvios'] = $this->getCopyvioUrls( $record['report'] );
-			$records[$key]['editor'] = $editor['editor'];
-			$records[$key]['editor_page'] = $this->getUserPage( $editor['editor'] );
-			$records[$key]['editor_talk'] = $this->getUserTalk( $editor['editor'] );
-			$records[$key]['editor_contribs'] = $this->getUserContribs( $editor['editor'] );
-			$records[$key]['editcount'] = $editor['editcount'];
-			$records[$key]['page_dead'] = $this->enwikiDao->isPageDead( $record['page_title'] );
+			$records[$key]['page_dead'] = in_array( $this->removeUnderscores( $record['page_title'] ), $deadPages );
+			if ( $editor['editcount'] ) {
+				$records[$key]['editcount'] = $editor['editcount'];
+			}
 			if ( $editor['editor'] ) {
-				$records[$key]['editor_page_dead'] = $this->enwikiDao->isPageDead( 'User:' . $editor['editor'] );
-				$records[$key]['editor_talk_dead'] = $this->enwikiDao->isPageDead( 'User_talk:' . $editor['editor'] );
+				$records[$key]['editor'] = $editor['editor'];
+				$records[$key]['editor_page'] = $this->getUserPage( $editor['editor'] );
+				$records[$key]['editor_talk'] = $this->getUserTalk( $editor['editor'] );
+				$records[$key]['editor_contribs'] = $this->getUserContribs( $editor['editor'] );
+				$records[$key]['editor_page_dead'] = in_array( 'User:' . $editor['editor'], $deadEditorPages );
+				$records[$key]['editor_talk_dead'] = in_array( 'User talk:' . $editor['editor'], $deadEditorTalkPages );
 			} else {
 				$records[$key]['editor_page_dead'] = false;
 				$records[$key]['editor_talk_dead'] = false;
@@ -164,7 +201,7 @@ class CopyPatrol extends Controller {
 			}
 		}
 		// make this easier when working locally
-		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 3 : 50;
+		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 10 : 50;
 		// compile all options in an array
 		$options = array(
 			'filter' => $filter,
