@@ -32,11 +32,10 @@ class AddReview extends CopyPatrol {
 		parent::__construct( $slim );
 	}
 
-
 	protected function handleGet() {
 		$id = $this->request->get( 'id' );
 		$userData = $this->authManager->getUserData();
-		$user = $userData ? $userData->getName() : NULL;
+		$user = $userData ? $userData->getName() : null;
 		// Get current UTC time as ISO 8601 timestamp.
 		$timestamp = gmdate( 'c' );
 		$val = $this->request->get( 'val' );
@@ -46,17 +45,17 @@ class AddReview extends CopyPatrol {
 		// Return JSON with username and review timestamp if review was successful
 		if ( $ret === true ) {
 			echo json_encode(
-				array(
+				[
 					'user' => $user,
 					'userpage' => $this->getUserPage( $user ),
 					'timestamp' => $this->formatTimestamp( $timestamp ),
 					'status' => $val
-				) );
+				] );
 		} else {
 			echo json_encode(
-				array(
+				[
 					'error' => 'false'
-				) );
+				] );
 		}
 	}
 }

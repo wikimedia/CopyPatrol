@@ -30,7 +30,6 @@ class EnwikiDao extends AbstractDao {
 	 */
 	protected $wikipedia;
 
-
 	/**
 	 * @param string $dsn PDO data source name
 	 * @param string $user Database user
@@ -39,18 +38,20 @@ class EnwikiDao extends AbstractDao {
 	 * @param array $settings Configuration settings
 	 * @param LoggerInterface $logger Log channel
 	 */
-	public function __construct( $dsn, $user, $pass, $wiki = 'https://en.wikipedia.org', $settings = null, $logger = null
+	public function __construct(
+		$dsn, $user, $pass,
+		$wiki = 'https://en.wikipedia.org', $settings = null, $logger = null
 	) {
 		parent::__construct( $dsn, $user, $pass, $logger );
 		$this->wikipedia = $wiki;
 	}
 
-
 	/**
 	 * Get details on multiple revisions
 	 *
 	 * @param $diffs array Revision IDs
-	 * @return array full revision rev_id, rev_user, rev_usertext, user_editcount and user_name of the revision
+	 * @return array full revision rev_id, rev_user, rev_usertext,
+	 *   user_editcount and user_name of the revision
 	 */
 	public function getRevisionDetailsMulti( $diffs ) {
 		$query = self::concat(
@@ -63,12 +64,12 @@ class EnwikiDao extends AbstractDao {
 		return $result;
 	}
 
-
 	/**
 	 * Get editor details
 	 *
 	 * @param $diff int Diff revision ID
-	 * @return array|false If editor exists, return array with params 'editor', 'editcount'. Else, false.
+	 * @return array|false If editor exists, return array with params
+	 *   'editor', 'editcount'. Else, false.
 	 */
 	public function getUserDetails( $diff ) {
 		$query = self::concat(
@@ -77,11 +78,11 @@ class EnwikiDao extends AbstractDao {
 			'LEFT JOIN user u ON r.rev_user = u.user_id',
 			'WHERE r.rev_id = ?'
 		);
-		$data = array(
+		$data = [
 			'editor' => false,
 			'editcount' => false
-		);
-		$result = $this->fetch( $query, array( (int)$diff ) );
+		];
+		$result = $this->fetch( $query, [ (int)$diff ] );
 		if ( $result == false ) {
 			return $data;
 		} else {
@@ -91,7 +92,6 @@ class EnwikiDao extends AbstractDao {
 		return $data;
 	}
 
-
 	/**
 	 * Determine which of the given pages are dead
 	 *
@@ -100,29 +100,32 @@ class EnwikiDao extends AbstractDao {
 	 */
 	public function getDeadPages( $titles ) {
 		if ( !$titles ) {
-			return array();
+			return [];
 		}
 		$titles = array_map( 'urlencode', $titles );
-		$url = $this->wikipedia . '/w/api.php?action=query&format=json&titles=' . join( '|', $titles ) . '&formatversion=2';
+		$url = $this->wikipedia .
+			'/w/api.php?action=query&format=json&titles=' .
+			join( '|', $titles ) .
+			'&formatversion=2';
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		$result = curl_exec( $ch );
 		$json = json_decode( $result );
-		$deadPages = array();
+		$deadPages = [];
 		foreach ( $json->query->pages as $p ) {
 			if ( isset( $p->missing ) ) {
-				// Please note that this returns a false positive when the user account has a global User page and
-				// not a local one
+				// Please note that this returns a false positive when the
+				// user account has a global User page and not a local one
 				$deadPages[] = $p->title;
 			}
 		}
 		return $deadPages;
 	}
 
-
 	/**
-	 * We do an API query here because testing proved API query to be faster for looking up deleted page titles
+	 * We do an API query here because testing proved API query to be faster
+	 * for looking up deleted page titles
 	 *
 	 * @param $title string Page title
 	 * @return bool depending on page dead or alive
@@ -131,16 +134,19 @@ class EnwikiDao extends AbstractDao {
 		if ( !$title ) {
 			return false;
 		}
-		$url = $this->wikipedia . '/w/api.php?action=query&format=json&titles=' . urlencode( $title ) . '&formatversion=2';
+		$url = $this->wikipedia .
+			'/w/api.php?action=query&format=json&titles=' .
+			urlencode( $title ) .
+			'&formatversion=2';
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		$result = curl_exec( $ch );
 		$json = json_decode( $result );
 		foreach ( $json->query->pages as $p ) {
 			if ( isset( $p->missing ) ) {
-				// Please note that this returns a false positive when the user account has a global User page and
-				// not a local one
+				// Please note that this returns a false positive when the
+				// user account has a global User page and not a local one
 				return true;
 			} else {
 				return false;

@@ -30,7 +30,6 @@ class PlagiabotDao extends AbstractDao {
 	 */
 	protected $wikipedia;
 
-
 	/**
 	 * @param string $dsn PDO data source name
 	 * @param string $user Database user
@@ -39,23 +38,28 @@ class PlagiabotDao extends AbstractDao {
 	 * @param array $settings Configuration settings
 	 * @param LoggerInterface $logger Log channel
 	 */
-	public function __construct( $dsn, $user, $pass, $wiki = 'https://en.wikipedia.org', $settings = null, $logger = null
+	public function __construct(
+		$dsn, $user, $pass,
+		$wiki = 'https://en.wikipedia.org', $settings = null, $logger = null
 	) {
 		parent::__construct( $dsn, $user, $pass, $logger );
 		$this->wikipedia = $wiki;
 	}
 
-
 	/**
 	 * @param int $n Number of records asked for
 	 * @param array $options filter and filter user options, should look like:
-	 *   string 'filter' Filter SQL to show a certian status, one of 'all', 'open', 'reviewed' or 'mine'
-	 *   string 'filter_user' Filter SQL to only return records reviewed by given user
-	 *   integer 'last_id' offset of where to start fetching records, going by 'ithenticate_id'
-	 * @return array|false Data for plagiabot db records or false if no data is not returned
+	 *   string 'filter' Filter SQL to show a certian status, one of 'all',
+	 *     'open', 'reviewed' or 'mine'
+	 *   string 'filter_user' Filter SQL to only return records reviewed by
+	 *     given user
+	 *   integer 'last_id' offset of where to start fetching records, going by
+	 *     'ithenticate_id'
+	 * @return array|false Data for plagiabot db records or false if no data
+	 *   is not returned
 	 */
 	public function getPlagiarismRecords( $n = 50, $options ) {
-		$filters = array();
+		$filters = [];
 		$filterSql = '';
 		$lastId = isset( $options['last_id'] ) ? $options['last_id'] : null;
 		$filter = isset( $options['filter'] ) ? $options['filter'] : 'all';
@@ -89,7 +93,6 @@ class PlagiabotDao extends AbstractDao {
 		);
 		return $this->fetchAll( $sql );
 	}
-
 
 	/**
 	 * @param $value string Value of the state saved by user

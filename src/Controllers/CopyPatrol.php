@@ -40,7 +40,6 @@ class CopyPatrol extends Controller {
 	 */
 	protected $wikiprojectDao;
 
-
 	/**
 	 * @param \Slim\Slim $slim Slim application
 	 */
@@ -49,14 +48,12 @@ class CopyPatrol extends Controller {
 		$this->wikipedia = $wiki;
 	}
 
-
 	/**
 	 * @param mixed $enwikiDao
 	 */
 	public function setEnwikiDao( $enwikiDao ) {
 		$this->enwikiDao = $enwikiDao;
 	}
-
 
 	/**
 	 * @param mixed $wikiprojectDao
@@ -65,11 +62,11 @@ class CopyPatrol extends Controller {
 		$this->wikiprojectDao = $wikiprojectDao;
 	}
 
-
 	/**
 	 * Handle GET route for app
 	 *
-	 * @param $lastId int Ithenticate ID of the last record displayed on the page; needed for Load More calls
+	 * @param $lastId int Ithenticate ID of the last record displayed on the
+	 *   page; needed for Load More calls
 	 * @return array with following params:
 	 * page_title: Page with copyvio edit
 	 * page_link: Link to page
@@ -89,11 +86,11 @@ class CopyPatrol extends Controller {
 	 */
 	protected function handleGet() {
 		$records = $this->getRecords();
-		$diffIds = array();
-		$pageTitles = array();
-		$editors = array();
-		$editorPages = array();
-		$editorTalkPages = array();
+		$diffIds = [];
+		$pageTitles = [];
+		$editors = [];
+		$editorPages = [];
+		$editorTalkPages = [];
 
 		// first build arrays of diff IDs and page titles so we can use them to make mass queries
 		foreach ( $records as $record ) {
@@ -108,31 +105,34 @@ class CopyPatrol extends Controller {
 			if ( isset( $userText ) ) {
 				// associative array for editor info with the revision ID as the key,
 				// this makes it easier to access what we need when looping through the copyvio records
-				$editors[$revision['rev_id']] = array(
+				$editors[$revision['rev_id']] = [
 					'editor' => $userText,
 					'editcount' => $revision['user_editcount']
-				);
+				];
 				// build arrays for editor page and talk page so we can mass-query if they are dead
 				$editorPages[] = 'User:' . $userText;
 				$editorTalkPages[] = 'User talk:' . $userText;
 			}
 		}
-		// get all the dead pages in 3 goes; these cannot be done at the same time as we can only query for 50 pages max
+		// get all the dead pages in 3 goes; these cannot be done at the same
+		// time as we can only query for 50 pages max
 		$deadPages = $this->enwikiDao->getDeadPages( $pageTitles );
 		$deadEditorPages = $this->enwikiDao->getDeadPages( $editorPages );
 		$deadEditorTalkPages = $this->enwikiDao->getDeadPages( $editorTalkPages );
 
-		// now all external requests and database queries (except WikiProjects) have been completed,
-		// let's loop through the records once more to build the complete dataset to be rendered into view
+		// now all external requests and database queries (except
+		// WikiProjects) have been completed, let's loop through the records
+		// once more to build the complete dataset to be rendered into view
 		foreach ( $records as $key => $record ) {
-			$editor = isset( $editors[$record['diff']] ) ? $editors[$record['diff']] : NULL;
+			$editor = isset( $editors[$record['diff']] ) ? $editors[$record['diff']] : null;
 			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );
 			$records[$key]['diff_link'] = $this->getDiffLink( $record['page_title'], $record['diff'] );
 			$records[$key]['page_link'] = $this->getPageLink( $record['page_title'] );
 			$records[$key]['history_link'] = $this->getHistoryLink( $record['page_title'] );
 			$records[$key]['turnitin_report'] = $this->getReportLink( $record['ithenticate_id'] );
 			$records[$key]['copyvios'] = $this->getCopyvioUrls( $record['report'] );
-			$records[$key]['page_dead'] = in_array( $this->removeUnderscores( $record['page_title'] ), $deadPages );
+			$records[$key]['page_dead'] = in_array(
+				$this->removeUnderscores( $record['page_title'] ), $deadPages );
 			if ( $editor['editcount'] ) {
 				$records[$key]['editcount'] = $editor['editcount'];
 			}
@@ -142,7 +142,8 @@ class CopyPatrol extends Controller {
 				$records[$key]['editor_talk'] = $this->getUserTalk( $editor['editor'] );
 				$records[$key]['editor_contribs'] = $this->getUserContribs( $editor['editor'] );
 				$records[$key]['editor_page_dead'] = in_array( 'User:' . $editor['editor'], $deadEditorPages );
-				$records[$key]['editor_talk_dead'] = in_array( 'User talk:' . $editor['editor'], $deadEditorTalkPages );
+				$records[$key]['editor_talk_dead'] = in_array(
+					'User talk:' . $editor['editor'], $deadEditorTalkPages );
 			} else {
 				$records[$key]['editor_page_dead'] = false;
 				$records[$key]['editor_talk_dead'] = false;
@@ -153,7 +154,7 @@ class CopyPatrol extends Controller {
 			}
 			$records[$key]['wikiprojects'] = $this->wikiprojectDao->getWikiProjects( $record['page_title'] );
 			$records[$key]['page_title'] = $this->removeUnderscores( $record['page_title'] );
-			$cleanWikiprojects = array();
+			$cleanWikiprojects = [];
 			foreach ( $records[$key]['wikiprojects'] as $k => $wp ) {
 				$wp = $this->removeUnderscores( $wp );
 				$cleanWikiprojects[] = $wp;
@@ -164,7 +165,6 @@ class CopyPatrol extends Controller {
 		$this->render( 'index.html' );
 	}
 
-
 	/**
 	 * Get plagiarism records based on URL parameters and whether or not the user is logged in
 	 * This function also sets view variables for the filters, which get rendered as radio options
@@ -174,15 +174,16 @@ class CopyPatrol extends Controller {
 	 */
 	protected function getRecords() {
 		$userData = $this->authManager->getUserData();
-		$filterUser = $userData ? $userData->getName() : NULL;
-		$filter = $this->request->get( 'filter' ) ? $this->request->get( 'filter' ) : 'open'; // this will be the default
+		$filterUser = $userData ? $userData->getName() : null;
+		// Default to 'open'
+		$filter = $this->request->get( 'filter' ) ? $this->request->get( 'filter' ) : 'open';
 		$lastId = $this->request->get( 'lastId' ) ? $this->request->get( 'lastId' ) : 0;
 		// set filter types and descriptions that will be rendered as checkboxes in the view
-		$filterTypes = array(
+		$filterTypes = [
 			'all' => 'All cases',
 			'open' => 'Open cases',
 			'reviewed' => 'Reviewed cases'
-		);
+		];
 		// add 'My reviews' to filter options if user is logged in
 		if ( isset( $filterUser ) ) {
 			$filterTypes['mine'] = 'My reviews';
@@ -196,17 +197,20 @@ class CopyPatrol extends Controller {
 		} else {
 			$filterTypeKeys = array_keys( $filterTypes ); // Check that the filter value was valid
 			if ( !in_array( $filter, $filterTypeKeys ) ) {
-				$this->flashNow( 'error', 'Invalid filter. Values must be one of: ' . join( $filterTypeKeys, ', ' ) );
+				$this->flashNow(
+					'error',
+					'Invalid filter. Values must be one of: ' . join( $filterTypeKeys, ', ' )
+				);
 				$filter = 'open';  // Set to default
 			}
 		}
 		// make this easier when working locally
 		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 10 : 50;
 		// compile all options in an array
-		$options = array(
+		$options = [
 			'filter' => $filter,
 			'last_id' => $lastId > 0 ? $lastId : null
-		);
+		];
 		if ( $filter === 'mine' && isset( $filterUser ) ) {
 			$options['filter_user'] = $filterUser;
 		}
@@ -214,7 +218,6 @@ class CopyPatrol extends Controller {
 		$this->view->set( 'filterTypes', $filterTypes );
 		return $this->dao->getPlagiarismRecords( $numRecords, $options );
 	}
-
 
 	/**
 	 * @param $page string Page title
@@ -224,16 +227,16 @@ class CopyPatrol extends Controller {
 		return $this->wikipedia . '/wiki/' . urlencode( $page );
 	}
 
-
 	/**
 	 * @param $page string Page title
 	 * @param $diff string Diff id
 	 * @return string link to diff
 	 */
 	public function getDiffLink( $page, $diff ) {
-		return $this->wikipedia . '/w/index.php?title=' . urlencode( $page ) . '&diff=' . urlencode( $diff );
+		return $this->wikipedia .
+			'/w/index.php?title=' . urlencode( $page ) .
+			'&diff=' . urlencode( $diff );
 	}
-
 
 	/**
 	 * @param $ithenticateId int Report id for Turnitin
@@ -242,7 +245,6 @@ class CopyPatrol extends Controller {
 	public function getReportLink( $ithenticateId ) {
 		return 'https://tools.wmflabs.org/eranbot/ithenticate.py?rid=' . urlencode( $ithenticateId );
 	}
-
 
 	/**
 	 * @param $datetime string Datetime of edit
@@ -253,7 +255,6 @@ class CopyPatrol extends Controller {
 		return date( 'Y-m-d H:i', $datetime );
 	}
 
-
 	/**
 	 * @param $title String to change underscores to spaces for
 	 * @return string
@@ -261,7 +262,6 @@ class CopyPatrol extends Controller {
 	public function removeUnderscores( $title ) {
 		return str_replace( '_', ' ', $title );
 	}
-
 
 	/**
 	 * Get URL for revision history of given page
@@ -271,7 +271,6 @@ class CopyPatrol extends Controller {
 	public function getHistoryLink( $title ) {
 		return $this->wikipedia . '/wiki/' . urlencode( $title ) . '?action=history';
 	}
-
 
 	/**
 	 * @param $user string User name
@@ -284,7 +283,6 @@ class CopyPatrol extends Controller {
 		return $this->wikipedia . '/wiki/User_talk:' . urlencode( str_replace( ' ', '_', $user ) );
 	}
 
-
 	/**
 	 * @param $user string User name
 	 * @return string User page for a user on $this->wikipedia
@@ -296,7 +294,6 @@ class CopyPatrol extends Controller {
 		return $this->wikipedia . '/wiki/User:' . urlencode( str_replace( ' ', '_', $user ) );
 	}
 
-
 	/**
 	 * @param $user string User name
 	 * @return string Contributions page for a user on $this->wikipedia
@@ -305,9 +302,9 @@ class CopyPatrol extends Controller {
 		if ( !$user ) {
 			return false;
 		}
-		return $this->wikipedia . '/wiki/Special:Contributions/' . urlencode( str_replace( ' ', '_', $user ) );
+		return $this->wikipedia . '/wiki/Special:Contributions/' .
+			urlencode( str_replace( ' ', '_', $user ) );
 	}
-
 
 	/**
 	 * Get links to compare with
@@ -317,7 +314,7 @@ class CopyPatrol extends Controller {
 	 */
 	public function getCopyvioUrls( $text ) {
 		preg_match_all( '#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#', $text, $match );
-		$uniqueCopyvioUrls = array();
+		$uniqueCopyvioUrls = [];
 		foreach ( $match[0] as $foundUrl ) {
 			if ( !in_array( $foundUrl, $uniqueCopyvioUrls ) ) {
 				// Determine if $value is a substring of an existing url, and if so, discard it

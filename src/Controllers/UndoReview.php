@@ -25,38 +25,37 @@ use Wikimedia\Slimapp\Controller;
 
 class UndoReview extends CopyPatrol {
 
-  /**
-   * @param \Slim\Slim $slim Slim application
-   */
-  public function __construct( \Slim\Slim $slim = null ) {
-    parent::__construct( $slim );
-  }
+	/**
+	 * @param \Slim\Slim $slim Slim application
+	 */
+	public function __construct( \Slim\Slim $slim = null ) {
+		parent::__construct( $slim );
+	}
 
+	protected function handleGet() {
+		$id = $this->request->get( 'id' );
+		$undo = (bool)$this->request->get( 'undo' );
+		$userData = $this->authManager->getUserData();
+		$user = $userData ? $userData->getName() : null;
+		// Get current UTC time as ISO 8601 timestamp.
+		$timestamp = gmdate( 'c' );
 
-  protected function handleGet() {
-    $id = $this->request->get( 'id' );
-    $undo = (bool)$this->request->get( 'undo' );
-    $userData = $this->authManager->getUserData();
-    $user = $userData ? $userData->getName() : NULL;
-    // Get current UTC time as ISO 8601 timestamp.
-    $timestamp = gmdate( 'c' );
+		$ret = $this->dao->insertCopyvioAssessment( $id, null, null, null );
 
-    $ret = $this->dao->insertCopyvioAssessment( $id, NULL, NULL, NULL );
-
-    // Return JSON with username and review timestamp if unreview was successful
-    if ( $ret === true ) {
-      echo json_encode(
-        array(
-          'user' => $user,
-          'userpage' => $this->getUserPage( $user ),
-          'timestamp' => $this->formatTimestamp( $timestamp ),
-          'status' => NULL
-        ) );
-    } else {
-      echo json_encode(
-        array(
-          'error' => 'false'
-        ) );
-    }
-  }
+		// Return JSON with username and review timestamp if unreview was successful
+		if ( $ret === true ) {
+			echo json_encode(
+				[
+					'user' => $user,
+					'userpage' => $this->getUserPage( $user ),
+					'timestamp' => $this->formatTimestamp( $timestamp ),
+					'status' => null
+				] );
+		} else {
+			echo json_encode(
+				[
+					'error' => 'false'
+				] );
+		}
+	}
 }

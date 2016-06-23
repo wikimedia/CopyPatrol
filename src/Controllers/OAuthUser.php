@@ -36,12 +36,10 @@ class OAuthUser implements UserData {
 	 */
 	protected $attributes;
 
-
 	public function __construct( Token $token, $attributes ) {
 		$this->token = $token;
 		$this->attributes = $attributes;
 	}
-
 
 	/**
 	 * Get user's unique numeric id.
@@ -52,11 +50,9 @@ class OAuthUser implements UserData {
 		return $this->attributes->sub;
 	}
 
-
 	public function getName() {
 		return $this->attributes->username;
 	}
-
 
 	/**
 	 * Get user's password.
@@ -66,7 +62,6 @@ class OAuthUser implements UserData {
 	public function getPassword() {
 		return null;
 	}
-
 
 	/**
 	 * Is this user blocked from logging into the application?
