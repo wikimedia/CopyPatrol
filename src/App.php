@@ -36,23 +36,22 @@ class App extends AbstractApp {
 	 * @param \Slim\Slim $slim Application
 	 */
 	protected function configureSlim( \Slim\Slim $slim ) {
-		$slim->config(
-			[ 'displayErrorDetails' => true,
-			  'debug' => true,
-			  'oauth.enable' => Config::getBool( 'USE_OAUTH', false ),
-			  'oauth.consumer_token' => Config::getStr( 'OAUTH_CONSUMER_TOKEN' ),
-			  'oauth.secret_token' => Config::getStr( 'OAUTH_SECRET_TOKEN' ),
-			  'oauth.endpoint' => Config::getStr( 'OAUTH_ENDPOINT' ),
-			  'oauth.redir' => Config::getStr( 'OAUTH_REDIR' ),
-			  'oauth.callback' => Config::getStr( 'OAUTH_CALLBACK' ),
-			  'db.dsnwp' => Config::getStr( 'DB_DSN_WIKIPROJECT' ),
-			  'db.dsnen' => Config::getStr( 'DB_DSN_ENWIKI' ),
-			  'db.dsnpl' => Config::getStr( 'DB_DSN_PLAGIABOT' ),
-			  'db.user' => Config::getStr( 'DB_USER' ),
-			  'db.pass' => Config::getStr( 'DB_PASS' ),
-			  'templates.path' => '../public_html/templates'
-			]
-		);
+		$slim->config( [
+			'displayErrorDetails' => true,
+			'debug' => true,
+			'oauth.enable' => Config::getBool( 'USE_OAUTH', false ),
+			'oauth.consumer_token' => Config::getStr( 'OAUTH_CONSUMER_TOKEN' ),
+			'oauth.secret_token' => Config::getStr( 'OAUTH_SECRET_TOKEN' ),
+			'oauth.endpoint' => Config::getStr( 'OAUTH_ENDPOINT' ),
+			'oauth.redir' => Config::getStr( 'OAUTH_REDIR' ),
+			'oauth.callback' => Config::getStr( 'OAUTH_CALLBACK' ),
+			'db.dsnwp' => Config::getStr( 'DB_DSN_WIKIPROJECT' ),
+			'db.dsnen' => Config::getStr( 'DB_DSN_ENWIKI' ),
+			'db.dsnpl' => Config::getStr( 'DB_DSN_PLAGIABOT' ),
+			'db.user' => Config::getStr( 'DB_USER' ),
+			'db.pass' => Config::getStr( 'DB_PASS' ),
+			'templates.path' => '../public_html/templates'
+		] );
 	}
 
 	/**
@@ -160,11 +159,19 @@ class App extends AbstractApp {
 					echo json_encode( [ 'error' => 'Unauthorized' ] );
 					$slim->stop();
 				}
+			},
+			'trailing-slash' => function () use ( $slim ) {
+				// Remove trailing slashes
+				if ( substr( $_SERVER['REQUEST_URI'], -1 ) === '/' ) {
+					$uri = rtrim( $_SERVER['REQUEST_URI'], '/' );
+					$slim->redirect( $uri );
+				}
 			}
 		];
-		$slim->group( '/', $middleware['inject-user'], $middleware['set-environment'],
+		$slim->group( '/', $middleware['trailing-slash'],
+				$middleware['inject-user'], $middleware['set-environment'],
 			function () use ( $slim ) {
-				$slim->get( '/?', function () use ( $slim ) {
+				$slim->get( '/', function () use ( $slim ) {
 					$page = new Controllers\CopyPatrol( $slim );
 					$page->setDao( $slim->plagiabotDao );
 					$page->setEnwikiDao( $slim->enwikiDao );
@@ -198,7 +205,7 @@ class App extends AbstractApp {
 					$slim->response->setBody( file_get_contents( APP_ROOT . '/src/Less/cache/' . $cssFileName ) );
 				} )->name( 'index.css' );
 			} );
-		$slim->group( '(/)review/', $middleware['require-auth'],
+		$slim->group( '/review/', $middleware['require-auth'],
 			function () use ( $slim ) {
 				$slim->get( 'add', function () use ( $slim ) {
 					$page = new Controllers\AddReview( $slim );

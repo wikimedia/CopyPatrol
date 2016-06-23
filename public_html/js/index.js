@@ -33,7 +33,7 @@
 			setReviewState( id, val );
 
 			$.ajax( {
-				url: 'review/add',
+				url: location.pathname + '/review/add',
 				data: {
 					id: id,
 					val: val
@@ -68,7 +68,7 @@
 			setReviewState( id, 'open' );
 
 			$.ajax( {
-				url: 'review/undo',
+				url: location.pathname + '/review/undo',
 				data: {
 					id: id
 				},
@@ -107,7 +107,7 @@
 			$( '#btn-load-more' ).text( '' ).addClass( 'btn-loading' );
 			var lastId = $( '.ithenticate-id:last' ).text();
 			$.ajax( {
-				url: 'loadmore',
+				url: location.pathname + '/loadmore',
 				data: {
 					lastId: lastId,
 					filter: $( 'input[name=filter]:checked' ).val()
