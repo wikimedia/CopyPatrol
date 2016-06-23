@@ -27,8 +27,6 @@ use Wikimedia\Slimapp\Auth\UserManager;
 use MediaWiki\OAuthClient\Client;
 use MediaWiki\OAuthClient\Token;
 
-//use Plagiabot\Web\Controllers\OAuthUser;
-
 class OAuthUserManager implements UserManager {
 
 	/**
@@ -40,7 +38,6 @@ class OAuthUserManager implements UserManager {
 	 * @var Client $oauth
 	 */
 	protected $oauth;
-
 
 	/**
 	 * @param Client $oauth
@@ -54,7 +51,6 @@ class OAuthUserManager implements UserManager {
 		$this->setLogger( $logger );
 	}
 
-
 	/**
 	 * @param LoggerInterface $logger
 	 */
@@ -62,14 +58,12 @@ class OAuthUserManager implements UserManager {
 		$this->logger = $logger;
 	}
 
-
 	/**
 	 * @param Client $oauth
 	 */
 	public function setOAuth( Client $oauth ) {
 		$this->oauth = $oauth;
 	}
-
 
 	/**
 	 * Get a user by accessToken.

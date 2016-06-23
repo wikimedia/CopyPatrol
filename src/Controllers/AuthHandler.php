@@ -43,7 +43,6 @@ class AuthHandler extends Controller {
 
 	protected $slim;
 
-
 	/**
 	 * @param \Slim\Slim $slim Slim application
 	 */
@@ -52,16 +51,13 @@ class AuthHandler extends Controller {
 		$this->slim = $slim;
 	}
 
-
 	public function setOAuth( Client $oauth ) {
 		$this->oauth = $oauth;
 	}
 
-
 	public function setUserManager( OAuthUserManager $manager ) {
 		$this->manager = $manager;
 	}
-
 
 	protected function handleGet( $stage ) {
 		switch ( $stage ) {
@@ -74,7 +70,6 @@ class AuthHandler extends Controller {
 		}
 	}
 
-
 	/**
 	 * Initiate OAuth handshake and redirect user to OAuth server to authorize
 	 * the app.
@@ -84,7 +79,6 @@ class AuthHandler extends Controller {
 		$_SESSION[self::REQEST_KEY] = "{$token->key}:{$token->secret}";
 		$this->redirect( $next );
 	}
-
 
 	/**
 	 * Process the return result from a user authorizing our app.
@@ -103,16 +97,20 @@ class AuthHandler extends Controller {
 		unset( $_SESSION[self::REQEST_KEY] );
 		$token = new Token( $key, $secret );
 		$this->form->requireString( 'oauth_verifier' );
-		$this->form->requireInArray( 'oauth_token', array( $key ) );
+		$this->form->requireInArray( 'oauth_token', [ $key ] );
 		if ( $this->form->validate( $_GET ) ) {
 			$verifyCode = $this->form->get( 'oauth_verifier' );
 			try {
 				$accessToken = $this->oauth->complete( $token, $verifyCode );
 				$user = $this->manager->getUserData( $accessToken );
 				$this->authManager->login( $user );
-				$this->flash( 'info', 'You are now successfully logged in as ' . $user->getName() . '. Please note that
-				this tool is set up to credit users for their reviews. Your username will be assocated with your
-				reviews, be publicly visible and retained indefinitely.' );
+				$this->flash(
+					'info',
+					'You are now successfully logged in as ' . $user->getName() .
+					'. Please note that this tool is set up to credit users ' .
+					'for their reviews. Your username will be assocated with ' .
+					'your reviews, be publicly visible and retained indefinitely.'
+				);
 			} catch ( \Exception $e ) {
 				$this->flash( 'error', 'Logging in attempt aborted. Error!' );
 			}

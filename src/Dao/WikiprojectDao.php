@@ -30,7 +30,6 @@ class WikiprojectDao extends AbstractDao {
 	 */
 	protected $wikipedia;
 
-
 	/**
 	 * @param string $dsn PDO data source name
 	 * @param string $user Database user
@@ -39,12 +38,13 @@ class WikiprojectDao extends AbstractDao {
 	 * @param array $settings Configuration settings
 	 * @param LoggerInterface $logger Log channel
 	 */
-	public function __construct( $dsn, $user, $pass, $wiki = 'https://en.wikipedia.org', $settings = null, $logger = null
+	public function __construct(
+		$dsn, $user, $pass,
+		$wiki = 'https://en.wikipedia.org', $settings = null, $logger = null
 	) {
 		parent::__construct( $dsn, $user, $pass, $logger );
 		$this->wikipedia = $wiki;
 	}
-
 
 	/**
 	 * @param $title string Page title
@@ -55,8 +55,8 @@ class WikiprojectDao extends AbstractDao {
 			'SELECT * FROM projectindex',
 			'WHERE pi_page = ?'
 		);
-		$result = $this->fetchAll( $query, array( 'Talk:' . $title ) );
-		$data = array();
+		$result = $this->fetchAll( $query, [ 'Talk:' . $title ] );
+		$data = [];
 		if ( $result ) {
 			foreach ( $result as $r ) {
 				// Skip projects without 'Wikipoject' in title as they are partnership-based Wikiprojects
@@ -71,7 +71,7 @@ class WikiprojectDao extends AbstractDao {
 				}
 			}
 		} else {
-			return array();
+			return [];
 		}
 		$data = array_keys( $data );
 		// Return alphabetized list

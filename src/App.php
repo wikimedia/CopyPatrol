@@ -55,7 +55,6 @@ class App extends AbstractApp {
 		);
 	}
 
-
 	/**
 	 * Pre-prepare our class objects for use, with the appropriate parameters
 	 * They can now be accessed directly as, for example, $slim->oauthClient
@@ -114,12 +113,11 @@ class App extends AbstractApp {
 				$c->log
 			);
 		} );
-		//
+		// Authentication manager
 		$container->singleton( 'authManager', function ( $c ) {
 			return new AuthManager( $c->userManager );
 		} );
 	}
-
 
 	/**
 	 * Configure view behavior.
@@ -133,14 +131,13 @@ class App extends AbstractApp {
 		];
 	}
 
-
 	/**
 	 * Configure routes to be handled by application.
 	 *
 	 * @param \Slim\Slim $slim Application
 	 */
 	protected function configureRoutes( \Slim\Slim $slim ) {
-		$middleware = array(
+		$middleware = [
 			'must-revalidate' => function () use ( $slim ) {
 				$slim->response->headers->set(
 					'Cache-Control', 'private, must-revalidate, max-age=0'
@@ -160,11 +157,11 @@ class App extends AbstractApp {
 			},
 			'require-auth' => function () use ( $slim ) {
 				if ( !$slim->authManager->isAuthenticated() ) {
-					echo json_encode( array( 'error' => 'Unauthorized' ) );
+					echo json_encode( [ 'error' => 'Unauthorized' ] );
 					$slim->stop();
 				}
 			}
-		);
+		];
 		$slim->group( '/', $middleware['inject-user'], $middleware['set-environment'],
 			function () use ( $slim ) {
 				$slim->get( '/?', function () use ( $slim ) {
@@ -194,8 +191,8 @@ class App extends AbstractApp {
 					// The value for the .less key defines the root of assets within the Less
 					//   e.g. /copypatrol/ makes url('image.gif') route to /copypatrol/image.gif
 					$rootUri = $slim->request->getRootUri();
-					$lessFiles = array( APP_ROOT . '/src/Less/index.less' => $rootUri . '/' );
-					$options = array( 'cache_dir' => APP_ROOT . '/src/Less/cache' );
+					$lessFiles = [ APP_ROOT . '/src/Less/index.less' => $rootUri . '/' ];
+					$options = [ 'cache_dir' => APP_ROOT . '/src/Less/cache' ];
 					$cssFileName = Less_Cache::Get( $lessFiles, $options );
 					$slim->response->headers->set( 'Content-Type', 'text/css' );
 					$slim->response->setBody( file_get_contents( APP_ROOT . '/src/Less/cache/' . $cssFileName ) );
@@ -230,14 +227,13 @@ class App extends AbstractApp {
 			} );
 	}
 
-
 	/**
 	 * Customize header middleware for app
 	 *
 	 * @return \Wikimedia\Slimapp\HeaderMiddleware
 	 */
 	protected function configureHeaderMiddleware() {
-		return array(
+		return [
 			'Vary' => 'Cookie',
 			'X-Frame-Options' => 'DENY',
 			'Content-Security-Policy' =>
@@ -252,7 +248,7 @@ class App extends AbstractApp {
 			// Don't forget to override this for any content that is not
 			// actually HTML (e.g. json)
 			'Content-Type' => 'text/html; charset=UTF-8',
-		);
+		];
 	}
 
 }
