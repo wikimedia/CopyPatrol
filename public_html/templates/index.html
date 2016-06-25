@@ -15,7 +15,7 @@
 {% block records %}
 	{% if records is not empty %}
 		{% for row in records %}
-			<article class="record record-status-{{ row.status ? row.status : 'open' }} record-{{ row.ithenticate_id }}" data-status="{{ row.status }}">
+			<article class="js-record record record-status-{{ row.status ? row.status : 'open' }} record-{{ row.ithenticate_id }}" data-status="{{ row.status }}">
 				<div class="row-container">
 					{# Div for page title #}
 					<div class="row-div col-sm-3 page-div">

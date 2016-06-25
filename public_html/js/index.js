@@ -115,7 +115,12 @@
 			} ).done( function ( ret ) {
 				$( '#btn-load-more' ).text( 'Load More' ).removeClass( 'btn-loading' );
 				var $newRecords = $( ret ).find( '.record-container' );
-				$( '.record-container' ).append( $newRecords.html() );
+
+				if ( $newRecords.find('.js-record').length ) {
+					$( '.record-container' ).append( $newRecords.html() );
+				} else {
+					$( '.js-load-more' ).replaceWith( '<p>No more records!</p>' );
+				}
 			} );
 		}
 

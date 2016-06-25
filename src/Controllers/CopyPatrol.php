@@ -86,6 +86,12 @@ class CopyPatrol extends Controller {
 	 */
 	protected function handleGet() {
 		$records = $this->getRecords();
+
+		// nothing else needs to be done if there are no records
+		if ( empty( $records ) ) {
+			return $this->render( 'index.html' );
+		}
+
 		$diffIds = [];
 		$pageTitles = [];
 		$editors = [];
