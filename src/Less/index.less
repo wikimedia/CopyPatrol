@@ -3,6 +3,40 @@
 @import 'bootstrap/mixins/buttons.less';
 @import 'bootstrap/mixins/gradients.less';
 
+.loading-indic(@size: 20px) {
+  animation-duration: .75s;
+  animation-iteration-count: infinite;
+  animation-name: spin;
+  border: 3px solid white;
+  border-radius: 50%;
+  border-top-color: transparent;
+  bottom: 0;
+  content: '';
+  height: @size;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: @size;
+}
+
+.not-clickable {
+  cursor: default;
+  pointer-events: none;
+}
+
+// WebKit
+@-webkit-keyframes spin {
+  from  { transform: rotate(0deg); }
+  to    { transform: rotate(360deg); }
+}
+// Spec and IE10+
+@keyframes spin {
+  from  { transform: rotate(0deg); }
+  to    { transform: rotate(360deg); }
+}
+
 /* Glyphicons supported by http://glyphicons.com via Bootstrap */
 .padded {
   margin: 15px auto;
@@ -50,6 +84,15 @@
 .btn {
   .transition(background linear 350ms);
   position: relative;
+
+  &.loading {
+    .not-clickable;
+    color: transparent;
+
+    &::after {
+      .loading-indic;
+    }
+  }
 }
 
 .btn-grayed {
@@ -98,13 +141,6 @@
   }
 }
 
-.record-status-fixed, .record-status-false {
-  .not-clickable {
-    cursor: default;
-    pointer-events: none;
-  }
-}
-
 .record-status-fixed {
   .btn-no-action {
     .btn-grayed;
@@ -114,7 +150,7 @@
     }
   }
 
-  .btn-fixed.clickable:hover::after {
+  .btn-fixed.clickable:not(.loading):hover::after {
     .btn-undo;
     background: darken(@brand-success, 10%);
   }
@@ -129,7 +165,7 @@
     }
   }
 
-  .btn-no-action.clickable:hover::after {
+  .btn-no-action.clickable:not(.loading):hover::after {
     .btn-undo;
     background: darken(@brand-danger, 10%);
   }

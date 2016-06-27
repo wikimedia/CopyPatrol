@@ -8,14 +8,23 @@
 		} );
 		$( '.records' ).on( 'click', '.js-save-state', function () {
 			var status = $( this ).data( 'status' ),
-				id = $( this ).data( 'id' );
+				id = $( this ).data( 'id' ),
+				reviewFn;
+
+			$( this ).addClass( 'loading' );
 
 			// undo review if they click on the button with the same status as the record
 			if ( status === $( '.record-' + id ).data( 'status' ) ) {
-				undoReview( id, status );
+				reviewFn = undoReview;
 			} else {
-				saveState( id, status );
+				reviewFn = saveReview;
 			}
+
+			// perform review action then cleanup
+			reviewFn( id, status, function () {
+				document.activeElement.blur(); // remove focus from button
+				$( this ).removeClass( 'loading' );
+			}.bind( this ) );
 		} );
 		$( '.records' ).on( 'click', '.js-compare-button', function () {
 			// pass the dataset of the element as an object to toggleComparePane
@@ -27,8 +36,9 @@
 		 * Save a review
 		 * @param id int ID of the record
 		 * @param val string Save value 'fixed' or 'false'
+		 * @param cb function callback
 		 */
-		function saveState( id, val ) {
+		function saveReview( id, val, cb ) {
 			// update styles before AJAX to make it seem more responsive
 			setReviewState( id, val );
 
@@ -54,7 +64,7 @@
 					setReviewState( id, 'open' );
 				}
 
-				document.activeElement.blur(); // remove focus from button
+				cb();
 			} );
 		}
 
@@ -62,11 +72,9 @@
 		 * Undo a review
 		 * @param id int ID of the record
 		 * @param oldStatus string current review state of the record
+		 * @param cb function callback
 		 */
-		function undoReview( id, oldStatus ) {
-			// update styles before AJAX to make it seem more responsive
-			setReviewState( id, 'open' );
-
+		function undoReview( id, oldStatus, cb ) {
 			$.ajax( {
 				url: location.pathname + '/review/undo',
 				data: {
@@ -77,12 +85,13 @@
 				if ( ret.user ) {
 					var $reviewerNode = $( '.status-div-reviewer-' + id );
 					$reviewerNode.fadeOut( 'slow' );
+					setReviewState( id, 'open' );
 				} else {
 					window.alert( 'There was an error in connecting to database.' );
 					setReviewState( id, oldStatus ); // revert back to old state
 				}
 
-				document.activeElement.blur(); // remove focus from button
+				cb();
 			} );
 		}
 
