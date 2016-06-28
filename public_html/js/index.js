@@ -130,6 +130,9 @@
 				} else {
 					$( '.js-load-more' ).replaceWith( '<p>No more records!</p>' );
 				}
+			} ).fail( function () {
+				alert( 'An unknown error occurred when loading results. Please try again.' );
+				$( '#btn-load-more' ).text( 'Load More' ).removeClass( 'btn-loading' );
 			} );
 		}
 
