@@ -26,6 +26,12 @@
   pointer-events: none;
 }
 
+.ellipsis {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 // WebKit
 @-webkit-keyframes spin {
   from  { transform: rotate(0deg); }
@@ -113,7 +119,7 @@
 
 /** record styles and state changes */
 .record {
-  border-bottom: 1px dashed darkgrey;
+  border-bottom: 1px solid darkgrey;
   padding: 10px 0;
 }
 
@@ -175,9 +181,13 @@
   align-items: center;
 }
 
+.compare-links-container {
+  padding: 15px;
+}
+
 .compare-button {
-  margin-left: 15px;
-  margin-right: 20px;
+  margin-left: 0;
+  margin-right: 10px;
 }
 
 .compare-pane {
@@ -189,7 +199,7 @@
   overflow: hidden;
   padding: 5px 0;
   text-align: justify;
-  width: 95%;
+  width: 98%;
 
   h4 {
     // -webkit-gradient(linear, 0 100%, 0 65%, from(rgba(255, 255, 255, 0)), to(rgba(255, 255, 255, 1)))

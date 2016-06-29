@@ -16,7 +16,7 @@
 	{% if records is not empty %}
 		{% for row in records %}
 			<article class="js-record record record-status-{{ row.status ? row.status : 'open' }} record-{{ row.ithenticate_id }}" data-status="{{ row.status }}">
-				<div class="row-container">
+				<div class="row-container clearfix">
 					{# Div for page title #}
 					<div class="row-div col-sm-3 page-div">
 						<strong>
@@ -27,7 +27,7 @@
 							</a>
 						</strong>
 						<div class="small">
-							(<a href='{{ row.history_link }}' target="_blank" class="{{ row.page_dead ? 'text-danger' : '' }}">history</a>)
+							<a href='{{ row.history_link }}' target="_blank" class="{{ row.page_dead ? 'text-danger' : '' }}">History</a>
 						</div>
 					</div>
 					{# Div for diff information and link #}
@@ -89,13 +89,9 @@
 				</div>
 				<div class="ithenticate-id">{{ row.ithenticate_id }}</div>
 				<div class="compare-links-container">
-					<a class="btn btn-xs btn-primary compare-button" href='{{ row.turnitin_report }}' target="_blank">
-						<span class="glyphicon glyphicon-new-window"></span>
-						Turnitin report
-					</a><br>
 					{% if row.copyvios is not empty %}
 						{% for copy in row.copyvios %}
-							<div class="compare-div">
+							<div class="compare-div ellipsis">
 								<button class="btn btn-xs btn-primary dropdown-toggle compare-button js-compare-button"
 									data-id="{{ row.ithenticate_id }}" data-index="{{ loop.index }}"
 									data-copyvio="{{ copy }}" data-diffId="{{ row.diff }}"
@@ -121,6 +117,10 @@
 							</div>
 						{% endfor %}
 					{% endif %}
+					<a class="btn btn-xs btn-primary compare-button" href='{{ row.turnitin_report }}' target="_blank">
+						<span class="glyphicon glyphicon-new-window"></span>
+						iThenticate report
+					</a>
 				</div>
 			</article>
 		{% endfor %}
