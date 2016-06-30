@@ -54,14 +54,62 @@ class EnwikiDao extends AbstractDao {
 	 *   user_editcount and user_name of the revision
 	 */
 	public function getRevisionDetailsMulti( $diffs ) {
-		$query = self::concat(
-			'SELECT r.rev_id, r.rev_user, r.rev_user_text, u.user_editcount, u.user_name',
-			'FROM revision r',
-			'LEFT JOIN user u ON r.rev_user = u.user_id',
-			'WHERE r.rev_id IN (' . implode( ',', array_fill( 0, count( $diffs ), '?' ) ) . ')'
-		);
-		$result = $this->fetchAll( $query, $diffs );
-		return $result;
+		$url = $this->wikipedia .
+			'/w/api.php?action=query&format=json&revids=' . implode( '|', $diffs ) .
+			'&prop=revisions&rvprop=user|timestamp|ids&formatversion=2';
+		$ch = curl_init();
+		curl_setopt( $ch, CURLOPT_URL, $url );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+		$result = curl_exec( $ch );
+		$query = json_decode( $result )->query;
+
+		$data = array();
+
+		if ( isset( $query->badrevids ) ) {
+			foreach ($query->badrevids as $revision) {
+				$data[$revision->revid] = null;
+			}
+		}
+
+		foreach( $query->pages as $page ) {
+			// var_dump($page);
+			$revisions = $page->revisions;
+
+			if ( isset( $revisions ) ) {
+				foreach( $revisions as $revision ) {
+					$data[$revision->revid] = array(
+						'revid' => $revision->revid,
+						'editor' => $revision->user,
+						'timestamp' => $revision->timestamp
+					);
+				}
+			}
+		}
+
+		return $data;
+	}
+
+	public function getEditCounts( $usernames ) {
+		$usernames = array_map( function( $username ) {
+			$username = str_replace( ' ', '_', $username );
+			return urlencode( $username );
+		}, $usernames );
+		$url = $this->wikipedia .
+			'/w/api.php?action=query&format=json&list=users&ususers=' . implode( '|', array_unique( $usernames ) ) .
+			'&usprop=editcount&formatversion=2';
+		$ch = curl_init();
+		curl_setopt( $ch, CURLOPT_URL, $url );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+		$result = curl_exec( $ch );
+		$json = json_decode( $result );
+
+		$editors = array();
+
+		foreach( $json->query->users as $index => $user ) {
+			$editors[$user->name] = isset( $user->editcount ) ? $user->editcount : 0;
+		}
+
+		return $editors;
 	}
 
 	/**

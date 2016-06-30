@@ -94,9 +94,6 @@ class CopyPatrol extends Controller {
 
 		$diffIds = [];
 		$pageTitles = [];
-		$editors = [];
-		$editorPages = [];
-		$editorTalkPages = [];
 
 		// first build arrays of diff IDs and page titles so we can use them to make mass queries
 		foreach ( $records as $record ) {
@@ -104,24 +101,25 @@ class CopyPatrol extends Controller {
 			$pageTitles[] = $record['page_title'];
 		}
 
-		// get info for each revision (editor, editcount, etc) and build datasets from it
+		// get info for each revision (editor, editcount, etc)
 		$revisions = $this->enwikiDao->getRevisionDetailsMulti( $diffIds );
-		foreach ( $revisions as $revision ) {
-			$userText = $revision['rev_user_text'];
-			if ( isset( $userText ) ) {
-				// associative array for editor info with the revision ID as the key,
-				// this makes it easier to access what we need when looping through the copyvio records
-				$editors[$revision['rev_id']] = [
-					'editor' => $userText,
-					'editcount' => $revision['user_editcount']
-				];
-				// build arrays for editor page and talk page so we can mass-query if they are dead
-				$editorPages[] = 'User:' . $userText;
-				$editorTalkPages[] = 'User talk:' . $userText;
+
+		// build arrays for editors and user pages so we can make mass queries to the API
+		$editors = [];
+		$editorPages = [];
+		$editorTalkPages = [];
+		foreach ($revisions as $rev) {
+			if ( isset( $rev['editor'] ) ) {
+				$editors[] = $rev['editor'];
+				$editorPages[] = 'User:' . $rev['editor'];
+				$editorTalkPages[] = 'User_talk:' . $rev['editor'];
 			}
 		}
-		// get all the dead pages in 3 goes; these cannot be done at the same
-		// time as we can only query for 50 pages max
+
+		// get edit counts of each editor
+		$editCounts = $this->enwikiDao->getEditCounts( $editors );
+
+		// find dead pages in chunks as we can only query for 50 pages max
 		$deadPages = $this->enwikiDao->getDeadPages( $pageTitles );
 		$deadEditorPages = $this->enwikiDao->getDeadPages( $editorPages );
 		$deadEditorTalkPages = $this->enwikiDao->getDeadPages( $editorTalkPages );
@@ -130,7 +128,6 @@ class CopyPatrol extends Controller {
 		// WikiProjects) have been completed, let's loop through the records
 		// once more to build the complete dataset to be rendered into view
 		foreach ( $records as $key => $record ) {
-			$editor = isset( $editors[$record['diff']] ) ? $editors[$record['diff']] : null;
 			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );
 			$records[$key]['diff_link'] = $this->getDiffLink( $record['page_title'], $record['diff'] );
 			$records[$key]['page_link'] = $this->getPageLink( $record['page_title'] );
@@ -138,21 +135,19 @@ class CopyPatrol extends Controller {
 			$records[$key]['turnitin_report'] = $this->getReportLink( $record['ithenticate_id'] );
 			$records[$key]['copyvios'] = $this->getCopyvioUrls( $record['report'] );
 			$records[$key]['page_dead'] = in_array(
-				$this->removeUnderscores( $record['page_title'] ), $deadPages );
-			if ( $editor['editcount'] ) {
-				$records[$key]['editcount'] = $editor['editcount'];
-			}
-			if ( $editor['editor'] ) {
-				$records[$key]['editor'] = $editor['editor'];
-				$records[$key]['editor_page'] = $this->getUserPage( $editor['editor'] );
-				$records[$key]['editor_talk'] = $this->getUserTalk( $editor['editor'] );
-				$records[$key]['editor_contribs'] = $this->getUserContribs( $editor['editor'] );
-				$records[$key]['editor_page_dead'] = in_array( 'User:' . $editor['editor'], $deadEditorPages );
+				$this->removeUnderscores( $record['page_title'] ), $deadPages
+			);
+			$editor = $revisions[$record['diff']]['editor'];
+			if ( $editor ) {
+				$records[$key]['editcount'] = $editCounts[$editor];
+				$records[$key]['editor'] = $editor;
+				$records[$key]['editor_page'] = $this->getUserPage( $editor );
+				$records[$key]['editor_talk'] = $this->getUserTalk( $editor );
+				$records[$key]['editor_contribs'] = $this->getUserContribs( $editor );
+				$records[$key]['editor_page_dead'] = in_array( 'User:' . $editor, $deadEditorPages );
 				$records[$key]['editor_talk_dead'] = in_array(
-					'User talk:' . $editor['editor'], $deadEditorTalkPages );
-			} else {
-				$records[$key]['editor_page_dead'] = false;
-				$records[$key]['editor_talk_dead'] = false;
+					'User talk:' . $editor, $deadEditorTalkPages
+				);
 			}
 			if ( $records[$key]['status_user'] ) {
 				$records[$key]['reviewed_by_url'] = $this->getUserPage( $record['status_user'] );
@@ -211,7 +206,7 @@ class CopyPatrol extends Controller {
 			}
 		}
 		// make this easier when working locally
-		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 10 : 50;
+		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 50 : 50;
 		// compile all options in an array
 		$options = [
 			'filter' => $filter,
