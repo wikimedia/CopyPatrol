@@ -72,14 +72,14 @@
 					<div class="row-div col-sm-2 text-center status-div">
 						<button data-id="{{ row.ithenticate_id }}"
 							data-status="fixed"
-							class="btn btn-success btn-block btn-fixed js-save-state {{ user ? 'clickable' : 'not-clickable' }}"
+							class="btn btn-success btn-block btn-fixed js-save-state {{ user ? 'clickable' : '' }}"
 							title="The edit was a copyright violation and has been reverted"
 						>
 							Page fixed
 						</button>
 						<button data-id="{{ row.ithenticate_id }}"
 							data-status="false"
-							class="btn btn-danger btn-block btn-no-action js-save-state {{ user ? 'clickable' : 'not-clickable' }}"
+							class="btn btn-danger btn-block btn-no-action js-save-state {{ user ? 'clickable' : '' }}"
 							title="The edit is a false positive, nothing needs to be done"
 						>
 							No action needed
