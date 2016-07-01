@@ -1,4 +1,4 @@
-# PlagiabotWeb
+# CopyPatrol
 This is a web interface for [Plagiabot's Copyright RC feed](https://en.wikipedia.org/wiki/User:EranBot/Copyright/rc).
 
 [![Build Status](https://travis-ci.org/Niharika29/PlagiabotWeb.svg?branch=master)](https://travis-ci.org/Niharika29/PlagiabotWeb)
