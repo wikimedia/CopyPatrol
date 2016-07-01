@@ -140,7 +140,7 @@ class CopyPatrol extends Controller {
 			$records[$key]['page_dead'] = in_array(
 				$this->removeUnderscores( $record['page_title'] ), $deadPages );
 			if ( $editor['editcount'] ) {
-				$records[$key]['editcount'] = $editor['editcount'];
+				$records[$key]['editcount'] = $this->formatNumber( $editor['editcount'] );
 			}
 			if ( $editor['editor'] ) {
 				$records[$key]['editor'] = $editor['editor'];
@@ -250,6 +250,21 @@ class CopyPatrol extends Controller {
 	 */
 	public function getReportLink( $ithenticateId ) {
 		return 'https://tools.wmflabs.org/eranbot/ithenticate.py?rid=' . urlencode( $ithenticateId );
+	}
+
+	/**
+	 * Formats given number based on Intuition locale or HTTP header
+	 * @param $number integer or string
+	 * @return string formatted number
+	 */
+	public function formatNumber( $number ) {
+		// first get user's locale
+		$locale = ( isset( $_COOKIE['TsIntuition_userlang'] ) ) ?
+			$_COOKIE['TsIntuition_userlang'] :
+			$_SERVER['HTTP_ACCEPT_LANGUAGE'];
+		$formatStyle = \NumberFormatter::DECIMAL;
+		$formatter = new \NumberFormatter( $locale, $formatStyle );
+		return $formatter->format( $number );
 	}
 
 	/**
