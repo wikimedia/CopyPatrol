@@ -20,4 +20,5 @@ replica.my.cnf
 service.manifest
 restart_webservice.sh
 deploy.sh
+composer.lock
 !.gitkeep

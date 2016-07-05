@@ -30,6 +30,7 @@ class EnwikiDao extends AbstractDao {
 	 */
 	protected $wikipedia;
 
+
 	/**
 	 * @param string $dsn PDO data source name
 	 * @param string $user Database user
@@ -46,6 +47,7 @@ class EnwikiDao extends AbstractDao {
 		$this->wikipedia = $wiki;
 	}
 
+
 	/**
 	 * Get details on multiple revisions
 	 *
@@ -55,14 +57,16 @@ class EnwikiDao extends AbstractDao {
 	 */
 	public function getRevisionDetailsMulti( $diffs ) {
 		$query = self::concat(
-			'SELECT r.rev_id, r.rev_user, r.rev_user_text, u.user_editcount, u.user_name',
+			'SELECT r.rev_id, r.rev_user, r.rev_page, r.rev_user_text, u.user_editcount, u.user_name, p.page_namespace',
 			'FROM revision r',
 			'LEFT JOIN user u ON r.rev_user = u.user_id',
+			'LEFT JOIN page p ON r.rev_page = p.page_id',
 			'WHERE r.rev_id IN (' . implode( ',', array_fill( 0, count( $diffs ), '?' ) ) . ')'
 		);
 		$result = $this->fetchAll( $query, $diffs );
 		return $result;
 	}
+
 
 	/**
 	 * Get editor details
@@ -73,9 +77,10 @@ class EnwikiDao extends AbstractDao {
 	 */
 	public function getUserDetails( $diff ) {
 		$query = self::concat(
-			'SELECT r.rev_id, r.rev_user, r.rev_user_text, u.user_editcount, u.user_name',
+			'SELECT r.rev_id, r.rev_page, r.rev_user, r.rev_user_text, u.user_editcount, u.user_name, p.page_namespace',
 			'FROM revision r',
 			'LEFT JOIN user u ON r.rev_user = u.user_id',
+			'LEFT JOIN page p ON r.rev_page = p.page_id',
 			'WHERE r.rev_id = ?'
 		);
 		$data = [
@@ -92,6 +97,7 @@ class EnwikiDao extends AbstractDao {
 		return $data;
 	}
 
+
 	/**
 	 * Determine which of the given pages are dead
 	 *
@@ -104,12 +110,12 @@ class EnwikiDao extends AbstractDao {
 		}
 		$titles = array_map( 'urlencode', $titles );
 		$url = $this->wikipedia .
-			'/w/api.php?action=query&format=json&titles=' .
-			join( '|', $titles ) .
-			'&formatversion=2';
+			   '/w/api.php?action=query&format=json&titles=' .
+			   join( '|', $titles ) .
+			   '&formatversion=2';
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
 		$result = curl_exec( $ch );
 		$json = json_decode( $result );
 		$deadPages = [];
@@ -123,6 +129,7 @@ class EnwikiDao extends AbstractDao {
 		return $deadPages;
 	}
 
+
 	/**
 	 * We do an API query here because testing proved API query to be faster
 	 * for looking up deleted page titles
@@ -135,12 +142,12 @@ class EnwikiDao extends AbstractDao {
 			return false;
 		}
 		$url = $this->wikipedia .
-			'/w/api.php?action=query&format=json&titles=' .
-			urlencode( $title ) .
-			'&formatversion=2';
+			   '/w/api.php?action=query&format=json&titles=' .
+			   urlencode( $title ) .
+			   '&formatversion=2';
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
 		$result = curl_exec( $ch );
 		$json = json_decode( $result );
 		foreach ( $json->query->pages as $p ) {

@@ -40,6 +40,7 @@ class CopyPatrol extends Controller {
 	 */
 	protected $wikiprojectDao;
 
+
 	/**
 	 * @param \Slim\Slim $slim Slim application
 	 */
@@ -48,6 +49,7 @@ class CopyPatrol extends Controller {
 		$this->wikipedia = $wiki;
 	}
 
+
 	/**
 	 * @param mixed $enwikiDao
 	 */
@@ -55,12 +57,14 @@ class CopyPatrol extends Controller {
 		$this->enwikiDao = $enwikiDao;
 	}
 
+
 	/**
 	 * @param mixed $wikiprojectDao
 	 */
 	public function setWikiprojectDao( $wikiprojectDao ) {
 		$this->wikiprojectDao = $wikiprojectDao;
 	}
+
 
 	/**
 	 * Handle GET route for app
@@ -86,24 +90,23 @@ class CopyPatrol extends Controller {
 	 */
 	protected function handleGet() {
 		$records = $this->getRecords();
-
 		// nothing else needs to be done if there are no records
 		if ( empty( $records ) ) {
 			return $this->render( 'index.html' );
 		}
-
 		$diffIds = [];
 		$pageTitles = [];
 		$editors = [];
 		$editorPages = [];
 		$editorTalkPages = [];
-
 		// first build arrays of diff IDs and page titles so we can use them to make mass queries
 		foreach ( $records as $record ) {
 			$diffIds[] = $record['diff'];
+			if ( $record['page_ns'] == 118 ) {
+				$record['page_title'] = 'Draft:' . $record['page_title'];
+			}
 			$pageTitles[] = $record['page_title'];
 		}
-
 		// get info for each revision (editor, editcount, etc) and build datasets from it
 		$revisions = $this->enwikiDao->getRevisionDetailsMulti( $diffIds );
 		foreach ( $revisions as $revision ) {
@@ -125,11 +128,13 @@ class CopyPatrol extends Controller {
 		$deadPages = $this->enwikiDao->getDeadPages( $pageTitles );
 		$deadEditorPages = $this->enwikiDao->getDeadPages( $editorPages );
 		$deadEditorTalkPages = $this->enwikiDao->getDeadPages( $editorTalkPages );
-
 		// now all external requests and database queries (except
 		// WikiProjects) have been completed, let's loop through the records
 		// once more to build the complete dataset to be rendered into view
 		foreach ( $records as $key => $record ) {
+			if ( $record['page_ns'] == 118 ) {
+				$record['page_title'] = 'Draft:' . $record['page_title'];
+			}
 			$editor = isset( $editors[$record['diff']] ) ? $editors[$record['diff']] : null;
 			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );
 			$records[$key]['diff_link'] = $this->getDiffLink( $record['page_title'], $record['diff'] );
@@ -170,6 +175,7 @@ class CopyPatrol extends Controller {
 		$this->view->set( 'records', $records );
 		$this->render( 'index.html' );
 	}
+
 
 	/**
 	 * Get plagiarism records based on URL parameters and whether or not the user is logged in
@@ -225,6 +231,7 @@ class CopyPatrol extends Controller {
 		return $this->dao->getPlagiarismRecords( $numRecords, $options );
 	}
 
+
 	/**
 	 * @param $page string Page title
 	 * @return string url of wiki page on enwiki
@@ -233,6 +240,7 @@ class CopyPatrol extends Controller {
 		return $this->wikipedia . '/wiki/' . urlencode( $page );
 	}
 
+
 	/**
 	 * @param $page string Page title
 	 * @param $diff string Diff id
@@ -240,9 +248,10 @@ class CopyPatrol extends Controller {
 	 */
 	public function getDiffLink( $page, $diff ) {
 		return $this->wikipedia .
-			'/w/index.php?title=' . urlencode( $page ) .
-			'&diff=' . urlencode( $diff );
+			   '/w/index.php?title=' . urlencode( $page ) .
+			   '&diff=' . urlencode( $diff );
 	}
+
 
 	/**
 	 * @param $ithenticateId int Report id for Turnitin
@@ -252,8 +261,10 @@ class CopyPatrol extends Controller {
 		return 'https://tools.wmflabs.org/eranbot/ithenticate.py?rid=' . urlencode( $ithenticateId );
 	}
 
+
 	/**
 	 * Formats given number based on Intuition locale or HTTP header
+	 *
 	 * @param $number integer or string
 	 * @return string formatted number
 	 */
@@ -262,10 +273,10 @@ class CopyPatrol extends Controller {
 		$locale = ( isset( $_COOKIE['TsIntuition_userlang'] ) ) ?
 			$_COOKIE['TsIntuition_userlang'] :
 			$_SERVER['HTTP_ACCEPT_LANGUAGE'];
-		$formatStyle = \NumberFormatter::DECIMAL;
-		$formatter = new \NumberFormatter( $locale, $formatStyle );
+		$formatter = new \NumberFormatter( $locale, \NumberFormatter::DECIMAL );
 		return $formatter->format( $number );
 	}
+
 
 	/**
 	 * @param $datetime string Datetime of edit
@@ -276,6 +287,7 @@ class CopyPatrol extends Controller {
 		return date( 'Y-m-d H:i', $datetime );
 	}
 
+
 	/**
 	 * @param $title String to change underscores to spaces for
 	 * @return string
@@ -284,14 +296,17 @@ class CopyPatrol extends Controller {
 		return str_replace( '_', ' ', $title );
 	}
 
+
 	/**
 	 * Get URL for revision history of given page
+	 *
 	 * @param $title string page title
 	 * @return string the URL
 	 */
 	public function getHistoryLink( $title ) {
 		return $this->wikipedia . '/wiki/' . urlencode( $title ) . '?action=history';
 	}
+
 
 	/**
 	 * @param $user string User name
@@ -304,6 +319,7 @@ class CopyPatrol extends Controller {
 		return $this->wikipedia . '/wiki/User_talk:' . urlencode( str_replace( ' ', '_', $user ) );
 	}
 
+
 	/**
 	 * @param $user string User name
 	 * @return string User page for a user on $this->wikipedia
@@ -315,6 +331,7 @@ class CopyPatrol extends Controller {
 		return $this->wikipedia . '/wiki/User:' . urlencode( str_replace( ' ', '_', $user ) );
 	}
 
+
 	/**
 	 * @param $user string User name
 	 * @return string Contributions page for a user on $this->wikipedia
@@ -324,8 +341,9 @@ class CopyPatrol extends Controller {
 			return false;
 		}
 		return $this->wikipedia . '/wiki/Special:Contributions/' .
-			urlencode( str_replace( ' ', '_', $user ) );
+			   urlencode( str_replace( ' ', '_', $user ) );
 	}
+
 
 	/**
 	 * Get links to compare with
