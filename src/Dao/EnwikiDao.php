@@ -55,7 +55,8 @@ class EnwikiDao extends AbstractDao {
 	 */
 	public function getRevisionDetailsMulti( $diffs ) {
 		$query = self::concat(
-			'SELECT r.rev_id, r.rev_user, r.rev_page, r.rev_user_text, u.user_editcount, u.user_name, p.page_namespace',
+			'SELECT r.rev_id, r.rev_user, r.rev_page, r.rev_user_text,
+			u.user_editcount, u.user_name, p.page_namespace',
 			'FROM revision r',
 			'LEFT JOIN user u ON r.rev_user = u.user_id',
 			'LEFT JOIN page p ON r.rev_page = p.page_id',
@@ -74,7 +75,8 @@ class EnwikiDao extends AbstractDao {
 	 */
 	public function getUserDetails( $diff ) {
 		$query = self::concat(
-			'SELECT r.rev_id, r.rev_page, r.rev_user, r.rev_user_text, u.user_editcount, u.user_name, p.page_namespace',
+			'SELECT r.rev_id, r.rev_page, r.rev_user, r.rev_user_text, u.user_editcount,
+			u.user_name, p.page_namespace',
 			'FROM revision r',
 			'LEFT JOIN user u ON r.rev_user = u.user_id',
 			'LEFT JOIN page p ON r.rev_page = p.page_id',
