@@ -18,7 +18,6 @@
   "scripts": {
       "fix": "phpcbf",
       "test": [
-        "composer fix",
         "parallel-lint . --exclude vendor",
         "phpunit",
         "phpcs -p"

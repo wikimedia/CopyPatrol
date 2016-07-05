@@ -9,4 +9,6 @@ env:
   global:
     - COMPOSER_DISABLE_XDEBUG_WARN=1
 install: composer install
-script: composer test
+script:
+  - composer fix
+  - composer test
