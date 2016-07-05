@@ -30,7 +30,6 @@ class EnwikiDao extends AbstractDao {
 	 */
 	protected $wikipedia;
 
-
 	/**
 	 * @param string $dsn PDO data source name
 	 * @param string $user Database user
@@ -46,7 +45,6 @@ class EnwikiDao extends AbstractDao {
 		parent::__construct( $dsn, $user, $pass, $logger );
 		$this->wikipedia = $wiki;
 	}
-
 
 	/**
 	 * Get details on multiple revisions
@@ -66,7 +64,6 @@ class EnwikiDao extends AbstractDao {
 		$result = $this->fetchAll( $query, $diffs );
 		return $result;
 	}
-
 
 	/**
 	 * Get editor details
@@ -97,7 +94,6 @@ class EnwikiDao extends AbstractDao {
 		return $data;
 	}
 
-
 	/**
 	 * Determine which of the given pages are dead
 	 *
@@ -115,7 +111,7 @@ class EnwikiDao extends AbstractDao {
 			   '&formatversion=2';
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		$result = curl_exec( $ch );
 		$json = json_decode( $result );
 		$deadPages = [];
@@ -128,7 +124,6 @@ class EnwikiDao extends AbstractDao {
 		}
 		return $deadPages;
 	}
-
 
 	/**
 	 * We do an API query here because testing proved API query to be faster
@@ -147,7 +142,7 @@ class EnwikiDao extends AbstractDao {
 			   '&formatversion=2';
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		$result = curl_exec( $ch );
 		$json = json_decode( $result );
 		foreach ( $json->query->pages as $p ) {
