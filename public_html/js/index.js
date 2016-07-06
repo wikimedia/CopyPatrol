@@ -31,6 +31,10 @@
 			toggleComparePane.call( this, this.dataset );
 		} );
 		$( '.js-load-more' ).on( 'click', loadMoreResults );
+		// prevent fragment identifier from being added to URL
+		$( 'a[href="#"]' ).on( 'click', function (e) {
+			e.preventDefault();
+		} );
 
 		/**
 		 * Save a review

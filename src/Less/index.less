@@ -4,351 +4,370 @@
 @import 'bootstrap/mixins/gradients.less';
 
 .loading-indic(@size: 20px) {
-  animation-duration: .75s;
-  animation-iteration-count: infinite;
-  animation-name: spin;
-  border: 3px solid white;
-  border-radius: 50%;
-  border-top-color: transparent;
-  bottom: 0;
-  content: '';
-  height: @size;
-  left: 0;
-  margin: auto;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: @size;
+	animation-duration: .75s;
+	animation-iteration-count: infinite;
+	animation-name: spin;
+	border: 3px solid white;
+	border-radius: 50%;
+	border-top-color: transparent;
+	bottom: 0;
+	content: '';
+	height: @size;
+	left: 0;
+	margin: auto;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: @size;
 }
 
 .not-clickable {
-  cursor: default;
-  pointer-events: none;
+	cursor: default;
+	pointer-events: none;
 }
 
 .ellipsis {
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 // WebKit
 @-webkit-keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 // Spec and IE10+
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 /* Glyphicons supported by http://glyphicons.com via Bootstrap */
 .padded {
-  margin: 15px auto;
-  width: 100%;
+	margin: 15px auto;
+	width: 100%;
 }
 
 .wproject {
-  background: #d0d0d0;
-  border-radius: 10px;
-  display: inline-block;
-  font-size: 13px;
-  margin: 1px;
-  padding: 6px;
+	background: #d0d0d0;
+	border-radius: 10px;
+	display: inline-block;
+	font-size: 13px;
+	margin: 1px;
+	padding: 6px;
 }
 
 .btn-xs {
-  margin: 2px;
+	margin: 2px;
 }
 
 .page-div {
-  word-wrap: break-word;
+	word-wrap: break-word;
 }
 
 .report-div {
-  word-wrap: break-word;
+	word-wrap: break-word;
 }
 
 .wikiproject-div {
-  align-items: center;
-  display: block;
-  flex-flow: row wrap;
-  text-align: center;
+	align-items: center;
+	display: block;
+	flex-flow: row wrap;
+	text-align: center;
 }
 
 .header-div {
-  align-items: center;
-  border-bottom: 2px solid black;
-  border-top: 2px solid black;
-  margin: 10px;
-  padding: 5px 0;
+	align-items: center;
+	border-bottom: 2px solid black;
+	border-top: 2px solid black;
+	margin: 10px;
+	padding: 5px 0;
 }
 
 .header-col {
-  font-weight: 700;
-  margin: auto;
+	font-weight: 700;
+	margin: auto;
 }
 
 // fix bootstrap weirdness around radio buttons
 .filters-fieldset {
-  .radio-inline {
-    margin-left: 30px;
-    padding: 0;
-  }
+	.radio-inline {
+		margin-left: 30px;
+		padding: 0;
+	}
 
-  label {
-    margin: 0;
-  }
+	label {
+		margin: 0;
+	}
 }
 
 /** button styles */
 .btn {
-  .transition(background linear 350ms);
-  position: relative;
+	.transition(background linear 350ms);
+	position: relative;
 
-  &.loading {
-    .not-clickable;
-    color: transparent;
+	&.loading {
+		.not-clickable;
+		color: transparent;
 
-    &::after {
-      .loading-indic;
-    }
-  }
+		&::after {
+			.loading-indic;
+		}
+	}
 }
 
 .btn-grayed {
-  background: white;
-  border-color: darkgrey;
-  color: darkgrey;
+	background: white;
+	border-color: darkgrey;
+	color: darkgrey;
 }
 
 .btn-undo {
-  content: "Undo review";
-  height: 100%;
-  left: 0;
-  line-height: 32px;
-  position: absolute;
-  top: 0;
-  width: 100%;
+	content: "Undo review";
+	height: 100%;
+	left: 0;
+	line-height: 32px;
+	position: absolute;
+	top: 0;
+	width: 100%;
 }
 
 /** record styles and state changes */
 .record {
-  border-bottom: 1px solid darkgrey;
-  padding: 10px 0;
+	border-bottom: 1px solid darkgrey;
+	padding: 10px 0;
 }
 
 .record-status-open {
-  .btn-fixed, .btn-no-action {
-    background: white;
-  }
+	.btn-fixed, .btn-no-action {
+		background: white;
+	}
 
-  .btn-fixed {
-    .button-variant(@brand-success; white; @brand-success);
+	.btn-fixed {
+		.button-variant(@brand-success; white; @brand-success);
 
-    &:hover {
-      color: white;
-      background: @brand-success;
-    }
-  }
+		&:hover {
+			color: white;
+			background: @brand-success;
+		}
+	}
 
-  .btn-no-action {
-    .button-variant(@brand-danger; white; @brand-danger);
+	.btn-no-action {
+		.button-variant(@brand-danger; white; @brand-danger);
 
-    &:hover {
-      color: white;
-      background: @brand-danger;
-    }
-  }
+		&:hover {
+			color: white;
+			background: @brand-danger;
+		}
+	}
 }
 
 .record-status-fixed {
-  .btn-no-action {
-    .btn-grayed;
+	.btn-no-action {
+		.btn-grayed;
 
-    &.clickable:hover {
-      .button-variant(white; @brand-danger; @brand-danger);
-    }
-  }
+		&.clickable:hover {
+			.button-variant(white; @brand-danger; @brand-danger);
+		}
+	}
 
-  .btn-fixed.clickable:not(.loading):hover::after {
-    .btn-undo;
-    background: darken(@brand-success, 10%);
-  }
+	.btn-fixed.clickable:not(.loading):hover::after {
+		.btn-undo;
+		background: darken(@brand-success, 10%);
+	}
 }
 
 .record-status-false {
-  .btn-fixed {
-    .btn-grayed;
+	.btn-fixed {
+		.btn-grayed;
 
-    &.clickable:hover {
-      .button-variant(white; @brand-success; @brand-success);
-    }
-  }
+		&.clickable:hover {
+			.button-variant(white; @brand-success; @brand-success);
+		}
+	}
 
-  .btn-no-action.clickable:not(.loading):hover::after {
-    .btn-undo;
-    background: darken(@brand-danger, 10%);
-  }
+	.btn-no-action.clickable:not(.loading):hover::after {
+		.btn-undo;
+		background: darken(@brand-danger, 10%);
+	}
 }
 
 .row-container {
-  align-items: center;
+	align-items: center;
 }
 
 .compare-links-container {
-  padding: 15px;
-  clear: both;
+	padding: 15px;
+	clear: both;
 }
 
 .compare-button {
-  margin-left: 0;
-  margin-right: 10px;
+	margin-left: 0;
+	margin-right: 10px;
 }
 
 .compare-pane {
-  border: 2px double dimgrey;
-  display: none;
-  height: 300px;
-  justify-content: space-between;
-  margin: 2px auto;
-  overflow: hidden;
-  padding: 5px 0;
-  text-align: justify;
-  width: 98%;
-  white-space: normal;
+	border: 2px double dimgrey;
+	display: none;
+	height: 300px;
+	justify-content: space-between;
+	margin: 2px auto;
+	overflow: hidden;
+	padding: 5px 0;
+	text-align: justify;
+	width: 98%;
+	white-space: normal;
 
-  h4 {
-    // -webkit-gradient(linear, 0 100%, 0 65%, from(rgba(255, 255, 255, 0)), to(rgba(255, 255, 255, 1)))
-    #gradient.vertical(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0), 65%, 100%);
-    margin: 0;
-    padding-bottom: 12px;
-    position: absolute;
-    width: 100%;
-  }
+	h4 {
+		// -webkit-gradient(linear, 0 100%, 0 65%, from(rgba(255, 255, 255, 0)), to(rgba(255, 255, 255, 1)))
+		#gradient.vertical(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0), 65%, 100%);
+		margin: 0;
+		padding-bottom: 12px;
+		position: absolute;
+		width: 100%;
+	}
 }
 
 .compare-pane-left, .compare-pane-right {
-  float: left;
-  height: 100%;
-  padding: 0 8px;
-  position: relative;
-  width: 50%;
+	float: left;
+	height: 100%;
+	padding: 0 8px;
+	position: relative;
+	width: 50%;
 }
 
 .compare-pane-body {
-  height: 100%;
-  overflow: scroll;
-  padding: 25px 0 8px;
+	height: 100%;
+	overflow: scroll;
+	padding: 25px 0 8px;
 }
 
 .compare-pane-right {
-  border-left: 1px dashed dimgrey;
+	border-left: 1px dashed dimgrey;
 }
 
 #body {
-  padding: 12px;
+	padding: 12px;
 }
 
 #login-btn {
-  position: absolute;
-  right: 12px;
-  top: 16px;
+	height: 48px;
+	line-height: 36px;
+	padding: 5px 20px;
+	position: absolute;
+	right: 14px;
+	top: 14px;
+
+	&.logged-in {
+		line-height: inherit;
+	}
 }
 
-#top-banner {
-  text-align: center;
-  margin-bottom: 20px; /* prevent header from overlapping subsequent section */
+.app-header {
+	background: url('images/gradient.png');
+	border-bottom: solid 2px #ccc;
+	margin-bottom: 10px;
+	padding: 15px;
+	text-align: left;
+}
 
-  h1 {
-    display: inline-block;
-    margin: 5px auto;
-  }
+.header-link {
+	font-size: 18px;
+	margin-left: 20px;
+	vertical-align: -7px;
+}
+
+.app-footer {
+	background: url('images/gradient.png');
+	border-top: solid 2px #ccc;
+	margin-top: 30px;
+	padding: 15px;
+	text-align: center;
 }
 
 .status-div {
-  padding: 0;
+	padding: 0;
 
-  .btn {
-    margin-left: auto;
-    margin-right: auto; // margin-top and margin-bottom need to inherit
-    max-width: 200px; // don't make it ridiculously big
-  }
+	.btn {
+		margin-left: auto;
+		margin-right: auto; // margin-top and margin-bottom need to inherit
+		max-width: 200px; // don't make it ridiculously big
+	}
 }
 
 .status-div-reviewer {
-  margin-top: 10px;
-  text-align: center;
+	margin-top: 10px;
+	text-align: center;
 }
 
 .none {
-  display: none;
+	display: none;
 }
 
 /* make anchor tags with empty href unclickable */
 a[href=''] {
-  color: inherit;
-  pointer-events: none;
+	color: inherit;
+	pointer-events: none;
 }
 
 /* CSS for compare panels, like Earwig's tool */
 .cv-hl {
-  background: #FFC264;
+	background: #FFC264;
 }
 
 .cv-hl-in {
-  #gradient.horizontal(white, #FFC264);
+	#gradient.horizontal(white, #FFC264);
 }
 
 .cv-hl-out {
-  #gradient.horizontal(#FFC264, white);
+	#gradient.horizontal(#FFC264, white);
 }
 
 .filter-legend {
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .btn-submit-filters {
-  margin-left: 10px;
+	margin-left: 10px;
 }
 
 .load-more-div {
-  padding: 10px;
-  text-align: center;
-  width: 100%;
+	padding: 10px;
+	text-align: center;
+	width: 100%;
 }
 
 #btn-load-more {
-  background-color: white;
-  color: @brand-primary;
-  height: 40px;
-  width: 50%;
-  .transition(background-color linear 350ms);
+	background-color: white;
+	color: @brand-primary;
+	height: 40px;
+	width: 50%;
+	.transition(background-color linear 350ms);
 
-  &:hover {
-    background-color: @brand-primary;
-    color: white;
-  }
+	&:hover {
+		background-color: @brand-primary;
+		color: white;
+	}
 
-  &.btn-loading {
-    background-color: white;
-    background-image: url('images/loading2.gif');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-  }
+	&.btn-loading {
+		background-color: white;
+		background-image: url('images/loading2.gif');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: contain;
+	}
 }
 
 .ithenticate-id {
-  display: none;
+	display: none;
 }

@@ -16,6 +16,7 @@ flask-mwoauth/
 .idea/
 .local/
 .subversion/
+.kube/
 replica.my.cnf
 service.manifest
 restart_webservice.sh
