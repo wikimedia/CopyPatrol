@@ -3,7 +3,8 @@
   "require": {
     "oyejorge/less.php": "~1.5",
     "mediawiki/oauthclient": "~0.1",
-    "wikimedia/slimapp": "dev-master"
+    "wikimedia/slimapp": "dev-master",
+    "addwiki/mediawiki-api-base": "~2.1"
   },
   "autoload": {
     "psr-4": {

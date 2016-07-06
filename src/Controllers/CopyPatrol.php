@@ -22,6 +22,8 @@
 namespace Plagiabot\Web\Controllers;
 
 use Wikimedia\Slimapp\Controller;
+use GuzzleHttp;
+use GuzzleHttp\Promise\Promise;
 
 class CopyPatrol extends Controller {
 
@@ -92,38 +94,47 @@ class CopyPatrol extends Controller {
 		}
 		$diffIds = [];
 		$pageTitles = [];
+		$usernames = [];
 		$editors = [];
-		$editorPages = [];
-		$editorTalkPages = [];
+
 		// first build arrays of diff IDs and page titles so we can use them to make mass queries
 		foreach ( $records as $record ) {
 			$diffIds[] = $record['diff'];
+			// make sure drafts have the namespace prefix
 			if ( $record['page_ns'] == 118 ) {
 				$record['page_title'] = 'Draft:' . $record['page_title'];
 			}
 			$pageTitles[] = $record['page_title'];
 		}
+
 		// get info for each revision (editor, editcount, etc) and build datasets from it
-		$revisions = $this->enwikiDao->getRevisionDetailsMulti( $diffIds );
+		$revisions = $this->enwikiDao->getRevisionDetails( $diffIds );
+
 		foreach ( $revisions as $revision ) {
-			$userText = $revision['rev_user_text'];
+			$userText = $revision['editor'];
+
 			if ( isset( $userText ) ) {
+				// add username to usernames array so we can fetch their edit counts all at once
+				$usernames[] = $userText;
 				// associative array for editor info with the revision ID as the key,
 				// this makes it easier to access what we need when looping through the copyvio records
-				$editors[$revision['rev_id']] = [
-					'editor' => $userText,
-					'editcount' => $revision['user_editcount']
-				];
-				// build arrays for editor page and talk page so we can mass-query if they are dead
-				$editorPages[] = 'User:' . $userText;
-				$editorTalkPages[] = 'User talk:' . $userText;
+				$editors[$revision['revid']] = $userText;
+				// push necessary titles to $pageTitles so we can mass-query if they are dead
+				$pageTitles[] = 'User:' . $userText;
+				$pageTitles[] = 'User talk:' . $userText;
 			}
 		}
-		// get all the dead pages in 3 goes; these cannot be done at the same
-		// time as we can only query for 50 pages max
-		$deadPages = $this->enwikiDao->getDeadPages( $pageTitles );
-		$deadEditorPages = $this->enwikiDao->getDeadPages( $editorPages );
-		$deadEditorTalkPages = $this->enwikiDao->getDeadPages( $editorTalkPages );
+
+		// Asynchronously get edit counts of users,
+		// and all dead pages so we can colour them red in the view
+		$promises = [
+			'editCounts' => $this->enwikiDao->getEditCounts( $usernames ),
+			'deadPages' => $this->enwikiDao->getDeadPages( $pageTitles )
+		];
+		$asyncResults = GuzzleHttp\Promise\unwrap( $promises );
+		$editCounts = $asyncResults['editCounts'];
+		$deadPages = $asyncResults['deadPages'];
+
 		// now all external requests and database queries (except
 		// WikiProjects) have been completed, let's loop through the records
 		// once more to build the complete dataset to be rendered into view
@@ -140,17 +151,14 @@ class CopyPatrol extends Controller {
 			$records[$key]['copyvios'] = $this->getCopyvioUrls( $record['report'] );
 			$records[$key]['page_dead'] = in_array(
 				$this->removeUnderscores( $record['page_title'] ), $deadPages );
-			if ( $editor['editcount'] ) {
-				$records[$key]['editcount'] = $this->formatNumber( $editor['editcount'] );
-			}
-			if ( $editor['editor'] ) {
-				$records[$key]['editor'] = $editor['editor'];
-				$records[$key]['editor_page'] = $this->getUserPage( $editor['editor'] );
-				$records[$key]['editor_talk'] = $this->getUserTalk( $editor['editor'] );
-				$records[$key]['editor_contribs'] = $this->getUserContribs( $editor['editor'] );
-				$records[$key]['editor_page_dead'] = in_array( 'User:' . $editor['editor'], $deadEditorPages );
-				$records[$key]['editor_talk_dead'] = in_array(
-					'User talk:' . $editor['editor'], $deadEditorTalkPages );
+			if ( $editor ) {
+				$records[$key]['editcount'] = $this->formatNumber( $editCounts[$editor] );
+				$records[$key]['editor'] = $editor;
+				$records[$key]['editor_page'] = $this->getUserPage( $editor );
+				$records[$key]['editor_talk'] = $this->getUserTalk( $editor );
+				$records[$key]['editor_contribs'] = $this->getUserContribs( $editor );
+				$records[$key]['editor_page_dead'] = in_array( 'User:' . $editor, $deadPages );
+				$records[$key]['editor_talk_dead'] = in_array( 'User talk:' . $editor, $deadPages );
 			} else {
 				$records[$key]['editor_page_dead'] = false;
 				$records[$key]['editor_talk_dead'] = false;

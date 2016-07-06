@@ -22,6 +22,10 @@
 namespace Plagiabot\Web\Dao;
 
 use Wikimedia\Slimapp\Dao\AbstractDao;
+use Mediawiki\Api\MediawikiApi;
+use Mediawiki\Api\FluentRequest;
+use GuzzleHttp;
+use GuzzleHttp\Promise\Promise;
 
 class EnwikiDao extends AbstractDao {
 
@@ -44,26 +48,71 @@ class EnwikiDao extends AbstractDao {
 	) {
 		parent::__construct( $dsn, $user, $pass, $logger );
 		$this->wikipedia = $wiki;
+		$this->api = \Mediawiki\Api\MediawikiApi::newFromApiEndpoint( $wiki . '/w/api.php' );
 	}
 
 	/**
-	 * Get details on multiple revisions
+	 * Get details on given revisions
 	 *
 	 * @param $diffs array Revision IDs
-	 * @return array full revision rev_id, rev_user, rev_usertext,
-	 *   user_editcount and user_name of the revision
+	 * @return array Associative array by revids containing editor and timestamp
 	 */
-	public function getRevisionDetailsMulti( $diffs ) {
-		$query = self::concat(
-			'SELECT r.rev_id, r.rev_user, r.rev_page, r.rev_user_text,
-			u.user_editcount, u.user_name, p.page_namespace',
-			'FROM revision r',
-			'LEFT JOIN user u ON r.rev_user = u.user_id',
-			'LEFT JOIN page p ON r.rev_page = p.page_id',
-			'WHERE r.rev_id IN (' . implode( ',', array_fill( 0, count( $diffs ), '?' ) ) . ')'
-		);
-		$result = $this->fetchAll( $query, $diffs );
-		return $result;
+	public function getRevisionDetails( $diffs ) {
+		// get the revisions synchronously
+		$result = $this->apiQuery( [
+			'revids' => implode( '|', $diffs ),
+			'prop' => 'revisions',
+			'rvprop' => 'user|timestamp|ids'
+		] )['query'];
+
+		$data = [];
+
+		// fill in nulls for deleted revisions
+		if ( isset( $result['badrevids'] ) ) {
+			foreach ( $result['badrevids'] as $revision ) {
+				$data[$revision['revid']] = null;
+			}
+		}
+
+		foreach ( $result['pages'] as $page ) {
+			$revisions = $page['revisions'];
+
+			if ( isset( $revisions ) ) {
+				foreach ( $revisions as $revision ) {
+					$data[$revision['revid']] = [
+						'revid' => $revision['revid'],
+						'editor' => $revision['user'],
+						'timestamp' => $revision['timestamp']
+					];
+				}
+			}
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Get edit counts of given users
+	 * @param $usernames array The users to fetch edit counts for
+	 * @return promise Resolves with associative array of usernames/edit counts
+	 */
+	public function getEditCounts( $usernames ) {
+		// create empty promise so we can make multiple async calls in CopyPatrol controller
+		$promise = new Promise();
+
+		$result = $this->apiQuery( [
+			'list' => 'users',
+			'ususers' => implode( '|', array_unique( $usernames ) ),
+			'usprop' => 'editcount'
+		] )['query'];
+
+		$editors = [];
+		foreach ( $result['users'] as $index => $user ) {
+			$editors[$user['name']] = isset( $user['editcount'] ) ? $user['editcount'] : 0;
+		}
+
+		$promise->resolve( $editors );
+		return $promise;
 	}
 
 	/**
@@ -100,62 +149,66 @@ class EnwikiDao extends AbstractDao {
 	 * Determine which of the given pages are dead
 	 *
 	 * @param $titles array Page titles
-	 * @return array the pages that are dead
+	 * @return promise Resolves with an array of the pages that are dead
 	 */
 	public function getDeadPages( $titles ) {
+		// create empty promise so we can make multiple async calls in CopyPatrol controller
+		$promise = new Promise();
+
 		if ( !$titles ) {
-			return [];
+			return $promise->resolve( [] );
 		}
-		$titles = array_map( 'urlencode', $titles );
-		$url = $this->wikipedia .
-			   '/w/api.php?action=query&format=json&titles=' .
-			   join( '|', $titles ) .
-			   '&formatversion=2';
-		$ch = curl_init();
-		curl_setopt( $ch, CURLOPT_URL, $url );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-		$result = curl_exec( $ch );
-		$json = json_decode( $result );
+
+		// first break out array into chunks of 50,
+		// the max number of titles per request without bot authentication
+		$chunks = array_chunk( $titles, 50 );
+
+		// build array of promises so we can initiate API calls all at once
+		$promises = array_map( function( $chunk ) {
+			return $this->apiQuery( [
+				'titles' => join( '|', $chunk )
+			], true );
+		}, $chunks );
+
+		// wait for all promises to complete
+		$results = GuzzleHttp\Promise\unwrap( $promises );
 		$deadPages = [];
-		foreach ( $json->query->pages as $p ) {
-			if ( isset( $p->missing ) ) {
-				// Please note that this returns a false positive when the
-				// user account has a global User page and not a local one
-				$deadPages[] = $p->title;
+
+		foreach ( $results as $result ) {
+			foreach ( $result['query']['pages'] as $page ) {
+				if ( isset( $page['missing'] ) ) {
+					// Please note that this returns a false positive when the
+					// user account has a global User page and not a local one
+					$deadPages[] = $page['title'];
+				}
 			}
 		}
-		return $deadPages;
+
+		$promise->resolve( $deadPages );
+
+		return $promise;
 	}
 
 	/**
-	 * We do an API query here because testing proved API query to be faster
-	 * for looking up deleted page titles
-	 *
-	 * @param $title string Page title
-	 * @return bool depending on page dead or alive
+	 * Wrapper to make simple API query for JSON and in formatversion 2
+	 * @param $params array Params to add to the request
+	 * @param [$async] boolean Pass 'true' to make asynchronous
+	 * @return promise|array Promise if $async is true,
+	 *   otherwise the API result in the form of an array
 	 */
-	public function isPageDead( $title ) {
-		if ( !$title ) {
-			return false;
+	private function apiQuery( $params, $async = false ) {
+		$factory = FluentRequest::factory()->setAction( 'query' )
+			->setParam( 'formatversion', 2 )
+			->setParam( 'format', 'json' );
+
+		foreach ( $params as $param => $value ) {
+			$factory->setParam( $param, $value );
 		}
-		$url = $this->wikipedia .
-			   '/w/api.php?action=query&format=json&titles=' .
-			   urlencode( $title ) .
-			   '&formatversion=2';
-		$ch = curl_init();
-		curl_setopt( $ch, CURLOPT_URL, $url );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-		$result = curl_exec( $ch );
-		$json = json_decode( $result );
-		foreach ( $json->query->pages as $p ) {
-			if ( isset( $p->missing ) ) {
-				// Please note that this returns a false positive when the
-				// user account has a global User page and not a local one
-				return true;
-			} else {
-				return false;
-			}
+
+		if ( $async ) {
+			return $this->api->getRequestAsync( $factory );
+		} else {
+			return $this->api->getRequest( $factory );
 		}
-		return true;
 	}
 }
