@@ -96,9 +96,12 @@ class EnwikiDao extends AbstractDao {
 		// create empty promise so we can make multiple async calls in CopyPatrol controller
 		$promise = new Promise();
 
+		// make array of usernames unique and remove nulls
+		$usernames = array_filter( array_unique( $usernames ) );
+
 		$result = $this->apiQuery( [
 			'list' => 'users',
-			'ususers' => implode( '|', array_unique( $usernames ) ),
+			'ususers' => implode( '|', $usernames ),
 			'usprop' => 'editcount'
 		] )['query'];
 
