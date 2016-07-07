@@ -52,12 +52,12 @@ class EnwikiDao extends AbstractDao {
 	}
 
 	/**
-	 * Get details on given revisions
+	 * Get the editors of the given revisions
 	 *
 	 * @param $diffs array Revision IDs
-	 * @return array Associative array by revids containing editor and timestamp
+	 * @return array Associative array by revids and editor as the value
 	 */
-	public function getRevisionDetails( $diffs ) {
+	public function getRevisionsEditors( $diffs ) {
 		// get the revisions synchronously
 		$result = $this->apiQuery( [
 			'revids' => implode( '|', $diffs ),
@@ -79,11 +79,7 @@ class EnwikiDao extends AbstractDao {
 
 			if ( isset( $revisions ) ) {
 				foreach ( $revisions as $revision ) {
-					$data[$revision['revid']] = [
-						'revid' => $revision['revid'],
-						'editor' => $revision['user'],
-						'timestamp' => $revision['timestamp']
-					];
+					$data[$revision['revid']] = $revision['user'];
 				}
 			}
 		}

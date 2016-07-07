@@ -95,7 +95,6 @@ class CopyPatrol extends Controller {
 		$diffIds = [];
 		$pageTitles = [];
 		$usernames = [];
-		$editors = [];
 
 		// first build arrays of diff IDs and page titles so we can use them to make mass queries
 		foreach ( $records as $record ) {
@@ -107,22 +106,15 @@ class CopyPatrol extends Controller {
 			$pageTitles[] = $record['page_title'];
 		}
 
-		// get info for each revision (editor, editcount, etc) and build datasets from it
-		$revisions = $this->enwikiDao->getRevisionDetails( $diffIds );
-
-		foreach ( $revisions as $revision ) {
-			$userText = $revision['editor'];
-
-			if ( isset( $userText ) ) {
-				// add username to usernames array so we can fetch their edit counts all at once
-				$usernames[] = $userText;
-				// associative array for editor info with the revision ID as the key,
-				// this makes it easier to access what we need when looping through the copyvio records
-				$editors[$revision['revid']] = $userText;
-				// push necessary titles to $pageTitles so we can mass-query if they are dead
-				$pageTitles[] = 'User:' . $userText;
-				$pageTitles[] = 'User talk:' . $userText;
-			}
+		// get an associative array with the revision ID as the key and editor as the value
+		// this makes it easier to access what we need when looping through the copyvio records
+		$editors = $this->enwikiDao->getRevisionsEditors( $diffIds );
+		foreach ( $editors as $editor ) {
+			// add username to usernames array so we can fetch their edit counts all at once
+			$usernames[] = $editor;
+			// push necessary titles to $pageTitles so we can mass-query if they are dead
+			$pageTitles[] = 'User:' . $editor;
+			$pageTitles[] = 'User talk:' . $editor;
 		}
 
 		// Asynchronously get edit counts of users,
@@ -142,7 +134,6 @@ class CopyPatrol extends Controller {
 			if ( $record['page_ns'] == 118 ) {
 				$record['page_title'] = 'Draft:' . $record['page_title'];
 			}
-			$editor = isset( $editors[$record['diff']] ) ? $editors[$record['diff']] : null;
 			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );
 			$records[$key]['diff_link'] = $this->getDiffLink( $record['page_title'], $record['diff'] );
 			$records[$key]['page_link'] = $this->getPageLink( $record['page_title'] );
@@ -150,7 +141,9 @@ class CopyPatrol extends Controller {
 			$records[$key]['turnitin_report'] = $this->getReportLink( $record['ithenticate_id'] );
 			$records[$key]['copyvios'] = $this->getCopyvioUrls( $record['report'] );
 			$records[$key]['page_dead'] = in_array(
-				$this->removeUnderscores( $record['page_title'] ), $deadPages );
+				$this->removeUnderscores( $record['page_title'] ), $deadPages
+			);
+			$editor = $editors[$record['diff']];
 			if ( $editor ) {
 				$records[$key]['editcount'] = $this->formatNumber( $editCounts[$editor] );
 				$records[$key]['editor'] = $editor;
