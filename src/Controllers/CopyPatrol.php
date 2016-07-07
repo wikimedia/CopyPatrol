@@ -42,6 +42,7 @@ class CopyPatrol extends Controller {
 	 */
 	protected $wikiprojectDao;
 
+
 	/**
 	 * @param \Slim\Slim $slim Slim application
 	 */
@@ -50,6 +51,7 @@ class CopyPatrol extends Controller {
 		$this->wikipedia = $wiki;
 	}
 
+
 	/**
 	 * @param mixed $enwikiDao
 	 */
@@ -57,12 +59,14 @@ class CopyPatrol extends Controller {
 		$this->enwikiDao = $enwikiDao;
 	}
 
+
 	/**
 	 * @param mixed $wikiprojectDao
 	 */
 	public function setWikiprojectDao( $wikiprojectDao ) {
 		$this->wikiprojectDao = $wikiprojectDao;
 	}
+
 
 	/**
 	 * Handle GET route for app
@@ -173,6 +177,7 @@ class CopyPatrol extends Controller {
 		$this->render( 'index.html' );
 	}
 
+
 	/**
 	 * Get plagiarism records based on URL parameters and whether or not the user is logged in
 	 * This function also sets view variables for the filters, which get rendered as radio options
@@ -227,6 +232,7 @@ class CopyPatrol extends Controller {
 		return $this->dao->getPlagiarismRecords( $numRecords, $options );
 	}
 
+
 	/**
 	 * @param $page string Page title
 	 * @return string url of wiki page on enwiki
@@ -234,6 +240,7 @@ class CopyPatrol extends Controller {
 	public function getPageLink( $page ) {
 		return $this->wikipedia . '/wiki/' . urlencode( $page );
 	}
+
 
 	/**
 	 * @param $page string Page title
@@ -246,6 +253,7 @@ class CopyPatrol extends Controller {
 			   '&diff=' . urlencode( $diff );
 	}
 
+
 	/**
 	 * @param $ithenticateId int Report id for Turnitin
 	 * @return string Link to report
@@ -253,6 +261,7 @@ class CopyPatrol extends Controller {
 	public function getReportLink( $ithenticateId ) {
 		return 'https://tools.wmflabs.org/eranbot/ithenticate.py?rid=' . urlencode( $ithenticateId );
 	}
+
 
 	/**
 	 * Formats given number based on Intuition locale or HTTP header
@@ -269,6 +278,7 @@ class CopyPatrol extends Controller {
 		return $formatter->format( $number );
 	}
 
+
 	/**
 	 * @param $datetime string Datetime of edit
 	 * @return string Reformatted date
@@ -278,6 +288,7 @@ class CopyPatrol extends Controller {
 		return date( 'Y-m-d H:i', $datetime );
 	}
 
+
 	/**
 	 * @param $title String to change underscores to spaces for
 	 * @return string
@@ -285,6 +296,7 @@ class CopyPatrol extends Controller {
 	public function removeUnderscores( $title ) {
 		return str_replace( '_', ' ', $title );
 	}
+
 
 	/**
 	 * Get URL for revision history of given page
@@ -295,6 +307,7 @@ class CopyPatrol extends Controller {
 	public function getHistoryLink( $title ) {
 		return $this->wikipedia . '/wiki/' . urlencode( $title ) . '?action=history';
 	}
+
 
 	/**
 	 * @param $user string User name
@@ -307,6 +320,7 @@ class CopyPatrol extends Controller {
 		return $this->wikipedia . '/wiki/User_talk:' . urlencode( str_replace( ' ', '_', $user ) );
 	}
 
+
 	/**
 	 * @param $user string User name
 	 * @return string User page for a user on $this->wikipedia
@@ -317,6 +331,7 @@ class CopyPatrol extends Controller {
 		}
 		return $this->wikipedia . '/wiki/User:' . urlencode( str_replace( ' ', '_', $user ) );
 	}
+
 
 	/**
 	 * @param $user string User name
@@ -329,6 +344,7 @@ class CopyPatrol extends Controller {
 		return $this->wikipedia . '/wiki/Special:Contributions/' .
 			   urlencode( str_replace( ' ', '_', $user ) );
 	}
+
 
 	/**
 	 * Get links to compare with

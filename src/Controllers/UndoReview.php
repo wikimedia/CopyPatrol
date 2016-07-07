@@ -32,6 +32,7 @@ class UndoReview extends CopyPatrol {
 		parent::__construct( $slim );
 	}
 
+
 	protected function handleGet() {
 		$id = $this->request->get( 'id' );
 		$undo = (bool)$this->request->get( 'undo' );
@@ -39,22 +40,29 @@ class UndoReview extends CopyPatrol {
 		$user = $userData ? $userData->getName() : null;
 		// Get current UTC time as ISO 8601 timestamp.
 		$timestamp = gmdate( 'c' );
-
-		$ret = $this->dao->insertCopyvioAssessment( $id, null, null, null );
-
-		// Return JSON with username and review timestamp if unreview was successful
-		if ( $ret === true ) {
-			echo json_encode(
-				[
-					'user' => $user,
-					'userpage' => $this->getUserPage( $user ),
-					'timestamp' => $this->formatTimestamp( $timestamp ),
-					'status' => null
-				] );
+		$record = $this->dao->getRecordById( $id );
+		// Check that the user wants to undo their own review only
+		if ( $record['status_user'] == $user ) {
+			$ret = $this->dao->insertCopyvioAssessment( $id, null, null, null );
+			// Return JSON with username and review timestamp if undo-review was successful
+			if ( $ret === true ) {
+				echo json_encode(
+					[
+						'user' => $user,
+						'userpage' => $this->getUserPage( $user ),
+						'timestamp' => $this->formatTimestamp( $timestamp ),
+						'status' => null
+					] );
+			} else {
+				echo json_encode(
+					[
+						'error' => 'false'
+					] );
+			}
 		} else {
 			echo json_encode(
 				[
-					'error' => 'false'
+					'error' => 'not-own-review'
 				] );
 		}
 	}

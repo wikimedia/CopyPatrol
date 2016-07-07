@@ -1,4 +1,4 @@
-(function( $, document, window ) {
+(function ( $, document, window ) {
 	'use strict';
 
 	$( document ).ready( function () {
@@ -28,7 +28,7 @@
 		} );
 		$( '.records' ).on( 'click', '.js-compare-button', function () {
 			// pass the dataset of the element as an object to toggleComparePane
-			toggleComparePane.call(this, this.dataset);
+			toggleComparePane.call( this, this.dataset );
 		} );
 		$( '.js-load-more' ).on( 'click', loadMoreResults );
 
@@ -86,9 +86,12 @@
 					var $reviewerNode = $( '.status-div-reviewer-' + id );
 					$reviewerNode.fadeOut( 'slow' );
 					setReviewState( id, 'open' );
-				} else {
+				} else if ( ret.error === 'false' ) {
 					window.alert( 'There was an error in connecting to database.' );
 					setReviewState( id, oldStatus ); // revert back to old state
+				} else {
+					window.alert( 'You can only undo your own reviews.' );
+					setReviewState( id, oldStatus );
 				}
 
 				cb();
@@ -125,7 +128,7 @@
 				$( '#btn-load-more' ).text( 'Load More' ).removeClass( 'btn-loading' );
 				var $newRecords = $( ret ).find( '.record-container' );
 
-				if ( $newRecords.find('.js-record').length ) {
+				if ( $newRecords.find( '.js-record' ).length ) {
 					$( '.record-container' ).append( $newRecords.html() );
 				} else {
 					$( '.js-load-more' ).replaceWith( '<p>No more records!</p>' );
@@ -144,7 +147,7 @@
 		 *   string copyvio Copyvio URL
 		 *   integer diffid Oldid of diff
 		 */
-		function toggleComparePane(params) {
+		function toggleComparePane( params ) {
 			var compareDiv = '#comp' + params.id + '-' + params.index;
 
 			$( compareDiv ).slideToggle( 500 );
@@ -178,4 +181,4 @@
 			}
 		}
 	} );
-} )( jQuery, document, window );
+})( jQuery, document, window );
