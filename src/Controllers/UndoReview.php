@@ -32,7 +32,6 @@ class UndoReview extends CopyPatrol {
 		parent::__construct( $slim );
 	}
 
-
 	protected function handleGet() {
 		$id = $this->request->get( 'id' );
 		$undo = (bool)$this->request->get( 'undo' );

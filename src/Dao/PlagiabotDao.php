@@ -30,7 +30,6 @@ class PlagiabotDao extends AbstractDao {
 	 */
 	protected $wikipedia;
 
-
 	/**
 	 * @param string $dsn PDO data source name
 	 * @param string $user Database user
@@ -46,7 +45,6 @@ class PlagiabotDao extends AbstractDao {
 		parent::__construct( $dsn, $user, $pass, $logger );
 		$this->wikipedia = $wiki;
 	}
-
 
 	/**
 	 * @param int $n Number of records asked for
@@ -96,7 +94,6 @@ class PlagiabotDao extends AbstractDao {
 		return $this->fetchAll( $sql );
 	}
 
-
 	/**
 	 * @param $value string Value of the state saved by user
 	 * @param $ithenticateId int Ithenticate ID of the report
@@ -118,7 +115,6 @@ class PlagiabotDao extends AbstractDao {
 		] );
 	}
 
-
 	/**
 	 * Get a particular record by ithenticate ID
 	 *
@@ -129,7 +125,7 @@ class PlagiabotDao extends AbstractDao {
 			'SELECT * FROM copyright_diffs',
 			'WHERE ithenticate_id = :id'
 		);
-		return $this->fetch( $sql, ['id' => $ithenticateId] );
+		return $this->fetch( $sql, [ 'id' => $ithenticateId ] );
 	}
 
 }
