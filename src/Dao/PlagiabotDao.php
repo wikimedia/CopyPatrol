@@ -95,8 +95,8 @@ class PlagiabotDao extends AbstractDao {
 	}
 
 	/**
-	 * @param $value string Value of the state saved by user
 	 * @param $ithenticateId int Ithenticate ID of the report
+	 * @param $value string Value of the state saved by user
 	 * @param $user string the reviewer's username
 	 * @param $timestamp date timestamp of when the review took place
 	 * @return true|false depending on query success/fail
