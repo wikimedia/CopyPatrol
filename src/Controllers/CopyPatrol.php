@@ -65,6 +65,42 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
+	 * ORES scores URL
+	 *
+	 * @param array $revs
+	 */
+	public static function oresScoresUrl( array $revs ) {
+		$baseUrl = 'https://ores.wikimedia.org/' .
+			'v2/scores/enwiki/damaging/?revids=';
+		return $baseUrl . implode( '|', $revs );
+	}
+
+	/**
+	 * ORES scores for revisions
+	 *
+	 * @param array $revs
+	 */
+	public static function oresScores( array $revs ) {
+		$data = file_get_contents( oresScoresUrl( $revs ) );
+		$data = json_decode( $data, true );
+		if ( !array_key_exists( 'scores', $data ) ) {
+			// ORES is down :((
+			return;
+		}
+		$data = $data['scores']['enwiki']['damaging']['scores'];
+		$scores = [];
+		foreach ( $data as $revId => $value ) {
+			if ( array_key_exists( 'error', $value ) ) {
+				// Revision not found
+				$scores[$revId] = null;
+			} else {
+				$scores[$revId] = $value['probability']['true'];
+			}
+		}
+		return $scores;
+	}
+
+	/**
 	 * Handle GET route for app
 	 *
 	 * @param $lastId int Ithenticate ID of the last record displayed on the
@@ -122,6 +158,10 @@ class CopyPatrol extends Controller {
 		$asyncResults = GuzzleHttp\Promise\unwrap( $promises );
 		$editCounts = $asyncResults['editCounts'];
 		$deadPages = $asyncResults['deadPages'];
+
+		// Get ORES scores for edits
+		$oresScores = oresScores( $diffIds );
+
 		// now all external requests and database queries (except
 		// WikiProjects) have been completed, let's loop through the records
 		// once more to build the complete dataset to be rendered into view
@@ -177,6 +217,10 @@ class CopyPatrol extends Controller {
 				$cleanWikiprojects[] = $wp;
 			}
 			$records[$key]['wikiprojects'] = $cleanWikiprojects;
+			if ( $oresScores[$record['diff']] ) {
+				$value = $oresScores[$record['diff']] * 100;
+				$records[$key]['oresScore'] = number_format( $value, 2 ) . '%';
+			}
 		}
 		$this->view->set( 'records', $records );
 		$this->render( 'index.html' );

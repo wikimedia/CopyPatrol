@@ -69,6 +69,11 @@
 							{% endfor %}
 						{% endif %}
 					</div>
+					<div class="row-div col-sm-2 text-center ores-div">
+						{% if row.oresScore is not empty %}
+							{{ row.oresScore }}
+						{% endif %}
+					</div>
 					<div class="row-div col-sm-2 text-center status-div">
 						<button data-id="{{ row.ithenticate_id }}"
 						        data-status="fixed"
