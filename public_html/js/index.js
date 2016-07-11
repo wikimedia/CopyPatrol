@@ -32,7 +32,7 @@
 		} );
 		$( '.js-load-more' ).on( 'click', loadMoreResults );
 		// prevent fragment identifier from being added to URL
-		$( 'a[href="#"]' ).on( 'click', function (e) {
+		$( 'a[href="#"]' ).on( 'click', function ( e ) {
 			e.preventDefault();
 		} );
 
@@ -90,7 +90,7 @@
 					var $reviewerNode = $( '.status-div-reviewer-' + id );
 					$reviewerNode.fadeOut( 'slow' );
 					setReviewState( id, 'open' );
-				} else if ( ret.error === 'false' ) {
+				} else if ( ret.error === 'db-error' ) {
 					window.alert( 'There was an error in connecting to database.' );
 					setReviewState( id, oldStatus ); // revert back to old state
 				} else {

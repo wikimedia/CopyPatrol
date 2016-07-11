@@ -55,7 +55,7 @@ class UndoReview extends CopyPatrol {
 			} else {
 				echo json_encode(
 					[
-						'error' => 'false'
+						'error' => 'db-error'
 					] );
 			}
 		} else {

@@ -125,7 +125,6 @@ class PlagiabotDao extends AbstractDao {
 			'SELECT * FROM copyright_diffs',
 			'WHERE ithenticate_id = :id'
 		);
-		return $this->fetch( $sql, [ 'id' => $ithenticateId ] );
+		return $this->fetch( $sql, ['id' => (int)$ithenticateId] );
 	}
-
 }
