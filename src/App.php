@@ -232,6 +232,11 @@ class App extends AbstractApp {
 					$page( 'callback' );
 				} )->name( 'oauth_callback' );
 			} );
+		$slim->get( '/leaderboard', $middleware['inject-user'], function () use ( $slim ) {
+			$page = new Controllers\Leaderboard( $slim );
+			$page->setDao( $slim->plagiabotDao );
+			$page();
+		} )->name( 'leaderboard' );
 	}
 
 	/**

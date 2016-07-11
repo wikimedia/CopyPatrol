@@ -3,11 +3,11 @@
 <html lang="en">
 <head>
 	<title>CopyPatrol</title>
-	<link href="{{ siteUrl('images/favicon.ico') }}" rel="shortcut icon" sizes="16x16 32x32"/>
+	<link href="{{ siteUrl( 'images/favicon.ico' ) }}" rel="shortcut icon" sizes="16x16 32x32"/>
 	{% block stylesheets %}
 		<link href="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css"
 					rel="stylesheet"/>
-		<link href="{{ siteUrl('index.css') }}" type="text/css" rel="stylesheet"/>
+		<link href="{{ siteUrl( 'index.css' ) }}" type="text/css" rel="stylesheet"/>
 	{% endblock %}
 	{% block scripts %}
 		<script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/1.12.0/jquery.min.js"
@@ -19,9 +19,10 @@
 </head>
 <body>
 <header class="app-header">
-	<img src="{{ siteUrl( 'images/copypatrol.png' ) }}" />
+	<a href="{{ siteUrl( '' ) }}"><img src="{{ siteUrl( 'images/copypatrol.png' ) }}" /></a>
 	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/Talk:Community_Tech/Improve_the_plagiarism_detection_bot">Feedback</a>
 	<a class="header-link" target="_blank" href="https://github.com/Niharika29/PlagiabotWeb">Source</a>
+	<a class="header-link" href="{{ siteUrl( 'leaderboard' ) }}">Leaderboard</a>
 	{% if user %}
 		<a href="{{ urlFor( 'logout' ) }}" id="login-btn" class="btn btn-sm btn-default {{ user ? 'logged-in' : '' }}">
 			<span class=" glyphicon glyphicon-log-in"></span> Logout <br>
@@ -73,43 +74,46 @@
 		</section>
 	{% endblock %}
 
-	<section class="filters container-fluid">
-		<form>
-			<fieldset class="form-group filters-fieldset text-center">
-				{% for type, description in filterTypes %}
-					<span class="radio-inline">
-						<label>
-							<input type="radio" name="filter" value="{{ type }}"
+	{% block main %}
+		<section class="filters container-fluid">
+			<form>
+				<fieldset class="form-group filters-fieldset text-center">
+					{% for type, description in filterTypes %}
+						<span class="radio-inline">
+							<label>
+								<input type="radio" name="filter" value="{{ type }}"
 									{% if filter == type %} checked="checked"{% endif %}
-							/> {{ description }}
-						</label>
-					</span>
-				{% endfor %}
-				<button type="submit" class="btn btn-primary btn-sm btn-submit-filters">Submit</button>
-			</fieldset>
-		</form>
-	</section>
-
-	<section class="records">
-		{% block rowheader %}
-			<header class="header-div container-fluid">
-				<div class="header-col col-sm-3 text-center">Page</div>
-				<div class="header-col col-sm-2 text-center">Diff</div>
-				<div class="header-col col-sm-2 text-center">Editor</div>
-				<div class="header-col col-sm-3 text-center">Wikiprojects</div>
-				<div class="header-col col-sm-2 text-center">Review</div>
-			</header>
-		{% endblock %}
-		<section class="record-container">
-			{% block records %}
-			{% endblock %}
+								/> {{ description }}
+							</label>
+						</span>
+					{% endfor %}
+					<button type="submit" class="btn btn-primary btn-sm btn-submit-filters">Submit</button>
+				</fieldset>
+			</form>
 		</section>
-		<div class="load-more-div">
-			{% block loadmore %}
-				<button id="btn-load-more" class="btn btn-md btn-primary js-load-more">Load More</button>
+
+		<section class="records">
+			{% block rowheader %}
+				<header class="header-div container-fluid">
+					<div class="header-col col-sm-3 text-center">Page</div>
+					<div class="header-col col-sm-2 text-center">Diff</div>
+					<div class="header-col col-sm-2 text-center">Editor</div>
+					<div class="header-col col-sm-3 text-center">Wikiprojects</div>
+					<div class="header-col col-sm-2 text-center">Review</div>
+				</header>
 			{% endblock %}
-		</div>
-	</section>
+			<section class="record-container">
+				{% block records %}
+				{% endblock %}
+			</section>
+			<div class="load-more-div">
+				{% block loadmore %}
+					<button id="btn-load-more" class="btn btn-md btn-primary js-load-more">Load More</button>
+				{% endblock %}
+			</div>
+		</section>
+	{% endblock %}
+
 </main>
 <footer class="app-footer">
 	Brought to you by
