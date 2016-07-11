@@ -82,7 +82,6 @@ class CopyPatrol extends Controller {
 	 * editor_talk: Link to editor talk page
 	 * editor_contribs: Link to editor Special:Contributions
 	 * editcount: Edit count of user
-	 * page_dead: Bool. Is article page non-existent?
 	 * editor_page_dead: Bool. Is editor page non-existent?
 	 * editor_talk_dead: Bool. Is editor talk page non-existent?
 	 */
@@ -136,9 +135,23 @@ class CopyPatrol extends Controller {
 			$records[$key]['history_link'] = $this->getHistoryLink( $record['page_title'] );
 			$records[$key]['turnitin_report'] = $this->getReportLink( $record['ithenticate_id'] );
 			$records[$key]['copyvios'] = $this->getCopyvioUrls( $record['report'] );
-			$records[$key]['page_dead'] = in_array(
+
+			$pageDead = in_array(
 				$this->removeUnderscores( $record['page_title'] ), $deadPages
 			);
+
+			// if the page is dead, mark it as reviewed by our bot and skip to next record
+			if ( $pageDead && $this->getFilter() === 'open' ) {
+				$this->plagiabotDao->insertCopyvioAssessment(
+					$record['ithenticate_id'],
+					false,
+					'Community Tech bot',
+					gmdate( 'c' )
+				);
+				unset( $records[$key] );
+				continue;
+			}
+
 			$editor = $editors[$record['diff']];
 			if ( $editor ) {
 				$records[$key]['editcount'] = $this->formatNumber( $editCounts[$editor] );
@@ -170,36 +183,42 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * Get plagiarism records based on URL parameters and whether or not the user is logged in
-	 * This function also sets view variables for the filters, which get rendered as radio options
-	 *
-	 * @param $lastId int Ithenticate ID of last record on page
-	 * @return array collection of plagiarism records
+	 * Get the current user's username, or null if they are logged out
+	 * @return boolean true or false
 	 */
-	protected function getRecords() {
-		$userData = $this->authManager->getUserData();
-		$filterUser = $userData ? $userData->getName() : null;
+	protected function getUsername() {
+		static $username = null;
+
+		if ( $username === null ) {
+			$userData = $this->authManager->getUserData();
+			$username = $userData ? $userData->getName() : null;
+		}
+
+		return $username;
+	}
+
+	/**
+	 * Get the current requested filter, or return the default.
+	 * Also throws flash messages if the requested filters are invalid.
+	 * @return string the filter, one of 'all', 'open', 'reviewed' or 'mine'
+	 */
+	private function getFilter() {
+		static $filter = null;
+
+		// return if already set
+		if ( $filter ) {
+			return $filter;
+		}
+
 		// Default to 'open'
 		$filter = $this->request->get( 'filter' ) ? $this->request->get( 'filter' ) : 'open';
-		$lastId = $this->request->get( 'lastId' ) ? $this->request->get( 'lastId' ) : 0;
-		// set filter types and descriptions that will be rendered as checkboxes in the view
-		$filterTypes = [
-			'all' => 'All cases',
-			'open' => 'Open cases',
-			'reviewed' => 'Reviewed cases'
-		];
-		// add 'My reviews' to filter options if user is logged in
-		if ( isset( $filterUser ) ) {
-			$filterTypes['mine'] = 'My reviews';
-		}
+
 		// check user is logged in if filter requested is 'mine', if not, use 'open' by default
-		if ( $filter === 'mine' ) {
-			if ( !isset( $filterUser ) ) {
-				$this->flashNow( 'warning', 'You must be logged in to view your own reviews.' );
-				$filter = 'open';
-			}
+		if ( $filter === 'mine' && !$this->getUsername() ) {
+			$this->flashNow( 'warning', 'You must be logged in to view your own reviews.' );
+			$filter = 'open';
 		} else {
-			$filterTypeKeys = array_keys( $filterTypes ); // Check that the filter value was valid
+			$filterTypeKeys = array_keys( $this->getFilterTypes() ); // Check that the filter value was valid
 			if ( !in_array( $filter, $filterTypeKeys ) ) {
 				$this->flashNow(
 					'error',
@@ -208,18 +227,62 @@ class CopyPatrol extends Controller {
 				$filter = 'open';  // Set to default
 			}
 		}
+
+		return $filter;
+	}
+
+	/**
+	 * Get the current available filter types
+	 * @return array Associative array by filter code and filter description.
+	 *   The description is used as the labels of the radio buttons in the view.
+	 */
+	protected function getFilterTypes() {
+		static $filterTypes = null;
+
+		if ( $filterTypes === null ) {
+			$filterTypes = [
+				'all' => 'All cases',
+				'open' => 'Open cases',
+				'reviewed' => 'Reviewed cases'
+			];
+
+			// add 'My reviews' to filter options if user is logged in
+			if ( $this->getUsername() ) {
+				$filterTypes['mine'] = 'My reviews';
+			}
+		}
+
+		return $filterTypes;
+	}
+
+	/**
+	 * Get plagiarism records based on URL parameters and whether or not the user is logged in
+	 * This function also sets view variables for the filters, which get rendered as radio options
+	 *
+	 * @param $lastId int Ithenticate ID of last record on page
+	 * @return array collection of plagiarism records
+	 */
+	protected function getRecords() {
+		$filter = $this->getFilter();
+		$filterUser = $this->getUsername();
+		$lastId = $this->request->get( 'lastId' ) ? $this->request->get( 'lastId' ) : 0;
+
 		// make this easier when working locally
 		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 10 : 50;
+
 		// compile all options in an array
 		$options = [
 			'filter' => $filter,
 			'last_id' => $lastId > 0 ? $lastId : null
 		];
+
+		// filter by current user if they are logged and the filter is 'mine'
 		if ( $filter === 'mine' && isset( $filterUser ) ) {
 			$options['filter_user'] = $filterUser;
 		}
+
 		$this->view->set( 'filter', $filter );
-		$this->view->set( 'filterTypes', $filterTypes );
+		$this->view->set( 'filterTypes', $this->getFilterTypes() );
 		return $this->dao->getPlagiarismRecords( $numRecords, $options );
 	}
 

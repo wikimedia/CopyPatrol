@@ -6,7 +6,7 @@
 		<small>Reviewed by
 			<span>
 				<a class="reviewer-link" href="{{ row.reviewed_by_url }}" target="_blank">{{ row.status_user }}</a>
-			</span><br>
+			</span><br/>
 			<time datetime="{{ row.review_timestamp }}" class="reviewer-timestamp">{{ row.review_timestamp }}</time>
 		</small>
 	</div>
@@ -22,15 +22,10 @@
 					{# Div for page title #}
 					<div class="row-div col-sm-3 page-div">
 						<strong>
-							<a href='{{ row.page_link }}' target="_blank"
-							   class="{{ row.page_dead ? 'text-danger' : '' }}"
-							>
-								{{ row.page_title }}
-							</a>
+							<a href='{{ row.page_link }}' target="_blank">{{ row.page_title }}</a>
 						</strong>
 						<div class="small">
-							<a href='{{ row.history_link }}' target="_blank"
-							   class="{{ row.page_dead ? 'text-danger' : '' }}">History</a>
+							<a href='{{ row.history_link }}' target="_blank">History</a>
 						</div>
 					</div>
 					{# Div for diff information and link #}
