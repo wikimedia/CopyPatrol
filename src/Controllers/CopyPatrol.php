@@ -95,7 +95,6 @@ class CopyPatrol extends Controller {
 		$diffIds = [];
 		$pageTitles = [];
 		$usernames = [];
-
 		// first build arrays of diff IDs and page titles so we can use them to make mass queries
 		foreach ( $records as $record ) {
 			$diffIds[] = $record['diff'];
@@ -105,7 +104,6 @@ class CopyPatrol extends Controller {
 			}
 			$pageTitles[] = $record['page_title'];
 		}
-
 		// get an associative array with the revision ID as the key and editor as the value
 		// this makes it easier to access what we need when looping through the copyvio records
 		$editors = $this->enwikiDao->getRevisionsEditors( $diffIds );
@@ -116,7 +114,6 @@ class CopyPatrol extends Controller {
 			$pageTitles[] = 'User:' . $editor;
 			$pageTitles[] = 'User talk:' . $editor;
 		}
-
 		// Asynchronously get edit counts of users,
 		// and all dead pages so we can colour them red in the view
 		$promises = [
@@ -126,7 +123,6 @@ class CopyPatrol extends Controller {
 		$asyncResults = GuzzleHttp\Promise\unwrap( $promises );
 		$editCounts = $asyncResults['editCounts'];
 		$deadPages = $asyncResults['deadPages'];
-
 		// now all external requests and database queries (except
 		// WikiProjects) have been completed, let's loop through the records
 		// once more to build the complete dataset to be rendered into view
