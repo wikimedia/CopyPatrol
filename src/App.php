@@ -166,12 +166,26 @@ class App extends AbstractApp {
 					$uri = rtrim( $_SERVER['REQUEST_URI'], '/' );
 					$slim->redirect( $uri );
 				}
+			},
+			'twig-number-format' => function () use ( $slim ) {
+				// Set number formatting for Twig's number_format based on Intuition locale or HTTP header
+				// First get user's locale
+				$locale = ( isset( $_COOKIE['TsIntuition_userlang'] ) ) ?
+					$_COOKIE['TsIntuition_userlang'] :
+					$_SERVER['HTTP_ACCEPT_LANGUAGE'];
+				$formatter = new \NumberFormatter( $locale, \NumberFormatter::DECIMAL );
+				// Get separator symbols (include decimal as it is required and we might use it at some point)
+				$decimal = $formatter->getSymbol( \NumberFormatter::DECIMAL_SEPARATOR_SYMBOL );
+				$thousands = $formatter->getSymbol( \NumberFormatter::GROUPING_SEPARATOR_SYMBOL );
+				// Set Twig defaults, first argument is number of decimal places to show (we don't want any)
+				$twig = $slim->view->getEnvironment();
+				$twig->getExtension( 'core' )->setNumberFormat( 0, $decimal, $thousands );
 			}
 		];
 		$slim->group( '/', $middleware['trailing-slash'],
 				$middleware['inject-user'], $middleware['set-environment'],
-			function () use ( $slim ) {
-				$slim->get( '/', function () use ( $slim ) {
+			function () use ( $slim, $middleware ) {
+				$slim->get( '/', $middleware['twig-number-format'], function () use ( $slim ) {
 					$page = new Controllers\CopyPatrol( $slim );
 					$page->setDao( $slim->plagiabotDao );
 					$page->setEnwikiDao( $slim->enwikiDao );
@@ -232,11 +246,12 @@ class App extends AbstractApp {
 					$page( 'callback' );
 				} )->name( 'oauth_callback' );
 			} );
-		$slim->get( '/leaderboard', $middleware['inject-user'], function () use ( $slim ) {
-			$page = new Controllers\Leaderboard( $slim );
-			$page->setDao( $slim->plagiabotDao );
-			$page();
-		} )->name( 'leaderboard' );
+		$slim->get( '/leaderboard', $middleware['inject-user'], $middleware['twig-number-format'],
+			function () use ( $slim ) {
+				$page = new Controllers\Leaderboard( $slim );
+				$page->setDao( $slim->plagiabotDao );
+				$page();
+			} )->name( 'leaderboard' );
 	}
 
 	/**

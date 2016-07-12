@@ -8,7 +8,7 @@
       <li class="ellipsis">
         <a target="_blank" href="{{ wiki }}/wiki/User:{{ leader['user'] }}" class="{{ username == leader['user'] ? 'mine' : '' }}">{{ leader['user'] }}</a>
         :
-        {{ leader['count'] }}</li>
+        {{ leader['count'] | number_format }}</li>
     {% endfor %}
   </ol>
 {% endmacro %}
@@ -24,19 +24,19 @@
     <div class="text-center clearfix">
       <span class="leaderboard-column col-sm-4">
         <h3>
-          Cases closed in the<br/><u>last 7 days</u>
+          Cases closed in the<br/>last 7 days
         </h3>
         {{ macros.leaderboard_list( wiki, data['last-week'], user.name ) }}
       </span>
       <span class="leaderboard-column col-sm-4">
         <h3>
-          Cases closed in the<br/><u>last 30 days</u>
+          Cases closed in the<br/>last 30 days
         </h3>
         {{ macros.leaderboard_list( wiki, data['last-month'], user.name ) }}
       </span>
       <span class="leaderboard-column col-sm-4">
         <h3>
-          &nbsp;<br/><u>All time</u>
+          All time<br/>cases closed
         </h3>
         {{ macros.leaderboard_list( wiki, data['all-time'], user.name ) }}
       </span>

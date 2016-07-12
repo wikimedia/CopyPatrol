@@ -154,7 +154,7 @@ class CopyPatrol extends Controller {
 
 			$editor = $editors[$record['diff']];
 			if ( $editor ) {
-				$records[$key]['editcount'] = $this->formatNumber( $editCounts[$editor] );
+				$records[$key]['editcount'] = $editCounts[$editor];
 				$records[$key]['editor'] = $editor;
 				$records[$key]['editor_page'] = $this->getUserPage( $editor );
 				$records[$key]['editor_talk'] = $this->getUserTalk( $editor );
@@ -311,21 +311,6 @@ class CopyPatrol extends Controller {
 	 */
 	public function getReportLink( $ithenticateId ) {
 		return 'https://tools.wmflabs.org/eranbot/ithenticate.py?rid=' . urlencode( $ithenticateId );
-	}
-
-	/**
-	 * Formats given number based on Intuition locale or HTTP header
-	 *
-	 * @param $number integer or string
-	 * @return string formatted number
-	 */
-	public function formatNumber( $number ) {
-		// first get user's locale
-		$locale = ( isset( $_COOKIE['TsIntuition_userlang'] ) ) ?
-			$_COOKIE['TsIntuition_userlang'] :
-			$_SERVER['HTTP_ACCEPT_LANGUAGE'];
-		$formatter = new \NumberFormatter( $locale, \NumberFormatter::DECIMAL );
-		return $formatter->format( $number );
 	}
 
 	/**
