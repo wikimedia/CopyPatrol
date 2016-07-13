@@ -50,7 +50,7 @@
 									Contributions
 								</a>
 								{% if row.editcount %}
-									<div>Edit count: {{ row.editcount }}</div>
+									<div>Edit count: {{ row.editcount | number_format }}</div>
 								{% endif %}
 							</small>
 						{% else %}

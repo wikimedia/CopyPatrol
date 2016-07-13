@@ -95,6 +95,48 @@ class PlagiabotDao extends AbstractDao {
 	}
 
 	/**
+	 * Get the top reviewers over the past last 7 days, 30 days, and all-time
+	 * @return array Associative array of leaderboard data
+	 */
+	public function getLeaderboardData() {
+		$lastWeek = $this->fetchAll(
+			$this->getLeaderboardSql( '7' )
+		);
+
+		$lastMonth = $this->fetchAll(
+			$this->getLeaderboardSql( '30' )
+		);
+
+		$allTime = $this->fetchAll(
+			$this->getLeaderboardSql()
+		);
+
+		return [
+			'last-week' => $lastWeek,
+			'last-month' => $lastMonth,
+			'all-time' => $allTime
+		];
+	}
+
+	/**
+	 * Get SQL for leaderboard
+	 * @param $offset number of days from present to query for. Leave null for all-time
+	 * @return string the SQL
+	 */
+	private function getLeaderboardSql( $offset = null ) {
+		return self::concat(
+			'SELECT status_user AS \'user\', COUNT(*) as \'count\'',
+			'FROM copyright_diffs',
+			'WHERE status_user IS NOT NULL',
+			'AND status_user != "Community Tech bot"',
+			$offset ? 'AND review_timestamp > ADDDATE(CURRENT_DATE, -' . $offset . ')' : '',
+			'GROUP BY status_user',
+			'ORDER BY COUNT(*) DESC',
+			'LIMIT 5'
+		);
+	}
+
+	/**
 	 * @param $ithenticateId int Ithenticate ID of the report
 	 * @param $value string Value of the state saved by user
 	 * @param $user string the reviewer's username
