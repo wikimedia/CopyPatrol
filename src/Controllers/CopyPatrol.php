@@ -144,7 +144,7 @@ class CopyPatrol extends Controller {
 			if ( $pageDead && $this->getFilter() === 'open' ) {
 				$this->plagiabotDao->insertCopyvioAssessment(
 					$record['ithenticate_id'],
-					false,
+					'false',
 					'Community Tech bot',
 					gmdate( 'c' )
 				);
