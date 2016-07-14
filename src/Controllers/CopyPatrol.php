@@ -150,6 +150,8 @@ class CopyPatrol extends Controller {
 				);
 				unset( $records[$key] );
 				continue;
+			} else {
+				$records[$key]['page_dead'] = $pageDead;
 			}
 
 			$editor = $editors[$record['diff']];
