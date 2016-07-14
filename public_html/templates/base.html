@@ -86,6 +86,13 @@
 							</label>
 						</span>
 					{% endfor %}
+					<span class="checkbox-inline">
+						<label>
+							<input type="checkbox" name="drafts" value="1"
+								{% if drafts %} checked="checked"{% endif %}
+							/> Drafts only
+						</label>
+					</span>
 					<button type="submit" class="btn btn-primary btn-sm btn-submit-filters">Submit</button>
 				</fieldset>
 			</form>
