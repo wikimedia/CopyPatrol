@@ -268,6 +268,7 @@ class CopyPatrol extends Controller {
 		$filter = $this->getFilter();
 		$filterUser = $this->getUsername();
 		$lastId = $this->request->get( 'lastId' ) ? $this->request->get( 'lastId' ) : 0;
+		$drafts = $this->request->get( 'drafts' ) ? '1' : null;
 
 		// make this easier when working locally
 		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 10 : 50;
@@ -275,7 +276,8 @@ class CopyPatrol extends Controller {
 		// compile all options in an array
 		$options = [
 			'filter' => $filter,
-			'last_id' => $lastId > 0 ? $lastId : null
+			'last_id' => $lastId > 0 ? $lastId : null,
+			'drafts' => $drafts
 		];
 
 		// filter by current user if they are logged and the filter is 'mine'
@@ -284,6 +286,7 @@ class CopyPatrol extends Controller {
 		}
 
 		$this->view->set( 'filter', $filter );
+		$this->view->set( 'drafts', $drafts );
 		$this->view->set( 'filterTypes', $this->getFilterTypes() );
 		return $this->dao->getPlagiarismRecords( $numRecords, $options );
 	}

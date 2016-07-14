@@ -53,6 +53,8 @@ class PlagiabotDao extends AbstractDao {
 	 *     'open', 'reviewed' or 'mine'
 	 *   string 'filter_user' Filter SQL to only return records reviewed by
 	 *     given user
+	 *   boolean 'drafts' (any non-blank value), returns only records that
+	 *   	 are in the Draft namespace
 	 *   integer 'last_id' offset of where to start fetching records, going by
 	 *     'ithenticate_id'
 	 * @return array|false Data for plagiabot db records or false if no data
@@ -80,6 +82,10 @@ class PlagiabotDao extends AbstractDao {
 		// see if this is a load more click
 		if ( isset( $lastId ) ) {
 			$filters[] = "ithenticate_id < '$lastId'";
+		}
+		// filtering to draft namespace
+		if ( isset( $options['drafts'] ) ) {
+			$filters[] = 'page_ns = 118';
 		}
 		// construct necessary SQL based on filters
 		if ( !empty( $filters ) ) {
