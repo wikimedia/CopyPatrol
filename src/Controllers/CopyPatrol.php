@@ -217,9 +217,9 @@ class CopyPatrol extends Controller {
 				$cleanWikiprojects[] = $wp;
 			}
 			$records[$key]['wikiprojects'] = $cleanWikiprojects;
-			if ( $oresScores[$record['diff']] ) {
+			if ( $oresScores[$record['diff']] && $oresScores[$record['diff']] > 0.427 ) {
 				$value = $oresScores[$record['diff']] * 100;
-				$records[$key]['oresScore'] = number_format( $value, 2 ) . '%';
+				$records[$key]['oresScore'] = number_format( $value, 2 );
 			}
 		}
 		$this->view->set( 'records', $records );
