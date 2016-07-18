@@ -160,7 +160,7 @@ class CopyPatrol extends Controller {
 		$deadPages = $asyncResults['deadPages'];
 
 		// Get ORES scores for edits
-		$oresScores = oresScores( $diffIds );
+		$oresScores = $this->oresScores( $diffIds );
 
 		// now all external requests and database queries (except
 		// WikiProjects) have been completed, let's loop through the records
