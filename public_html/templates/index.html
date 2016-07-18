@@ -35,6 +35,12 @@
 						<small class="diff-div-timestamp">
 							<time datetime="{{ row.diff_timestamp }}">{{ row.diff_timestamp }}</time>
 						</small>
+						{% if row.oresScore is not empty %}
+						<br/>
+						<small class="diff-div-ores">
+							ORES score: {{ row.oresScore }}%
+						</small>
+						{% endif %}
 					</div>
 					{# Div for editor information #}
 					<div class="row-div col-sm-2 text-center report-div">
