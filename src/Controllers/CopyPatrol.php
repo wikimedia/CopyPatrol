@@ -81,7 +81,7 @@ class CopyPatrol extends Controller {
 	 * @param array $revs
 	 */
 	public static function oresScores( array $revs ) {
-		$data = file_get_contents( oresScoresUrl( $revs ) );
+		$data = file_get_contents( self::oresScoresUrl( $revs ) );
 		$data = json_decode( $data, true );
 		if ( !array_key_exists( 'scores', $data ) ) {
 			// ORES is down :((
