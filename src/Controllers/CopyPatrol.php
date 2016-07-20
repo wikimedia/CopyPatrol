@@ -38,11 +38,6 @@ class CopyPatrol extends Controller {
 	protected $enwikiDao;
 
 	/**
-	 * @var $wikiprojectDao \Wikimedia\Slimapp\Dao\ object for wikiprojects access
-	 */
-	protected $wikiprojectDao;
-
-	/**
 	 * @param \Slim\Slim $slim Slim application
 	 */
 	public function __construct( \Slim\Slim $slim = null, $wiki = 'https://en.wikipedia.org' ) {
@@ -55,13 +50,6 @@ class CopyPatrol extends Controller {
 	 */
 	public function setEnwikiDao( $enwikiDao ) {
 		$this->enwikiDao = $enwikiDao;
-	}
-
-	/**
-	 * @param mixed $wikiprojectDao
-	 */
-	public function setWikiprojectDao( $wikiprojectDao ) {
-		$this->wikiprojectDao = $wikiprojectDao;
 	}
 
 	/**
@@ -211,7 +199,7 @@ class CopyPatrol extends Controller {
 				$records[$key]['reviewed_by_url'] = $this->getUserPage( $record['status_user'] );
 				$records[$key]['review_timestamp'] = $this->formatTimestamp( $record['review_timestamp'] );
 			}
-			$records[$key]['wikiprojects'] = $this->wikiprojectDao->getWikiProjects( $record['page_title'] );
+			$records[$key]['wikiprojects'] = $this->plagiabotDao->getWikiProjects( $record['page_title'] );
 			$records[$key]['page_title'] = $this->removeUnderscores( $record['page_title'] );
 			$cleanWikiprojects = [];
 			foreach ( $records[$key]['wikiprojects'] as $k => $wp ) {
@@ -311,8 +299,19 @@ class CopyPatrol extends Controller {
 	protected function getRecords() {
 		$filter = $this->getFilter();
 		$filterUser = $this->getUsername();
-		$lastId = $this->request->get( 'lastId' ) ? $this->request->get( 'lastId' ) : 0;
+		$lastId = $this->request->get( 'lastId' ) ?: 0;
 		$drafts = $this->request->get( 'drafts' ) ? '1' : null;
+		$wikiprojects = null; // for the server and use in SQL
+		$wikiprojectsArray = []; // for the clientside and showing <option>s in Select2 control
+
+		// account for empty URL param, e.g. wikiprojects= (no value set)
+		if ( $this->request->get( 'wikiprojects' ) && $this->request->get( 'wikiprojects' ) !== '' ) {
+			// WikiProjects are submitted like 'Medicine|Military_History|Something'
+			// This is to be URL and Select2-friendly, and use the
+			//   standard pipe-separated titles we see in MediaWiki
+			$wikiprojects = $this->request->get( 'wikiprojects' );
+			$wikiprojectsArray = explode( '|', $wikiprojects );
+		}
 
 		// make this easier when working locally
 		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 10 : 50;
@@ -321,7 +320,8 @@ class CopyPatrol extends Controller {
 		$options = [
 			'filter' => $filter,
 			'last_id' => $lastId > 0 ? $lastId : null,
-			'drafts' => $drafts
+			'drafts' => $drafts,
+			'wikiprojects' => $wikiprojects
 		];
 
 		// filter by current user if they are logged and the filter is 'mine'
@@ -331,6 +331,8 @@ class CopyPatrol extends Controller {
 
 		$this->view->set( 'filter', $filter );
 		$this->view->set( 'drafts', $drafts );
+		$this->view->set( 'wikiprojects', $wikiprojects );
+		$this->view->set( 'wikiprojectsArray', $wikiprojectsArray );
 		$this->view->set( 'filterTypes', $this->getFilterTypes() );
 		return $this->dao->getPlagiarismRecords( $numRecords, $options );
 	}

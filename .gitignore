@@ -7,7 +7,7 @@
 .bash*
 *.log
 tmp/
-vendor/
+/vendor/
 src/Less/cache/*
 fill_patroller/
 flask-mwoauth/

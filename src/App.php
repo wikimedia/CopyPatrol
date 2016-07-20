@@ -45,7 +45,6 @@ class App extends AbstractApp {
 			'oauth.endpoint' => Config::getStr( 'OAUTH_ENDPOINT' ),
 			'oauth.redir' => Config::getStr( 'OAUTH_REDIR' ),
 			'oauth.callback' => Config::getStr( 'OAUTH_CALLBACK' ),
-			'db.dsnwp' => Config::getStr( 'DB_DSN_WIKIPROJECT' ),
 			'db.dsnen' => Config::getStr( 'DB_DSN_ENWIKI' ),
 			'db.dsnpl' => Config::getStr( 'DB_DSN_PLAGIABOT' ),
 			'db.user' => Config::getStr( 'DB_USER' ),
@@ -95,13 +94,6 @@ class App extends AbstractApp {
 		$container->singleton( 'enwikiDao', function ( $c ) {
 			return new Dao\EnwikiDao(
 				$c->settings['db.dsnen'],
-				$c->settings['db.user'], $c->settings['db.pass']
-			);
-		} );
-		// Wikiproject DAO
-		$container->singleton( 'wikiprojectDao', function ( $c ) {
-			return new Dao\WikiprojectDao(
-				$c->settings['db.dsnwp'],
 				$c->settings['db.user'], $c->settings['db.pass']
 			);
 		} );
@@ -189,7 +181,6 @@ class App extends AbstractApp {
 					$page = new Controllers\CopyPatrol( $slim );
 					$page->setDao( $slim->plagiabotDao );
 					$page->setEnwikiDao( $slim->enwikiDao );
-					$page->setWikiprojectDao( $slim->wikiprojectDao );
 					$page();
 				} )->name( 'home' );
 				$slim->get( 'login', function () use ( $slim ) {
@@ -203,7 +194,6 @@ class App extends AbstractApp {
 					$page = new Controllers\CopyPatrol( $slim );
 					$page->setDao( $slim->plagiabotDao );
 					$page->setEnwikiDao( $slim->enwikiDao );
-					$page->setWikiprojectDao( $slim->wikiprojectDao );
 					$page();
 				} )->name( 'loadmore' );
 				$slim->get( 'index.css', function () use ( $slim ) {

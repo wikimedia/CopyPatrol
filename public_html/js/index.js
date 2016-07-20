@@ -2,6 +2,9 @@
 	'use strict';
 
 	$( document ).ready( function () {
+		/** Initialize Select2 */
+		setupSelect2();
+
 		/** Listeners */
 		$( 'body' ).tooltip( {
 			selector: '[data-toggle="tooltip"]'
@@ -34,6 +37,11 @@
 		// prevent fragment identifier from being added to URL
 		$( 'a[href="#"]' ).on( 'click', function ( e ) {
 			e.preventDefault();
+		} );
+		// Set the hidden input for the clicked WikiProject bubble and submit the form
+		$( '.wproject' ).on( 'click', function () {
+			$( 'input[name=wikiprojects]' ).val( $( this ).text() );
+			$( '#filters-form' ).submit();
 		} );
 
 		/**
@@ -127,7 +135,8 @@
 				data: {
 					lastId: lastId,
 					filter: $( 'input[name=filter]:checked' ).val(),
-					drafts: $( 'input[name=drafts]' ).is( ':checked' ) ? '1' : ''
+					drafts: $( 'input[name=drafts]' ).is( ':checked' ) ? '1' : '',
+					wikiprojects: $( 'input[name=wikiprojects]' ).val()
 				}
 			} ).done( function ( ret ) {
 				$( '#btn-load-more' ).text( 'Load More' ).removeClass( 'btn-loading' );
@@ -184,6 +193,58 @@
 					$( compareDiv ).addClass( 'copyvios-fetched' );
 				} );
 			}
+		}
+
+		/**
+		 * Sets up the WikiProject selector and adds listener to update the view
+		 */
+		function setupSelect2() {
+			var $select2Input = $( '#wikiproject-selector' );
+			var params = {
+				ajax: {
+					url: 'https://en.wikipedia.org/w/api.php',
+					dataType: 'jsonp',
+					delay: 200,
+					jsonpCallback: $.noop(), // have to provide some function or else Select2 gets angry
+					data: function( search ) {
+						return {
+							action: 'query',
+							list: 'prefixsearch',
+							format: 'json',
+							pssearch: 'Wikipedia:WikiProject ' + ( search.term || '' )
+						}
+					},
+					// format API data in the way Select2 wants it
+					processResults: function( data ) {
+						var query = data ? data.query : { prefixsearch: [] };
+						if ( query.prefixsearch.length ) {
+							return {
+								results: query.prefixsearch.map( function( elem ) {
+									var title = elem.title.replace( /^Wikipedia:WikiProject /, '' );
+									// don't show WikiProject subpages
+									return !/\//g.test( title ) ? {
+										id: title.replace( / /g, '_' ),
+										text: title
+									} : {};
+								})
+							};
+						}
+					},
+					cache: true
+				},
+				placeholder: 'Type WikiProject names...',
+				maximumSelectionLength: 10,
+				minimumInputLength: 1
+			};
+
+			$select2Input.select2( params );
+
+			// update hidden input field when Select2 is updated (as that's what gets interpreted by the server)
+			$select2Input.on( 'change', function () {
+				// make wikiproject list pipe-separated and change any underscores to spaces
+				var wikiprojects = ( $( this ).val() || [] ).join( '|' ).replace( /_/g, ' ' );
+				$( 'input[name=wikiprojects]' ).val( wikiprojects );
+			} );
 		}
 	} );
 })( jQuery, document, window );

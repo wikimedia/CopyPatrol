@@ -57,15 +57,20 @@ class PlagiabotDao extends AbstractDao {
 	 *   	 are in the Draft namespace
 	 *   integer 'last_id' offset of where to start fetching records, going by
 	 *     'ithenticate_id'
+	 *   string 'wikiprojects' pipe-separated list of wikiprojects
 	 * @return array|false Data for plagiabot db records or false if no data
 	 *   is not returned
 	 */
 	public function getPlagiarismRecords( $n = 50, $options ) {
 		$filters = [];
 		$filterSql = '';
+		$wikiprojectsSql = '';
 		$lastId = isset( $options['last_id'] ) ? $options['last_id'] : null;
 		$filter = isset( $options['filter'] ) ? $options['filter'] : 'all';
 		$filterUser = isset( $options['filter_user'] ) ? $options['filter_user'] : null;
+		$wikiprojects = isset( $options['wikiprojects'] ) ? $options['wikiprojects'] : null;
+		$preparedParams = [];
+
 		// ensures only valid filters are used
 		switch ( $filter ) {
 			case 'reviewed':
@@ -76,29 +81,52 @@ class PlagiabotDao extends AbstractDao {
 				break;
 		}
 		// allow filtering by user and status
-		if ( isset( $filterUser ) ) {
+		if ( $filterUser ) {
 			$filters[] = "status_user = '$filterUser'";
 		}
 		// see if this is a load more click
-		if ( isset( $lastId ) ) {
+		if ( $lastId ) {
 			$filters[] = "ithenticate_id < '$lastId'";
 		}
 		// filtering to draft namespace
 		if ( isset( $options['drafts'] ) ) {
 			$filters[] = 'page_ns = 118';
 		}
+
+		// set up SQL to return pages in given WikiProjects if requested
+		if ( $wikiprojects ) {
+			// All spaces are underscores in the database
+			$wikiprojects = array_map( function ( $wp ) {
+				return 'WikiProject_' . str_replace( ' ', '_', $wp );
+			}, explode( '|', $wikiprojects ) );
+
+			$wikiprojectsSql = self::concat(
+				'INNER JOIN wikiprojects',
+				'ON wp_page_title = page_title'
+			);
+
+			// set up prepared params
+			$preparedParams = array_combine( $wikiprojects, $wikiprojects );
+			$bindParams = implode( ', ', $this::makeBindParams( $wikiprojects ) );
+
+			$filters[] = "wp_project IN ($bindParams)";
+		}
+
 		// construct necessary SQL based on filters
 		if ( !empty( $filters ) ) {
-			$filterSql = 'WHERE ' . join( ' AND ', $filters );
+			$filterSql = self::buildWhere( $filters );
 		}
+
 		$sql = self::concat(
 			'SELECT * FROM copyright_diffs',
+			$wikiprojectsSql,
 			$filterSql,
 			'GROUP BY id',
 			'ORDER BY diff_timestamp DESC',
 			'LIMIT ' . $n
 		);
-		return $this->fetchAll( $sql );
+
+		return $this->fetchAll( $sql, $preparedParams );
 	}
 
 	/**
@@ -123,6 +151,39 @@ class PlagiabotDao extends AbstractDao {
 			'last-month' => $lastMonth,
 			'all-time' => $allTime
 		];
+	}
+
+	/**
+	 * @param $title string Page title
+	 * @return array Wikiprojects for a given page title on enwiki
+	 */
+	public function getWikiProjects( $title ) {
+		$query = self::concat(
+			'SELECT * FROM wikiprojects',
+			'WHERE wp_page_title = ?'
+		);
+		$result = $this->fetchAll( $query, [ $title ] );
+		$data = [];
+		if ( $result ) {
+			foreach ( $result as $r ) {
+				// Skip projects without 'Wikiproject' in title as they are partnership-based Wikiprojects
+				if ( stripos( $r['wp_project'], 'WikiProject_' ) !== false ) {
+					// Remove "Wikiproject_" part from the string before use
+					$project = substr( $r['wp_project'], 12 );
+					// Remove subprojects
+					if ( stripos( $project, '/' ) !== false ) {
+						$project = substr( $project, 0, stripos( $project, '/' ) );
+					}
+					$data[$project] = true;
+				}
+			}
+		} else {
+			return [];
+		}
+		$data = array_keys( $data );
+		// Return alphabetized list
+		sort( $data );
+		return $data;
 	}
 
 	/**
