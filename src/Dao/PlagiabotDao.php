@@ -94,6 +94,7 @@ class PlagiabotDao extends AbstractDao {
 		$sql = self::concat(
 			'SELECT * FROM copyright_diffs',
 			$filterSql,
+			'GROUP BY id',
 			'ORDER BY diff_timestamp DESC',
 			'LIMIT ' . $n
 		);
