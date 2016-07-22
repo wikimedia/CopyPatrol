@@ -106,8 +106,9 @@ class PlagiabotDao extends AbstractDao {
 			);
 
 			// set up prepared params
-			$preparedParams = array_combine( $wikiprojects, $wikiprojects );
-			$bindParams = implode( ', ', $this::makeBindParams( $wikiprojects ) );
+			$bindKeys = array_slice( range( 'a', 'z' ), 0, count( $wikiprojects ) );
+			$preparedParams = array_combine( $bindKeys, $wikiprojects );
+			$bindParams = implode( ', ', $this::makeBindParams( $bindKeys ) );
 
 			$filters[] = "wp_project IN ($bindParams)";
 		}
