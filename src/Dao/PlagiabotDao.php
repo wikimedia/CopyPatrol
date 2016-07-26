@@ -113,6 +113,9 @@ class PlagiabotDao extends AbstractDao {
 			$filters[] = "wp_project IN ($bindParams)";
 		}
 
+		// show only records after June 20, 2016; See phab:T138317
+		$filters[] = "diff_timestamp > 20160620000000";
+
 		// construct necessary SQL based on filters
 		if ( !empty( $filters ) ) {
 			$filterSql = self::buildWhere( $filters );
