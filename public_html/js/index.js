@@ -205,30 +205,28 @@
 					url: 'https://en.wikipedia.org/w/api.php',
 					dataType: 'jsonp',
 					delay: 200,
-					jsonpCallback: $.noop(), // have to provide some function or else Select2 gets angry
 					data: function( search ) {
 						return {
-							action: 'query',
-							list: 'prefixsearch',
+							action: 'opensearch',
+							namespace: '4',
+							redirects: 'resolve',
 							format: 'json',
-							pssearch: 'Wikipedia:WikiProject ' + ( search.term || '' )
+							search: 'Wikipedia:WikiProject ' + ( search.term || '' )
 						}
 					},
 					// format API data in the way Select2 wants it
 					processResults: function( data ) {
-						var query = data ? data.query : { prefixsearch: [] };
-						if ( query.prefixsearch.length ) {
-							return {
-								results: query.prefixsearch.map( function( elem ) {
-									var title = elem.title.replace( /^Wikipedia:WikiProject /, '' );
-									// don't show WikiProject subpages
-									return !/\//g.test( title ) ? {
-										id: title.replace( / /g, '_' ),
-										text: title
-									} : {};
-								})
-							};
-						}
+						var results = data[1];
+						return {
+							results: results.map( function( elem ) {
+								var title = elem.replace( /^Wikipedia:WikiProject /, '' );
+								// don't show WikiProject subpages
+								return !/\//g.test( title ) ? {
+									id: title.replace( / /g, '_' ),
+									text: title
+								} : {};
+							})
+						};
 					},
 					cache: true
 				},
