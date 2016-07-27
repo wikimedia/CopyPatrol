@@ -162,7 +162,7 @@ class CopyPatrol extends Controller {
 			$records[$key]['page_link'] = $this->getPageLink( $record['page_title'] );
 			$records[$key]['history_link'] = $this->getHistoryLink( $record['page_title'] );
 			$records[$key]['turnitin_report'] = $this->getReportLink( $record['ithenticate_id'] );
-			$records[$key]['copyvios'] = $this->getCopyvioUrls( $record['report'] );
+			$records[$key]['copyvios'] = $this->getSources( $record['report'] );
 
 			$pageDead = in_array(
 				$this->removeUnderscores( $record['page_title'] ), $deadPages
@@ -426,30 +426,31 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * Get links to compare with
-	 *
+	 * Get URLs and scores for the copyvio sources
 	 * @param $text string Blob from db
-	 * @return array matched urls
+	 * @return array Associative array with URLs and scores
 	 */
-	public function getCopyvioUrls( $text ) {
-		preg_match_all( '#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#', $text, $match );
-		$uniqueCopyvioUrls = [];
-		foreach ( $match[0] as $foundUrl ) {
-			if ( !in_array( $foundUrl, $uniqueCopyvioUrls ) ) {
-				// Determine if $value is a substring of an existing url, and if so, discard it
-				// This is because of the way Plagiabot currently stores reports in its database
-				// At some point, fix this in Plagiabot code instead of this hack here
-				$isSubstring = false;
-				foreach ( $uniqueCopyvioUrls as $u ) {
-					if ( strpos( $u, $foundUrl ) !== false ) {
-						$isSubstring = true;
-					}
-				}
-				if ( $isSubstring === false ) {
-					$uniqueCopyvioUrls[] = $foundUrl;
-				}
-			}
+	public function getSources( $text ) {
+		// matches '[new line] ... (digits followed by %) (digits) ... (the URL)[word break]'
+		preg_match_all( '#\n\*.*?(\d+%)\s+(\d+).*?\b(https?://[^\s()<>]+)\b#', $text, $matches );
+
+		// sometimes no URLs are given at all, or they are invalid. If so just return empty array
+		if ( !$matches[0] ) {
+			return [];
 		}
-		return $uniqueCopyvioUrls;
+
+		$sources = [];
+
+		// $matches is an array containing an array of percentages, counts and urls
+		// Here we collect them so that each index in $sources represents a single entity
+		foreach ( $matches[1] as $index => $percentage ) {
+			$sources[] = [
+				'percentage' => $percentage,
+				'count' => $matches[2][$index],
+				'url' => $matches[3][$index]
+			];
+		}
+
+		return $sources;
 	}
 }

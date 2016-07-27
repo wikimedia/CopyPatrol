@@ -100,12 +100,13 @@
 							<div class="compare-div ellipsis">
 								<button class="btn btn-xs btn-primary dropdown-toggle compare-button js-compare-button"
 								        data-id="{{ row.ithenticate_id }}" data-index="{{ loop.index }}"
-								        data-copyvio="{{ copy }}" data-diffId="{{ row.diff }}"
+								        data-copyvio="{{ copy.url }}" data-diffId="{{ row.diff }}"
 								>
 									<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
 									Compare
 								</button>
-								<a href="{{ copy }}" target="_blank">{{ copy }}</a><br/>
+								{{ copy.percentage }} ({{ copy.count | number_format }} words)
+								<a href="{{ copy.url }}" target="_blank">{{ copy.url }}</a><br/>
 								<div class="compare-pane" id="{{ 'comp' ~ row.ithenticate_id ~ '-' ~ loop.index }}">
 									<div class="compare-pane-left">
 										<h4 class="compare-pane-title">Article</h4>
