@@ -182,16 +182,33 @@
 					jsonpCallback: 'callback'
 				} ).always( function ( ret ) { // use always to handle 500s, etc.
 					if ( ret.detail ) { // ret.detail means we had success
+						var $leftPane = $( compareDiv ).find( '.compare-pane-left-body' ),
+							$rightPane = $( compareDiv ).find( '.compare-pane-right-body' );
+
 						// Add a class to the compare panel once we fetch the details to avoid making repetitive API requests
-						$( compareDiv ).find( '.compare-pane-left-body' ).html( ret.detail.article );
-						$( compareDiv ).find( '.compare-pane-right-body' ).html( ret.detail.source );
+						$leftPane.html( ret.detail.article );
+						$rightPane.html( ret.detail.source );
+
+						// fetch the first instance of a match and auto-scroll to it
+						// (-20 to account for line height and another 20 for some purty offset padding)
+						var leftMatch = $leftPane.find( '.cv-hl' )[0],
+							rightMatch = $rightPane.find( '.cv-hl' )[0];
+						if ( leftMatch ) {
+							$leftPane.scrollTop( leftMatch.offsetTop - 40 );
+						}
+						if ( rightMatch ) {
+							$rightPane.scrollTop( rightMatch.offsetTop - 40 );
+						}
 					} else {
 						// use API-provided error message, otherwise a blanket unknown error message as it could be unrelated to the API
 						var errorMessage = ret.error && ret.error.info ? ret.error.info : 'An unknown error occurred.';
 						$( compareDiv ).find( '.compare-pane-body' ).html( '<span class="text-danger">' + errorMessage + '</span>' );
 					}
-					$( compareDiv ).addClass( 'copyvios-fetched' );
 				} );
+
+				// add fetched class immediately, so if they close/open the pane
+				//   it doesn't keep making requests while the initial one hasn't finished
+				$( compareDiv ).addClass( 'copyvios-fetched' );
 			}
 		}
 
