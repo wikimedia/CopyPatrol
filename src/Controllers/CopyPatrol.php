@@ -82,7 +82,7 @@ class CopyPatrol extends Controller {
 				// Revision not found
 				$scores[$revId] = null;
 			} else {
-				$scores[$revId] = $value['probability']['true'];
+				$scores[$revId] = isset( $value['probability'] ) ? $value['probability']['true'] : null;
 			}
 		}
 		return $scores;
