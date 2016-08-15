@@ -22,7 +22,8 @@
 <body>
 <header class="app-header">
 	<a href="{{ siteUrl( '' ) }}"><img src="{{ siteUrl( 'images/copypatrol.png' ) }}" /></a>
-	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/Talk:Community_Tech/Improve_the_plagiarism_detection_bot">Feedback</a>
+	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/CopyPatrol">Documentation</a>
+	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/Talk:CopyPatrol">Feedback</a>
 	<a class="header-link" href="{{ siteUrl( 'leaderboard' ) }}">Leaderboard</a>
 	{% if user %}
 		<a href="{{ urlFor( 'logout' ) }}" id="login-btn" class="btn btn-sm btn-default {{ user ? 'logged-in' : '' }}">
