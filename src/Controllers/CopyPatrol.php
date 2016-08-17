@@ -118,6 +118,7 @@ class CopyPatrol extends Controller {
 		if ( empty( $records ) ) {
 			return $this->render( 'index.html' );
 		}
+
 		$diffIds = [];
 		$pageTitles = [];
 		$usernames = [];
@@ -159,8 +160,9 @@ class CopyPatrol extends Controller {
 		foreach ( $records as $key => $record ) {
 			$editor = $editors[$record['diff']];
 
-			// skip if editor is in user whitelist
-			if ( in_array( $editor, $userWhitelist ) ) {
+			// mark it as reviewed by our bot and skip if editor is in user whitelist
+			if ( in_array( $editor, $userWhitelist ) && $this->getFilter() === 'open' ) {
+				$this->autoReview( $record['ithenticate_id'] );
 				unset( $records[$key] );
 				continue;
 			}
@@ -168,12 +170,6 @@ class CopyPatrol extends Controller {
 			if ( $record['page_ns'] == 118 ) {
 				$record['page_title'] = 'Draft:' . $record['page_title'];
 			}
-			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );
-			$records[$key]['diff_link'] = $this->getDiffLink( $record['page_title'], $record['diff'] );
-			$records[$key]['page_link'] = $this->getPageLink( $record['page_title'] );
-			$records[$key]['history_link'] = $this->getHistoryLink( $record['page_title'] );
-			$records[$key]['turnitin_report'] = $this->getReportLink( $record['ithenticate_id'] );
-			$records[$key]['copyvios'] = $this->getSources( $record['report'] );
 
 			$pageDead = in_array(
 				$this->removeUnderscores( $record['page_title'] ), $deadPages
@@ -181,17 +177,19 @@ class CopyPatrol extends Controller {
 
 			// if the page is dead, mark it as reviewed by our bot and skip to next record
 			if ( $pageDead && $this->getFilter() === 'open' ) {
-				$this->plagiabotDao->insertCopyvioAssessment(
-					$record['ithenticate_id'],
-					'false',
-					'Community Tech bot',
-					gmdate( 'c' )
-				);
+				$this->autoReview( $record['ithenticate_id'] );
 				unset( $records[$key] );
 				continue;
 			} else {
 				$records[$key]['page_dead'] = $pageDead;
 			}
+
+			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );
+			$records[$key]['diff_link'] = $this->getDiffLink( $record['page_title'], $record['diff'] );
+			$records[$key]['page_link'] = $this->getPageLink( $record['page_title'] );
+			$records[$key]['history_link'] = $this->getHistoryLink( $record['page_title'] );
+			$records[$key]['turnitin_report'] = $this->getReportLink( $record['ithenticate_id'] );
+			$records[$key]['copyvios'] = $this->getSources( $record['report'] );
 
 			if ( $editor ) {
 				$records[$key]['editcount'] = $editCounts[$editor];
@@ -239,6 +237,19 @@ class CopyPatrol extends Controller {
 		}
 
 		return $username;
+	}
+
+	/**
+	 * Mark the given record as reviewed by Community Tech bot
+	 * @param int $ithenticateId ID of record to review
+	 */
+	private function autoReview( $ithenticateId ) {
+		$this->plagiabotDao->insertCopyvioAssessment(
+			$ithenticateId,
+			'false',
+			'Community Tech bot',
+			gmdate( 'c' )
+		);
 	}
 
 	/**
