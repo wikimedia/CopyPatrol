@@ -189,6 +189,24 @@ class EnwikiDao extends AbstractDao {
 	}
 
 	/**
+	 * Get user whitelist
+	 * @return array List of usernames
+	 */
+	public function getUserWhitelist() {
+		$links = $this->apiQuery( [
+			'prop' => 'links',
+			'titles' => 'User:EranBot/Copyright/User_whitelist'
+		] )['query']['pages'][0]['links'];
+
+		// return array with just usernames as strings, without the 'User:' prefix
+		return array_map( function( $link ) {
+			// Split on : and pick the second element to get the username
+			// This is because for other wikis 'User:' may be different, but there was always be a colon
+			return explode( ':', $link['title'] )[1];
+		}, $links );
+	}
+
+	/**
 	 * Wrapper to make simple API query for JSON and in formatversion 2
 	 * @param $params array Params to add to the request
 	 * @param [$async] boolean Pass 'true' to make asynchronous

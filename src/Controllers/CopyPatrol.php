@@ -22,6 +22,7 @@
 namespace Plagiabot\Web\Controllers;
 
 use Wikimedia\Slimapp\Controller;
+use Wikimedia\Slimapp\Config;
 use GuzzleHttp;
 use GuzzleHttp\Promise\Promise;
 
@@ -111,6 +112,8 @@ class CopyPatrol extends Controller {
 	 */
 	protected function handleGet() {
 		$records = $this->getRecords();
+		$userWhitelist = $this->getUserWhitelist();
+
 		// nothing else needs to be done if there are no records
 		if ( empty( $records ) ) {
 			return $this->render( 'index.html' );
@@ -154,6 +157,14 @@ class CopyPatrol extends Controller {
 		// WikiProjects) have been completed, let's loop through the records
 		// once more to build the complete dataset to be rendered into view
 		foreach ( $records as $key => $record ) {
+			$editor = $editors[$record['diff']];
+
+			// skip if editor is in user whitelist
+			if ( in_array( $editor, $userWhitelist ) ) {
+				unset( $records[$key] );
+				continue;
+			}
+
 			if ( $record['page_ns'] == 118 ) {
 				$record['page_title'] = 'Draft:' . $record['page_title'];
 			}
@@ -182,7 +193,6 @@ class CopyPatrol extends Controller {
 				$records[$key]['page_dead'] = $pageDead;
 			}
 
-			$editor = $editors[$record['diff']];
 			if ( $editor ) {
 				$records[$key]['editcount'] = $editCounts[$editor];
 				$records[$key]['editor'] = $editor;
@@ -287,6 +297,51 @@ class CopyPatrol extends Controller {
 		}
 
 		return $filterTypes;
+	}
+
+	/**
+	 * Get cached user watchlist or re-fetch from wiki page and update redis
+	 *
+	 * @return array Usernames
+	 */
+	private function getUserWhitelist() {
+		static $whitelist = null;
+
+		// don't re-fetch the whitelist over and over
+		if ( $whitelist !== null ) {
+			return $whitelist;
+		}
+
+		// connect to Redis
+		$redis = new \Redis();
+		$redis->connect(
+			Config::getStr( 'REDIS_HOST' ),
+			Config::getStr( 'REDIS_PORT' )
+		);
+		$redisKey = 'copypatrol-user-whitelist';
+
+		// Get whitelist from Redis
+		$redisValue = $redis->get( $redisKey );
+
+		// Redis will retrun false if it does not exist
+		if ( $redisValue ) {
+			// set static $whitelist
+			$whitelist = unserialize( $redisValue );
+		} else {
+			// It doesn't exist or it expired, so fetch from wiki page
+			$whitelist = $this->enwikiDao->getUserWhitelist();
+
+			// Store in redis, 'nx' tells it to override value if it exist
+			// Caching set to two hours in seconds ( 2 * 60 * 60 )
+			// Must be serialized or else the array would be stored as the string 'Array'
+			$redis->set(
+				$redisKey,
+				serialize( $whitelist ),
+				[ 'nx', 'ex' => 2 * 60 * 60 ]
+			);
+		}
+
+		return $whitelist;
 	}
 
 	/**
