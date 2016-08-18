@@ -204,7 +204,7 @@ class PlagiabotDao extends AbstractDao {
 			$offset ? 'AND review_timestamp > ADDDATE(CURRENT_DATE, -' . $offset . ')' : '',
 			'GROUP BY status_user',
 			'ORDER BY COUNT(*) DESC',
-			'LIMIT 5'
+			'LIMIT 10'
 		);
 	}
 
