@@ -5,7 +5,19 @@ use Plagiabot\Web\Dao\PlagiabotDao;
 
 class CopyPatrolTest extends PHPUnit_Framework_TestCase {
 
+	public function setEnv() {
+		$env = __DIR__ . '/../.env';
+		$settings = parse_ini_file( $env );
+		foreach ( $settings as $key => $value ) {
+			// Store in super globals
+			$_ENV[$key] = $value;
+			// Also store in process env vars
+			putenv( "{$key}={$value}" );
+		}
+	}
+
 	public function testGetRevisionsEditors() {
+		$this->setEnv();
 		$obj = new EnwikiDao( getenv( 'DB_DSN_ENWIKI' ), getenv( 'DB_USER' ), getenv( 'DB_PASS' ) );
 		$diffs = [736294997];
 		$editors = $obj->getRevisionsEditors( $diffs );
