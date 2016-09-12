@@ -24,9 +24,7 @@ class CopyPatrolTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetRevisionsEditors() {
-		if ( !getenv( 'TRAVIS' ) ){
-			$this->setEnv();
-		}
+		$this->setEnv();
 		$obj = new EnwikiDao( getenv( 'DB_DSN_ENWIKI' ), getenv( 'DB_USER' ), getenv( 'DB_PASS' ) );
 		$diffs = [ 736294997 ];
 		$editors = $obj->getRevisionsEditors( $diffs );
