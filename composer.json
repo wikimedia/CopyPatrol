@@ -17,11 +17,10 @@
     "phpunit/phpunit": "~4.8"
   },
   "scripts": {
-      "fix": "phpcbf",
-      "test": [
-        "parallel-lint . --exclude vendor",
-        "phpunit",
-        "phpcs -p"
-      ]
+    "fix": "phpcbf",
+    "test": [
+      "parallel-lint . --exclude vendor",
+      "phpcs -p"
+    ]
   }
 }
