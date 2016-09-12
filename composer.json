@@ -20,7 +20,6 @@
     "fix": "phpcbf",
     "test": [
       "parallel-lint . --exclude vendor",
-      // "phpunit",
       "phpcs -p"
     ]
   }
