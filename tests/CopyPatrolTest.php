@@ -24,13 +24,13 @@ class CopyPatrolTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetRevisionsEditors() {
-		if( !getenv('TRAVIS') ){
+		if ( !getenv( 'TRAVIS' ) ){
 			$this->setEnv();
 		}
 		$obj = new EnwikiDao( getenv( 'DB_DSN_ENWIKI' ), getenv( 'DB_USER' ), getenv( 'DB_PASS' ) );
-		$diffs = [736294997];
+		$diffs = [ 736294997 ];
 		$editors = $obj->getRevisionsEditors( $diffs );
-		$this->assertEquals( $editors, [736294997 => 'CllrP'] );
+		$this->assertEquals( $editors, [ 736294997 => 'CllrP' ] );
 	}
 
 	public function testGetDeadPages() {
@@ -39,14 +39,14 @@ class CopyPatrolTest extends PHPUnit_Framework_TestCase {
 			'Donald Trump',
 			'Thispageissurelydead',
 			'Kite',
-			'Kites', //Redirects to kite
+			'Kites', // Redirects to kite
 			'Kittykitty'
 		];
 		$deadTrue = [
 			'Thispageissurelydead',
 			'Kittykitty'
 		];
-		$promise = ['deadPages' => $obj->getDeadPages( $titles )];
+		$promise = [ 'deadPages' => $obj->getDeadPages( $titles ) ];
 		$dead = array_values( GuzzleHttp\Promise\unwrap( $promise )['deadPages'] );
 		sort( $dead );
 		sort( $deadTrue );
@@ -60,7 +60,7 @@ class CopyPatrolTest extends PHPUnit_Framework_TestCase {
 			// 'Caitriona_Balfe' => ['Biography', 'Fashion', 'Ireland', 'Women'],
 			// 'Florence' => ['Cities', 'Italy', 'World_Heritage_Sites'],
 			// 'Taj_Mahal' => ['Architecture', 'Death', 'India', 'World_Heritage_Sites'],
-			'India' => ['Asia', 'Countries', 'India', 'South_Asia', 'Spoken_Wikipedia']
+			'India' => [ 'Asia', 'Countries', 'India', 'South_Asia', 'Spoken_Wikipedia' ]
 		];
 		foreach ( $expected as $title => $projects ) {
 			$this->assertEquals( $obj->getWikiProjects( $title ), $projects );
