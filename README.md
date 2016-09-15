@@ -12,7 +12,6 @@ This is a web interface for [Plagiabot's Copyright RC feed](https://en.wikipedia
 	* OAUTH_REDIR
 	* OAUTH_CALLBACK
 	* DB_DSN_PLAGIABOT
-	* DB_DSN_WIKIPROJECT
 	* DB_DSN_ENWIKI
 	* DB_USER
 	* DB_PASS
