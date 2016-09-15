@@ -19,5 +19,12 @@ This is a web interface for [Plagiabot's Copyright RC feed](https://en.wikipedia
 
 This application makes of use [Wikimedia-slimapp](https://github.com/wikimedia/wikimedia-slimapp) library and uses Twig as its templating library.
 
+##### To add a new translation message:
+1. Add it to en.json
+2. Call it in Twig as <code>{{ '<message-key>'|message }}</code>. If the message contains any html, you need to add the <code>|raw</code> param after 'message'.
+3. To use a translation message in JS, add it as a JS var in templates/base.html. Then simply access it in JS.
+4. To call it in PHP:
+	<code>$this->i18nContext->message( '<message-key>' )</code>
+
 
 
