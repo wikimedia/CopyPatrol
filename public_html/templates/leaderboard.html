@@ -3,43 +3,37 @@
 
 {# must pass in wiki and username as view-level variables are not accessible in macros #}
 {% macro leaderboard_list( wiki, dataset, username ) %}
-  <ol class="leaderboard-list">
-    {% for leader in dataset %}
-      <li class="ellipsis">
-        <a target="_blank" href="{{ wiki }}/wiki/User:{{ leader['user'] }}" class="{{ username == leader['user'] ? 'mine' : '' }}">{{ leader['user'] }}</a>
-        :
-        {{ leader['count'] | number_format }}</li>
-    {% endfor %}
-  </ol>
+	<ol class="leaderboard-list">
+		{% for leader in dataset %}
+			<li class="ellipsis">
+				<a target="_blank" href="{{ wiki }}/wiki/User:{{ leader['user'] }}"
+				   class="{{ username == leader['user'] ? 'mine' : '' }}">{{ leader['user'] }}</a>
+				:
+				{{ leader['count'] | number_format }}</li>
+		{% endfor %}
+	</ol>
 {% endmacro %}
 
 {% block main %}
-  <section class="leaderboard container">
-    <a class="back-to-copypatrol" href="{{ siteUrl( '' ) }}">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      Back to CopyPatrol
-    </a>
-    <h1 class="text-center">Leaderboard</h1>
-
-    <div class="text-center clearfix">
-      <span class="leaderboard-column col-sm-4">
-        <h3>
-          Cases closed in the<br/>last 7 days
-        </h3>
-        {{ macros.leaderboard_list( wiki, data['last-week'], user.name ) }}
-      </span>
-      <span class="leaderboard-column col-sm-4">
-        <h3>
-          Cases closed in the<br/>last 30 days
-        </h3>
-        {{ macros.leaderboard_list( wiki, data['last-month'], user.name ) }}
-      </span>
-      <span class="leaderboard-column col-sm-4">
-        <h3>
-          All time<br/>cases closed
-        </h3>
-        {{ macros.leaderboard_list( wiki, data['all-time'], user.name ) }}
-      </span>
-    </div>
-  </section>
+	<section class="leaderboard container">
+		<a class="back-to-copypatrol" href="{{ siteUrl( '' ) }}">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+			{{ 'lboard-back'|message }}
+		</a>
+		<h1 class="text-center">{{ 'lboard-title'|message }}</h1>
+		<div class="text-center clearfix">
+			<span class="leaderboard-column col-sm-4">
+				<h3>{{ 'lboard-week'|message|raw }}</h3>
+				{{ macros.leaderboard_list( wiki, data['last-week'], user.name ) }}
+			</span>
+			<span class="leaderboard-column col-sm-4">
+				<h3>{{ 'lboard-month'|message|raw }}</h3>
+				{{ macros.leaderboard_list( wiki, data['last-month'], user.name ) }}
+			</span>
+			<span class="leaderboard-column col-sm-4">
+				<h3>{{ 'lboard-alltime'|message|raw }}</h3>
+				{{ macros.leaderboard_list( wiki, data['all-time'], user.name ) }}
+			</span>
+		</div>
+	</section>
 {% endblock %}

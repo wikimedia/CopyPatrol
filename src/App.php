@@ -27,6 +27,8 @@ use Wikimedia\Slimapp\Config;
 use Wikimedia\Slimapp\HeaderMiddleware;
 use Wikimedia\Slimapp\Auth\AuthManager;
 use Less_Cache;
+use Wikimedia\SimpleI18n\I18nContext;
+use Wikimedia\SimpleI18n\JsonCache;
 
 class App extends AbstractApp {
 
@@ -49,7 +51,8 @@ class App extends AbstractApp {
 			'db.dsnpl' => Config::getStr( 'DB_DSN_PLAGIABOT' ),
 			'db.user' => Config::getStr( 'DB_USER' ),
 			'db.pass' => Config::getStr( 'DB_PASS' ),
-			'templates.path' => '../public_html/templates'
+			'templates.path' => '../public_html/templates',
+			'i18n.path' => '../public_html/i18n',
 		] );
 	}
 
@@ -108,6 +111,18 @@ class App extends AbstractApp {
 		$container->singleton( 'authManager', function ( $c ) {
 			return new AuthManager( $c->userManager );
 		} );
+		// Tell SimpleI18n where to find the messages
+		$container->singleton( 'i18nCache', function ( $c ) {
+			return new JsonCache(
+				$c->settings['i18n.path'], $c->log
+			);
+		} );
+		// Tell SimpleI18n which language to use
+		$container->singleton( 'i18nContext', function ( $c ) {
+			return new I18nContext(
+				$c->i18nCache, $c->settings['i18n.default'], $c->log
+			);
+		} );
 	}
 
 	/**
@@ -116,9 +131,13 @@ class App extends AbstractApp {
 	 * @param \Slim\View $view Default view
 	 */
 	protected function configureView( \Slim\View $view ) {
-		$view->replace( [ 'app' => $this->slim, ] );
+		$view->replace( [
+			'app' => $this->slim,
+			'i18nCtx' => $this->slim->i18nContext
+		] );
 		$view->parserExtensions = [
-			new \Slim\Views\TwigExtension()
+			new \Slim\Views\TwigExtension(),
+			new \Wikimedia\SimpleI18n\TwigExtension( $this->slim->i18nContext )
 		];
 	}
 
@@ -177,12 +196,13 @@ class App extends AbstractApp {
 		$slim->group( '/', $middleware['trailing-slash'],
 				$middleware['inject-user'], $middleware['set-environment'],
 			function () use ( $slim, $middleware ) {
-				$slim->get( '/', $middleware['twig-number-format'], function () use ( $slim ) {
-					$page = new Controllers\CopyPatrol( $slim );
-					$page->setDao( $slim->plagiabotDao );
-					$page->setEnwikiDao( $slim->enwikiDao );
-					$page();
-				} )->name( 'home' );
+				$slim->get( '/', $middleware['twig-number-format'],
+					function () use ( $slim ) {
+						$page = new Controllers\CopyPatrol( $slim );
+						$page->setDao( $slim->plagiabotDao );
+						$page->setEnwikiDao( $slim->enwikiDao );
+						$page();
+					} )->name( 'home' );
 				$slim->get( 'login', function () use ( $slim ) {
 					$slim->render( 'login.html' );
 				} )->name( 'login' );
