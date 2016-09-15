@@ -1,3 +1,4 @@
+{% set lang = i18nCtx.getCurrentLanguage %}
 <!DOCTYPE html>
 
 <html lang="en">
@@ -6,33 +7,43 @@
 	<link href="{{ siteUrl( 'images/favicon.ico' ) }}" rel="shortcut icon" sizes="16x16 32x32"/>
 	{% block stylesheets %}
 		<link href="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css"
-					rel="stylesheet"/>
+		      rel="stylesheet"/>
 		<link href="{{ siteUrl( 'index.css' ) }}" type="text/css" rel="stylesheet"/>
 		<link href="{{ siteUrl( 'vendor/select2.min.css' ) }}" type="text/css" rel="stylesheet"/>
 	{% endblock %}
 	{% block scripts %}
 		<script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/1.12.0/jquery.min.js"
-						type="text/javascript"></script>
+		        type="text/javascript"></script>
 		<script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"
-						type="text/javascript"></script>
-		<script src="{{ siteUrl('js/index.js') }}" type="text/javascript"></script>
-		<script src="{{ siteUrl('vendor/select2.min.js') }}" type="text/javascript"></script>
+		        type="text/javascript"></script>
+		<script src="{{ siteUrl( 'js/index.js' ) }}" type="text/javascript"></script>
+		<script src="{{ siteUrl( 'vendor/select2.min.js' ) }}" type="text/javascript"></script>
 	{% endblock %}
+	<script>
+		var form_wikiprojects_placeholder = "{{ 'form-wikiprojects-placeholder'|message }}",
+				js_unauthorized = "{{ 'js-unauthorized'|message }}",
+				js_dberror = "{{ 'js-dberror'|message }}",
+				js_undo_own_only = "{{ 'js-undo-own-only'|message }}",
+				js_unknown_error = "{{ 'js-unknown-error'|message }}",
+				js_loadmore = "{{ 'footer-loadmore'|message }}",
+				js_nomore = "{{ 'footer-nomore'|message }}";
+	</script>
 </head>
+
 <body>
 <header class="app-header">
-	<a href="{{ siteUrl( '' ) }}"><img src="{{ siteUrl( 'images/copypatrol.png' ) }}" /></a>
-	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/CopyPatrol">Documentation</a>
-	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/Talk:CopyPatrol">Feedback</a>
-	<a class="header-link" href="{{ siteUrl( 'leaderboard' ) }}">Leaderboard</a>
+	<a href="{{ siteUrl( '' ) }}"><img src="{{ siteUrl( 'images/copypatrol.png' ) }}"/></a>
+	{{ 'header-documentation'|message|raw }}
+	{{ 'header-feedback'|message|raw }}
+	<a class="header-link" href="{{ siteUrl( 'leaderboard' ) }}">{{ 'header-leaderboard'|message }}</a>
 	{% if user %}
 		<a href="{{ urlFor( 'logout' ) }}" id="login-btn" class="btn btn-sm btn-default {{ user ? 'logged-in' : '' }}">
-			<span class=" glyphicon glyphicon-log-in"></span> Logout <br>
-			<small>You are logged in as {{ user.name }}</small>
+			<span class=" glyphicon glyphicon-log-in"></span> {{ 'header-logout'|message }}<br>
+			<small>{{ 'header-loggedin'|message( user.name ) }}</small>
 		</a>
 	{% else %}
 		<a href="{{ urlFor( 'oauth_init' ) }}" id="login-btn" class="btn btn-sm btn-default">
-			<span class=" glyphicon glyphicon-log-in"></span> Login
+			<span class=" glyphicon glyphicon-log-in"></span> {{ 'header-login'|message }}
 		</a>
 	{% endif %}
 </header>
@@ -40,10 +51,7 @@
 	{% block banners %}
 		<section class="banners">
 			{% if staging %}
-				<div class="alert alert-danger text-center">
-					This is a staging environment. Please do not use this tool to record your reviews. For the actual
-					CopyPatrol tool, please use <a href="https://tools.wmflabs.org/copypatrol/">tools.wmflabs.org/copypatrol</a>.
-				</div>
+				<div class="alert alert-danger text-center">{{ 'alert-testing'|message }}</div>
 			{% endif %}
 			{% block flashes %}
 				{% if flash|default(false) %}
@@ -85,7 +93,7 @@
 							<span class="radio-inline">
 								<label>
 									<input type="radio" name="filter" value="{{ type }}"
-										{% if filter == type %} checked="checked"{% endif %}
+											{% if filter == type %} checked="checked"{% endif %}
 									/> {{ description }}
 								</label>
 							</span>
@@ -93,23 +101,24 @@
 						<span class="checkbox-inline">
 							<label>
 								<input type="checkbox" name="drafts" value="1"
-									{% if drafts %} checked="checked"{% endif %}
-								/> Drafts only
+										{% if drafts %} checked="checked"{% endif %}
+								/> {{ 'form-drafts'|message }}
 							</label>
 						</span>
 					</div>
 					<div class="wikiproject-filter col-sm-12">
 						<label class="wikiproject-label" for="wikiproject-selector">
-							WikiProjects
+							{{ 'form-wikiprojects'|message }}
 						</label>
 						<select id="wikiproject-selector" class="wikiproject-selector col-sm-5" multiple="multiple">
-						{% for wikiproject in wikiprojectsArray %}
-							<option value="{{ wikiproject }}" selected="selected">{{ wikiproject }}</option>
-						{% endfor %}
+							{% for wikiproject in wikiprojectsArray %}
+								<option value="{{ wikiproject }}" selected="selected">{{ wikiproject }}</option>
+							{% endfor %}
 						</select>
 						{# use hidden input field so we can submit with format 'WP1|WP2|WP3' #}
-						<input type="hidden" name="wikiprojects" value="{{ wikiprojects }}" formenctype="text/plain" />
-						<button type="submit" class="btn btn-primary btn-sm btn-submit-filters">Submit</button>
+						<input type="hidden" name="wikiprojects" value="{{ wikiprojects }}" formenctype="text/plain"/>
+						<button type="submit"
+						        class="btn btn-primary btn-sm btn-submit-filters">{{ 'form-submit'|message }}</button>
 					</div>
 				</fieldset>
 			</form>
@@ -118,11 +127,11 @@
 		<section class="records">
 			{% block rowheader %}
 				<header class="header-div container-fluid">
-					<div class="header-col col-sm-3 text-center">Page</div>
-					<div class="header-col col-sm-2 text-center">Diff</div>
-					<div class="header-col col-sm-2 text-center">Editor</div>
-					<div class="header-col col-sm-3 text-center">Wikiprojects</div>
-					<div class="header-col col-sm-2 text-center">Review</div>
+					<div class="header-col col-sm-3 text-center">{{ 'col-page'|message }}</div>
+					<div class="header-col col-sm-2 text-center">{{ 'col-diff'|message }}</div>
+					<div class="header-col col-sm-2 text-center">{{ 'col-editor'|message }}</div>
+					<div class="header-col col-sm-3 text-center">{{ 'col-wikiprojects'|message }}</div>
+					<div class="header-col col-sm-2 text-center">{{ 'col-review'|message }}</div>
 				</header>
 			{% endblock %}
 			<section class="record-container">
@@ -131,7 +140,8 @@
 			</section>
 			<div class="load-more-div">
 				{% block loadmore %}
-					<button id="btn-load-more" class="btn btn-md btn-primary js-load-more">Load More</button>
+					<button id="btn-load-more"
+					        class="btn btn-md btn-primary js-load-more">{{ 'footer-loadmore'|message }}</button>
 				{% endblock %}
 			</div>
 		</section>
@@ -139,55 +149,36 @@
 
 </main>
 <footer class="app-footer">
-	Brought to you by
-	<a target="_blank" href="https://meta.wikimedia.org/wiki/Community_Tech">Community Tech</a>
-	&bull;
-	Powered by
-	<a target="_blank" href="https://en.wikipedia.org/wiki/User:EranBot">EranBot</a>
-	and
-	<a target="_blank" href="https://en.wikipedia.org/wiki/Wikipedia:Turnitin">Turnitin</a>
-	&bull;
-	<a target="_blank" href="https://github.com/Niharika29/PlagiabotWeb">Source</a>
-	&bull;
-	<a target="_blank" href="https://phabricator.wikimedia.org/project/profile/1638">Phabricator</a>
-	&bull;
-	<a href="#" data-toggle="modal" data-target="#image-attribution">Image attribution</a>
+	{{ 'footer-broughtby'|message|raw }} &bull;
+	{{ 'footer-poweredby'|message|raw }} &bull;
+	{{ 'footer-source'|message|raw }} &bull;
+	{{ 'footer-phabricator'|message|raw }} &bull;
+	{{ 'footer-imageattr'|message|raw }}
 </footer>
 
 <!-- Modal -->
-<div class="modal fade" id="image-attribution" tabindex="-1" role="dialog" aria-labelledby="image-attribution-label">
+<div class="modal fade" id="image-attribution" tabindex="-1" role="dialog"
+     aria-labelledby="image-attribution-label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="image-attribution-label">
-					Image attribution
-				</h4>
-			</div>
-			<div class="modal-body">
-				<p>
-					<a target="_blank" href="https://commons.wikimedia.org/wiki/File:Dialog-error-copyright.svg">CopyPatrol logo</a>
-					available to the
-					<a target="_blank" href="https://en.wikipedia.org/wiki/Public_domain">public domain</a>
-					courtesy of
-					<a target="_blank" href="https://commons.wikimedia.org/wiki/User:Xander89">Xander89</a>
-					and the
-					<a target="_blank" href="http://tango.freedesktop.org/Tango_Desktop_Project">Tango Desktop Project</a>.
-				</p>
-				<p>
-					<a target="_blank" href="https://fonts.google.com/specimen/Bitter?query=bitter">Bitter font</a>
-					released under the
-					<a target="_blank" href="http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&amp;id=OFL_web">Open Font License</a>
-					courtesy of
-					<a target="_blank" href="http://huertatipografica.com/">Huerta Tipográfica</a>.
-				</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">
-					Close
-				</button>
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="image-attribution-label">
+						{{ 'imageattr-title'|message }}
+					</h4>
+				</div>
+				<div class="modal-body">
+					<p>{{ 'imageattr-logo'|message|raw }}</p>
+					<p>{{ 'imageattr-font'|message|raw }}</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						{{ 'imageattr-close'|message }}
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
