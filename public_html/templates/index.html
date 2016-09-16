@@ -41,7 +41,9 @@
 						{% if row.oresScore is not empty %}
 							<br/>
 							<small class="diff-div-ores">
-								{{ 'record-ores'|message( row.oresScore )|raw }}%
+								<a href="https://meta.wikimedia.org/wiki/Objective_Revision_Evaluation_Service" target="_blank">
+									{{ 'record-ores'|message( row.oresScore )|raw }}%
+								</a>
 							</small>
 						{% endif %}
 					</div>
