@@ -3,7 +3,7 @@
 
 <html lang="en">
 <head>
-	<title>CopyPatrol</title>
+	<title>{{ 'name' | message }}</title>
 	<link href="{{ siteUrl( 'images/favicon.ico' ) }}" rel="shortcut icon" sizes="16x16 32x32"/>
 	{% block stylesheets %}
 		<link href="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css"
@@ -20,30 +20,30 @@
 		<script src="{{ siteUrl( 'vendor/select2.min.js' ) }}" type="text/javascript"></script>
 	{% endblock %}
 	<script>
-		var form_wikiprojects_placeholder = "{{ 'form-wikiprojects-placeholder'|message }}",
-				js_unauthorized = "{{ 'js-unauthorized'|message }}",
-				js_dberror = "{{ 'js-dberror'|message }}",
-				js_undo_own_only = "{{ 'js-undo-own-only'|message }}",
-				js_unknown_error = "{{ 'js-unknown-error'|message }}",
-				js_loadmore = "{{ 'footer-loadmore'|message }}",
-				js_nomore = "{{ 'footer-nomore'|message }}";
+		var formWikiprojectsPlaceholder = "{{ 'form-wikiprojects-placeholder' | message }}",
+				jsUnauthorized = "{{ 'js-unauthorized' | message }}",
+				jsDbError = "{{ 'js-dberror' | message }}",
+				jsUndoOwnOnly = "{{ 'js-undo-own-only' | message }}",
+				jsUnknownError = "{{ 'js-unknown-error' | message }}",
+				jsLoadMore = "{{ 'footer-loadmore' | message }}",
+				jsNoMore = "{{ 'footer-nomore' | message }}";
 	</script>
 </head>
 
 <body>
 <header class="app-header">
 	<a href="{{ siteUrl( '' ) }}"><img src="{{ siteUrl( 'images/copypatrol.png' ) }}"/></a>
-	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/CopyPatrol">{{ 'header-documentation'|message }}</a>
-	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/Talk:CopyPatrol">{{ 'header-feedback'|message|raw }}</a>
-	<a class="header-link" href="{{ siteUrl( 'leaderboard' ) }}">{{ 'header-leaderboard'|message }}</a>
+	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/CopyPatrol">{{ 'documentation' | message }}</a>
+	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/Talk:CopyPatrol">{{ 'feedback' | message | raw }}</a>
+	<a class="header-link" href="{{ siteUrl( 'leaderboard' ) }}">{{ 'leaderboard' | message }}</a>
 	{% if user %}
 		<a href="{{ urlFor( 'logout' ) }}" id="login-btn" class="btn btn-sm btn-default {{ user ? 'logged-in' : '' }}">
-			<span class=" glyphicon glyphicon-log-in"></span> {{ 'header-logout'|message }}<br>
-			<small>{{ 'header-loggedin'|message( user.name ) }}</small>
+			<span class=" glyphicon glyphicon-log-in"></span> {{ 'logout' | message }}<br>
+			<small>{{ 'header-loggedin' | message( user.name ) }}</small>
 		</a>
 	{% else %}
 		<a href="{{ urlFor( 'oauth_init' ) }}" id="login-btn" class="btn btn-sm btn-default">
-			<span class=" glyphicon glyphicon-log-in"></span> {{ 'header-login'|message }}
+			<span class=" glyphicon glyphicon-log-in"></span> {{ 'login' | message }}
 		</a>
 	{% endif %}
 </header>
@@ -51,29 +51,33 @@
 	{% block banners %}
 		<section class="banners">
 			{% if staging %}
-				<div class="alert alert-danger text-center">{{ 'alert-testing'|message }}</div>
+				{% set copypatrol_link %}
+					<a href="https://tools.wmflabs.org/copypatrol/">tools.wmflabs.org/copypatrol</a>
+				{% endset %}
+				<div class="alert alert-danger text-center">{{ 'alert-testing' | message( copypatrol_link ) }}</div>
+				}
 			{% endif %}
 			{% block flashes %}
-				{% if flash|default(false) %}
-					{% if flash.error|default(false) %}
+				{% if flash | default(false) %}
+					{% if flash.error | default(false) %}
 						<div class="alert alert-danger alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							{{ flash.error }}
 						</div>
 					{% endif %}
-					{% if flash.success|default(false) %}
+					{% if flash.success | default(false) %}
 						<div class="alert alert-success alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							{{ flash.success }}
 						</div>
 					{% endif %}
-					{% if flash.warning|default(false) %}
+					{% if flash.warning | default(false) %}
 						<div class="alert alert-warning alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							{{ flash.warning }}
 						</div>
 					{% endif %}
-					{% if flash.info|default(false) %}
+					{% if flash.info | default(false) %}
 						<div class="alert alert-info alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							{{ flash.info }}
@@ -102,13 +106,13 @@
 							<label>
 								<input type="checkbox" name="drafts" value="1"
 										{% if drafts %} checked="checked"{% endif %}
-								/> {{ 'form-drafts'|message }}
+								/> {{ 'form-drafts' | message }}
 							</label>
 						</span>
 					</div>
 					<div class="wikiproject-filter col-sm-12">
 						<label class="wikiproject-label" for="wikiproject-selector">
-							{{ 'form-wikiprojects'|message }}
+							{{ 'wikiprojects' | message }}
 						</label>
 						<select id="wikiproject-selector" class="wikiproject-selector col-sm-5" multiple="multiple">
 							{% for wikiproject in wikiprojectsArray %}
@@ -118,7 +122,7 @@
 						{# use hidden input field so we can submit with format 'WP1|WP2|WP3' #}
 						<input type="hidden" name="wikiprojects" value="{{ wikiprojects }}" formenctype="text/plain"/>
 						<button type="submit"
-						        class="btn btn-primary btn-sm btn-submit-filters">{{ 'form-submit'|message }}</button>
+						        class="btn btn-primary btn-sm btn-submit-filters">{{ 'submit' | message }}</button>
 					</div>
 				</fieldset>
 			</form>
@@ -127,11 +131,11 @@
 		<section class="records">
 			{% block rowheader %}
 				<header class="header-div container-fluid">
-					<div class="header-col col-sm-3 text-center">{{ 'col-page'|message }}</div>
-					<div class="header-col col-sm-2 text-center">{{ 'col-diff'|message }}</div>
-					<div class="header-col col-sm-2 text-center">{{ 'col-editor'|message }}</div>
-					<div class="header-col col-sm-3 text-center">{{ 'col-wikiprojects'|message }}</div>
-					<div class="header-col col-sm-2 text-center">{{ 'col-review'|message }}</div>
+					<div class="header-col col-sm-3 text-center">{{ 'page' | message }}</div>
+					<div class="header-col col-sm-2 text-center">{{ 'diff' | message }}</div>
+					<div class="header-col col-sm-2 text-center">{{ 'editor' | message }}</div>
+					<div class="header-col col-sm-3 text-center">{{ 'wikiprojects' | message }}</div>
+					<div class="header-col col-sm-2 text-center">{{ 'review' | message }}</div>
 				</header>
 			{% endblock %}
 			<section class="record-container">
@@ -141,7 +145,7 @@
 			<div class="load-more-div">
 				{% block loadmore %}
 					<button id="btn-load-more"
-					        class="btn btn-md btn-primary js-load-more">{{ 'footer-loadmore'|message }}</button>
+					        class="btn btn-md btn-primary js-load-more">{{ 'footer-loadmore' | message }}</button>
 				{% endblock %}
 			</div>
 		</section>
@@ -149,11 +153,22 @@
 
 </main>
 <footer class="app-footer">
-	{{ 'footer-broughtby'|message|raw }} <a href="https://meta.wikimedia.org/wiki/Community_Tech">{{ 'footer-commtech'|message }}</a> &bull;
-	{{ 'footer-poweredby'|message|raw }} <a href="https://en.wikipedia.org/wiki/User:EranBot">{{ 'footer-eranbot'|message }}</a> & <a href="https://en.wikipedia.org/wiki/Wikipedia:Turnitin">{{ 'footer-turnitin'|message }}</a> &bull;
-	<a href="https://github.com/wikimedia/PlagiabotWeb">{{ 'footer-source'|message|raw }}</a> &bull;
-	<a href="https://phabricator.wikimedia.org/project/profile/1638">{{ 'footer-phabricator'|message|raw }}</a> &bull;
-	<a href="#" data-toggle="modal" data-target="#image-attribution">{{ 'footer-imageattr'|message|raw }}</a>
+	{% set broughtby %}
+		<a href="https://meta.wikimedia.org/wiki/Community_Tech">{{ 'footer-commtech' | message }}</a>
+	{% endset %}
+	{{ 'footer-broughtby' | message( broughtby ) | raw }}
+	&bull;
+	{% set eranbot %}
+		<a href="https://en.wikipedia.org/wiki/User:EranBot">EranBot</a>
+	{% endset %}
+	{% set turnitin %}
+		<a href="https://en.wikipedia.org/wiki/Wikipedia:Turnitin">Turnitin</a>
+	{% endset %}
+	{{ 'footer-poweredby' | message( eranbot, turnitin ) | raw }}
+	&bull;
+	<a href="https://github.com/wikimedia/CopyPatrol">{{ 'source' | message | raw }}</a> &bull;
+	<a href="https://phabricator.wikimedia.org/project/profile/1638">{{ 'phabricator' | message | raw }}</a> &bull;
+	<a href="#" data-toggle="modal" data-target="#image-attribution">{{ 'footer-imageattr' | message | raw }}</a>
 </footer>
 
 <!-- Modal -->
@@ -167,25 +182,41 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h4 class="modal-title" id="image-attribution-label">
-						{{ 'imageattr-title'|message }}
+						{{ 'imageattr-title' | message }}
 					</h4>
 				</div>
 				<div class="modal-body">
 					<p>
-						<a target="_blank" href="https://commons.wikimedia.org/wiki/File:Dialog-error-copyright.svg">{{ 'imageattr-logo'|message }}</a>
-						<a target="_blank" href="https://en.wikipedia.org/wiki/Public_domain">{{ 'imageattr-pd'|message }}</a>
-						<a target="_blank" href="https://commons.wikimedia.org/wiki/User:Xander89">{{ 'imageattr-xander'|message }}</a>
-						<a target="_blank" href="http://tango.freedesktop.org/Tango_Desktop_Project">{{ 'imageattr-tango'|message }}</a>
+						{% set copypatrol_logo %}
+							<a target="_blank" href="https://commons.wikimedia.org/wiki/File:Dialog-error-copyright.svg">{{ 'imageattr-logo' | message }}</a>
+						{% endset %}
+						{% set public_domain %}
+							<a target="_blank" href="https://en.wikipedia.org/wiki/Public_domain">{{ 'public-domain' | message }}</a>
+						{% endset %}
+						{% set xander89 %}
+							<a target="_blank" href="https://commons.wikimedia.org/wiki/User:Xander89">Xander89</a>
+						{% endset %}
+						{% set tango %}
+							<a target="_blank" href="http://tango.freedesktop.org/Tango_Desktop_Project">Tango Desktop Project</a>.
+						{% endset %}
+						{{ 'imageattr-paragraph1' | message( copypatrol_logo, public_domain, xander89, tango ) | raw }}
 					</p>
 					<p>
-						<a target="_blank" href="https://fonts.google.com/specimen/Bitter">{{ 'imageattr-font'|message|raw }}</a>
-						<a target="_blank" href="http://scripts.sil.org/cms/scripts/page.php?item_id=OFL">{{ 'imageattr-openfont'|message }}</a>
-						<a target="_blank" href="http://huertatipografica.com/">{{ 'imageattr-huerta'|message }}</a>
+						{% set bitter %}
+							<a target="_blank" href="https://fonts.google.com/specimen/Bitter">Bitter font</a>
+						{% endset %}
+						{% set open_font %}
+							<a target="_blank" href="http://scripts.sil.org/cms/scripts/page.php?item_id=OFL">{{ 'open-font-license' | message }}</a>
+						{% endset %}
+						{% set huerta %}
+							<a target="_blank" href="http://huertatipografica.com/">Huerta Tipográfica</a>.
+						{% endset %}
+						{{ 'imageattr-paragraph2' | message( bitter, open_font, huerta ) | raw }}
 					</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">
-						{{ 'imageattr-close'|message }}
+						{{ 'close' | message }}
 					</button>
 				</div>
 			</div>
