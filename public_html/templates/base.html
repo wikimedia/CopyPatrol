@@ -33,8 +33,8 @@
 <body>
 <header class="app-header">
 	<a href="{{ siteUrl( '' ) }}"><img src="{{ siteUrl( 'images/copypatrol.png' ) }}"/></a>
-	{{ 'header-documentation'|message|raw }}
-	{{ 'header-feedback'|message|raw }}
+	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/CopyPatrol">{{ 'header-documentation'|message }}</a>
+	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/Talk:CopyPatrol">{{ 'header-feedback'|message|raw }}</a>
 	<a class="header-link" href="{{ siteUrl( 'leaderboard' ) }}">{{ 'header-leaderboard'|message }}</a>
 	{% if user %}
 		<a href="{{ urlFor( 'logout' ) }}" id="login-btn" class="btn btn-sm btn-default {{ user ? 'logged-in' : '' }}">
@@ -149,11 +149,11 @@
 
 </main>
 <footer class="app-footer">
-	{{ 'footer-broughtby'|message|raw }} &bull;
-	{{ 'footer-poweredby'|message|raw }} &bull;
-	{{ 'footer-source'|message|raw }} &bull;
-	{{ 'footer-phabricator'|message|raw }} &bull;
-	{{ 'footer-imageattr'|message|raw }}
+	{{ 'footer-broughtby'|message|raw }} <a href="https://meta.wikimedia.org/wiki/Community_Tech">{{ 'footer-commtech'|message }}</a> &bull;
+	{{ 'footer-poweredby'|message|raw }} <a href="https://en.wikipedia.org/wiki/User:EranBot">{{ 'footer-eranbot'|message }}</a> & <a href="https://en.wikipedia.org/wiki/Wikipedia:Turnitin">{{ 'footer-turnitin'|message }}</a> &bull;
+	<a href="https://github.com/wikimedia/PlagiabotWeb">{{ 'footer-source'|message|raw }}</a> &bull;
+	<a href="https://phabricator.wikimedia.org/project/profile/1638">{{ 'footer-phabricator'|message|raw }}</a> &bull;
+	<a href="#" data-toggle="modal" data-target="#image-attribution">{{ 'footer-imageattr'|message|raw }}</a>
 </footer>
 
 <!-- Modal -->
@@ -171,8 +171,17 @@
 					</h4>
 				</div>
 				<div class="modal-body">
-					<p>{{ 'imageattr-logo'|message|raw }}</p>
-					<p>{{ 'imageattr-font'|message|raw }}</p>
+					<p>
+						<a target="_blank" href="https://commons.wikimedia.org/wiki/File:Dialog-error-copyright.svg">{{ 'imageattr-logo'|message }}</a>
+						<a target="_blank" href="https://en.wikipedia.org/wiki/Public_domain">{{ 'imageattr-pd'|message }}</a>
+						<a target="_blank" href="https://commons.wikimedia.org/wiki/User:Xander89">{{ 'imageattr-xander'|message }}</a>
+						<a target="_blank" href="http://tango.freedesktop.org/Tango_Desktop_Project">{{ 'imageattr-tango'|message }}</a>
+					</p>
+					<p>
+						<a target="_blank" href="https://fonts.google.com/specimen/Bitter">{{ 'imageattr-font'|message|raw }}</a>
+						<a target="_blank" href="http://scripts.sil.org/cms/scripts/page.php?item_id=OFL">{{ 'imageattr-openfont'|message }}</a>
+						<a target="_blank" href="http://huertatipografica.com/">{{ 'imageattr-huerta'|message }}</a>
+					</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">
