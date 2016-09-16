@@ -68,11 +68,11 @@
 					$reviewerNode.find( '.reviewer-timestamp' ).text( ret.timestamp );
 					$reviewerNode.fadeIn( 'slow' );
 				} else if ( ret.error === 'Unauthorized' ) {
-					window.alert( js_unauthorized );
+					window.alert( jsUnauthorized );
 					// go back to initial state
 					setReviewState( id, 'open' );
 				} else {
-					window.alert( js_dberror );
+					window.alert( jsDbError );
 					setReviewState( id, 'open' );
 				}
 
@@ -99,10 +99,10 @@
 					$reviewerNode.fadeOut( 'slow' );
 					setReviewState( id, 'open' );
 				} else if ( ret.error === 'db-error' ) {
-					window.alert( js_dberror );
+					window.alert( jsDbError );
 					setReviewState( id, oldStatus ); // revert back to old state
 				} else {
-					window.alert( js_undo_own_only );
+					window.alert( jsUndoOwnOnly );
 					setReviewState( id, oldStatus );
 				}
 
@@ -145,11 +145,11 @@
 				if ( $newRecords.find( '.js-record' ).length ) {
 					$( '.record-container' ).append( $newRecords.html() );
 				} else {
-					$( '.js-load-more' ).replaceWith( '<p>' + js_nomore + '</p>' );
+					$( '.js-load-more' ).replaceWith( '<p>' + jsNoMore + '</p>' );
 				}
 			} ).fail( function () {
-				alert( js_unknown_error );
-				$( '#btn-load-more' ).text( js_load_more ).removeClass( 'btn-loading' );
+				alert( jsUnknownError );
+				$( '#btn-load-more' ).text( jsLoadMore ).removeClass( 'btn-loading' );
 			} );
 		}
 
@@ -201,7 +201,7 @@
 						}
 					} else {
 						// use API-provided error message, otherwise a blanket unknown error message as it could be unrelated to the API
-						var errorMessage = ret.error && ret.error.info ? ret.error.info : js_unknown_error;
+						var errorMessage = ret.error && ret.error.info ? ret.error.info : jsUnknownError;
 						$( compareDiv ).find( '.compare-pane-body' ).html( '<span class="text-danger">' + errorMessage + '</span>' );
 					}
 				} );
@@ -247,7 +247,7 @@
 					},
 					cache: true
 				},
-				placeholder: form_wikiprojects_placeholder,
+				placeholder: formWikiprojectsPlaceholder,
 				maximumSelectionLength: 10,
 				minimumInputLength: 1
 			};
