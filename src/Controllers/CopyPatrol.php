@@ -159,7 +159,7 @@ class CopyPatrol extends Controller {
 		// once more to build the complete dataset to be rendered into view
 		foreach ( $records as $key => $record ) {
 				$editor = null;
-				if (( isset( $record['diff'] ) && isset( $editors[$record['diff']] ) )) {
+				if ( isset( $record['diff'] ) && isset( $editors[$record['diff']] ) ) {
 					$editor = $editors[$record['diff']];
 				}
 
