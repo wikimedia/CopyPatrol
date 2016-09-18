@@ -158,7 +158,10 @@ class CopyPatrol extends Controller {
 		// WikiProjects) have been completed, let's loop through the records
 		// once more to build the complete dataset to be rendered into view
 		foreach ( $records as $key => $record ) {
-			$editor = $editors[$record['diff']];
+				$editor = null;
+				if (( isset( $record['diff'] ) && isset( $editors[$record['diff']] ) )) {
+					$editor = $editors[$record['diff']];
+				}
 
 			// mark it as reviewed by our bot and skip if editor is in user whitelist
 			if ( in_array( $editor, $userWhitelist ) && $this->getFilter() === 'open' ) {
