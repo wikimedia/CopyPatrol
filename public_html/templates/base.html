@@ -31,22 +31,10 @@
 </head>
 
 <body>
-<header class="app-header">
-	<a href="{{ siteUrl( '' ) }}"><img src="{{ siteUrl( 'images/copypatrol.png' ) }}"/></a>
-	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/CopyPatrol">{{ 'documentation' | message }}</a>
-	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/Talk:CopyPatrol">{{ 'feedback' | message | raw }}</a>
-	<a class="header-link" href="{{ siteUrl( 'leaderboard' ) }}">{{ 'leaderboard' | message }}</a>
-	{% if user %}
-		<a href="{{ urlFor( 'logout' ) }}" id="login-btn" class="btn btn-sm btn-default {{ user ? 'logged-in' : '' }}">
-			<span class=" glyphicon glyphicon-log-in"></span> {{ 'logout' | message }}<br>
-			<small>{{ 'header-loggedin' | message( user.name ) }}</small>
-		</a>
-	{% else %}
-		<a href="{{ urlFor( 'oauth_init' ) }}" id="login-btn" class="btn btn-sm btn-default">
-			<span class=" glyphicon glyphicon-log-in"></span> {{ 'login' | message }}
-		</a>
-	{% endif %}
-</header>
+
+<!-- Header -->
+{% include 'header.html' %}
+
 <main id="body">
 	{% block banners %}
 		<section class="banners">
@@ -152,76 +140,10 @@
 	{% endblock %}
 
 </main>
-<footer class="app-footer">
-	{% set broughtby %}
-		<a href="https://meta.wikimedia.org/wiki/Community_Tech">{{ 'footer-commtech' | message }}</a>
-	{% endset %}
-	{{ 'footer-broughtby' | message( broughtby ) | raw }}
-	&bull;
-	{% set eranbot %}
-		<a href="https://en.wikipedia.org/wiki/User:EranBot">EranBot</a>
-	{% endset %}
-	{% set turnitin %}
-		<a href="https://en.wikipedia.org/wiki/Wikipedia:Turnitin">Turnitin</a>
-	{% endset %}
-	{{ 'footer-poweredby' | message( eranbot, turnitin ) | raw }}
-	&bull;
-	<a href="https://github.com/wikimedia/CopyPatrol">{{ 'source' | message | raw }}</a> &bull;
-	<a href="https://phabricator.wikimedia.org/project/profile/1638">{{ 'phabricator' | message | raw }}</a> &bull;
-	<a href="#" data-toggle="modal" data-target="#image-attribution">{{ 'footer-imageattr' | message | raw }}</a>
-</footer>
+<!-- Footer -->
+{% include 'footer.html' %}
 
 <!-- Modal -->
-<div class="modal fade" id="image-attribution" tabindex="-1" role="dialog"
-     aria-labelledby="image-attribution-label">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="image-attribution-label">
-						{{ 'imageattr-title' | message }}
-					</h4>
-				</div>
-				<div class="modal-body">
-					<p>
-						{% set copypatrol_logo %}
-							<a target="_blank" href="https://commons.wikimedia.org/wiki/File:Dialog-error-copyright.svg">{{ 'imageattr-logo' | message }}</a>
-						{% endset %}
-						{% set public_domain %}
-							<a target="_blank" href="https://en.wikipedia.org/wiki/Public_domain">{{ 'public-domain' | message }}</a>
-						{% endset %}
-						{% set xander89 %}
-							<a target="_blank" href="https://commons.wikimedia.org/wiki/User:Xander89">Xander89</a>
-						{% endset %}
-						{% set tango %}
-							<a target="_blank" href="http://tango.freedesktop.org/Tango_Desktop_Project">Tango Desktop Project</a>.
-						{% endset %}
-						{{ 'imageattr-paragraph1' | message( copypatrol_logo, public_domain, xander89, tango ) | raw }}
-					</p>
-					<p>
-						{% set bitter %}
-							<a target="_blank" href="https://fonts.google.com/specimen/Bitter">Bitter font</a>
-						{% endset %}
-						{% set open_font %}
-							<a target="_blank" href="http://scripts.sil.org/cms/scripts/page.php?item_id=OFL">{{ 'open-font-license' | message }}</a>
-						{% endset %}
-						{% set huerta %}
-							<a target="_blank" href="http://huertatipografica.com/">Huerta Tipográfica</a>.
-						{% endset %}
-						{{ 'imageattr-paragraph2' | message( bitter, open_font, huerta ) | raw }}
-					</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">
-						{{ 'close' | message }}
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+{% include 'modal.html' %}
 </body>
 </html>
