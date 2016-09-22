@@ -34,23 +34,29 @@ class CopyPatrol extends Controller {
 	protected $wikipedia;
 
 	/**
-	 * @var $enwikiDao  \Wikimedia\Slimapp\Dao\ object for enwiki access
+	* @var string language code for the present wiki
+	**/
+	protected $lang;
+
+	/**
+	 * @var $enwikiDao  \Wikimedia\Slimapp\Dao\ object for wiki access
 	 */
-	protected $enwikiDao;
+	protected $wikiDao;
 
 	/**
 	 * @param \Slim\Slim $slim Slim application
 	 */
 	public function __construct( \Slim\Slim $slim = null, $wiki = 'https://en.wikipedia.org' ) {
 		parent::__construct( $slim );
-		$this->wikipedia = $wiki;
+		$this->wikipedia = $slim->config( 'url' );
+		$this->lang = $slim->config( 'lang' );
 	}
 
 	/**
-	 * @param mixed $enwikiDao
+	 * @param mixed $wikiDao
 	 */
-	public function setEnwikiDao( $enwikiDao ) {
-		$this->enwikiDao = $enwikiDao;
+	public function setWikiDao( $wikiDao ) {
+		$this->wikiDao = $wikiDao;
 	}
 
 	/**
@@ -61,7 +67,9 @@ class CopyPatrol extends Controller {
 	public static function oresScoresUrl( array $revs ) {
 		$baseUrl = 'https://ores.wikimedia.org/' .
 				   'v2/scores/enwiki/damaging/?revids=';
-		return $baseUrl . implode( '|', $revs );
+		$x = $baseUrl . implode( '|', $revs );
+		var_dump( $x );
+		return $x;
 	}
 
 	/**
@@ -76,6 +84,7 @@ class CopyPatrol extends Controller {
 			// ORES is down :((
 			return;
 		}
+		$wiki = 'enwiki';
 		$data = $data['scores']['enwiki']['damaging']['scores'];
 		$scores = [];
 		foreach ( $data as $revId => $value ) {
@@ -112,7 +121,8 @@ class CopyPatrol extends Controller {
 	 */
 	protected function handleGet() {
 		$records = $this->getRecords();
-		$userWhitelist = $this->getUserWhitelist();
+		$userWhitelist = [];
+		// $userWhitelist = $this->getUserWhitelist();
 		// nothing else needs to be done if there are no records
 		if ( empty( $records ) ) {
 			return $this->render( 'index.html' );
@@ -131,7 +141,7 @@ class CopyPatrol extends Controller {
 		}
 		// get an associative array with the revision ID as the key and editor as the value
 		// this makes it easier to access what we need when looping through the copyvio records
-		$editors = $this->enwikiDao->getRevisionsEditors( $diffIds );
+		$editors = $this->wikiDao->getRevisionsEditors( $diffIds );
 		foreach ( $editors as $editor ) {
 			// add username to usernames array so we can fetch their edit counts all at once
 			$usernames[] = $editor;
@@ -142,8 +152,8 @@ class CopyPatrol extends Controller {
 		// Asynchronously get edit counts of users,
 		// and all dead pages so we can colour them red in the view
 		$promises = [
-			'editCounts' => $this->enwikiDao->getEditCounts( $usernames ),
-			'deadPages' => $this->enwikiDao->getDeadPages( $pageTitles )
+			'editCounts' => $this->wikiDao->getEditCounts( $usernames ),
+			'deadPages' => $this->wikiDao->getDeadPages( $pageTitles )
 		];
 		$asyncResults = GuzzleHttp\Promise\unwrap( $promises );
 		$editCounts = $asyncResults['editCounts'];
@@ -322,7 +332,11 @@ class CopyPatrol extends Controller {
 			$cacheItem->set( $whitelist )->expiresAfter( 2 * 60 * 60 );
 			$this->cache->save( $cacheItem );
 		}
-		return $whitelist;
+		if ( $whitelist ) {
+			return $whitelist;
+		} else {
+			return [];
+		}
 	}
 
 	/**

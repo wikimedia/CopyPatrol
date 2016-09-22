@@ -49,13 +49,18 @@ class App extends AbstractApp {
 			'oauth.endpoint' => Config::getStr( 'OAUTH_ENDPOINT' ),
 			'oauth.redir' => Config::getStr( 'OAUTH_REDIR' ),
 			'oauth.callback' => Config::getStr( 'OAUTH_CALLBACK' ),
-			'db.dsnen' => Config::getStr( 'DB_DSN_ENWIKI' ),
+			'lang' => Config::getStr( 'LANG' ),
+			'url' => 'https://' . Config::getStr( 'LANG' ) . '.wikipedia.org',
+			'db.dsnwiki' => Config::getStr( 'DB_DSN_WIKI' ),
 			'db.dsnpl' => Config::getStr( 'DB_DSN_PLAGIABOT' ),
 			'db.user' => Config::getStr( 'DB_USER' ),
 			'db.pass' => Config::getStr( 'DB_PASS' ),
 			'templates.path' => APP_ROOT . '/public_html/templates',
 			'i18n.path' => APP_ROOT . '/public_html/i18n',
 		] );
+
+
+
 	}
 
 	/**
@@ -92,14 +97,16 @@ class App extends AbstractApp {
 		$container->singleton( 'plagiabotDao', function ( $c ) {
 			return new Dao\PlagiabotDao(
 				$c->settings['db.dsnpl'],
-				$c->settings['db.user'], $c->settings['db.pass']
+				$c->settings['db.user'], $c->settings['db.pass'],
+				$c->settings['url']
 			);
 		} );
-		// En.wikipedia DAO
-		$container->singleton( 'enwikiDao', function ( $c ) {
-			return new Dao\EnwikiDao(
-				$c->settings['db.dsnen'],
-				$c->settings['db.user'], $c->settings['db.pass']
+		// Wikipedia DAO
+		$container->singleton( 'wikiDao', function ( $c ) {
+			return new Dao\WikiDao(
+				$c->settings['db.dsnwiki'],
+				$c->settings['db.user'], $c->settings['db.pass'],
+				$c->settings['url']
 			);
 		} );
 		// User manager
@@ -216,11 +223,11 @@ class App extends AbstractApp {
 		$slim->group( '/', $middleware['trailing-slash'],
 				$middleware['inject-user'], $middleware['set-environment'],
 			function () use ( $slim, $middleware ) {
-				$slim->get( '/', $middleware['twig-number-format'],
+				$slim->get( '/', // $middleware['twig-number-format'],
 					function () use ( $slim ) {
 						$page = new Controllers\CopyPatrol( $slim );
 						$page->setDao( $slim->plagiabotDao );
-						$page->setEnwikiDao( $slim->enwikiDao );
+						$page->setWikiDao( $slim->wikiDao );
 						$page();
 					} )->name( 'home' );
 				$slim->get( 'logout', function () use ( $slim ) {
@@ -230,7 +237,7 @@ class App extends AbstractApp {
 				$slim->get( 'loadmore', function () use ( $slim ) {
 					$page = new Controllers\CopyPatrol( $slim );
 					$page->setDao( $slim->plagiabotDao );
-					$page->setEnwikiDao( $slim->enwikiDao );
+					$page->setWikiDao( $slim->wikiDao );
 					$page();
 				} )->name( 'loadmore' );
 				$slim->get( 'index.css', function () use ( $slim ) {
@@ -273,7 +280,7 @@ class App extends AbstractApp {
 					$page( 'callback' );
 				} )->name( 'oauth_callback' );
 			} );
-		$slim->get( '/leaderboard', $middleware['inject-user'], $middleware['twig-number-format'],
+		$slim->get( '/leaderboard', $middleware['inject-user'], // $middleware['twig-number-format'],
 			function () use ( $slim ) {
 				$page = new Controllers\Leaderboard( $slim );
 				$page->setDao( $slim->plagiabotDao );

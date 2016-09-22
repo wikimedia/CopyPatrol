@@ -27,7 +27,7 @@ use Mediawiki\Api\FluentRequest;
 use GuzzleHttp;
 use GuzzleHttp\Promise\Promise;
 
-class EnwikiDao extends AbstractDao {
+class WikiDao extends AbstractDao {
 
 	/**
 	 * @var int $wikipedia
