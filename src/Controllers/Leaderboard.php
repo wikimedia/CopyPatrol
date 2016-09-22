@@ -30,7 +30,7 @@ class Leaderboard extends Controller {
 	 */
 	public function __construct( \Slim\Slim $slim = null, $wiki = 'https://en.wikipedia.org' ) {
 		parent::__construct( $slim );
-		$this->wikipedia = $wiki;
+		$this->wikipedia = $slim->config( 'url' );
 	}
 
 	/**
