@@ -60,7 +60,7 @@ class CopyPatrol extends Controller {
 	 */
 	public static function oresScoresUrl( array $revs ) {
 		$baseUrl = 'https://ores.wikimedia.org/' .
-			'v2/scores/enwiki/damaging/?revids=';
+				   'v2/scores/enwiki/damaging/?revids=';
 		return $baseUrl . implode( '|', $revs );
 	}
 
@@ -113,12 +113,10 @@ class CopyPatrol extends Controller {
 	protected function handleGet() {
 		$records = $this->getRecords();
 		$userWhitelist = $this->getUserWhitelist();
-
 		// nothing else needs to be done if there are no records
 		if ( empty( $records ) ) {
 			return $this->render( 'index.html' );
 		}
-
 		$diffIds = [];
 		$pageTitles = [];
 		$usernames = [];
@@ -150,18 +148,16 @@ class CopyPatrol extends Controller {
 		$asyncResults = GuzzleHttp\Promise\unwrap( $promises );
 		$editCounts = $asyncResults['editCounts'];
 		$deadPages = $asyncResults['deadPages'];
-
 		// Get ORES scores for edits
 		$oresScores = self::oresScores( $diffIds );
-
 		// now all external requests and database queries (except
 		// WikiProjects) have been completed, let's loop through the records
 		// once more to build the complete dataset to be rendered into view
 		foreach ( $records as $key => $record ) {
-				$editor = null;
-				if ( isset( $record['diff'] ) && isset( $editors[$record['diff']] ) ) {
-					$editor = $editors[$record['diff']];
-				}
+			$editor = null;
+			if ( isset( $record['diff'] ) && isset( $editors[$record['diff']] ) ) {
+				$editor = $editors[$record['diff']];
+			}
 
 			// mark it as reviewed by our bot and skip if editor is in user whitelist
 			if ( in_array( $editor, $userWhitelist ) && $this->getFilter() === 'open' ) {
@@ -169,15 +165,12 @@ class CopyPatrol extends Controller {
 				unset( $records[$key] );
 				continue;
 			}
-
 			if ( $record['page_ns'] == 118 ) {
 				$record['page_title'] = 'Draft:' . $record['page_title'];
 			}
-
 			$pageDead = in_array(
 				$this->removeUnderscores( $record['page_title'] ), $deadPages
 			);
-
 			// if the page is dead, mark it as reviewed by our bot and skip to next record
 			if ( $pageDead && $this->getFilter() === 'open' ) {
 				$this->autoReview( $record['ithenticate_id'] );
@@ -186,14 +179,12 @@ class CopyPatrol extends Controller {
 			} else {
 				$records[$key]['page_dead'] = $pageDead;
 			}
-
 			$records[$key]['diff_timestamp'] = $this->formatTimestamp( $record['diff_timestamp'] );
 			$records[$key]['diff_link'] = $this->getDiffLink( $record['page_title'], $record['diff'] );
 			$records[$key]['page_link'] = $this->getPageLink( $record['page_title'] );
 			$records[$key]['history_link'] = $this->getHistoryLink( $record['page_title'] );
 			$records[$key]['turnitin_report'] = $this->getReportLink( $record['ithenticate_id'] );
 			$records[$key]['copyvios'] = $this->getSources( $record['report'] );
-
 			if ( $editor ) {
 				$records[$key]['editcount'] = $editCounts[$editor];
 				$records[$key]['editor'] = $editor;
@@ -229,21 +220,21 @@ class CopyPatrol extends Controller {
 
 	/**
 	 * Get the current user's username, or null if they are logged out
+	 *
 	 * @return boolean true or false
 	 */
 	protected function getUsername() {
 		static $username = null;
-
 		if ( $username === null ) {
 			$userData = $this->authManager->getUserData();
 			$username = $userData ? $userData->getName() : null;
 		}
-
 		return $username;
 	}
 
 	/**
 	 * Mark the given record as reviewed by Community Tech bot
+	 *
 	 * @param int $ithenticateId ID of record to review
 	 */
 	private function autoReview( $ithenticateId ) {
@@ -258,19 +249,17 @@ class CopyPatrol extends Controller {
 	/**
 	 * Get the current requested filter, or return the default.
 	 * Also throws flash messages if the requested filters are invalid.
+	 *
 	 * @return string the filter, one of 'all', 'open', 'reviewed' or 'mine'
 	 */
 	private function getFilter() {
 		static $filter = null;
-
 		// return if already set
 		if ( $filter ) {
 			return $filter;
 		}
-
 		// Default to 'open'
 		$filter = $this->request->get( 'filter' ) ? $this->request->get( 'filter' ) : 'open';
-
 		// check user is logged in if filter requested is 'mine', if not, use 'open' by default
 		if ( $filter === 'mine' && !$this->getUsername() ) {
 			$this->flashNow( 'warning', 'You must be logged in to view your own reviews.' );
@@ -285,31 +274,28 @@ class CopyPatrol extends Controller {
 				$filter = 'open';  // Set to default
 			}
 		}
-
 		return $filter;
 	}
 
 	/**
 	 * Get the current available filter types
+	 *
 	 * @return array Associative array by filter code and filter description.
 	 *   The description is used as the labels of the radio buttons in the view.
 	 */
 	protected function getFilterTypes() {
 		static $filterTypes = null;
-
 		if ( $filterTypes === null ) {
 			$filterTypes = [
 				'all' => 'All cases',
 				'open' => 'Open cases',
 				'reviewed' => 'Reviewed cases'
 			];
-
 			// add 'My reviews' to filter options if user is logged in
 			if ( $this->getUsername() ) {
 				$filterTypes['mine'] = 'My reviews';
 			}
 		}
-
 		return $filterTypes;
 	}
 
@@ -320,12 +306,10 @@ class CopyPatrol extends Controller {
 	 */
 	private function getUserWhitelist() {
 		static $whitelist = null;
-
 		// don't re-fetch the whitelist over and over
 		if ( $whitelist !== null ) {
 			return $whitelist;
 		}
-
 		// connect to Redis
 		$redis = new \Redis();
 		$redis->connect(
@@ -333,10 +317,8 @@ class CopyPatrol extends Controller {
 			Config::getStr( 'REDIS_PORT' )
 		);
 		$redisKey = 'copypatrol-user-whitelist';
-
 		// Get whitelist from Redis
 		$redisValue = $redis->get( $redisKey );
-
 		// Redis will retrun false if it does not exist
 		if ( $redisValue ) {
 			// set static $whitelist
@@ -344,7 +326,6 @@ class CopyPatrol extends Controller {
 		} else {
 			// It doesn't exist or it expired, so fetch from wiki page
 			$whitelist = $this->enwikiDao->getUserWhitelist();
-
 			// Store in redis, 'nx' tells it to override value if it exist
 			// Caching set to two hours in seconds ( 2 * 60 * 60 )
 			// Must be serialized or else the array would be stored as the string 'Array'
@@ -354,7 +335,6 @@ class CopyPatrol extends Controller {
 				[ 'nx', 'ex' => 2 * 60 * 60 ]
 			);
 		}
-
 		return $whitelist;
 	}
 
@@ -372,7 +352,6 @@ class CopyPatrol extends Controller {
 		$drafts = $this->request->get( 'drafts' ) ? '1' : null;
 		$wikiprojects = null; // for the server and use in SQL
 		$wikiprojectsArray = []; // for the clientside and showing <option>s in Select2 control
-
 		// account for empty URL param, e.g. wikiprojects= (no value set)
 		if ( $this->request->get( 'wikiprojects' ) && $this->request->get( 'wikiprojects' ) !== '' ) {
 			// WikiProjects are submitted like 'Medicine|Military_History|Something'
@@ -381,10 +360,8 @@ class CopyPatrol extends Controller {
 			$wikiprojects = $this->request->get( 'wikiprojects' );
 			$wikiprojectsArray = explode( '|', $wikiprojects );
 		}
-
 		// make this easier when working locally
 		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 10 : 50;
-
 		// compile all options in an array
 		$options = [
 			'filter' => $filter,
@@ -392,12 +369,10 @@ class CopyPatrol extends Controller {
 			'drafts' => $drafts,
 			'wikiprojects' => $wikiprojects
 		];
-
 		// filter by current user if they are logged and the filter is 'mine'
 		if ( $filter === 'mine' && isset( $filterUser ) ) {
 			$options['filter_user'] = $filterUser;
 		}
-
 		$this->view->set( 'filter', $filter );
 		$this->view->set( 'drafts', $drafts );
 		$this->view->set( 'wikiprojects', $wikiprojects );
@@ -496,20 +471,18 @@ class CopyPatrol extends Controller {
 
 	/**
 	 * Get URLs and scores for the copyvio sources
+	 *
 	 * @param $text string Blob from db
 	 * @return array Associative array with URLs and scores
 	 */
 	public function getSources( $text ) {
 		// matches '[new line] ... (digits followed by %) (digits) ... (the URL)[word break]'
 		preg_match_all( '#\n\*.*?(\d+%)\s+(\d+).*?\b(https?://[^\s()<>]+)\b#', $text, $matches );
-
 		// sometimes no URLs are given at all, or they are invalid. If so just return empty array
 		if ( !$matches[0] ) {
 			return [];
 		}
-
 		$sources = [];
-
 		// $matches is an array containing an array of percentages, counts and urls
 		// Here we collect them so that each index in $sources represents a single entity
 		foreach ( $matches[1] as $index => $percentage ) {
@@ -519,7 +492,6 @@ class CopyPatrol extends Controller {
 				'url' => $matches[3][$index]
 			];
 		}
-
 		return $sources;
 	}
 }

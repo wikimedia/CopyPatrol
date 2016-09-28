@@ -68,11 +68,11 @@
 					$reviewerNode.find( '.reviewer-timestamp' ).text( ret.timestamp );
 					$reviewerNode.fadeIn( 'slow' );
 				} else if ( ret.error === 'Unauthorized' ) {
-					window.alert( 'You need to be logged in to be able to review.' );
+					window.alert( jsUnauthorized );
 					// go back to initial state
 					setReviewState( id, 'open' );
 				} else {
-					window.alert( 'There was an error in connecting to database.' );
+					window.alert( jsDbError );
 					setReviewState( id, 'open' );
 				}
 
@@ -99,10 +99,10 @@
 					$reviewerNode.fadeOut( 'slow' );
 					setReviewState( id, 'open' );
 				} else if ( ret.error === 'db-error' ) {
-					window.alert( 'There was an error in connecting to database.' );
+					window.alert( jsDbError );
 					setReviewState( id, oldStatus ); // revert back to old state
 				} else {
-					window.alert( 'You can only undo your own reviews.' );
+					window.alert( jsUndoOwnOnly );
 					setReviewState( id, oldStatus );
 				}
 
@@ -145,11 +145,11 @@
 				if ( $newRecords.find( '.js-record' ).length ) {
 					$( '.record-container' ).append( $newRecords.html() );
 				} else {
-					$( '.js-load-more' ).replaceWith( '<p>No more records!</p>' );
+					$( '.js-load-more' ).replaceWith( '<p>' + jsNoMore + '</p>' );
 				}
 			} ).fail( function () {
-				alert( 'An unknown error occurred when loading results. Please try again.' );
-				$( '#btn-load-more' ).text( 'Load More' ).removeClass( 'btn-loading' );
+				alert( jsUnknownError );
+				$( '#btn-load-more' ).text( jsLoadMore ).removeClass( 'btn-loading' );
 			} );
 		}
 
@@ -201,7 +201,7 @@
 						}
 					} else {
 						// use API-provided error message, otherwise a blanket unknown error message as it could be unrelated to the API
-						var errorMessage = ret.error && ret.error.info ? ret.error.info : 'An unknown error occurred.';
+						var errorMessage = ret.error && ret.error.info ? ret.error.info : jsUnknownError;
 						$( compareDiv ).find( '.compare-pane-body' ).html( '<span class="text-danger">' + errorMessage + '</span>' );
 					}
 				} );
@@ -222,7 +222,7 @@
 					url: 'https://en.wikipedia.org/w/api.php',
 					dataType: 'jsonp',
 					delay: 200,
-					data: function( search ) {
+					data: function ( search ) {
 						return {
 							action: 'opensearch',
 							namespace: '4',
@@ -232,22 +232,22 @@
 						}
 					},
 					// format API data in the way Select2 wants it
-					processResults: function( data ) {
+					processResults: function ( data ) {
 						var results = data[1];
 						return {
-							results: results.map( function( elem ) {
+							results: results.map( function ( elem ) {
 								var title = elem.replace( /^Wikipedia:WikiProject /, '' );
 								// don't show WikiProject subpages
 								return !/\//g.test( title ) ? {
 									id: title.replace( / /g, '_' ),
 									text: title
 								} : {};
-							})
+							} )
 						};
 					},
 					cache: true
 				},
-				placeholder: 'Type WikiProject names...',
+				placeholder: formWikiprojectsPlaceholder,
 				maximumSelectionLength: 10,
 				minimumInputLength: 1
 			};

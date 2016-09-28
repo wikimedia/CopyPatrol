@@ -3,7 +3,7 @@
 
 {% macro reviewer_node( row ) %}
 	<div class="status-div-reviewer{{ row.status_user ? '': ' none' }} status-div-reviewer-{{ row.ithenticate_id }}">
-		<small>Reviewed by
+		<small>{{ 'review-by'|message }}
 			<span>
 				<a class="reviewer-link" href="{{ row.reviewed_by_url }}" target="_blank">{{ row.status_user }}</a>
 			</span><br/>
@@ -22,24 +22,29 @@
 					{# Div for page title #}
 					<div class="row-div col-sm-3 page-div">
 						<strong>
-							<a href='{{ row.page_link }}' target="_blank" class="{{ row.page_dead ? 'text-danger' : '' }}">{{ row.page_title }}</a>
+							<a href='{{ row.page_link }}' target="_blank"
+							   class="{{ row.page_dead ? 'text-danger' : '' }}">{{ row.page_title }}</a>
 						</strong>
 						<div class="small">
-							<a href='{{ row.history_link }}' target="_blank" class="{{ row.page_dead ? 'text-danger' : '' }}">History</a>
+							<a href='{{ row.history_link }}' target="_blank"
+							   class="{{ row.page_dead ? 'text-danger' : '' }}">{{ 'history'|message }}</a>
 						</div>
 					</div>
 					{# Div for diff information and link #}
 					<div class="row-div col-sm-2 text-center diff-div">
-						<a href='{{ row.diff_link }}' target="_blank" class="{{ row.page_dead ? 'text-danger' : '' }}">Diff</a>
+						<a href='{{ row.diff_link }}' target="_blank"
+						   class="{{ row.page_dead ? 'text-danger' : '' }}">{{ 'diff'|message }}</a>
 						<br/>
 						<small class="diff-div-timestamp">
 							<time datetime="{{ row.diff_timestamp }}">{{ row.diff_timestamp }}</time>
 						</small>
 						{% if row.oresScore is not empty %}
-						<br/>
-						<small class="diff-div-ores">
-							<a href="https://meta.wikimedia.org/wiki/Objective_Revision_Evaluation_Service" target="_blank">ORES</a> score: {{ row.oresScore }}%
-						</small>
+							<br/>
+							<small class="diff-div-ores">
+								<a href="https://meta.wikimedia.org/wiki/Objective_Revision_Evaluation_Service" target="_blank">
+									{{ 'record-ores'|message( row.oresScore )|raw }}%
+								</a>
+							</small>
 						{% endif %}
 					</div>
 					{# Div for editor information #}
@@ -50,21 +55,20 @@
 							<br/>
 							<small>
 								<a href='{{ row.editor_talk }}' class="{{ row.editor_talk_dead ? 'text-danger' : '' }}"
-								   target="_blank">Talk</a>
+								   target="_blank">{{ 'talk' | message }}</a>
 								|
 								<a href='{{ row.editor_contribs }}' target="_blank">
-									Contributions
+									{{ 'contribs' | message }}
 								</a>
 								{% if row.editcount %}
-									<div>Edit count: {{ row.editcount | number_format }}</div>
+									<div>{{ 'record-editcount' | message }} {{ row.editcount | number_format }}</div>
 								{% endif %}
 							</small>
 						{% else %}
 							<span class="glyphicon glyphicon-exclamation-sign"></span>
 							<div class="text-muted" data-toggle="tooltip" data-placement="bottom"
-							     title="The revision may have been deleted or the data is not yet available in Labs database."
-							>
-								Editor not found
+							     title="{{ 'record-noeditor-tooltip'|message }}">
+								{{ 'record-noeditor'|message }}
 							</div>
 						{% endif %}
 					</div>
@@ -79,16 +83,14 @@
 						<button data-id="{{ row.ithenticate_id }}"
 						        data-status="fixed"
 						        class="btn btn-success btn-block btn-fixed js-save-state {{ user ? 'clickable' : '' }}"
-						        title="The edit was a copyright violation and has been reverted"
-						>
-							Page fixed
+						        title="{{ 'review-fixed-tooltip'|message }}">
+							{{ 'review-fixed'|message }}
 						</button>
 						<button data-id="{{ row.ithenticate_id }}"
 						        data-status="false"
 						        class="btn btn-danger btn-block btn-no-action js-save-state {{ user ? 'clickable' : '' }}"
-						        title="The edit is a false positive, nothing needs to be done"
-						>
-							No action needed
+						        title="{{ 'review-false-tooltip'|message }}">
+							{{ 'review-false'|message }}
 						</button>
 						{{ macros.reviewer_node( row ) }}
 					</div>
@@ -100,24 +102,23 @@
 							<div class="compare-div ellipsis">
 								<button class="btn btn-xs btn-primary dropdown-toggle compare-button js-compare-button"
 								        data-id="{{ row.ithenticate_id }}" data-index="{{ loop.index }}"
-								        data-copyvio="{{ copy.url }}" data-diffId="{{ row.diff }}"
-								>
+								        data-copyvio="{{ copy.url }}" data-diffId="{{ row.diff }}">
 									<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-									Compare
+									{{ 'compare' | message }}
 								</button>
-								{{ copy.percentage }} of edit ({{ copy.count | number_format }} words)
+								{{ 'record-url-text' | message( copy.percentage, copy.count | number_format ) }}
 								<a href="{{ copy.url }}" target="_blank">{{ copy.url }}</a><br/>
 								<div class="compare-pane" id="{{ 'comp' ~ row.ithenticate_id ~ '-' ~ loop.index }}">
 									<div class="compare-pane-left">
-										<h4 class="compare-pane-title">Article</h4>
+										<h4 class="compare-pane-title">{{ 'article' | message }}</h4>
 										<div class="compare-pane-left-body compare-pane-body">
-											<span class="text-muted">Loading article revision...</span>
+											<span class="text-muted">{{ 'compare-article-loading' | message }}</span>
 										</div>
 									</div>
 									<div class="compare-pane-right">
-										<h4 class="compare-pane-title">Source</h4>
+										<h4 class="compare-pane-title">{{ 'source' | message }}</h4>
 										<div class="compare-pane-right-body compare-pane-body">
-											<span class="text-muted">Loading possible copyvio source...</span>
+											<span class="text-muted">{{ 'compare-source-loading' | message }}</span>
 										</div>
 									</div>
 								</div>
@@ -126,7 +127,7 @@
 					{% endif %}
 					<a class="btn btn-xs btn-primary compare-button" href='{{ row.turnitin_report }}' target="_blank">
 						<span class="glyphicon glyphicon-new-window"></span>
-						iThenticate report
+						{{ 'record-ithenticate' | message }}
 					</a>
 				</div>
 			</article>
