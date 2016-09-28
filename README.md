@@ -17,14 +17,14 @@ This is a web interface for [Plagiabot's Copyright RC feed](https://en.wikipedia
 	* DB_PASS
 3. Rewrite your routing locally, if needed
 
-This application makes of use [Wikimedia-slimapp](https://github.com/wikimedia/wikimedia-slimapp) library and uses Twig as its templating library.
+This application makes of use the [Wikimedia-slimapp](https://github.com/wikimedia/wikimedia-slimapp) library and uses Twig as its templating engine.
 
 ##### To add a new translation message:
 1. Add it to en.json
-2. Call it in Twig as <code>{{ '<message-key>'|message }}</code>. If the message contains any html, you need to add the <code>|raw</code> param after 'message'.
-3. To use a translation message in JS, add it as a JS var in templates/base.html. Then simply access it in JS.
-4. To call it in PHP:
-	<code>$this->i18nContext->message( '<message-key>' )</code>
+2. Update the qqq.json documentation accordingly
+3. Call it in Twig as `{{ '<message-key>'|message }}`. If the message contains any HTML, you'll need to append the `|raw` filter after `message`.
+4. To use a translation message in JavaScript, add it as a global variable in `templates/base.html`. Then simply access it in the JS.
+5. To get a message in PHP, use `$this->i18nContext->message( '<message-key>' )`
 
 
 
