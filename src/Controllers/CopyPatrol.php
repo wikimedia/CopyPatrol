@@ -306,34 +306,21 @@ class CopyPatrol extends Controller {
 	 */
 	private function getUserWhitelist() {
 		static $whitelist = null;
-		// don't re-fetch the whitelist over and over
+		// Don't re-fetch the whitelist over and over.
 		if ( $whitelist !== null ) {
 			return $whitelist;
 		}
-		// connect to Redis
-		$redis = new \Redis();
-		$redis->connect(
-			Config::getStr( 'REDIS_HOST' ),
-			Config::getStr( 'REDIS_PORT' )
-		);
-		$redisKey = 'copypatrol-user-whitelist';
-		// Get whitelist from Redis
-		$redisValue = $redis->get( $redisKey );
-		// Redis will retrun false if it does not exist
-		if ( $redisValue ) {
-			// set static $whitelist
-			$whitelist = unserialize( $redisValue );
+		// Get whitelist from the cache if possible.
+		$cacheKey = 'copypatrol_user_whitelist';
+		$cacheItem = $this->cache->getItem($cacheKey);
+		if ($cacheItem->isHit()) {
+			$whitelist = $cacheItem->get($cacheKey);
 		} else {
-			// It doesn't exist or it expired, so fetch from wiki page
+			// It doesn't exist or it expired, so fetch from wiki page.
 			$whitelist = $this->enwikiDao->getUserWhitelist();
-			// Store in redis, 'nx' tells it to override value if it exist
-			// Caching set to two hours in seconds ( 2 * 60 * 60 )
-			// Must be serialized or else the array would be stored as the string 'Array'
-			$redis->set(
-				$redisKey,
-				serialize( $whitelist ),
-				[ 'nx', 'ex' => 2 * 60 * 60 ]
-			);
+			// Store in the cache for 2 hours.
+			$cacheItem->set( $whitelist )->expiresAfter( 2 * 60 * 60 );
+			$this->cache->save($cacheItem);
 		}
 		return $whitelist;
 	}

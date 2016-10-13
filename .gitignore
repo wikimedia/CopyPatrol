@@ -1,5 +1,6 @@
 .DS_Store
 .lighttpd.conf
+.htaccess
 .viminfo
 .my.cnf
 .env
@@ -8,6 +9,7 @@
 *.log
 tmp/
 /vendor/
+/cache/
 src/Less/cache/*
 fill_patroller/
 flask-mwoauth/
