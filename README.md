@@ -9,9 +9,9 @@ This is a web interface for [Plagiabot's Copyright RC feed](https://en.wikipedia
    1. Get Oauth tokens by registering a new consumer on Meta
       at [Special:OAuthConsumerRegistration](https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration).
    2. To use Redis caching, also add `REDIS_HOST` and `REDIS_PORT`;
-      without these, a local filesystem cache will be used
-      (in the `cache/` directory, which you may have to create);
-5. Rewrite your routing, if needed.
+      without these, a local filesystem cache will be used.
+3. Make the `cache/` directory writable by the web server.
+4. Rewrite your routing, if needed.
    For Lighttpd, use this in your `.lighttpd.conf`:
    ```
    url.rewrite-if-not-file += ( "(.*)" => "/copypatrol/index.php/$0" )
@@ -23,17 +23,10 @@ This is a web interface for [Plagiabot's Copyright RC feed](https://en.wikipedia
    RewriteCond %{REQUEST_FILENAME} !-f
    RewriteRule ^public_html(.*)$ public_html/index.php$1 [L]
    ```
-6. Open up an SSH tunnel to access the databases on Tool Labs (substitute your own username).
+5. Open up an SSH tunnel to access the databases on Tool Labs (substitute your own username).
    ```
    $ ssh -L 4711:enwiki.labsdb:3306 YOU@tools-login.wmflabs.org -N 
    ```
-7. Set up a local copy of the 'copyright' database (substitute your own usernames):
-   ```
-   $ mysqldump -u LABSYOU -p -P 4711 -h 127.0.0.1 --skip-lock-tables s51306__copyright_p > copyright.sql
-   $ mysql -u LOCALYOU -p -e "CREATE DATABASE copypatrol_dev;"
-   $ mysql -u LOCALYOU -p copypatrol_dev < copyright.sql
-   ```
-   Use `--skip-create-options` for the dump if you're restoring to MySQL rather than MariaDB.
 
 This application makes of use the [Wikimedia-slimapp](https://github.com/wikimedia/wikimedia-slimapp) library and uses Twig as its templating engine.
 
