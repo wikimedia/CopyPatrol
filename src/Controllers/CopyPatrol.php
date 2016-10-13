@@ -312,15 +312,15 @@ class CopyPatrol extends Controller {
 		}
 		// Get whitelist from the cache if possible.
 		$cacheKey = 'copypatrol_user_whitelist';
-		$cacheItem = $this->cache->getItem($cacheKey);
-		if ($cacheItem->isHit()) {
-			$whitelist = $cacheItem->get($cacheKey);
+		$cacheItem = $this->cache->getItem( $cacheKey );
+		if ( $cacheItem->isHit() ) {
+			$whitelist = $cacheItem->get( $cacheKey );
 		} else {
 			// It doesn't exist or it expired, so fetch from wiki page.
 			$whitelist = $this->enwikiDao->getUserWhitelist();
 			// Store in the cache for 2 hours.
 			$cacheItem->set( $whitelist )->expiresAfter( 2 * 60 * 60 );
-			$this->cache->save($cacheItem);
+			$this->cache->save( $cacheItem );
 		}
 		return $whitelist;
 	}

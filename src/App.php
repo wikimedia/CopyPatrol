@@ -140,7 +140,7 @@ class App extends AbstractApp {
 			} else {
 				$driver = new FileSystem( [ 'path' => APP_ROOT . '/cache' ] );
 			}
-			$cache->setDriver($driver);
+			$cache->setDriver( $driver );
 			return $cache;
 		} );
 	}
