@@ -3,6 +3,18 @@
 	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/CopyPatrol">{{ 'documentation' | message }}</a>
 	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/Talk:CopyPatrol">{{ 'feedback' | message | raw }}</a>
 	<a class="header-link" href="{{ urlFor( 'leaderboard', {lang:lang} ) }}">{{ 'leaderboard' | message }}</a>
+
+	<div id="lang-selector" class="dropdown">
+		<a href="#" class="dropdown-toggle header-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+			{{ 'switch-language' | message }} <span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			{% for l in i18nCtx.availableLanguages %}
+			<li><a href="{{ urlFor( 'home', {lang:l} ) }}">{{l}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+
 	{% if user %}
 		<a href="{{ urlFor( 'logout' ) }}" id="login-btn" class="btn btn-sm btn-default {{ user ? 'logged-in' : '' }}">
 			<span class=" glyphicon glyphicon-log-in"></span> {{ 'logout' | message }}<br>

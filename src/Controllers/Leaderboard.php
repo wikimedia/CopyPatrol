@@ -47,7 +47,7 @@ class Leaderboard extends Controller {
 	protected function handleGet() {
 		$data = $this->dao->getLeaderboardData( $this->wikiDao->getLang() );
 		$this->view->set( 'data', $data );
-		$this->view->set( 'wikiDao', $this->slim->wikiDao );
+		$this->view->set( 'lang', $this->wikiDao->getLang() );
 		$this->render( 'leaderboard.html' );
 	}
 }

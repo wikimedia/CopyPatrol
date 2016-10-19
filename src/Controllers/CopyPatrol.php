@@ -201,7 +201,7 @@ class CopyPatrol extends Controller {
 				$records[$key]['reviewed_by_url'] = $this->getUserPage( $record['status_user'] );
 				$records[$key]['review_timestamp'] = $this->formatTimestamp( $record['review_timestamp'] );
 			}
-			$records[$key]['wikiprojects'] = $this->plagiabotDao->getWikiProjects( $record['page_title'] );
+			$records[$key]['wikiprojects'] = $this->dao->getWikiProjects( $record['page_title'] );
 			$records[$key]['page_title'] = $this->removeUnderscores( $record['page_title'] );
 			$cleanWikiprojects = [];
 			foreach ( $records[$key]['wikiprojects'] as $k => $wp ) {
@@ -239,7 +239,7 @@ class CopyPatrol extends Controller {
 	 * @param int $ithenticateId ID of record to review
 	 */
 	private function autoReview( $ithenticateId ) {
-		$this->plagiabotDao->insertCopyvioAssessment(
+		$this->dao->insertCopyvioAssessment(
 			$ithenticateId,
 			'false',
 			'Community Tech bot',
