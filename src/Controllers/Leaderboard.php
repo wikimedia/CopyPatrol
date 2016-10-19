@@ -21,16 +21,23 @@
  */
 namespace Plagiabot\Web\Controllers;
 
+use Plagiabot\Web\Dao\PlagiabotDao;
+use Slim\Slim;
 use Wikimedia\Slimapp\Controller;
 
 class Leaderboard extends Controller {
 
 	/**
-	 * @param \Slim\Slim $slim Slim application
+	 * @var PlagiabotDao
 	 */
-	public function __construct( \Slim\Slim $slim = null, $wiki = 'https://en.wikipedia.org' ) {
+	protected $dao;
+
+	/**
+	 * @param Slim $slim Slim application
+	 */
+	public function __construct( Slim $slim = null, $lang = 'en' ) {
 		parent::__construct( $slim );
-		$this->wikipedia = $slim->config( 'url' );
+		$this->lang = $lang;
 	}
 
 	/**
@@ -38,9 +45,9 @@ class Leaderboard extends Controller {
 	 * @return null nothing
 	 */
 	protected function handleGet() {
-		$data = $this->dao->getLeaderboardData();
+		$data = $this->dao->getLeaderboardData( $this->wikiDao->getLang() );
 		$this->view->set( 'data', $data );
-		$this->view->set( 'wiki', $this->wikipedia );
+		$this->view->set( 'wikiDao', $this->slim->wikiDao );
 		$this->render( 'leaderboard.html' );
 	}
 }

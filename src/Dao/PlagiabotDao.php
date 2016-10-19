@@ -26,27 +26,6 @@ use Wikimedia\Slimapp\Dao\AbstractDao;
 class PlagiabotDao extends AbstractDao {
 
 	/**
-	 * @var int $wikipedia String wikipedia url (enwiki by default)
-	 */
-	protected $wikipedia;
-
-	/**
-	 * @param string $dsn PDO data source name
-	 * @param string $user Database user
-	 * @param string $pass Database password
-	 * @param string $wiki Wikipedia URL
-	 * @param array $settings Configuration settings
-	 * @param LoggerInterface $logger Log channel
-	 */
-	public function __construct(
-		$dsn, $user, $pass,
-		$wiki = 'https://en.wikipedia.org', $settings = null, $logger = null
-	) {
-		parent::__construct( $dsn, $user, $pass, $logger );
-		$this->wikipedia = $wiki;
-	}
-
-	/**
 	 * @param int $n Number of records asked for
 	 * @param array $options filter and filter user options, should look like:
 	 *   string 'filter' Filter SQL to show a certian status, one of 'all',
@@ -58,6 +37,7 @@ class PlagiabotDao extends AbstractDao {
 	 *   integer 'last_id' offset of where to start fetching records, going by
 	 *     'ithenticate_id'
 	 *   string 'wikiprojects' pipe-separated list of wikiprojects
+	 *   string 'lang' The language code
 	 * @return array|false Data for plagiabot db records or false if no data
 	 *   is not returned
 	 */
@@ -69,6 +49,7 @@ class PlagiabotDao extends AbstractDao {
 		$filter = isset( $options['filter'] ) ? $options['filter'] : 'all';
 		$filterUser = isset( $options['filter_user'] ) ? $options['filter_user'] : null;
 		$wikiprojects = isset( $options['wikiprojects'] ) ? $options['wikiprojects'] : null;
+		$lang = isset( $options['lang'] ) ? $options['lang'] : 'en';
 		$preparedParams = [];
 
 		// ensures only valid filters are used
@@ -113,6 +94,10 @@ class PlagiabotDao extends AbstractDao {
 			$filters[] = "wp_project IN ($bindParams)";
 		}
 
+		// Only fetch entries from the required language Wikipedia.
+		$filters[] = "lang = :lang";
+		$preparedParams['lang'] = $lang;
+
 		// show only records after June 20, 2016; See phab:T138317
 		$filters[] = "diff_timestamp > 20160620000000";
 
@@ -130,31 +115,51 @@ class PlagiabotDao extends AbstractDao {
 			'LIMIT ' . $n
 		);
 
+		//var_dump($sql, $preparedParams);exit();
+
 		return $this->fetchAll( $sql, $preparedParams );
 	}
 
 	/**
 	 * Get the top reviewers over the past last 7 days, 30 days, and all-time
+	 * @param string $lang The language code of the Wikipedia in use.
 	 * @return array Associative array of leaderboard data
 	 */
-	public function getLeaderboardData() {
+	public function getLeaderboardData( $lang ) {
 		$lastWeek = $this->fetchAll(
-			$this->getLeaderboardSql( '7' )
+			$this->getLeaderboardSql( '7', $lang ), [ 'lang' => $lang ]
 		);
-
 		$lastMonth = $this->fetchAll(
-			$this->getLeaderboardSql( '30' )
+			$this->getLeaderboardSql( '30', $lang ), [ 'lang' => $lang ]
 		);
-
 		$allTime = $this->fetchAll(
-			$this->getLeaderboardSql()
+			$this->getLeaderboardSql( null, $lang ), [ 'lang' => $lang ]
 		);
-
 		return [
 			'last-week' => $lastWeek,
 			'last-month' => $lastMonth,
 			'all-time' => $allTime
 		];
+	}
+
+	/**
+	 * Get SQL for leaderboard
+	 * @param integer $offset Number of days from present to query for. Leave null for all-time
+	 * @param string $lang The language code.
+	 * @return string the SQL
+	 */
+	private function getLeaderboardSql( $offset = null, $lang = 'en' ) {
+		return self::concat(
+			'SELECT status_user AS \'user\', COUNT(*) as \'count\'',
+			'FROM copyright_diffs',
+			'WHERE status_user IS NOT NULL',
+			'AND status_user != "Community Tech bot"',
+			$offset ? 'AND review_timestamp > ADDDATE(CURRENT_DATE, -' . $offset . ')' : '',
+			'AND lang = :lang',
+			'GROUP BY status_user',
+			'ORDER BY COUNT(*) DESC',
+			'LIMIT 10'
+		);
 	}
 
 	/**
@@ -188,24 +193,6 @@ class PlagiabotDao extends AbstractDao {
 		// Return alphabetized list
 		sort( $data );
 		return $data;
-	}
-
-	/**
-	 * Get SQL for leaderboard
-	 * @param $offset number of days from present to query for. Leave null for all-time
-	 * @return string the SQL
-	 */
-	private function getLeaderboardSql( $offset = null ) {
-		return self::concat(
-			'SELECT status_user AS \'user\', COUNT(*) as \'count\'',
-			'FROM copyright_diffs',
-			'WHERE status_user IS NOT NULL',
-			'AND status_user != "Community Tech bot"',
-			$offset ? 'AND review_timestamp > ADDDATE(CURRENT_DATE, -' . $offset . ')' : '',
-			'GROUP BY status_user',
-			'ORDER BY COUNT(*) DESC',
-			'LIMIT 10'
-		);
 	}
 
 	/**

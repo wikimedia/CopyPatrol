@@ -1,8 +1,8 @@
 <header class="app-header">
-	<a href="{{ siteUrl( '' ) }}"><img src="{{ siteUrl( 'images/copypatrol.png' ) }}"/></a>
+	<a href="{{ urlFor( 'home', {lang:lang} ) }}"><img src="{{ siteUrl( 'images/copypatrol.png' ) }}"/></a>
 	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/CopyPatrol">{{ 'documentation' | message }}</a>
 	<a class="header-link" target="_blank" href="https://meta.wikimedia.org/wiki/Talk:CopyPatrol">{{ 'feedback' | message | raw }}</a>
-	<a class="header-link" href="{{ siteUrl( 'leaderboard' ) }}">{{ 'leaderboard' | message }}</a>
+	<a class="header-link" href="{{ urlFor( 'leaderboard', {lang:lang} ) }}">{{ 'leaderboard' | message }}</a>
 	{% if user %}
 		<a href="{{ urlFor( 'logout' ) }}" id="login-btn" class="btn btn-sm btn-default {{ user ? 'logged-in' : '' }}">
 			<span class=" glyphicon glyphicon-log-in"></span> {{ 'logout' | message }}<br>

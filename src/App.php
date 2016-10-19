@@ -22,6 +22,14 @@
  */
 namespace Plagiabot\Web;
 
+use Plagiabot\Web\Controllers\AddReview;
+use Plagiabot\Web\Controllers\AuthHandler;
+use Plagiabot\Web\Controllers\CopyPatrol;
+use Plagiabot\Web\Controllers\Leaderboard;
+use Plagiabot\Web\Controllers\UndoReview;
+use Plagiabot\Web\Dao\PlagiabotDao;
+use Plagiabot\Web\Dao\WikiDao;
+use Slim\Slim;
 use Stash\Driver\FileSystem;
 use Stash\Driver\Redis;
 use Stash\Pool;
@@ -32,14 +40,19 @@ use Less_Cache;
 use Wikimedia\SimpleI18n\I18nContext;
 use Wikimedia\SimpleI18n\JsonCache;
 
+/**
+ * The main CopyPatrol application.
+ *
+ * @package CopyPatrol
+ */
 class App extends AbstractApp {
 
 	/**
 	 * Apply settings to the Slim application.
 	 *
-	 * @param \Slim\Slim $slim Application
+	 * @param Slim $slim Application
 	 */
-	protected function configureSlim( \Slim\Slim $slim ) {
+	protected function configureSlim( Slim $slim ) {
 		$slim->config( [
 			'displayErrorDetails' => true,
 			'debug' => true,
@@ -49,18 +62,50 @@ class App extends AbstractApp {
 			'oauth.endpoint' => Config::getStr( 'OAUTH_ENDPOINT' ),
 			'oauth.redir' => Config::getStr( 'OAUTH_REDIR' ),
 			'oauth.callback' => Config::getStr( 'OAUTH_CALLBACK' ),
-			'lang' => Config::getStr( 'LANG' ),
-			'url' => 'https://' . Config::getStr( 'LANG' ) . '.wikipedia.org',
-			'db.dsnwiki' => Config::getStr( 'DB_DSN_WIKI' ),
-			'db.dsnpl' => Config::getStr( 'DB_DSN_PLAGIABOT' ),
+			'db.host' => Config::getStr( 'DB_HOST', 'localhost' ),
+			'db.port' => Config::getStr( 'DB_PORT', '3306' ),
 			'db.user' => Config::getStr( 'DB_USER' ),
 			'db.pass' => Config::getStr( 'DB_PASS' ),
+			'db.name.copypatrol' => Config::getStr( 'DB_NAME_COPYPATROL' ),
 			'templates.path' => APP_ROOT . '/public_html/templates',
 			'i18n.path' => APP_ROOT . '/public_html/i18n',
 		] );
+	}
 
+	/**
+	 * Get a WikiDao based on the given language.
+	 * @param string $lang The language code of the required Wikipedia.
+	 * @return WikiDao
+	 */
+	protected function getWikiDao( $lang ) {
+		if ($this->slim->wikiDao instanceof WikiDao) {
+			return $this->slim->wikiDao;
+		}
+		$this->slim->wikiDao = WikiDao::newFromLangCode(
+			$lang,
+			$this->slim->settings['db.host'],
+			$this->slim->settings['db.port'],
+			$this->slim->settings['db.user'],
+			$this->slim->settings['db.pass']
+		);
+		return $this->slim->wikiDao;
+	}
 
-
+	/**
+	 * Get a PlagiabotDao.
+	 * @return PlagiabotDao
+	 */
+	protected function getPlagiabotDao() {
+		if ($this->slim->plagiabotDao instanceof PlagiabotDao) {
+			return $this->slim->plagiabotDao;
+		}
+		$dsn = "mysql:host=".$this->slim->settings['db.host'].";"
+		       ."port=".$this->slim->settings['db.port'].";"
+		       ."dbname=".$this->slim->settings['db.name.copypatrol'];
+		$user = $this->slim->settings['db.user'];
+		$password = $this->slim->settings['db.pass'];
+		$this->slim->plagiabotDao = new PlagiabotDao( $dsn, $user, $password );
+		return $this->slim->plagiabotDao;
 	}
 
 	/**
@@ -92,22 +137,6 @@ class App extends AbstractApp {
 			);
 			$client->setCallback( $c->settings['oauth.callback'] );
 			return $client;
-		} );
-		// Plagiabot DAO
-		$container->singleton( 'plagiabotDao', function ( $c ) {
-			return new Dao\PlagiabotDao(
-				$c->settings['db.dsnpl'],
-				$c->settings['db.user'], $c->settings['db.pass'],
-				$c->settings['url']
-			);
-		} );
-		// Wikipedia DAO
-		$container->singleton( 'wikiDao', function ( $c ) {
-			return new Dao\WikiDao(
-				$c->settings['db.dsnwiki'],
-				$c->settings['db.user'], $c->settings['db.pass'],
-				$c->settings['url']
-			);
 		} );
 		// User manager
 		$container->singleton( 'userManager', function ( $c ) {
@@ -171,9 +200,9 @@ class App extends AbstractApp {
 	/**
 	 * Configure routes to be handled by application.
 	 *
-	 * @param \Slim\Slim $slim Application
+	 * @param Slim $slim Application
 	 */
-	protected function configureRoutes( \Slim\Slim $slim ) {
+	protected function configureRoutes( Slim $slim ) {
 		$middleware = [
 			'must-revalidate' => function () use ( $slim ) {
 				$slim->response->headers->set(
@@ -220,26 +249,33 @@ class App extends AbstractApp {
 				$twig->getExtension( 'core' )->setNumberFormat( 0, $decimal, $thousands );
 			}
 		];
+		$routeConditions = [
+			'lang' => '([a-z]{1,3})'
+		];
 		$slim->group( '/', $middleware['trailing-slash'],
 				$middleware['inject-user'], $middleware['set-environment'],
-			function () use ( $slim, $middleware ) {
-				$slim->get( '/', // $middleware['twig-number-format'],
-					function () use ( $slim ) {
-						$page = new Controllers\CopyPatrol( $slim );
-						$page->setDao( $slim->plagiabotDao );
-						$page->setWikiDao( $slim->wikiDao );
+			function () use ( $slim, $middleware, $routeConditions ) {
+				$slim->get('', function() use ( $slim ) {
+					// Redirect root-URL requests to English.
+					$slim->redirectTo( 'home', [ 'lang'=>'en' ] );
+				});
+				$slim->get( ':lang',
+					function ( $lang ) use ( $slim ) {
+						$page = new CopyPatrol( $slim );
+						$page->setDao( $this->getPlagiabotDao() );
+						$page->setWikiDao( $this->getWikiDao( $lang ) );
 						$page();
-					} )->name( 'home' );
+					} )->name( 'home' )->setConditions( $routeConditions );
 				$slim->get( 'logout', function () use ( $slim ) {
 					$slim->authManager->logout();
 					$slim->redirect( $slim->urlFor( 'home' ) );
 				} )->name( 'logout' );
-				$slim->get( 'loadmore', function () use ( $slim ) {
+				$slim->get( ':lang/loadmore', function ( $lang ) use ( $slim ) {
 					$page = new Controllers\CopyPatrol( $slim );
-					$page->setDao( $slim->plagiabotDao );
-					$page->setWikiDao( $slim->wikiDao );
+					$page->setDao( $this->getPlagiabotDao() );
+					$page->setWikiDao( $this->getWikiDao( $lang ) );
 					$page();
-				} )->name( 'loadmore' );
+				} )->name( 'loadmore' )->setConditions( $routeConditions );
 				$slim->get( 'index.css', function () use ( $slim ) {
 					// Compile LESS if need be, otherwise serve cached asset
 					// Cached files get automatically deleted if they are over a week old
@@ -256,42 +292,45 @@ class App extends AbstractApp {
 		$slim->group( '/review/', $middleware['require-auth'],
 			function () use ( $slim ) {
 				$slim->get( 'add', function () use ( $slim ) {
-					$page = new Controllers\AddReview( $slim );
-					$page->setDao( $slim->plagiabotDao );
+					$page = new AddReview( $slim );
+					$page->setDao( $this->getPlagiabotDao() );
 					$page();
 				} )->name( 'add_review' );
 				$slim->get( 'undo', function () use ( $slim ) {
-					$page = new Controllers\UndoReview( $slim );
-					$page->setDao( $slim->plagiabotDao );
+					$page = new UndoReview( $slim );
+					$page->setDao( $this->getPlagiabotDao() );
 					$page();
 				} )->name( 'undo_review' );
 			} );
 		$slim->group( '/oauth/',
 			function () use ( $slim ) {
 				$slim->get( '', function () use ( $slim ) {
-					$page = new Controllers\AuthHandler( $slim );
+					$page = new AuthHandler( $slim );
 					$page->setOAuth( $slim->oauthClient );
 					$page( 'init' );
 				} )->name( 'oauth_init' );
 				$slim->get( 'callback', function () use ( $slim ) {
-					$page = new Controllers\AuthHandler( $slim );
+					$page = new AuthHandler( $slim );
 					$page->setOAuth( $slim->oauthClient );
 					$page->setUserManager( $slim->userManager );
 					$page( 'callback' );
 				} )->name( 'oauth_callback' );
 			} );
-		$slim->get( '/leaderboard', $middleware['inject-user'], // $middleware['twig-number-format'],
-			function () use ( $slim ) {
-				$page = new Controllers\Leaderboard( $slim );
-				$page->setDao( $slim->plagiabotDao );
-				$page();
-			} )->name( 'leaderboard' );
+		$slim->get( '/:lang/leaderboard', $middleware['inject-user'],
+			function ( $lang ) use ( $slim ) {
+				$leaderboard = new Leaderboard( $slim );
+				//$leaderboard->setLang( $lang );
+				$leaderboard->setDao( $this->getPlagiabotDao() );
+				$this->getWikiDao( $lang );
+				//$leaderboard->setDao( $this->getPlagiabotDao() );
+				$leaderboard();
+			} )->name( 'leaderboard' )->setConditions( $routeConditions);
 	}
 
 	/**
 	 * Customize header middleware for app
 	 *
-	 * @return \Wikimedia\Slimapp\HeaderMiddleware
+	 * @return string[]
 	 */
 	protected function configureHeaderMiddleware() {
 		return [

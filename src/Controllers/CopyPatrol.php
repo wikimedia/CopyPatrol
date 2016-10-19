@@ -21,17 +21,12 @@
  */
 namespace Plagiabot\Web\Controllers;
 
+use Plagiabot\Web\Dao\PlagiabotDao;
+use Plagiabot\Web\Dao\WikiDao;
 use Wikimedia\Slimapp\Controller;
-use Wikimedia\Slimapp\Config;
 use GuzzleHttp;
-use GuzzleHttp\Promise\Promise;
 
 class CopyPatrol extends Controller {
-
-	/**
-	 * @var int $wikipedia String wikipedia url (enwiki by default)
-	 */
-	protected $wikipedia;
 
 	/**
 	* @var string language code for the present wiki
@@ -39,23 +34,19 @@ class CopyPatrol extends Controller {
 	protected $lang;
 
 	/**
-	 * @var $enwikiDao  \Wikimedia\Slimapp\Dao\ object for wiki access
+	 * @var WikiDao The DAO for Wikipedia data access.
 	 */
 	protected $wikiDao;
 
 	/**
-	 * @param \Slim\Slim $slim Slim application
+	 * @var PlagiabotDao The DAO for the CopyPatrol database.
 	 */
-	public function __construct( \Slim\Slim $slim = null, $wiki = 'https://en.wikipedia.org' ) {
-		parent::__construct( $slim );
-		$this->wikipedia = $slim->config( 'url' );
-		$this->lang = $slim->config( 'lang' );
-	}
+	protected $dao;
 
 	/**
-	 * @param mixed $wikiDao
+	 * @param WikiDao $wikiDao
 	 */
-	public function setWikiDao( $wikiDao ) {
+	public function setWikiDao( WikiDao $wikiDao ) {
 		$this->wikiDao = $wikiDao;
 	}
 
@@ -63,13 +54,12 @@ class CopyPatrol extends Controller {
 	 * ORES scores URL
 	 *
 	 * @param array $revs
+	 * @return string The ORES URL.
 	 */
 	public static function oresScoresUrl( array $revs ) {
-		$baseUrl = 'https://ores.wikimedia.org/' .
-				   'v2/scores/enwiki/damaging/?revids=';
-		$x = $baseUrl . implode( '|', $revs );
-		var_dump( $x );
-		return $x;
+		$baseUrl = 'https://ores.wikimedia.org/v2/scores/enwiki/damaging/?revids=';
+		$scoresUrl = $baseUrl . implode( '|', $revs );
+		return $scoresUrl;
 	}
 
 	/**
@@ -133,7 +123,7 @@ class CopyPatrol extends Controller {
 		// first build arrays of diff IDs and page titles so we can use them to make mass queries
 		foreach ( $records as $record ) {
 			$diffIds[] = $record['diff'];
-			// make sure drafts have the namespace prefix
+			// make sure drafts have the namespace prefix. @TODO fix for other languages.
 			if ( $record['page_ns'] == 118 ) {
 				$record['page_title'] = 'Draft:' . $record['page_title'];
 			}
@@ -225,6 +215,7 @@ class CopyPatrol extends Controller {
 			}
 		}
 		$this->view->set( 'records', $records );
+
 		$this->render( 'index.html' );
 	}
 
@@ -327,7 +318,7 @@ class CopyPatrol extends Controller {
 			$whitelist = $cacheItem->get( $cacheKey );
 		} else {
 			// It doesn't exist or it expired, so fetch from wiki page.
-			$whitelist = $this->enwikiDao->getUserWhitelist();
+			$whitelist = $this->wikiDao->getUserWhitelist();
 			// Store in the cache for 2 hours.
 			$cacheItem->set( $whitelist )->expiresAfter( 2 * 60 * 60 );
 			$this->cache->save( $cacheItem );
@@ -374,6 +365,10 @@ class CopyPatrol extends Controller {
 		if ( $filter === 'mine' && isset( $filterUser ) ) {
 			$options['filter_user'] = $filterUser;
 		}
+		// Set the language for the records and the view.
+		$options['lang'] = $this->wikiDao->getLang();
+		$this->view->set( 'lang', $this->wikiDao->getLang() );
+
 		$this->view->set( 'filter', $filter );
 		$this->view->set( 'drafts', $drafts );
 		$this->view->set( 'wikiprojects', $wikiprojects );
@@ -384,21 +379,21 @@ class CopyPatrol extends Controller {
 
 	/**
 	 * @param $page string Page title
-	 * @return string url of wiki page on enwiki
+	 * @return string URL of wiki page on Wikipedia.
 	 */
 	public function getPageLink( $page ) {
-		return $this->wikipedia . '/wiki/' . urlencode( $page );
+		return $this->wikiDao->getWikipediaUrl() . '/wiki/' . urlencode( $page );
 	}
 
 	/**
 	 * @param $page string Page title
 	 * @param $diff string Diff id
-	 * @return string link to diff
+	 * @return string URL of the diff page on Wikipedia.
 	 */
 	public function getDiffLink( $page, $diff ) {
-		return $this->wikipedia .
-			   '/w/index.php?title=' . urlencode( $page ) .
-			   '&diff=' . urlencode( $diff );
+		return $this->wikiDao->getWikipediaUrl()
+		       . '/w/index.php?title=' . urlencode( $page )
+		       . '&diff=' . urlencode( $diff );
 	}
 
 	/**
@@ -433,7 +428,8 @@ class CopyPatrol extends Controller {
 	 * @return string the URL
 	 */
 	public function getHistoryLink( $title ) {
-		return $this->wikipedia . '/wiki/' . urlencode( $title ) . '?action=history';
+		return $this->wikiDao->getWikipediaUrl() . '/wiki/'
+		       . urlencode( $title ) . '?action=history';
 	}
 
 	/**
@@ -444,7 +440,8 @@ class CopyPatrol extends Controller {
 		if ( !$user ) {
 			return false;
 		}
-		return $this->wikipedia . '/wiki/User_talk:' . urlencode( str_replace( ' ', '_', $user ) );
+		$username = str_replace( ' ', '_', $user );
+		return $this->wikiDao->getWikipediaUrl() . '/wiki/User_talk:' . urlencode( $username );
 	}
 
 	/**
@@ -455,7 +452,8 @@ class CopyPatrol extends Controller {
 		if ( !$user ) {
 			return false;
 		}
-		return $this->wikipedia . '/wiki/User:' . urlencode( str_replace( ' ', '_', $user ) );
+		$username = str_replace( ' ', '_', $user );
+		return $this->wikiDao->getWikipediaUrl() . '/wiki/User:' . urlencode( $username );
 	}
 
 	/**
@@ -466,8 +464,8 @@ class CopyPatrol extends Controller {
 		if ( !$user ) {
 			return false;
 		}
-		return $this->wikipedia . '/wiki/Special:Contributions/' .
-			   urlencode( str_replace( ' ', '_', $user ) );
+		return $this->wikiDao->getWikipediaUrl() . '/wiki/Special:Contributions/'
+		       . urlencode( str_replace( ' ', '_', $user ) );
 	}
 
 	/**
