@@ -195,6 +195,7 @@ class App extends AbstractApp {
 			new \Slim\Views\TwigExtension(),
 			new \Wikimedia\SimpleI18n\TwigExtension( $this->slim->i18nContext )
 		];
+		$view->set('langs', $this->getPlagiabotDao()->getLanguages());
 	}
 
 	/**

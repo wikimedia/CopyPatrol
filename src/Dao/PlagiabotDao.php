@@ -230,4 +230,18 @@ class PlagiabotDao extends AbstractDao {
 			'id' => (int)$ithenticateId
 		] );
 	}
+
+	/**
+	 * Get the list of Wikipedias (i.e. languages) that are currently supported by CopyPatrol.
+	 * @return string[] Language codes.
+	 */
+	public function getLanguages() {
+		$sql = "SELECT `lang` FROM `copyright_diffs` GROUP BY `lang`";
+		$langs = $this->fetchAll($sql);
+		$languages = [];
+		foreach ($langs as $l) {
+			$languages[] = $l['lang'];
+		}
+		return $languages;
+	}
 }

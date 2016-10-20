@@ -9,7 +9,7 @@
 			{{ 'switch-language' | message }} <span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">
-			{% for l in i18nCtx.availableLanguages %}
+			{% for l in langs %}
 			<li><a href="{{ urlFor( 'home', {lang:l} ) }}">{{l}}</a></li>
 			{% endfor %}
 		</ul>
