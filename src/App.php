@@ -81,7 +81,8 @@ class App extends AbstractApp {
 			$this->slim->settings['db.host'],
 			$this->slim->settings['db.port'],
 			$this->slim->settings['db.user'],
-			$this->slim->settings['db.pass']
+			$this->slim->settings['db.pass'],
+			$this->slim->log
 		);
 		return $this->slim->wikiDao;
 	}
@@ -99,7 +100,7 @@ class App extends AbstractApp {
 		       ."dbname=".$this->slim->settings['db.name.copypatrol'];
 		$user = $this->slim->settings['db.user'];
 		$password = $this->slim->settings['db.pass'];
-		$this->slim->plagiabotDao = new PlagiabotDao( $dsn, $user, $password );
+		$this->slim->plagiabotDao = new PlagiabotDao( $dsn, $user, $password, $this->slim->log );
 		return $this->slim->plagiabotDao;
 	}
 
@@ -254,7 +255,7 @@ class App extends AbstractApp {
 					// Redirect root-URL requests to English.
 					$currentLang = $slim->i18nContext->getCurrentLanguage();
 					$slim->redirectTo( 'home', [ 'wikiLang' => $currentLang ] );
-				} );
+				} )->name( 'root' );
 				$slim->get( ':wikiLang',
 					function ( $wikiLang ) use ( $slim ) {
 						$page = new CopyPatrol( $slim );
