@@ -45,8 +45,7 @@
 				{% set copypatrol_link %}
 					<a href="https://tools.wmflabs.org/copypatrol/">tools.wmflabs.org/copypatrol</a>
 				{% endset %}
-				<div class="alert alert-danger text-center">{{ 'alert-testing' | message( copypatrol_link ) }}</div>
-				}
+				<div class="alert alert-danger text-center">{{ 'alert-testing' | message( copypatrol_link ) | raw }}</div>
 			{% endif %}
 			{% block flashes %}
 				{% if flash | default(false) %}
