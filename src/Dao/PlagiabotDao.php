@@ -97,7 +97,7 @@ class PlagiabotDao extends AbstractDao {
 		if ( $wikiprojects ) {
 			// All spaces are underscores in the database
 			$wikiprojects = array_map( function ( $wp ) {
-				return 'WikiProject_' . str_replace( ' ', '_', $wp );
+				return str_replace( ' ', '_', $wp );
 			}, explode( '|', $wikiprojects ) );
 
 			$wikiprojectsSql = self::concat(
@@ -166,28 +166,15 @@ class PlagiabotDao extends AbstractDao {
 			'SELECT * FROM wikiprojects',
 			'WHERE wp_page_title = ?'
 		);
-		$result = $this->fetchAll( $query, [ $title ] );
-		$data = [];
-		if ( $result ) {
-			foreach ( $result as $r ) {
-				// Skip projects without 'Wikiproject' in title as they are partnership-based Wikiprojects
-				if ( stripos( $r['wp_project'], 'WikiProject_' ) !== false ) {
-					// Remove "Wikiproject_" part from the string before use
-					$project = substr( $r['wp_project'], 12 );
-					// Remove subprojects
-					if ( stripos( $project, '/' ) !== false ) {
-						$project = substr( $project, 0, stripos( $project, '/' ) );
-					}
-					$data[$project] = true;
-				}
-			}
-		} else {
-			return [];
-		}
-		$data = array_keys( $data );
-		// Return alphabetized list
-		sort( $data );
-		return $data;
+		// extract out the WikiProject names from the result set
+		$wikiprojects = array_column(
+			$this->fetchAll( $query, [ $title ] ),
+			'wp_project'
+		);
+		// sort alphabetically
+		sort( $wikiprojects );
+
+		return $wikiprojects;
 	}
 
 	/**
