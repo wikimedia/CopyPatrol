@@ -37,7 +37,7 @@ class PlagiabotDao extends AbstractDao {
 	 *   integer 'last_id' offset of where to start fetching records, going by
 	 *     'ithenticate_id'
 	 *   string 'wikiprojects' pipe-separated list of wikiprojects
-	 *   string 'lang' The language code
+	 *   string 'wikiLang' The language code of the Wikipedia to query for
 	 * @return array|false Data for plagiabot db records or false if no data
 	 *   is not returned
 	 */
@@ -49,7 +49,7 @@ class PlagiabotDao extends AbstractDao {
 		$filter = isset( $options['filter'] ) ? $options['filter'] : 'all';
 		$filterUser = isset( $options['filter_user'] ) ? $options['filter_user'] : null;
 		$wikiprojects = isset( $options['wikiprojects'] ) ? $options['wikiprojects'] : null;
-		$lang = isset( $options['lang'] ) ? $options['lang'] : 'en';
+		$wikiLang = isset( $options['wikiLang'] ) ? $options['wikiLang'] : 'en';
 		$preparedParams = [];
 
 		// ensures only valid filters are used
@@ -96,7 +96,7 @@ class PlagiabotDao extends AbstractDao {
 
 		// Only fetch entries from the required language Wikipedia.
 		$filters[] = "lang = :lang";
-		$preparedParams['lang'] = $lang;
+		$preparedParams['lang'] = $wikiLang;
 
 		// show only records after June 20, 2016; See phab:T138317
 		$filters[] = "diff_timestamp > 20160620000000";
@@ -163,15 +163,17 @@ class PlagiabotDao extends AbstractDao {
 	}
 
 	/**
-	 * @param $title string Page title
-	 * @return array Wikiprojects for a given page title on enwiki
+	 * Get the names of Wikiprojects that a particular Wikipedia page belongs to.
+	 * @param string $lang The language code.
+	 * @param string $title Page title.
+	 * @return string[] Alphabetical list of Wikiprojects
 	 */
-	public function getWikiProjects( $title ) {
+	public function getWikiProjects( $lang, $title ) {
 		$query = self::concat(
-			'SELECT * FROM wikiprojects',
-			'WHERE wp_page_title = ?'
+			'SELECT wp_project FROM wikiprojects',
+			'WHERE wp_page_title = :title AND wp_lang = :lang'
 		);
-		$result = $this->fetchAll( $query, [ $title ] );
+		$result = $this->fetchAll( $query, [ 'title' => $title, 'lang' => $lang ] );
 		$data = [];
 		if ( $result ) {
 			foreach ( $result as $r ) {

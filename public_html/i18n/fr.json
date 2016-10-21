@@ -1,3 +1,6 @@
 {
-	"name": "CopyPatrol"
+	"name": "CopyPatrol",
+	"wikiprojects": "WikiProjets",
+	"fr-wikipedia": "Wikipédia Français",
+	"en-wikipedia": "Wikipédia Anglais"
 }

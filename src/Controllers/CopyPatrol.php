@@ -29,11 +29,6 @@ use GuzzleHttp;
 class CopyPatrol extends Controller {
 
 	/**
-	* @var string language code for the present wiki
-	**/
-	protected $lang;
-
-	/**
 	 * @var WikiDao The DAO for Wikipedia data access.
 	 */
 	protected $wikiDao;
@@ -201,7 +196,9 @@ class CopyPatrol extends Controller {
 				$records[$key]['reviewed_by_url'] = $this->getUserPage( $record['status_user'] );
 				$records[$key]['review_timestamp'] = $this->formatTimestamp( $record['review_timestamp'] );
 			}
-			$records[$key]['wikiprojects'] = $this->dao->getWikiProjects( $record['page_title'] );
+			$records[$key]['wikiprojects'] = $this->dao->getWikiProjects(
+				$this->wikiDao->getLang(), $record['page_title']
+			);
 			$records[$key]['page_title'] = $this->removeUnderscores( $record['page_title'] );
 			$cleanWikiprojects = [];
 			foreach ( $records[$key]['wikiprojects'] as $k => $wp ) {
@@ -366,8 +363,8 @@ class CopyPatrol extends Controller {
 			$options['filter_user'] = $filterUser;
 		}
 		// Set the language for the records and the view.
-		$options['lang'] = $this->wikiDao->getLang();
-		$this->view->set( 'lang', $this->wikiDao->getLang() );
+		$options['wikiLang'] = $this->wikiDao->getLang();
+		$this->view->set( 'wikiLang', $this->wikiDao->getLang() );
 
 		$this->view->set( 'filter', $filter );
 		$this->view->set( 'drafts', $drafts );

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="{{i18nCtx.currentLanguage}}">
 <head>
-	<title>{{ 'name' | message }}</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ 'name' | message }} | {{ (wikiLang~'-wikipedia') | message }}</title>
 	<link href="{{ siteUrl( 'images/favicon.ico' ) }}" rel="shortcut icon" sizes="16x16 32x32"/>
 	{% block stylesheets %}
 		<link href="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css"
@@ -25,7 +27,8 @@
 				jsUndoOwnOnly = "{{ 'js-undo-own-only' | message }}",
 				jsUnknownError = "{{ 'js-unknown-error' | message }}",
 				jsLoadMore = "{{ 'footer-loadmore' | message }}",
-				jsNoMore = "{{ 'footer-nomore' | message }}";
+				jsNoMore = "{{ 'footer-nomore' | message }}",
+				wikiLang = "{{ wikiLang }}";
 	</script>
 </head>
 

@@ -251,30 +251,31 @@ class App extends AbstractApp {
 			}
 		];
 		$routeConditions = [
-			'lang' => '([a-z]{1,3})'
+			'wikiLang' => '([a-z]{1,3})'
 		];
 		$slim->group( '/', $middleware['trailing-slash'],
 				$middleware['inject-user'], $middleware['set-environment'],
 			function () use ( $slim, $middleware, $routeConditions ) {
 				$slim->get('', function() use ( $slim ) {
 					// Redirect root-URL requests to English.
-					$slim->redirectTo( 'home', [ 'lang'=>'en' ] );
+					$currentLang = $slim->i18nContext->getCurrentLanguage();
+					$slim->redirectTo( 'home', [ 'wikiLang' => $currentLang ] );
 				});
-				$slim->get( ':lang',
-					function ( $lang ) use ( $slim ) {
+				$slim->get( ':wikiLang',
+					function ( $wikiLang ) use ( $slim ) {
 						$page = new CopyPatrol( $slim );
 						$page->setDao( $this->getPlagiabotDao() );
-						$page->setWikiDao( $this->getWikiDao( $lang ) );
+						$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
 						$page();
 					} )->name( 'home' )->setConditions( $routeConditions );
 				$slim->get( 'logout', function () use ( $slim ) {
 					$slim->authManager->logout();
 					$slim->redirect( $slim->urlFor( 'home' ) );
 				} )->name( 'logout' );
-				$slim->get( ':lang/loadmore', function ( $lang ) use ( $slim ) {
+				$slim->get( ':wikiLang/loadmore', function ( $wikiLang ) use ( $slim ) {
 					$page = new Controllers\CopyPatrol( $slim );
 					$page->setDao( $this->getPlagiabotDao() );
-					$page->setWikiDao( $this->getWikiDao( $lang ) );
+					$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
 					$page();
 				} )->name( 'loadmore' )->setConditions( $routeConditions );
 				$slim->get( 'index.css', function () use ( $slim ) {
@@ -317,12 +318,12 @@ class App extends AbstractApp {
 					$page( 'callback' );
 				} )->name( 'oauth_callback' );
 			} );
-		$slim->get( '/:lang/leaderboard', $middleware['inject-user'],
-			function ( $lang ) use ( $slim ) {
+		$slim->get( '/:wikiLang/leaderboard', $middleware['inject-user'],
+			function ( $wikiLang ) use ( $slim ) {
 				$leaderboard = new Leaderboard( $slim );
 				//$leaderboard->setLang( $lang );
 				$leaderboard->setDao( $this->getPlagiabotDao() );
-				$this->getWikiDao( $lang );
+				$this->getWikiDao( $wikiLang );
 				//$leaderboard->setDao( $this->getPlagiabotDao() );
 				$leaderboard();
 			} )->name( 'leaderboard' )->setConditions( $routeConditions);
