@@ -79,8 +79,7 @@ class EnwikiDao extends AbstractDao {
 
 			if ( isset( $revisions ) ) {
 				foreach ( $revisions as $revision ) {
-					if ( isset( $revision['revid'] ) && isset( $revision['user'] ) )
-					{
+					if ( isset( $revision['revid'] ) && isset( $revision['user'] ) ) {
 						$data[$revision['revid']] = $revision['user'];
 					}
 				}
