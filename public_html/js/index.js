@@ -216,9 +216,9 @@
 		 * Sets up the WikiProject selector and adds listener to update the view
 		 */
 		function setupSelect2() {
-			var $select2Input = $( '#wikiproject-selector' );
-			var wikiprojectPrefix = ( wikiLang === "fr" ) ? "Projet:" : 'Wikipedia:WikiProject ';
-			var params = {
+			var $select2Input = $( '#wikiproject-selector' ),
+				wikiprojectPrefix = ( wikiLang === 'fr' ) ? 'Projet:' : 'Wikipedia:WikiProject ',
+				params = {
 				ajax: {
 					url: 'https://' + wikiLang + '.wikipedia.org/w/api.php',
 					dataType: 'jsonp',
@@ -234,11 +234,10 @@
 					},
 					// format API data in the way Select2 wants it
 					processResults: function ( data ) {
-						var results = data[1];
+						var results = data[ 1 ];
 						return {
 							results: results.map( function ( elem ) {
-								//var prefixRemover = new RegExp( "/^" + wikiprojectPrefix + "/" );
-								var title = elem.substr(wikiprojectPrefix.length);
+								var title = elem.substr( wikiprojectPrefix.length );
 								// don't show WikiProject subpages
 								return !/\//g.test( title ) ? {
 									id: title.replace( / /g, '_' ),

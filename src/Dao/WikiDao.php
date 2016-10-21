@@ -80,7 +80,7 @@ class WikiDao extends AbstractDao {
 	/**
 	 * @return MediawikiApi
 	 */
-	public function getMediawikiApi(  ) {
+	public function getMediawikiApi() {
 		return new MediawikiApi( $this->getWikipediaUrl() . '/w/api.php' );
 	}
 

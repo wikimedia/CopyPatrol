@@ -115,7 +115,7 @@ class PlagiabotDao extends AbstractDao {
 			'LIMIT ' . $n
 		);
 
-		//var_dump($sql, $preparedParams);exit();
+		// var_dump($sql, $preparedParams);exit();
 
 		return $this->fetchAll( $sql, $preparedParams );
 	}
@@ -239,9 +239,9 @@ class PlagiabotDao extends AbstractDao {
 	 */
 	public function getLanguages() {
 		$sql = "SELECT `lang` FROM `copyright_diffs` GROUP BY `lang`";
-		$langs = $this->fetchAll($sql);
+		$langs = $this->fetchAll( $sql );
 		$languages = [];
-		foreach ($langs as $l) {
+		foreach ( $langs as $l ) {
 			$languages[] = $l['lang'];
 		}
 		return $languages;

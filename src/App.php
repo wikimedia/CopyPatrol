@@ -78,7 +78,7 @@ class App extends AbstractApp {
 	 * @return WikiDao
 	 */
 	protected function getWikiDao( $lang ) {
-		if ($this->slim->wikiDao instanceof WikiDao) {
+		if ( $this->slim->wikiDao instanceof WikiDao ) {
 			return $this->slim->wikiDao;
 		}
 		$this->slim->wikiDao = WikiDao::newFromLangCode(
@@ -96,7 +96,7 @@ class App extends AbstractApp {
 	 * @return PlagiabotDao
 	 */
 	protected function getPlagiabotDao() {
-		if ($this->slim->plagiabotDao instanceof PlagiabotDao) {
+		if ( $this->slim->plagiabotDao instanceof PlagiabotDao ) {
 			return $this->slim->plagiabotDao;
 		}
 		$dsn = "mysql:host=".$this->slim->settings['db.host'].";"
@@ -195,7 +195,7 @@ class App extends AbstractApp {
 			new \Slim\Views\TwigExtension(),
 			new \Wikimedia\SimpleI18n\TwigExtension( $this->slim->i18nContext )
 		];
-		$view->set('langs', $this->getPlagiabotDao()->getLanguages());
+		$view->set( 'langs', $this->getPlagiabotDao()->getLanguages() );
 	}
 
 	/**
@@ -256,11 +256,11 @@ class App extends AbstractApp {
 		$slim->group( '/', $middleware['trailing-slash'],
 				$middleware['inject-user'], $middleware['set-environment'],
 			function () use ( $slim, $middleware, $routeConditions ) {
-				$slim->get('', function() use ( $slim ) {
+				$slim->get( '', function() use ( $slim ) {
 					// Redirect root-URL requests to English.
 					$currentLang = $slim->i18nContext->getCurrentLanguage();
 					$slim->redirectTo( 'home', [ 'wikiLang' => $currentLang ] );
-				});
+				} );
 				$slim->get( ':wikiLang',
 					function ( $wikiLang ) use ( $slim ) {
 						$page = new CopyPatrol( $slim );
@@ -321,12 +321,12 @@ class App extends AbstractApp {
 		$slim->get( '/:wikiLang/leaderboard', $middleware['inject-user'],
 			function ( $wikiLang ) use ( $slim ) {
 				$leaderboard = new Leaderboard( $slim );
-				//$leaderboard->setLang( $lang );
+				// $leaderboard->setLang( $lang );
 				$leaderboard->setDao( $this->getPlagiabotDao() );
 				$this->getWikiDao( $wikiLang );
-				//$leaderboard->setDao( $this->getPlagiabotDao() );
+				// $leaderboard->setDao( $this->getPlagiabotDao() );
 				$leaderboard();
-			} )->name( 'leaderboard' )->setConditions( $routeConditions);
+			} )->name( 'leaderboard' )->setConditions( $routeConditions );
 	}
 
 	/**
