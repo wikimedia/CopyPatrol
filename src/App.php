@@ -40,11 +40,6 @@ use Less_Cache;
 use Wikimedia\SimpleI18n\I18nContext;
 use Wikimedia\SimpleI18n\JsonCache;
 
-/**
- * The main CopyPatrol application.
- *
- * @package CopyPatrol
- */
 class App extends AbstractApp {
 
 	/**
@@ -73,7 +68,7 @@ class App extends AbstractApp {
 	}
 
 	/**
-	 * Get a WikiDao based on the given language.
+	 * Get the WikiDao based on the given language.
 	 * @param string $lang The language code of the required Wikipedia.
 	 * @return WikiDao
 	 */
@@ -92,7 +87,7 @@ class App extends AbstractApp {
 	}
 
 	/**
-	 * Get a PlagiabotDao.
+	 * Get the PlagiabotDao.
 	 * @return PlagiabotDao
 	 */
 	protected function getPlagiabotDao() {
@@ -195,7 +190,6 @@ class App extends AbstractApp {
 			new \Slim\Views\TwigExtension(),
 			new \Wikimedia\SimpleI18n\TwigExtension( $this->slim->i18nContext )
 		];
-		$view->set( 'langs', $this->getPlagiabotDao()->getLanguages() );
 	}
 
 	/**

@@ -55,7 +55,7 @@
 			setReviewState( id, val );
 
 			$.ajax( {
-				url: location.pathname + '/review/add',
+				url: baseUrl + 'review/add',
 				data: {
 					id: id,
 					val: val
@@ -88,7 +88,7 @@
 		 */
 		function undoReview( id, oldStatus, cb ) {
 			$.ajax( {
-				url: location.pathname + '/review/undo',
+				url: baseUrl + 'review/undo',
 				data: {
 					id: id
 				},
@@ -131,7 +131,7 @@
 			$( '#btn-load-more' ).text( '' ).addClass( 'btn-loading' );
 			var lastId = $( '.ithenticate-id:last' ).text();
 			$.ajax( {
-				url: location.pathname + '/loadmore',
+				url: baseUrl + wikiLang + '/loadmore',
 				data: {
 					lastId: lastId,
 					filter: $( 'input[name=filter]:checked' ).val(),
@@ -234,7 +234,7 @@
 					},
 					// format API data in the way Select2 wants it
 					processResults: function ( data ) {
-						var results = data[ 1 ];
+						var results = data[1];
 						return {
 							results: results.map( function ( elem ) {
 								var title = elem.substr( wikiprojectPrefix.length );

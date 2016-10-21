@@ -21,7 +21,8 @@
 		<script src="{{ siteUrl( 'vendor/select2.min.js' ) }}" type="text/javascript"></script>
 	{% endblock %}
 	<script>
-		var formWikiprojectsPlaceholder = "{{ 'form-wikiprojects-placeholder' | message }}",
+		var baseUrl = "{{siteUrl( '' ) }}",
+				formWikiprojectsPlaceholder = "{{ 'form-wikiprojects-placeholder' | message }}",
 				jsUnauthorized = "{{ 'js-unauthorized' | message }}",
 				jsDbError = "{{ 'js-dberror' | message }}",
 				jsUndoOwnOnly = "{{ 'js-undo-own-only' | message }}",
