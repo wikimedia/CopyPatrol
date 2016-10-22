@@ -199,6 +199,10 @@ class App extends AbstractApp {
 				}
 			},
 			'twig-number-format' => function () use ( $slim ) {
+				if ( class_exists( \NumberFormatter::class ) ) {
+					// If the intl PHP extension isn't installed, stick with the Twig defaults.
+					return;
+				}
 				// Set number formatting for Twig's number_format based on Intuition locale or HTTP header
 				// First get user's locale
 				$locale = ( isset( $_COOKIE['TsIntuition_userlang'] ) ) ?
