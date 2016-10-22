@@ -199,7 +199,7 @@ class App extends AbstractApp {
 				}
 			},
 			'twig-number-format' => function () use ( $slim ) {
-				if ( class_exists( \NumberFormatter::class ) ) {
+				if ( ! class_exists( \NumberFormatter::class ) ) {
 					// If the intl PHP extension isn't installed, stick with the Twig defaults.
 					return;
 				}
