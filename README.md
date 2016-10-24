@@ -11,19 +11,19 @@ This is a web interface for [Plagiabot's Copyright RC feed](https://en.wikipedia
    2. To use Redis caching, also add `REDIS_HOST` and `REDIS_PORT`;
       without these, a local filesystem cache will be used.
 3. Make the `cache/` directory writable by the web server.
-4. Rewrite your routing, if needed.
-   For Lighttpd, use this in your `.lighttpd.conf`:
+4. Rewrite your routing, if needed.<br>
+   For Lighttpd, use this in your `.lighttpd.conf`:<br>
    ```
    url.rewrite-if-not-file += ( "(.*)" => "/copypatrol/index.php/$0" )
    ```
-   Or for Apache, this (in `.htaccess` at the root of the project):
+   <br>Or for Apache, this (in `.htaccess` at the root of the project):<br>
    ```
    DirectorySlash Off
    RewriteEngine On
    RewriteCond %{REQUEST_FILENAME} !-f
    RewriteRule ^public_html(.*)$ public_html/index.php$1 [L]
    ```
-5. Open up an SSH tunnel to access the databases on Tool Labs (substitute your own username).
+5. Open up an SSH tunnel to access the databases on Tool Labs (substitute your own username).<br>
    ```
    $ ssh -L 4711:enwiki.labsdb:3306 YOU@tools-login.wmflabs.org -N 
    ```
