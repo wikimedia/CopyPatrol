@@ -5,7 +5,8 @@
     "mediawiki/oauthclient": "~0.1",
     "wikimedia/slimapp": "dev-master",
     "addwiki/mediawiki-api-base": "~2.1",
-    "wikimedia/simplei18n": "~1.0"
+    "wikimedia/simplei18n": "~1.0",
+    "tedivm/stash": "^0.14"
   },
   "autoload": {
     "psr-4": {
@@ -22,6 +23,14 @@
     "test": [
       "parallel-lint . --exclude vendor",
       "phpcs -p"
+    ]
+  },
+  "script": {
+    "post-install-cmd": [
+      "php -r \"file_exists('.env') || copy('.env_example', '.env');\""
+    ],
+    "post-update-cmd": [
+      "php -r \"file_exists('.env') || copy('.env_example', '.env');\""
     ]
   }
 }

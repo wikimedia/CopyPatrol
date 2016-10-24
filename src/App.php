@@ -22,9 +22,11 @@
  */
 namespace Plagiabot\Web;
 
+use Stash\Driver\FileSystem;
+use Stash\Driver\Redis;
+use Stash\Pool;
 use Wikimedia\Slimapp\AbstractApp;
 use Wikimedia\Slimapp\Config;
-use Wikimedia\Slimapp\HeaderMiddleware;
 use Wikimedia\Slimapp\Auth\AuthManager;
 use Less_Cache;
 use Wikimedia\SimpleI18n\I18nContext;
@@ -51,8 +53,8 @@ class App extends AbstractApp {
 			'db.dsnpl' => Config::getStr( 'DB_DSN_PLAGIABOT' ),
 			'db.user' => Config::getStr( 'DB_USER' ),
 			'db.pass' => Config::getStr( 'DB_PASS' ),
-			'templates.path' => '../public_html/templates',
-			'i18n.path' => '../public_html/i18n',
+			'templates.path' => APP_ROOT . '/public_html/templates',
+			'i18n.path' => APP_ROOT . '/public_html/i18n',
 		] );
 	}
 
@@ -123,6 +125,24 @@ class App extends AbstractApp {
 				$c->i18nCache, $c->settings['i18n.default'], $c->log
 			);
 		} );
+		// Set up cache (Redis if config is provided, otherwise local filesystem).
+		$container->singleton( 'cache', function( $c ) {
+			$cache = new Pool();
+			if ( Config::getStr( 'REDIS_HOST' ) ) {
+				$driver = new Redis( [
+					'servers' => [
+						'server_1' => [
+							'server' => Config::getStr( 'REDIS_HOST' ),
+							'port' => Config::getStr( 'REDIS_PORT' ),
+						],
+					]
+				] );
+			} else {
+				$driver = new FileSystem( [ 'path' => APP_ROOT . '/cache' ] );
+			}
+			$cache->setDriver( $driver );
+			return $cache;
+		} );
 	}
 
 	/**
@@ -179,6 +199,10 @@ class App extends AbstractApp {
 				}
 			},
 			'twig-number-format' => function () use ( $slim ) {
+				if ( ! class_exists( \NumberFormatter::class ) ) {
+					// If the intl PHP extension isn't installed, stick with the Twig defaults.
+					return;
+				}
 				// Set number formatting for Twig's number_format based on Intuition locale or HTTP header
 				// First get user's locale
 				$locale = ( isset( $_COOKIE['TsIntuition_userlang'] ) ) ?
@@ -203,9 +227,6 @@ class App extends AbstractApp {
 						$page->setEnwikiDao( $slim->enwikiDao );
 						$page();
 					} )->name( 'home' );
-				$slim->get( 'login', function () use ( $slim ) {
-					$slim->render( 'login.html' );
-				} )->name( 'login' );
 				$slim->get( 'logout', function () use ( $slim ) {
 					$slim->authManager->logout();
 					$slim->redirect( $slim->urlFor( 'home' ) );
@@ -223,10 +244,10 @@ class App extends AbstractApp {
 					//   e.g. /copypatrol/ makes url('image.gif') route to /copypatrol/image.gif
 					$rootUri = $slim->request->getRootUri();
 					$lessFiles = [ APP_ROOT . '/src/Less/index.less' => $rootUri . '/' ];
-					$options = [ 'cache_dir' => APP_ROOT . '/src/Less/cache' ];
+					$options = [ 'cache_dir' => APP_ROOT . '/cache/less' ];
 					$cssFileName = Less_Cache::Get( $lessFiles, $options );
 					$slim->response->headers->set( 'Content-Type', 'text/css' );
-					$slim->response->setBody( file_get_contents( APP_ROOT . '/src/Less/cache/' . $cssFileName ) );
+					$slim->response->setBody( file_get_contents( APP_ROOT . '/cache/less/' . $cssFileName ) );
 				} )->name( 'index.css' );
 			} );
 		$slim->group( '/review/', $middleware['require-auth'],
