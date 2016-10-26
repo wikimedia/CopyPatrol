@@ -28,7 +28,6 @@ class CopyPatrolTest extends PHPUnit_Framework_TestCase {
 		$this->setEnv();
 		$app = new App( __DIR__ );
 		$obj = $app->getWikiDao( 'en' );
-		//$obj = new WikiDao( getenv( 'DB_DSN_ENWIKI' ), getenv( 'DB_USER' ), getenv( 'DB_PASS' ) );
 		$diffs = [ 736294997 ];
 		$editors = $obj->getRevisionsEditors( $diffs );
 		$this->assertEquals( $editors, [ 736294997 => 'CllrP' ] );
@@ -56,10 +55,10 @@ class CopyPatrolTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetWikiprojects() {
-		$dsn = "mysql:host=".getenv('DB_HOST').";"
-		       ."port=".getenv('DB_PORT').";"
-		       ."dbname=".getenv('DB_NAME_COPYPATROL');
-		$plagiabotDao = new PlagiabotDao($dsn, getenv( 'DB_USER' ), getenv( 'DB_PASS' ) );
+		$dsn = "mysql:host=".getenv( 'DB_HOST' ).";"
+		       ."port=".getenv( 'DB_PORT' ).";"
+		       ."dbname=".getenv( 'DB_NAME_COPYPATROL' );
+		$plagiabotDao = new PlagiabotDao( $dsn, getenv( 'DB_USER' ), getenv( 'DB_PASS' ) );
 		$expected = [
 			// All of the commented out fail for some yet unknown reason
 			// 'Caitriona_Balfe' => ['Biography', 'Fashion', 'Ireland', 'Women'],
