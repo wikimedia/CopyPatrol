@@ -231,4 +231,15 @@ class PlagiabotDao extends AbstractDao {
 		}
 		return $languages;
 	}
+
+	/**
+	 * Find out whether a particular language has any drafts.
+	 * @param string $lang The Wikipedia language code
+	 * @return boolean
+	 */
+	public function draftsExist( $lang = 'en' ) {
+		$sql = 'SELECT COUNT(*) AS total FROM copyright_diffs WHERE page_ns = :ns AND lang = :lang';
+		$results = $this->fetchAll( $sql, [ 'ns' => WikiDao::NS_ID_DRAFTS, 'lang' => $lang ] );
+		return $results[0]['total'] > 0;
+	}
 }

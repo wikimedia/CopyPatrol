@@ -30,6 +30,11 @@ use GuzzleHttp\Promise\Promise;
 class WikiDao extends AbstractDao {
 
 	/**
+	 * The ID of the Drafts namespace.
+	 */
+	const NS_ID_DRAFTS = 118;
+
+	/**
 	 * @var string $lang The language code of the Wikipedia in use.
 	 */
 	protected $lang;

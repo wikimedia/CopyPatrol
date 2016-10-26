@@ -92,6 +92,7 @@
 								</label>
 							</span>
 						{% endfor %}
+						{% if draftsExist %}
 						<span class="checkbox-inline">
 							<label>
 								<input type="checkbox" name="drafts" value="1"
@@ -99,6 +100,7 @@
 								/> {{ 'form-drafts' | message }}
 							</label>
 						</span>
+						{% endif %}
 					</div>
 					<div class="wikiproject-filter col-sm-12">
 						<label class="wikiproject-label" for="wikiproject-selector">
