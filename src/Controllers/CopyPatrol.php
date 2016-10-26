@@ -46,31 +46,35 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * ORES scores URL
+	 * Get the ORES scores URL for the current Wikipedia.
 	 *
 	 * @param array $revs
 	 * @return string The ORES URL.
 	 */
-	public static function oresScoresUrl( array $revs ) {
-		$baseUrl = 'https://ores.wikimedia.org/v2/scores/enwiki/damaging/?revids=';
+	public function oresScoresUrl( array $revs ) {
+		$wikiCode = $this->wikiDao->getLang().'wiki';
+		$baseUrl = "https://ores.wikimedia.org/v2/scores/$wikiCode/damaging/?revids=";
 		$scoresUrl = $baseUrl . implode( '|', $revs );
 		return $scoresUrl;
 	}
 
 	/**
-	 * ORES scores for revisions
+	 * Get ORES scores for given revisions. This requires that ORES support the 'damaging' model
+	 * for the current Wikipedia.
+	 * @link https://ores.wikimedia.org/v2/#!/scoring/get_v2_scores
 	 *
-	 * @param array $revs
+	 * @param string[] $revisions The page revisions to retrieve scores for.
+	 * @return string[]|boolean The ORES scores, or false if they can't be retrieved.
 	 */
-	public static function oresScores( array $revs ) {
-		$data = file_get_contents( self::oresScoresUrl( $revs ) );
+	public function oresScores( array $revisions ) {
+		$data = file_get_contents( $this->oresScoresUrl( $revisions ) );
 		$data = json_decode( $data, true );
 		if ( !array_key_exists( 'scores', $data ) ) {
-			// ORES is down :((
-			return;
+			// ORES is not supported for this Wikipedia (or is down).
+			return false;
 		}
-		$wiki = 'enwiki';
-		$data = $data['scores']['enwiki']['damaging']['scores'];
+		$wikiCode = $this->wikiDao->getLang().'wiki';
+		$data = $data['scores'][$wikiCode]['damaging']['scores'];
 		$scores = [];
 		foreach ( $data as $revId => $value ) {
 			if ( array_key_exists( 'error', $value ) ) {
@@ -144,7 +148,7 @@ class CopyPatrol extends Controller {
 		$editCounts = $asyncResults['editCounts'];
 		$deadPages = $asyncResults['deadPages'];
 		// Get ORES scores for edits
-		$oresScores = self::oresScores( $diffIds );
+		$oresScores = $this->oresScores( $diffIds );
 		// now all external requests and database queries (except
 		// WikiProjects) have been completed, let's loop through the records
 		// once more to build the complete dataset to be rendered into view
