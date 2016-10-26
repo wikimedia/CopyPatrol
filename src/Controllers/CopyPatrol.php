@@ -122,7 +122,7 @@ class CopyPatrol extends Controller {
 		// first build arrays of diff IDs and page titles so we can use them to make mass queries
 		foreach ( $records as $record ) {
 			$diffIds[] = $record['diff'];
-			// make sure drafts have the namespace prefix. @TODO fix for other languages.
+			// make sure drafts have the namespace prefix
 			if ( $record['page_ns'] == 118 ) {
 				$record['page_title'] = 'Draft:' . $record['page_title'];
 			}

@@ -72,7 +72,7 @@ class App extends AbstractApp {
 	 * @param string $lang The language code of the required Wikipedia.
 	 * @return WikiDao
 	 */
-	protected function getWikiDao( $lang ) {
+	public function getWikiDao( $lang ) {
 		if ( $this->slim->wikiDao instanceof WikiDao ) {
 			return $this->slim->wikiDao;
 		}
@@ -91,7 +91,7 @@ class App extends AbstractApp {
 	 * Get the PlagiabotDao.
 	 * @return PlagiabotDao
 	 */
-	protected function getPlagiabotDao() {
+	public function getPlagiabotDao() {
 		if ( $this->slim->plagiabotDao instanceof PlagiabotDao ) {
 			return $this->slim->plagiabotDao;
 		}

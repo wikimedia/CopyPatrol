@@ -1,12 +1,13 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
-use Plagiabot\Web\Dao\EnwikiDao;
+use Plagiabot\Web\App;
 use Plagiabot\Web\Dao\PlagiabotDao;
-use GuzzleHttp\Promise\Promise;
+use Plagiabot\Web\Dao\WikiDao;
 
 class CopyPatrolTest extends PHPUnit_Framework_TestCase {
 
 	public function setEnv() {
+		define( 'APP_ROOT', dirname( __DIR__ ) );
 		$env = __DIR__ . '/../.env';
 		$settings = parse_ini_file( $env );
 		foreach ( $settings as $key => $value ) {
@@ -25,14 +26,17 @@ class CopyPatrolTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetRevisionsEditors() {
 		$this->setEnv();
-		$obj = new EnwikiDao( getenv( 'DB_DSN_ENWIKI' ), getenv( 'DB_USER' ), getenv( 'DB_PASS' ) );
+		$app = new App( __DIR__ );
+		$obj = $app->getWikiDao( 'en' );
+		//$obj = new WikiDao( getenv( 'DB_DSN_ENWIKI' ), getenv( 'DB_USER' ), getenv( 'DB_PASS' ) );
 		$diffs = [ 736294997 ];
 		$editors = $obj->getRevisionsEditors( $diffs );
 		$this->assertEquals( $editors, [ 736294997 => 'CllrP' ] );
 	}
 
 	public function testGetDeadPages() {
-		$obj = new EnwikiDao( getenv( 'DB_DSN_ENWIKI' ), getenv( 'DB_USER' ), getenv( 'DB_PASS' ) );
+		$app = new App( __DIR__ );
+		$obj = $app->getWikiDao( 'en' );
 		$titles = [
 			'Donald Trump',
 			'Thispageissurelydead',
@@ -52,16 +56,21 @@ class CopyPatrolTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetWikiprojects() {
-		$obj = new PlagiabotDao( getenv( 'DB_DSN_PLAGIABOT' ), getenv( 'DB_USER' ), getenv( 'DB_PASS' ) );
+		$dsn = "mysql:host=".getenv('DB_HOST').";"
+		       ."port=".getenv('DB_PORT').";"
+		       ."dbname=".getenv('DB_NAME_COPYPATROL');
+		$plagiabotDao = new PlagiabotDao($dsn, getenv( 'DB_USER' ), getenv( 'DB_PASS' ) );
 		$expected = [
 			// All of the commented out fail for some yet unknown reason
 			// 'Caitriona_Balfe' => ['Biography', 'Fashion', 'Ireland', 'Women'],
 			// 'Florence' => ['Cities', 'Italy', 'World_Heritage_Sites'],
-			// 'Taj_Mahal' => ['Architecture', 'Death', 'India', 'World_Heritage_Sites'],
-			'India' => [ 'Asia', 'Countries', 'India', 'South_Asia', 'Spoken_Wikipedia' ]
+			// 'Taj_Mahal' => [ 'Architecture', 'Death', 'India', 'World_Heritage_Sites' ],
+			'Florence_Dixie' => [ 'Biography', 'England', 'Gender_Studies', 'Science_Fiction',
+			                      'Scotland', 'Women\'s_History', 'Women_writers' ],
+			'India' => [ 'Asia', 'Countries', 'India', 'South_Asia', 'Spoken_Wikipedia' ],
 		];
 		foreach ( $expected as $title => $projects ) {
-			$this->assertEquals( $obj->getWikiProjects( $title ), $projects );
+			$this->assertEquals( $projects, $plagiabotDao->getWikiProjects( 'en', $title ) );
 		}
 	}
 }
