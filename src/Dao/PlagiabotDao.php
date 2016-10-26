@@ -115,8 +115,6 @@ class PlagiabotDao extends AbstractDao {
 			'LIMIT ' . $n
 		);
 
-		// var_dump($sql, $preparedParams);exit();
-
 		return $this->fetchAll( $sql, $preparedParams );
 	}
 
