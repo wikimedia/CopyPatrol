@@ -22,6 +22,7 @@
  */
 namespace Plagiabot\Web;
 
+use NumberFormatter;
 use Plagiabot\Web\Controllers\AddReview;
 use Plagiabot\Web\Controllers\AuthHandler;
 use Plagiabot\Web\Controllers\CopyPatrol;
@@ -30,6 +31,7 @@ use Plagiabot\Web\Controllers\UndoReview;
 use Plagiabot\Web\Dao\PlagiabotDao;
 use Plagiabot\Web\Dao\WikiDao;
 use Slim\Slim;
+use Locale;
 use Stash\Driver\FileSystem;
 use Stash\Driver\Redis;
 use Stash\Pool;
@@ -231,19 +233,18 @@ class App extends AbstractApp {
 				}
 			},
 			'twig-number-format' => function () use ( $slim ) {
-				if ( ! class_exists( \NumberFormatter::class ) ) {
+				if ( ! class_exists( NumberFormatter::class ) ) {
 					// If the intl PHP extension isn't installed, stick with the Twig defaults.
 					return;
 				}
-				// Set number formatting for Twig's number_format based on Intuition locale or HTTP header
-				// First get user's locale
-				$locale = ( isset( $_COOKIE['TsIntuition_userlang'] ) ) ?
-					$_COOKIE['TsIntuition_userlang'] :
-					$_SERVER['HTTP_ACCEPT_LANGUAGE'];
-				$formatter = new \NumberFormatter( $locale, \NumberFormatter::DECIMAL );
+				// Set number formatting for Twig, based on the Accept header or SimpleI18N.
+				$locale = isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] )
+					? Locale::acceptFromHttp( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) // e.g. "en_AU"
+					: $this->slim->i18nContext->getCurrentLanguage(); // e.g. "en"
+				$formatter = new NumberFormatter( $locale, NumberFormatter::DECIMAL );
 				// Get separator symbols (include decimal as it is required and we might use it at some point)
-				$decimal = $formatter->getSymbol( \NumberFormatter::DECIMAL_SEPARATOR_SYMBOL );
-				$thousands = $formatter->getSymbol( \NumberFormatter::GROUPING_SEPARATOR_SYMBOL );
+				$decimal = $formatter->getSymbol( NumberFormatter::DECIMAL_SEPARATOR_SYMBOL );
+				$thousands = $formatter->getSymbol( NumberFormatter::GROUPING_SEPARATOR_SYMBOL );
 				// Set Twig defaults, first argument is number of decimal places to show (we don't want any)
 				$twig = $slim->view->getEnvironment();
 				$twig->getExtension( 'core' )->setNumberFormat( 0, $decimal, $thousands );
