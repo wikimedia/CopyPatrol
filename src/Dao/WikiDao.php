@@ -27,28 +27,66 @@ use Mediawiki\Api\FluentRequest;
 use GuzzleHttp;
 use GuzzleHttp\Promise\Promise;
 
-class EnwikiDao extends AbstractDao {
+class WikiDao extends AbstractDao {
 
 	/**
-	 * @var int $wikipedia
+	 * The ID of the Drafts namespace.
 	 */
-	protected $wikipedia;
+	const NS_ID_DRAFTS = 118;
 
 	/**
-	 * @param string $dsn PDO data source name
-	 * @param string $user Database user
-	 * @param string $pass Database password
-	 * @param string $wiki Wikipedia URL
-	 * @param array $settings Configuration settings
-	 * @param LoggerInterface $logger Log channel
+	 * @var string $lang The language code of the Wikipedia in use.
 	 */
-	public function __construct(
-		$dsn, $user, $pass,
-		$wiki = 'https://en.wikipedia.org', $settings = null, $logger = null
-	) {
-		parent::__construct( $dsn, $user, $pass, $logger );
-		$this->wikipedia = $wiki;
-		$this->api = \Mediawiki\Api\MediawikiApi::newFromApiEndpoint( $wiki . '/w/api.php' );
+	protected $lang;
+
+	/**
+	 * Create a new Wikipedia Data Access Object with a variable database name based on
+	 * the provided language code.
+	 * @param string $lang
+	 * @param string $host
+	 * @param string $port
+	 * @param string $user
+	 * @param string $password
+	 * @param \Psr\Log\LoggerInterface $log
+	 * @return WikiDao
+	 */
+	public static function newFromLangCode( $lang, $host, $port, $user, $password, $log = null ) {
+		$dbName = $lang.'wiki_p';
+		$dsn = "mysql:host=$host;port=$port;dbname=$dbName";
+		$dao = new self( $dsn, $user, $password, $log );
+		$dao->setLang( $lang );
+		return $dao;
+	}
+
+	/**
+	 * Set the language of the Wikipedia to which to connect to.
+	 * @param string $lang The language code.
+	 */
+	public function setLang( $lang ) {
+		$this->lang = $lang;
+	}
+
+	/**
+	 * Get the language code of this Wikipedia.
+	 * @return string The language code.
+	 */
+	public function getLang() {
+		return $this->lang;
+	}
+
+	/**
+	 * Get the base URL for the Wikipedia currently being used.
+	 * @return string The HTTPS URL, with no trailing slash.
+	 */
+	public function getWikipediaUrl() {
+		return "https://".$this->getLang().".wikipedia.org";
+	}
+
+	/**
+	 * @return MediawikiApi
+	 */
+	public function getMediawikiApi() {
+		return new MediawikiApi( $this->getWikipediaUrl() . '/w/api.php' );
 	}
 
 	/**
@@ -67,20 +105,23 @@ class EnwikiDao extends AbstractDao {
 
 		$data = [];
 
-		// fill in nulls for deleted revisions
+		// Fill in nulls for deleted revisions.
 		if ( isset( $result['badrevids'] ) ) {
 			foreach ( $result['badrevids'] as $revision ) {
 				$data[$revision['revid']] = null;
 			}
 		}
 
-		foreach ( $result['pages'] as $page ) {
-			$revisions = $page['revisions'];
+		// Get editors for non-deleted revisions.
+		if ( isset( $result['pages'] ) ) {
+			foreach ( $result['pages'] as $page ) {
+				$revisions = $page['revisions'];
 
-			if ( isset( $revisions ) ) {
-				foreach ( $revisions as $revision ) {
-					if ( isset( $revision['revid'] ) && isset( $revision['user'] ) ) {
-						$data[$revision['revid']] = $revision['user'];
+				if ( isset( $revisions ) ) {
+					foreach ( $revisions as $revision ) {
+						if ( isset( $revision['revid'] ) && isset( $revision['user'] ) ) {
+							$data[$revision['revid']] = $revision['user'];
+						}
 					}
 				}
 			}
@@ -210,9 +251,9 @@ class EnwikiDao extends AbstractDao {
 
 	/**
 	 * Wrapper to make simple API query for JSON and in formatversion 2
-	 * @param $params array Params to add to the request
-	 * @param [$async] boolean Pass 'true' to make asynchronous
-	 * @return promise|array Promise if $async is true,
+	 * @param string[] $params Params to add to the request
+	 * @param boolean $async Pass 'true' to make asynchronous
+	 * @return GuzzleHttp\Promise\PromiseInterface|array Promise if $async is true,
 	 *   otherwise the API result in the form of an array
 	 */
 	private function apiQuery( $params, $async = false ) {
@@ -225,9 +266,9 @@ class EnwikiDao extends AbstractDao {
 		}
 
 		if ( $async ) {
-			return $this->api->getRequestAsync( $factory );
+			return $this->getMediawikiApi()->getRequestAsync( $factory );
 		} else {
-			return $this->api->getRequest( $factory );
+			return $this->getMediawikiApi()->getRequest( $factory );
 		}
 	}
 }

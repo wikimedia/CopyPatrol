@@ -91,7 +91,7 @@ class AuthHandler extends Controller {
 		}
 		if ( !isset( $_SESSION[self::REQEST_KEY] ) ) {
 			$this->flash( 'error', 'Session request incomplete' );
-			$this->redirect( $this->urlFor( 'home' ) );
+			$this->redirect( $this->urlFor( 'root' ) );
 		}
 		list( $key, $secret ) = explode( ':', $_SESSION[self::REQEST_KEY] );
 		unset( $_SESSION[self::REQEST_KEY] );
@@ -114,10 +114,10 @@ class AuthHandler extends Controller {
 			} catch ( \Exception $e ) {
 				$this->flash( 'error', 'Logging in attempt aborted. Error!' );
 			}
-			$this->redirect( $next ?: $this->urlFor( 'home' ) );
+			$this->redirect( $next ?: $this->urlFor( 'root' ) );
 		} else {
 			$this->flash( 'error', 'Failure' );
 		}
-		$this->redirect( $this->urlFor( 'home' ) );
+		$this->redirect( $this->urlFor( 'root' ) );
 	}
 }
