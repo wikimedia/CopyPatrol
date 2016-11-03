@@ -267,11 +267,11 @@ class CopyPatrol extends Controller {
 			$this->flashNow( 'warning', 'You must be logged in to view your own reviews.' );
 			$filter = 'open';
 		} else {
-			$filterTypeKeys = array_keys( $this->getFilterTypes() ); // Check that the filter value was valid
+			$filterTypeKeys = $this->getFilterTypes(); // Check that the filter value was valid.
 			if ( !in_array( $filter, $filterTypeKeys ) ) {
 				$this->flashNow(
 					'error',
-					'Invalid filter. Values must be one of: ' . join( $filterTypeKeys, ', ' )
+					'Invalid filter. Values must be one of: ' . join( ', ', $filterTypeKeys )
 				);
 				$filter = 'open';  // Set to default
 			}
@@ -280,22 +280,17 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * Get the current available filter types
+	 * Get the currently-available filter types.
 	 *
-	 * @return array Associative array by filter code and filter description.
-	 *   The description is used as the labels of the radio buttons in the view.
+	 * @return string[] Array by filter codes.
 	 */
 	protected function getFilterTypes() {
 		static $filterTypes = null;
 		if ( $filterTypes === null ) {
-			$filterTypes = [
-				'all' => 'All cases',
-				'open' => 'Open cases',
-				'reviewed' => 'Reviewed cases'
-			];
-			// add 'My reviews' to filter options if user is logged in
+			$filterTypes = [ 'all', 'open', 'reviewed' ];
+			// Add 'My reviews' to filter options if user is logged in.
 			if ( $this->getUsername() ) {
-				$filterTypes['mine'] = 'My reviews';
+				$filterTypes[] = 'mine';
 			}
 		}
 		return $filterTypes;
