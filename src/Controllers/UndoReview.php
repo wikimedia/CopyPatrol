@@ -21,16 +21,7 @@
  */
 namespace Plagiabot\Web\Controllers;
 
-use Wikimedia\Slimapp\Controller;
-
 class UndoReview extends CopyPatrol {
-
-	/**
-	 * @param \Slim\Slim $slim Slim application
-	 */
-	public function __construct( \Slim\Slim $slim = null ) {
-		parent::__construct( $slim );
-	}
 
 	protected function handleGet() {
 		$id = $this->request->get( 'id' );

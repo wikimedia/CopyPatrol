@@ -55,7 +55,7 @@
 			setReviewState( id, val );
 
 			$.ajax( {
-				url: location.pathname + '/review/add',
+				url: baseUrl + 'review/add',
 				data: {
 					id: id,
 					val: val
@@ -88,7 +88,7 @@
 		 */
 		function undoReview( id, oldStatus, cb ) {
 			$.ajax( {
-				url: location.pathname + '/review/undo',
+				url: baseUrl + 'review/undo',
 				data: {
 					id: id
 				},
@@ -131,7 +131,7 @@
 			$( '#btn-load-more' ).text( '' ).addClass( 'btn-loading' );
 			var lastId = $( '.ithenticate-id:last' ).text();
 			$.ajax( {
-				url: location.pathname + '/loadmore',
+				url: baseUrl + wikiLang + '/loadmore',
 				data: {
 					lastId: lastId,
 					filter: $( 'input[name=filter]:checked' ).val(),
@@ -216,10 +216,11 @@
 		 * Sets up the WikiProject selector and adds listener to update the view
 		 */
 		function setupSelect2() {
-			var $select2Input = $( '#wikiproject-selector' );
-			var params = {
+			var $select2Input = $( '#wikiproject-selector' ),
+				wikiprojectPrefix = ( wikiLang === 'fr' ) ? 'Projet:' : 'Wikipedia:WikiProject ',
+				params = {
 				ajax: {
-					url: 'https://en.wikipedia.org/w/api.php',
+					url: 'https://' + wikiLang + '.wikipedia.org/w/api.php',
 					dataType: 'jsonp',
 					delay: 200,
 					data: function ( search ) {
@@ -228,7 +229,7 @@
 							namespace: '4',
 							redirects: 'resolve',
 							format: 'json',
-							search: 'Wikipedia:WikiProject ' + ( search.term || '' )
+							search: wikiprojectPrefix + ( search.term || '' )
 						}
 					},
 					// format API data in the way Select2 wants it
@@ -236,7 +237,7 @@
 						var results = data[1];
 						return {
 							results: results.map( function ( elem ) {
-								var title = elem.replace( /^Wikipedia:WikiProject /, '' );
+								var title = elem.substr( wikiprojectPrefix.length );
 								// don't show WikiProject subpages
 								return !/\//g.test( title ) ? {
 									id: title.replace( / /g, '_' ),
