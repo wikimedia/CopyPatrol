@@ -21,6 +21,7 @@
  */
 namespace Plagiabot\Web\Controllers;
 
+use GuzzleHttp\Client;
 use Plagiabot\Web\Dao\PlagiabotDao;
 use Plagiabot\Web\Dao\WikiDao;
 use Wikimedia\Slimapp\Controller;
@@ -46,19 +47,6 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * Get the ORES scores URL for the current Wikipedia.
-	 *
-	 * @param array $revs
-	 * @return string The ORES URL.
-	 */
-	public function oresScoresUrl( array $revs ) {
-		$wikiCode = $this->wikiDao->getLang().'wiki';
-		$baseUrl = "https://ores.wikimedia.org/v2/scores/$wikiCode/damaging/?revids=";
-		$scoresUrl = $baseUrl . implode( '|', $revs );
-		return $scoresUrl;
-	}
-
-	/**
 	 * Get ORES scores for given revisions. This requires that ORES support the 'damaging' model
 	 * for the current Wikipedia.
 	 * @link https://ores.wikimedia.org/v2/#!/scoring/get_v2_scores
@@ -67,8 +55,11 @@ class CopyPatrol extends Controller {
 	 * @return string[]|boolean The ORES scores, or false if they can't be retrieved.
 	 */
 	public function oresScores( array $revisions ) {
-		$data = file_get_contents( $this->oresScoresUrl( $revisions ) );
-		$data = json_decode( $data, true );
+		$wikiCode = $this->wikiDao->getLang().'wiki';
+		$oresUrl = "https://ores.wikimedia.org/v2/scores/$wikiCode/damaging/";
+		$client = new Client( [ 'query' => [ 'revids' => join( '|', $revisions ) ] ] );
+		$response = $client->request( 'GET', $oresUrl )->getBody();
+		$data = GuzzleHttp\json_decode( $response, true );
 		if ( !array_key_exists( 'scores', $data ) ) {
 			// ORES is not supported for this Wikipedia (or is down).
 			return false;
