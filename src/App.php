@@ -240,7 +240,7 @@ class App extends AbstractApp {
 				// Set number formatting for Twig, based on the Accept header or SimpleI18N.
 				$locale = isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] )
 					? Locale::acceptFromHttp( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) // e.g. "en_AU"
-					: $this->slim->i18nContext->getCurrentLanguage(); // e.g. "en"
+					: $slim->i18nContext->getCurrentLanguage(); // e.g. "en"
 				$formatter = new NumberFormatter( $locale, NumberFormatter::DECIMAL );
 				// Get separator symbols (include decimal as it is required and we might use it at some point)
 				$decimal = $formatter->getSymbol( NumberFormatter::DECIMAL_SEPARATOR_SYMBOL );
