@@ -1,0 +1,29 @@
+{
+	"@metadata": {
+		"authors": [
+			"WikiPhoenix"
+		]
+	},
+	"documentation": "Dokumentation",
+	"feedback": "Återkoppling",
+	"login": "Logga in",
+	"logout": "Logga ut",
+	"form-mine": "Mina granskningar",
+	"form-drafts": "Endast utkast",
+	"submit": "Skicka",
+	"page": "Sida",
+	"diff": "Diff",
+	"editor": "Redigerare",
+	"review-false": "Ingen åtgärd behövs",
+	"history": "Historik",
+	"talk": "Diskussion",
+	"contribs": "Bidrag",
+	"record-editcount": "Antal redigeringar:",
+	"compare": "Jämför",
+	"record-noeditor": "Ingen redigerare hittades",
+	"article": "Artikel",
+	"compare-article-loading": "Läser in artikelversion...",
+	"footer-loadmore": "Läs in fler",
+	"source": "Källa",
+	"lboard-title": "Topplista"
+}

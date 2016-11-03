@@ -1,0 +1,31 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ykhwong"
+		]
+	},
+	"login": "로그인",
+	"logout": "로그아웃",
+	"form-drafts": "초안만",
+	"wikiprojects": "위키프로젝트",
+	"form-wikiprojects-placeholder": "위키프로젝트 이름 입력...",
+	"submit": "제출",
+	"page": "문서",
+	"diff": "차이",
+	"history": "역사",
+	"talk": "토론",
+	"contribs": "기여",
+	"record-editcount": "편집 수:",
+	"compare": "비교하기",
+	"record-noeditor": "편집자가 없습니다",
+	"record-ores": "ORES 점수: $1",
+	"compare-article-loading": "문서 판을 불러오는 중...",
+	"footer-loadmore": "더 불러오기",
+	"phabricator": "파브리케이터",
+	"footer-imageattr": "그림 속성",
+	"close": "닫기",
+	"imageattr-title": "그림 속성",
+	"public-domain": "퍼블릭 도메인",
+	"open-font-license": "오픈 폰트 라이선스",
+	"js-unauthorized": "검토하려면 로그인해야 합니다."
+}

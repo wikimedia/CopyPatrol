@@ -1,0 +1,33 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kareyac"
+		]
+	},
+	"name": "CopyPatrol",
+	"documentation": "Ձեռնարկ",
+	"logout": "Դուրս գալ",
+	"header-loggedin": "Դուք մտել եք որպես $1",
+	"form-all": "Բոլոր դեպքերում",
+	"wikiprojects": "ՎիքիՆախագծեր",
+	"submit": "Հաստատել",
+	"page": "Էջ",
+	"diff": "Տարբերություններ",
+	"editor": "Խմբագիր",
+	"review": "Ստուգել",
+	"review-false": "Գործողություն չի պահանջվում",
+	"history": "Պատմություն",
+	"talk": "Քննարկում",
+	"contribs": "Ներդրումներ",
+	"record-editcount": "Խմբագրումների հաշվում",
+	"compare": "Համեմատել",
+	"record-noeditor": "Խմբագիրը չի գտնվել",
+	"article": "Հոդված",
+	"footer-loadmore": "Բեռնել դեռ",
+	"footer-poweredby": "Սնուցվում է $1 և $2 -ով",
+	"source": "Աղբյուր",
+	"phabricator": "Ֆաբրիկատոր",
+	"footer-imageattr": "Պատկերի նկարագրություն",
+	"close": "Փակել",
+	"imageattr-logo": "CopyPatrol պատկերանիշ"
+}

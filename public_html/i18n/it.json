@@ -1,0 +1,40 @@
+{
+	"@metadata": {
+		"authors": [
+			"Beta16",
+			"Nemo bis"
+		]
+	},
+	"documentation": "Documentazione",
+	"feedback": "Commenti",
+	"login": "Entra",
+	"logout": "Esci",
+	"header-loggedin": "Hai effettuato l'accesso come: $1",
+	"form-all": "Tutti i casi",
+	"form-open": "Casi aperti",
+	"form-mine": "Le mie verifiche",
+	"form-drafts": "Solo bozze",
+	"submit": "Invia",
+	"page": "Pagina",
+	"diff": "Diff",
+	"review-fixed-tooltip": "La modifica era una violazione di copyright ed è stata annullata",
+	"review-false": "Nessuna azione necessaria",
+	"review-false-tooltip": "La modifica è un falso positivo, non deve essere fatto nulla",
+	"history": "Cronologia",
+	"talk": "Discussione",
+	"contribs": "Contributi",
+	"record-editcount": "Conteggio modifiche:",
+	"compare": "Confronta",
+	"record-ores": "Punteggio ORES: $1",
+	"article": "Voce",
+	"footer-loadmore": "Caricane ancora",
+	"footer-nomore": "Nessun altro record!",
+	"source": "Sorgente",
+	"phabricator": "Phabricator",
+	"lboard-week": "Casi chiusi negli ultimi 7 giorni",
+	"close": "Chiudi",
+	"imageattr-title": "Attribuzione immagine",
+	"public-domain": "pubblico dominio",
+	"js-dberror": "Si è verificato un errore nella connessione al database.",
+	"js-unknown-error": "Si è verificato un errore sconosciuto durante il caricamento dei risultati. Riprova."
+}
