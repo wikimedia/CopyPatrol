@@ -1,0 +1,42 @@
+{
+	"@metadata": {
+		"authors": [
+			"Macofe"
+		]
+	},
+	"documentation": "Documentación",
+	"feedback": "Comentarios",
+	"login": "Iniciar sesión",
+	"logout": "Cerrar sesión",
+	"header-loggedin": "Has accedido como: $1",
+	"form-all": "Todos los casos",
+	"form-open": "Casos abiertos",
+	"form-reviewed": "Casos revisados",
+	"form-mine": "Mis revisiones",
+	"form-drafts": "Sólo borradores",
+	"wikiprojects": "WikiProyectos",
+	"form-wikiprojects-placeholder": "Escribe nombres de WikiProyectos...",
+	"submit": "Enviar",
+	"page": "Página",
+	"diff": "Dif",
+	"editor": "Editor",
+	"review": "Revisión",
+	"review-by": "Revisado por:",
+	"history": "Historial",
+	"talk": "Discusión",
+	"contribs": "Contribuciones",
+	"record-editcount": "Conteo de ediciones:",
+	"compare": "Comparar",
+	"article": "Artículo",
+	"footer-loadmore": "Cargar más",
+	"footer-nomore": "¡No hay más registros!",
+	"source": "Fuente",
+	"phabricator": "Phabricator",
+	"footer-imageattr": "Atribución de imágenes",
+	"lboard-week": "Casos cerrados en los últimos 7 días",
+	"lboard-month": "Casos cerrados en los últimos 30 días",
+	"lboard-alltime": "Casos cerrados de todos los tiempos",
+	"close": "Cerrar",
+	"imageattr-title": "Atribución de imagen",
+	"public-domain": "dominio público"
+}

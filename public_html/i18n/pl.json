@@ -1,0 +1,37 @@
+{
+	"@metadata": {
+		"authors": [
+			"Chrumps"
+		]
+	},
+	"name": "CopyPatrol",
+	"documentation": "Dokumentacja",
+	"feedback": "Opinie",
+	"login": "Zaloguj się",
+	"logout": "Wyloguj",
+	"header-loggedin": "Jesteś zalogowany jako: $1",
+	"form-all": "Wszystkie przypadki",
+	"wikiprojects": "WikiProjekty",
+	"submit": "Wyślij",
+	"page": "Strona",
+	"review-fixed": "Strona naprawiona",
+	"history": "Historia",
+	"talk": "Dyskusja",
+	"contribs": "Edycje",
+	"record-editcount": "Liczba edycji:",
+	"compare": "Porównaj",
+	"record-ithenticate": "Raport iThenticate",
+	"record-url-text": "$1 edycji ($2 {{PLURAL:$2|wyraz|wyrazy|wyrazów}})",
+	"record-ores": "Wynik ORES: $1",
+	"article": "Artykuł",
+	"compare-article-loading": "Ładowanie wersji artykułu...",
+	"footer-loadmore": "Wczytaj więcej",
+	"source": "Źródło",
+	"phabricator": "Phabricator",
+	"lboard-back": "Wróć do CopyPatrol",
+	"close": "Zamknij",
+	"imageattr-logo": "Logo CopyPatrol",
+	"public-domain": "domena publiczna",
+	"js-dberror": "Wystąpił błąd podczas łączenia z bazą danych.",
+	"js-unknown-error": "Wystąpił nieznany błąd podczas ładowania wyników. Spróbuj jeszcze raz."
+}
