@@ -21,62 +21,53 @@
  */
 namespace Plagiabot\Web\Controllers;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use Plagiabot\Web\Dao\PlagiabotDao;
+use Plagiabot\Web\Dao\WikiDao;
 use Wikimedia\Slimapp\Controller;
-use Wikimedia\Slimapp\Config;
 use GuzzleHttp;
-use GuzzleHttp\Promise\Promise;
 
 class CopyPatrol extends Controller {
 
 	/**
-	 * @var int $wikipedia String wikipedia url (enwiki by default)
+	 * @var WikiDao The DAO for Wikipedia data access.
 	 */
-	protected $wikipedia;
+	protected $wikiDao;
 
 	/**
-	 * @var $enwikiDao  \Wikimedia\Slimapp\Dao\ object for enwiki access
+	 * @var PlagiabotDao The DAO for the CopyPatrol database.
 	 */
-	protected $enwikiDao;
+	protected $dao;
 
 	/**
-	 * @param \Slim\Slim $slim Slim application
+	 * @param WikiDao $wikiDao
 	 */
-	public function __construct( \Slim\Slim $slim = null, $wiki = 'https://en.wikipedia.org' ) {
-		parent::__construct( $slim );
-		$this->wikipedia = $wiki;
+	public function setWikiDao( WikiDao $wikiDao ) {
+		$this->wikiDao = $wikiDao;
 	}
 
 	/**
-	 * @param mixed $enwikiDao
-	 */
-	public function setEnwikiDao( $enwikiDao ) {
-		$this->enwikiDao = $enwikiDao;
-	}
-
-	/**
-	 * ORES scores URL
+	 * Get ORES scores for given revisions. This requires that ORES support the 'damaging' model
+	 * for the current Wikipedia.
+	 * @link https://ores.wikimedia.org/v2/#!/scoring/get_v2_scores
 	 *
-	 * @param array $revs
+	 * @param string[] $revisions The page revisions to retrieve scores for.
+	 * @return string[]|boolean The ORES scores, or false if they can't be retrieved.
 	 */
-	public static function oresScoresUrl( array $revs ) {
-		$baseUrl = 'https://ores.wikimedia.org/' .
-				   'v2/scores/enwiki/damaging/?revids=';
-		return $baseUrl . implode( '|', $revs );
-	}
-
-	/**
-	 * ORES scores for revisions
-	 *
-	 * @param array $revs
-	 */
-	public static function oresScores( array $revs ) {
-		$data = file_get_contents( self::oresScoresUrl( $revs ) );
-		$data = json_decode( $data, true );
-		if ( !array_key_exists( 'scores', $data ) ) {
-			// ORES is down :((
-			return;
+	public function oresScores( array $revisions ) {
+		$wikiCode = $this->wikiDao->getLang().'wiki';
+		$oresUrl = "https://ores.wikimedia.org/v2/scores/$wikiCode/damaging/";
+		$client = new Client( [ 'query' => [ 'revids' => join( '|', $revisions ) ] ] );
+		try {
+			$response = $client->request( 'GET', $oresUrl )->getBody();
+		} catch ( ClientException $ex ) {
+			// ORES is not supported for this Wikipedia (or is down).
+			return false;
 		}
-		$data = $data['scores']['enwiki']['damaging']['scores'];
+		$data = GuzzleHttp\json_decode( $response, true );
+		$wikiCode = $this->wikiDao->getLang().'wiki';
+		$data = $data['scores'][$wikiCode]['damaging']['scores'];
 		$scores = [];
 		foreach ( $data as $revId => $value ) {
 			if ( array_key_exists( 'error', $value ) ) {
@@ -112,7 +103,8 @@ class CopyPatrol extends Controller {
 	 */
 	protected function handleGet() {
 		$records = $this->getRecords();
-		$userWhitelist = $this->getUserWhitelist();
+		$userWhitelist = [];
+		// $userWhitelist = $this->getUserWhitelist();
 		// nothing else needs to be done if there are no records
 		if ( empty( $records ) ) {
 			return $this->render( 'index.html' );
@@ -131,7 +123,7 @@ class CopyPatrol extends Controller {
 		}
 		// get an associative array with the revision ID as the key and editor as the value
 		// this makes it easier to access what we need when looping through the copyvio records
-		$editors = $this->enwikiDao->getRevisionsEditors( $diffIds );
+		$editors = $this->wikiDao->getRevisionsEditors( $diffIds );
 		foreach ( $editors as $editor ) {
 			// add username to usernames array so we can fetch their edit counts all at once
 			$usernames[] = $editor;
@@ -142,14 +134,14 @@ class CopyPatrol extends Controller {
 		// Asynchronously get edit counts of users,
 		// and all dead pages so we can colour them red in the view
 		$promises = [
-			'editCounts' => $this->enwikiDao->getEditCounts( $usernames ),
-			'deadPages' => $this->enwikiDao->getDeadPages( $pageTitles )
+			'editCounts' => $this->wikiDao->getEditCounts( $usernames ),
+			'deadPages' => $this->wikiDao->getDeadPages( $pageTitles )
 		];
 		$asyncResults = GuzzleHttp\Promise\unwrap( $promises );
 		$editCounts = $asyncResults['editCounts'];
 		$deadPages = $asyncResults['deadPages'];
 		// Get ORES scores for edits
-		$oresScores = self::oresScores( $diffIds );
+		$oresScores = $this->oresScores( $diffIds );
 		// now all external requests and database queries (except
 		// WikiProjects) have been completed, let's loop through the records
 		// once more to build the complete dataset to be rendered into view
@@ -201,7 +193,9 @@ class CopyPatrol extends Controller {
 				$records[$key]['reviewed_by_url'] = $this->getUserPage( $record['status_user'] );
 				$records[$key]['review_timestamp'] = $this->formatTimestamp( $record['review_timestamp'] );
 			}
-			$records[$key]['wikiprojects'] = $this->plagiabotDao->getWikiProjects( $record['page_title'] );
+			$records[$key]['wikiprojects'] = $this->dao->getWikiProjects(
+				$this->wikiDao->getLang(), $record['page_title']
+			);
 			$records[$key]['page_title'] = $this->removeUnderscores( $record['page_title'] );
 			$cleanWikiprojects = [];
 			foreach ( $records[$key]['wikiprojects'] as $k => $wp ) {
@@ -215,6 +209,7 @@ class CopyPatrol extends Controller {
 			}
 		}
 		$this->view->set( 'records', $records );
+
 		$this->render( 'index.html' );
 	}
 
@@ -238,7 +233,7 @@ class CopyPatrol extends Controller {
 	 * @param int $ithenticateId ID of record to review
 	 */
 	private function autoReview( $ithenticateId ) {
-		$this->plagiabotDao->insertCopyvioAssessment(
+		$this->dao->insertCopyvioAssessment(
 			$ithenticateId,
 			'false',
 			'Community Tech bot',
@@ -265,11 +260,11 @@ class CopyPatrol extends Controller {
 			$this->flashNow( 'warning', 'You must be logged in to view your own reviews.' );
 			$filter = 'open';
 		} else {
-			$filterTypeKeys = array_keys( $this->getFilterTypes() ); // Check that the filter value was valid
+			$filterTypeKeys = $this->getFilterTypes(); // Check that the filter value was valid.
 			if ( !in_array( $filter, $filterTypeKeys ) ) {
 				$this->flashNow(
 					'error',
-					'Invalid filter. Values must be one of: ' . join( $filterTypeKeys, ', ' )
+					'Invalid filter. Values must be one of: ' . join( ', ', $filterTypeKeys )
 				);
 				$filter = 'open';  // Set to default
 			}
@@ -278,22 +273,17 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * Get the current available filter types
+	 * Get the currently-available filter types.
 	 *
-	 * @return array Associative array by filter code and filter description.
-	 *   The description is used as the labels of the radio buttons in the view.
+	 * @return string[] Array by filter codes.
 	 */
 	protected function getFilterTypes() {
 		static $filterTypes = null;
 		if ( $filterTypes === null ) {
-			$filterTypes = [
-				'all' => 'All cases',
-				'open' => 'Open cases',
-				'reviewed' => 'Reviewed cases'
-			];
-			// add 'My reviews' to filter options if user is logged in
+			$filterTypes = [ 'all', 'open', 'reviewed' ];
+			// Add 'My reviews' to filter options if user is logged in.
 			if ( $this->getUsername() ) {
-				$filterTypes['mine'] = 'My reviews';
+				$filterTypes[] = 'mine';
 			}
 		}
 		return $filterTypes;
@@ -317,12 +307,12 @@ class CopyPatrol extends Controller {
 			$whitelist = $cacheItem->get( $cacheKey );
 		} else {
 			// It doesn't exist or it expired, so fetch from wiki page.
-			$whitelist = $this->enwikiDao->getUserWhitelist();
+			$whitelist = $this->wikiDao->getUserWhitelist();
 			// Store in the cache for 2 hours.
 			$cacheItem->set( $whitelist )->expiresAfter( 2 * 60 * 60 );
 			$this->cache->save( $cacheItem );
 		}
-		return $whitelist;
+		return is_array( $whitelist ) ? $whitelist : [];
 	}
 
 	/**
@@ -360,8 +350,13 @@ class CopyPatrol extends Controller {
 		if ( $filter === 'mine' && isset( $filterUser ) ) {
 			$options['filter_user'] = $filterUser;
 		}
+		// Set the language for the records and the view.
+		$options['wikiLang'] = $this->wikiDao->getLang();
+		$this->view->set( 'wikiLang', $this->wikiDao->getLang() );
+
 		$this->view->set( 'filter', $filter );
 		$this->view->set( 'drafts', $drafts );
+		$this->view->set( 'draftsExist', $this->dao->draftsExist( $this->wikiDao->getLang() ) );
 		$this->view->set( 'wikiprojects', $wikiprojects );
 		$this->view->set( 'wikiprojectsArray', $wikiprojectsArray );
 		$this->view->set( 'filterTypes', $this->getFilterTypes() );
@@ -370,21 +365,21 @@ class CopyPatrol extends Controller {
 
 	/**
 	 * @param $page string Page title
-	 * @return string url of wiki page on enwiki
+	 * @return string URL of wiki page on Wikipedia.
 	 */
 	public function getPageLink( $page ) {
-		return $this->wikipedia . '/wiki/' . urlencode( $page );
+		return $this->wikiDao->getWikipediaUrl() . '/wiki/' . urlencode( $page );
 	}
 
 	/**
 	 * @param $page string Page title
 	 * @param $diff string Diff id
-	 * @return string link to diff
+	 * @return string URL of the diff page on Wikipedia.
 	 */
 	public function getDiffLink( $page, $diff ) {
-		return $this->wikipedia .
-			   '/w/index.php?title=' . urlencode( $page ) .
-			   '&diff=' . urlencode( $diff );
+		return $this->wikiDao->getWikipediaUrl()
+		       . '/w/index.php?title=' . urlencode( $page )
+		       . '&diff=' . urlencode( $diff );
 	}
 
 	/**
@@ -419,7 +414,8 @@ class CopyPatrol extends Controller {
 	 * @return string the URL
 	 */
 	public function getHistoryLink( $title ) {
-		return $this->wikipedia . '/wiki/' . urlencode( $title ) . '?action=history';
+		return $this->wikiDao->getWikipediaUrl() . '/wiki/'
+		       . urlencode( $title ) . '?action=history';
 	}
 
 	/**
@@ -430,7 +426,8 @@ class CopyPatrol extends Controller {
 		if ( !$user ) {
 			return false;
 		}
-		return $this->wikipedia . '/wiki/User_talk:' . urlencode( str_replace( ' ', '_', $user ) );
+		$username = str_replace( ' ', '_', $user );
+		return $this->wikiDao->getWikipediaUrl() . '/wiki/User_talk:' . urlencode( $username );
 	}
 
 	/**
@@ -441,7 +438,8 @@ class CopyPatrol extends Controller {
 		if ( !$user ) {
 			return false;
 		}
-		return $this->wikipedia . '/wiki/User:' . urlencode( str_replace( ' ', '_', $user ) );
+		$username = str_replace( ' ', '_', $user );
+		return $this->wikiDao->getWikipediaUrl() . '/wiki/User:' . urlencode( $username );
 	}
 
 	/**
@@ -452,8 +450,8 @@ class CopyPatrol extends Controller {
 		if ( !$user ) {
 			return false;
 		}
-		return $this->wikipedia . '/wiki/Special:Contributions/' .
-			   urlencode( str_replace( ' ', '_', $user ) );
+		return $this->wikiDao->getWikipediaUrl() . '/wiki/Special:Contributions/'
+		       . urlencode( str_replace( ' ', '_', $user ) );
 	}
 
 	/**

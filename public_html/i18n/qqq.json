@@ -11,6 +11,8 @@
 	"documentation": "Link to documentation in header\n{{Identical|Documentation}}",
 	"feedback": "Link to feedback in header\n{{Identical|Feedback}}",
 	"leaderboard": "Link to a list of the top reviewers in header",
+	"fr-wikipedia": "Window title. Name of the French Wikipedia",
+	"en-wikipedia": "Window title. Name of the English Wikipedia",
 	"login": "Button label\n{{Identical|Login}}",
 	"logout": "Button label\n{{Identical|Logout}}",
 	"header-loggedin": "Message to tell user who they are logged in as.\n Parameter: $1 - Wiki username.",
