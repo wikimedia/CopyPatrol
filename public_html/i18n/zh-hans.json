@@ -8,6 +8,8 @@
 	"documentation": "文档",
 	"feedback": "反馈",
 	"leaderboard": "排行榜",
+	"en-wikipedia": "英语维基百科",
+	"fr-wikipedia": "法语维基百科",
 	"login": "登录",
 	"logout": "退出",
 	"header-loggedin": "您已作为$1登录",

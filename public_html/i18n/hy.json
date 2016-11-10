@@ -6,6 +6,8 @@
 	},
 	"name": "CopyPatrol",
 	"documentation": "Ձեռնարկ",
+	"en-wikipedia": "Անգլերեն Վիքիպեդիա",
+	"fr-wikipedia": "Ֆրանսերեն Վիքիպեդիա",
 	"logout": "Դուրս գալ",
 	"header-loggedin": "Դուք մտել եք որպես $1",
 	"form-all": "Բոլոր դեպքերում",

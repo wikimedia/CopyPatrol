@@ -8,6 +8,8 @@
 	"documentation": "Dokumentation",
 	"feedback": "Rückmeldung",
 	"leaderboard": "Bestenliste",
+	"en-wikipedia": "Englischsprachige Wikipedia",
+	"fr-wikipedia": "Französischsprachige Wikipedia",
 	"login": "Anmelden",
 	"logout": "Abmelden",
 	"header-loggedin": "Du bist angemeldet als: $1",

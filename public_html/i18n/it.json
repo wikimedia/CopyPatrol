@@ -7,6 +7,8 @@
 	},
 	"documentation": "Documentazione",
 	"feedback": "Commenti",
+	"en-wikipedia": "Wikipedia in inglese",
+	"fr-wikipedia": "Wikipedia in francese",
 	"login": "Entra",
 	"logout": "Esci",
 	"header-loggedin": "Hai effettuato l'accesso come: $1",

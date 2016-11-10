@@ -4,6 +4,8 @@
 			"Ykhwong"
 		]
 	},
+	"en-wikipedia": "영어 위키백과",
+	"fr-wikipedia": "프랑스어 위키백과",
 	"login": "로그인",
 	"logout": "로그아웃",
 	"form-drafts": "초안만",
@@ -27,5 +29,6 @@
 	"imageattr-title": "그림 속성",
 	"public-domain": "퍼블릭 도메인",
 	"open-font-license": "오픈 폰트 라이선스",
-	"js-unauthorized": "검토하려면 로그인해야 합니다."
+	"js-unauthorized": "검토하려면 로그인해야 합니다.",
+	"js-unknown-error": "결과를 불러오는 동안 알 수 없는 오류가 발생했습니다. 다시 시도해 주십시오."
 }

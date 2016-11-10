@@ -8,6 +8,8 @@
 	"documentation": "Документација",
 	"feedback": "Мислења",
 	"leaderboard": "Предводници",
+	"en-wikipedia": "Википедија на англиски",
+	"fr-wikipedia": "Википедија на француски",
 	"login": "Најава",
 	"logout": "Одјава",
 	"header-loggedin": "Најавени сте како $1.",
