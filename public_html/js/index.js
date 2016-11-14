@@ -26,6 +26,7 @@
 			// perform review action then cleanup
 			reviewFn( id, status, function () {
 				document.activeElement.blur(); // remove focus from button
+				$( this ).parents( 'article.record' ).find( '.compare-pane' ).slideUp(); // Close compare areas.
 				$( this ).removeClass( 'loading' );
 			}.bind( this ) );
 		} );
