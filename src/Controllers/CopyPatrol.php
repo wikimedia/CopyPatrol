@@ -103,12 +103,12 @@ class CopyPatrol extends Controller {
 	 */
 	protected function handleGet() {
 		$records = $this->getRecords();
-		$userWhitelist = [];
-		// $userWhitelist = $this->getUserWhitelist();
 		// nothing else needs to be done if there are no records
 		if ( empty( $records ) ) {
 			return $this->render( 'index.html' );
 		}
+		$userWhitelist = [];
+		// $userWhitelist = $this->getUserWhitelist();
 		$diffIds = [];
 		$pageTitles = [];
 		$usernames = [];
@@ -160,9 +160,7 @@ class CopyPatrol extends Controller {
 			if ( $record['page_ns'] == 118 ) {
 				$record['page_title'] = 'Draft:' . $record['page_title'];
 			}
-			$pageDead = in_array(
-				$this->removeUnderscores( $record['page_title'] ), $deadPages
-			);
+			$pageDead = in_array( $record['page_title'], $deadPages );
 			// if the page is dead, mark it as reviewed by our bot and skip to next record
 			if ( $pageDead && $this->getFilter() === 'open' ) {
 				$this->autoReview( $record['ithenticate_id'] );

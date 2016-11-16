@@ -217,11 +217,24 @@ class WikiDao extends AbstractDao {
 		$deadPages = [];
 
 		foreach ( $results as $result ) {
+			// Get list of normalized pages. This is to account for when querying for
+			// User/User talk pages on non-English projects, since the namespaces titles are different
+			$normalizedPages = [];
+			if ( isset( $result['query']['normalized'] ) ) {
+				foreach ( $result['query']['normalized'] as $mapping ) {
+					$normalizedPages[$mapping['to']] = $mapping['from'];
+				}
+			}
+
 			foreach ( $result['query']['pages'] as $page ) {
 				if ( isset( $page['missing'] ) ) {
 					// Please note that this returns a false positive when the
 					// user account has a global User page and not a local one
-					$deadPages[] = $page['title'];
+					if ( isset( $normalizedPages[$page['title']] ) ) {
+						$deadPages[] = $normalizedPages[$page['title']];
+					} else {
+						$deadPages[] = $page['title'];
+					}
 				}
 			}
 		}
