@@ -175,7 +175,7 @@
 						url: params.copyvio,
 						action: 'compare',
 						project: 'wikipedia',
-						lang: 'en',
+						lang: wikiLang,
 						format: 'json',
 						detail: 'true'
 					},
