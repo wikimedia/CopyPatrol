@@ -21,24 +21,7 @@
  */
 namespace Plagiabot\Web\Controllers;
 
-use Plagiabot\Web\Dao\PlagiabotDao;
-use Slim\Slim;
-use Wikimedia\Slimapp\Controller;
-
-class Leaderboard extends Controller {
-
-	/**
-	 * @var PlagiabotDao
-	 */
-	protected $dao;
-
-	/**
-	 * @param Slim $slim Slim application
-	 */
-	public function __construct( Slim $slim = null, $lang = 'en' ) {
-		parent::__construct( $slim );
-		$this->lang = $lang;
-	}
+class Leaderboard extends CopyPatrol {
 
 	/**
 	 * Handle GET route for app
