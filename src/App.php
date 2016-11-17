@@ -278,7 +278,7 @@ class App extends AbstractApp {
 					} )->name( 'home' )->setConditions( $routeConditions );
 				$slim->get( 'logout', function () use ( $slim ) {
 					$slim->authManager->logout();
-					$slim->redirect( $slim->urlFor( 'home' ) );
+					$slim->redirect( $slim->urlFor( 'root' ) );
 				} )->name( 'logout' );
 				$slim->get( ':wikiLang/loadmore', function ( $wikiLang ) use ( $slim ) {
 					$page = new Controllers\CopyPatrol( $slim );
