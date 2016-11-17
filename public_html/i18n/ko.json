@@ -4,6 +4,7 @@
 			"Ykhwong"
 		]
 	},
+	"documentation": "설명서",
 	"en-wikipedia": "영어 위키백과",
 	"fr-wikipedia": "프랑스어 위키백과",
 	"login": "로그인",
@@ -21,6 +22,7 @@
 	"compare": "비교하기",
 	"record-noeditor": "편집자가 없습니다",
 	"record-ores": "ORES 점수: $1",
+	"article": "문서",
 	"compare-article-loading": "문서 판을 불러오는 중...",
 	"footer-loadmore": "더 불러오기",
 	"phabricator": "파브리케이터",

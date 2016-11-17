@@ -1,0 +1,32 @@
+{
+	"@metadata": {
+		"authors": [
+			"George Animal"
+		]
+	},
+	"name": "CopyPatrol",
+	"documentation": "Belgekirin",
+	"feedback": "Paşragihandin",
+	"leaderboard": "Leaderboard",
+	"en-wikipedia": "Wîkîpediyaya Îngilîzî",
+	"fr-wikipedia": "Wîkîpediyaya Frensî",
+	"login": "Têkeve",
+	"logout": "Derkeve",
+	"header-loggedin": "Tu têketiyî wek: $1",
+	"form-all": "Hemû rewş",
+	"submit": "Tomar bike",
+	"page": "Rûpel",
+	"diff": "Cudahî",
+	"editor": "Edîtor",
+	"review-fixed": "Rûpel hate sererastkirin",
+	"review-false": "Ti çalakî ne pêwist e",
+	"history": "Dîrok",
+	"talk": "Gotûbêj",
+	"contribs": "Beşdarî",
+	"compare": "Bide berhev",
+	"article": "Gotar",
+	"source": "Çavkanî",
+	"phabricator": "Phabricator",
+	"close": "Bigre",
+	"imageattr-logo": "Logoya CopyPatrolê"
+}

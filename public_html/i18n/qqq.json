@@ -4,7 +4,8 @@
 			"Niharika Kohli",
 			"MusikAnimal",
 			"Ryan Kaldari",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Fitoschido"
 		]
 	},
 	"name": "{{Optional}}\nTitle of the application/tool",
@@ -65,7 +66,7 @@
 	"public-domain": "Text as part of the attributions box\n{{Identical|Public domain}}",
 	"open-font-license": "Text as part of the attributions box",
 	"imageattr-paragraph1": "Text as part of the attributions box. \n Parameters: $1, $2, $3, $4 - Strings: Links to the app logo and usernames & project names which helped create it. Username is gender neutral.",
-	"imageattr-paragraph2": "Text as part of the attributions box. \n Parameters: $1, $2, $3 - Strings: Link to the font, it's creator and associated license.",
+	"imageattr-paragraph2": "Text as part of the attributions box. \n Parameters: $1, $2, $3 - Strings: Link to the font, its creator and associated license.",
 	"alert-testing": "Text shown as part of an alert on the test app instance, alerting users to use the actual instance instead",
 	"js-unauthorized": "Alert text shown to user when they try to review records without being logged in",
 	"js-dberror": "Alert shown to user when a database connection could not be made",
