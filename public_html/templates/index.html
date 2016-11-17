@@ -107,7 +107,7 @@
 									{{ 'compare' | message }}
 								</button>
 								{{ 'record-url-text' | message( copy.percentage, copy.count | number_format ) }}
-								<a href="{{ copy.url }}" target="_blank">{{ copy.url }}</a><br/>
+								<a href="{{ copy.url }}" target="_blank">{{ copy.url | url_decode }}</a><br/>
 								<div class="compare-pane" id="{{ 'comp' ~ row.ithenticate_id ~ '-' ~ loop.index }}">
 									<div class="compare-pane-left">
 										<h4 class="compare-pane-title">{{ 'article' | message }}</h4>

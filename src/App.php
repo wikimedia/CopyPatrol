@@ -34,6 +34,7 @@ use Slim\Slim;
 use Locale;
 use Slim\View;
 use Slim\Views\TwigExtension;
+use Twig_SimpleFilter;
 use Stash\Driver\FileSystem;
 use Stash\Driver\Redis;
 use Stash\Pool;
@@ -211,6 +212,12 @@ class App extends AbstractApp {
 			$twig = $this->slim->view->getEnvironment();
 			$twig->getExtension( 'core' )->setNumberFormat( 0, $decimal, $thousands );
 		}
+		// add URL decoder filter to Twig
+		$filter = new Twig_SimpleFilter( 'url_decode', function( $string ) {
+			return urldecode( $string );
+		} );
+		$twig = $this->slim->view->getEnvironment();
+		$twig->addFilter( $filter );
 	}
 
 	/**
