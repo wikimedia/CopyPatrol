@@ -330,7 +330,7 @@ class App extends AbstractApp {
 			function ( $wikiLang ) use ( $slim ) {
 				$leaderboard = new Leaderboard( $slim );
 				$leaderboard->setDao( $this->getPlagiabotDao() );
-				$this->getWikiDao( $wikiLang );
+				$leaderboard->setWikiDao( $this->getWikiDao( $wikiLang ) );
 				$leaderboard();
 			} )->name( 'leaderboard' )->setConditions( $routeConditions );
 	}
