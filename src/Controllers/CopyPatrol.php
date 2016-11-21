@@ -107,7 +107,6 @@ class CopyPatrol extends Controller {
 		if ( empty( $records ) ) {
 			return $this->render( 'index.html' );
 		}
-		$userWhitelist = [];
 		$userWhitelist = $this->getUserWhitelist();
 		$diffIds = [];
 		$pageTitles = [];
