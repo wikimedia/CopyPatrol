@@ -287,7 +287,7 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * Get user watchlist from wiki page
+	 * Get cached user watchlist or re-fetch from wiki page and update redis
 	 *
 	 * @return array Usernames
 	 */
@@ -298,6 +298,7 @@ class CopyPatrol extends Controller {
 			return $whitelist;
 		}
 		$cacheKey = $this->wikiDao->getLang() . '_copypatrol_user_whitelist';
+		// Get whitelist from the cache if possible.
 		$cacheItem = $this->cache->getItem( $cacheKey );
 		if ( $cacheItem->isHit() ) {
 			$whitelist = $cacheItem->get( $cacheKey );
