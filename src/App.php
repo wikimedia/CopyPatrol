@@ -243,6 +243,8 @@ class App extends AbstractApp {
 				// determine if we are on the staging environment, so we can show a banner in the view
 				$rootUri = $slim->request->getRootUri();
 				$slim->view->set( 'staging', strpos( $rootUri, 'plagiabot' ) );
+				// Give the view the current route name, for inter-language linking.
+				$slim->view->set( 'currentRoute', $slim->router->getCurrentRoute()->getName() );
 			},
 			'require-auth' => function () use ( $slim ) {
 				if ( !$slim->authManager->isAuthenticated() ) {
@@ -276,6 +278,13 @@ class App extends AbstractApp {
 						$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
 						$page();
 					} )->name( 'home' )->setConditions( $routeConditions );
+				$slim->get( ':wikiLang/leaderboard',
+					function ( $wikiLang ) use ( $slim ) {
+						$leaderboard = new Leaderboard( $slim );
+						$leaderboard->setDao( $this->getPlagiabotDao() );
+						$leaderboard->setWikiDao( $this->getWikiDao( $wikiLang ) );
+						$leaderboard();
+					} )->name( 'leaderboard' )->setConditions( $routeConditions );
 				$slim->get( 'logout', function () use ( $slim ) {
 					$slim->authManager->logout();
 					$slim->redirect( $slim->urlFor( 'root' ) );
@@ -328,13 +337,6 @@ class App extends AbstractApp {
 					$page( 'callback' );
 				} )->name( 'oauth_callback' );
 			} );
-		$slim->get( '/:wikiLang/leaderboard', $middleware['inject-user'],
-			function ( $wikiLang ) use ( $slim ) {
-				$leaderboard = new Leaderboard( $slim );
-				$leaderboard->setDao( $this->getPlagiabotDao() );
-				$leaderboard->setWikiDao( $this->getWikiDao( $wikiLang ) );
-				$leaderboard();
-			} )->name( 'leaderboard' )->setConditions( $routeConditions );
 	}
 
 	/**
