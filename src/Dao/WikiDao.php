@@ -253,7 +253,9 @@ class WikiDao extends AbstractDao {
 			'prop' => 'links',
 			'titles' => 'User:EranBot/Copyright/User_whitelist'
 		] )['query']['pages'][0]['links'];
-
+		if ( !$links ) {
+			return [];
+		}
 		// return array with just usernames as strings, without the 'User:' prefix
 		return array_map( function( $link ) {
 			// Split on : and pick the second element to get the username

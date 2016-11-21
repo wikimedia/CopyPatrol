@@ -107,8 +107,7 @@ class CopyPatrol extends Controller {
 		if ( empty( $records ) ) {
 			return $this->render( 'index.html' );
 		}
-		$userWhitelist = [];
-		// $userWhitelist = $this->getUserWhitelist();
+		$userWhitelist = $this->getUserWhitelist();
 		$diffIds = [];
 		$pageTitles = [];
 		$usernames = [];
@@ -298,8 +297,8 @@ class CopyPatrol extends Controller {
 		if ( $whitelist !== null ) {
 			return $whitelist;
 		}
+		$cacheKey = $this->wikiDao->getLang() . '_copypatrol_user_whitelist';
 		// Get whitelist from the cache if possible.
-		$cacheKey = 'copypatrol_user_whitelist';
 		$cacheItem = $this->cache->getItem( $cacheKey );
 		if ( $cacheItem->isHit() ) {
 			$whitelist = $cacheItem->get( $cacheKey );
