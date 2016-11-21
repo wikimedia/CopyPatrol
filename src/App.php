@@ -299,15 +299,17 @@ class App extends AbstractApp {
 					$slim->response->setBody( file_get_contents( APP_ROOT . '/cache/less/' . $cssFileName ) );
 				} )->name( 'index.css' );
 			} );
-		$slim->group( '/review/', $middleware['require-auth'],
+		$slim->group( '/:wikiLang/review/', $middleware['require-auth'],
 			function () use ( $slim ) {
-				$slim->get( 'add', function () use ( $slim ) {
+				$slim->get( 'add', function ( $wikiLang ) use ( $slim ) {
 					$page = new AddReview( $slim );
+					$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
 					$page->setDao( $this->getPlagiabotDao() );
 					$page();
 				} )->name( 'add_review' );
-				$slim->get( 'undo', function () use ( $slim ) {
+				$slim->get( 'undo', function ( $wikiLang ) use ( $slim ) {
 					$page = new UndoReview( $slim );
+					$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
 					$page->setDao( $this->getPlagiabotDao() );
 					$page();
 				} )->name( 'undo_review' );

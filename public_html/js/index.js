@@ -56,7 +56,7 @@
 			setReviewState( id, val );
 
 			$.ajax( {
-				url: baseUrl + 'review/add',
+				url: baseUrl + wikiLang + 'review/add',
 				data: {
 					id: id,
 					val: val
@@ -89,7 +89,7 @@
 		 */
 		function undoReview( id, oldStatus, cb ) {
 			$.ajax( {
-				url: baseUrl + 'review/undo',
+				url: baseUrl + wikiLang + 'review/undo',
 				data: {
 					id: id
 				},
