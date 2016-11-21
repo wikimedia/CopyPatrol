@@ -298,8 +298,17 @@ class CopyPatrol extends Controller {
 		if ( $whitelist !== null ) {
 			return $whitelist;
 		}
-		// It doesn't exist so fetch from wiki page.
-		$whitelist = $this->wikiDao->getUserWhitelist();
+		$cacheKey = $this->wikiDao->getLang() . '_copypatrol_user_whitelist';
+		$cacheItem = $this->cache->getItem( $cacheKey );
+		if ( $cacheItem->isHit() ) {
+			$whitelist = $cacheItem->get( $cacheKey );
+		} else {
+			// It doesn't exist or it expired, so fetch from wiki page.
+			$whitelist = $this->wikiDao->getUserWhitelist();
+			// Store in the cache for 2 hours.
+			$cacheItem->set( $whitelist )->expiresAfter( 2 * 60 * 60 );
+			$this->cache->save( $cacheItem );
+		}
 		return is_array( $whitelist ) ? $whitelist : [];
 	}
 
