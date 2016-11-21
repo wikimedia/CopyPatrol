@@ -108,7 +108,7 @@ class CopyPatrol extends Controller {
 			return $this->render( 'index.html' );
 		}
 		$userWhitelist = [];
-		// $userWhitelist = $this->getUserWhitelist();
+		$userWhitelist = $this->getUserWhitelist();
 		$diffIds = [];
 		$pageTitles = [];
 		$usernames = [];
@@ -288,7 +288,7 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * Get cached user watchlist or re-fetch from wiki page and update redis
+	 * Get user watchlist from wiki page
 	 *
 	 * @return array Usernames
 	 */
@@ -298,18 +298,8 @@ class CopyPatrol extends Controller {
 		if ( $whitelist !== null ) {
 			return $whitelist;
 		}
-		// Get whitelist from the cache if possible.
-		$cacheKey = 'copypatrol_user_whitelist';
-		$cacheItem = $this->cache->getItem( $cacheKey );
-		if ( $cacheItem->isHit() ) {
-			$whitelist = $cacheItem->get( $cacheKey );
-		} else {
-			// It doesn't exist or it expired, so fetch from wiki page.
-			$whitelist = $this->wikiDao->getUserWhitelist();
-			// Store in the cache for 2 hours.
-			$cacheItem->set( $whitelist )->expiresAfter( 2 * 60 * 60 );
-			$this->cache->save( $cacheItem );
-		}
+		// It doesn't exist so fetch from wiki page.
+		$whitelist = $this->wikiDao->getUserWhitelist();
 		return is_array( $whitelist ) ? $whitelist : [];
 	}
 
