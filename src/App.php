@@ -265,6 +265,13 @@ class App extends AbstractApp {
 				$middleware['inject-user'], $middleware['set-environment'],
 			function () use ( $slim, $middleware, $routeConditions ) {
 				$slim->get( '', function() use ( $slim ) {
+					// See if we have a cookie indicating last version used
+					if ( isset( $_COOKIE['copypatrolLang'] ) ) {
+						$slim->redirectTo( 'home', [ 'wikiLang' => $_COOKIE['copypatrolLang'] ] );
+					} else {
+						// If no cookie, redirect to English version
+						$slim->redirectTo( 'home', [ 'wikiLang' => 'en' ] );
+					}
 					// Redirect root-URL requests to English.
 					$currentLang = $slim->i18nContext->getCurrentLanguage();
 					$slim->redirectTo( 'home', [ 'wikiLang' => $currentLang ] );
@@ -272,6 +279,7 @@ class App extends AbstractApp {
 				$slim->get( ':wikiLang',
 					function ( $wikiLang ) use ( $slim ) {
 						$page = new CopyPatrol( $slim );
+						setcookie( 'copypatrolLang', $wikiLang );
 						$page->setDao( $this->getPlagiabotDao() );
 						$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
 						$page();
