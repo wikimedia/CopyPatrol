@@ -5,6 +5,7 @@
 		]
 	},
 	"documentation": "설명서",
+	"feedback": "피드백",
 	"en-wikipedia": "영어 위키백과",
 	"fr-wikipedia": "프랑스어 위키백과",
 	"login": "로그인",
@@ -20,6 +21,7 @@
 	"contribs": "기여",
 	"record-editcount": "편집 수:",
 	"compare": "비교하기",
+	"record-url-text": "편집 중 $1 ($2개 단어)",
 	"record-noeditor": "편집자가 없습니다",
 	"record-ores": "ORES 점수: $1",
 	"article": "문서",

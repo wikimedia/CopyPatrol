@@ -8,6 +8,8 @@
 	"documentation": "Dokumentation",
 	"feedback": "Återkoppling",
 	"leaderboard": "Topplista",
+	"en-wikipedia": "Engelskspråkiga Wikipedia",
+	"fr-wikipedia": "Franskspråkiga Wikipedia",
 	"login": "Logga in",
 	"logout": "Logga ut",
 	"header-loggedin": "Du är inloggad som: $1",

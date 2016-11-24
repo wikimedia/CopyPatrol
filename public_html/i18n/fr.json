@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Framawiki"
+			"Framawiki",
+			"Wladek92"
 		]
 	},
 	"name": "CopyPatrol",
@@ -38,7 +39,7 @@
 	"record-ithenticate": "Rapport d'iThenticate",
 	"record-url-text": "$1 de ressemblance ($2 mots)",
 	"record-noeditor": "Pas d'éditeur trouvé",
-	"record-noeditor-tooltip": "Cette révision a surement été supprimée et n'est donc plus disponible dans la base de données.",
+	"record-noeditor-tooltip": "Cette modification a probablement été supprimée ou l'information n'est pas encore disponible dans la base de données Labs.",
 	"record-ores": "Score ORES : $1",
 	"article": "Article",
 	"compare-article-loading": "Chargement de la modification de l'article...",
