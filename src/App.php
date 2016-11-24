@@ -272,14 +272,11 @@ class App extends AbstractApp {
 						// If no cookie, redirect to English version
 						$slim->redirectTo( 'home', [ 'wikiLang' => 'en' ] );
 					}
-					// Redirect root-URL requests to English.
-					$currentLang = $slim->i18nContext->getCurrentLanguage();
-					$slim->redirectTo( 'home', [ 'wikiLang' => $currentLang ] );
 				} )->name( 'root' );
 				$slim->get( ':wikiLang',
 					function ( $wikiLang ) use ( $slim ) {
 						$page = new CopyPatrol( $slim );
-						setcookie( 'copypatrolLang', $wikiLang );
+						setcookie( 'copypatrolLang', $wikiLang, time() + ( 86400 * 30 ) ); // Cookie persists 30 days
 						$page->setDao( $this->getPlagiabotDao() );
 						$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
 						$page();
