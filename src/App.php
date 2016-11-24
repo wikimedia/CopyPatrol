@@ -269,7 +269,12 @@ class App extends AbstractApp {
 					if ( isset( $_COOKIE['copypatrolLang'] ) ) {
 						$slim->redirectTo( 'home', [ 'wikiLang' => $_COOKIE['copypatrolLang'] ] );
 					} else {
-						// If no cookie, redirect to English version
+						// If no cookie, check if we support i18nContext's default language
+						$lang = $slim->i18nContext->getCurrentLanguage();
+						if ( in_array( $lang, [ 'en', 'fr' ] ) ) {
+							$slim->redirectTo( 'home', [ 'wikiLang' => $lang ] );
+						}
+						// We don't support i18nContext's current language, so redirect to en version
 						$slim->redirectTo( 'home', [ 'wikiLang' => 'en' ] );
 					}
 				} )->name( 'root' );
