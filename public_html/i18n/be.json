@@ -1,0 +1,33 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mechanizatar"
+		]
+	},
+	"feedback": "Зваротная сувязь",
+	"login": "Увайсці",
+	"logout": "Выйсці",
+	"header-loggedin": "Вы ўвайшлі як: $1",
+	"form-all": "Усе выпадкі",
+	"review": "Праверка",
+	"review-fixed": "Старонка выпраўлена",
+	"review-fixed-tooltip": "Праўка парушала аўтарскае права і была скасавана",
+	"review-false": "Ніякіх дзеянняў не патрабуецца",
+	"review-by": "Разгледжана:",
+	"history": "Гісторыя",
+	"talk": "Размовы",
+	"contribs": "Уклад",
+	"record-editcount": "Колькасць правак:",
+	"compare": "Параўнаць",
+	"record-ithenticate": "справаздача iThenticate",
+	"record-noeditor": "Рэдактар не знойдзены",
+	"record-ores": "ORES-вынік: $1",
+	"article": "Артыкул",
+	"footer-loadmore": "Чытаць болей",
+	"source": "Крыніца",
+	"phabricator": "Фабрыкатар",
+	"lboard-back": "Вярнуцца да CopyPatrol",
+	"close": "Закрыць",
+	"imageattr-logo": "Лагатып CopyPatrol",
+	"open-font-license": "Ліцэнзія Open Font"
+}
