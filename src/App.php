@@ -51,7 +51,7 @@ class App extends AbstractApp {
 	/**
 	 * @var array Languages supported by the app
 	 */
-	var $supportedLanguages = [ 'en', 'fr' ];
+	public $supportedLanguages = [ 'en', 'fr' ];
 
 	/**
 	 * @return array Languages supported by the app
