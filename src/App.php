@@ -49,6 +49,18 @@ use Wikimedia\SimpleI18n\JsonCache;
 class App extends AbstractApp {
 
 	/**
+	 * @var array Languages supported by the app
+	 */
+	var $supportedLanguages = [ 'en', 'fr' ];
+
+	/**
+	 * @return array Languages supported by the app
+	 */
+	public function getSupportedLanguages() {
+		return $this->supportedLanguages;
+	}
+
+	/**
 	 * Apply settings to the Slim application.
 	 *
 	 * @param Slim $slim Application
@@ -271,7 +283,7 @@ class App extends AbstractApp {
 					} else {
 						// If no cookie, check if we support i18nContext's default language
 						$lang = $slim->i18nContext->getCurrentLanguage();
-						if ( in_array( $lang, [ 'en', 'fr' ] ) ) {
+						if ( in_array( $lang, $this->getSupportedLanguages() ) ) {
 							$slim->redirectTo( 'home', [ 'wikiLang' => $lang ] );
 						}
 						// We don't support i18nContext's current language, so redirect to en version
