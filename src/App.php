@@ -49,6 +49,18 @@ use Wikimedia\SimpleI18n\JsonCache;
 class App extends AbstractApp {
 
 	/**
+	 * @var array Languages supported by the app
+	 */
+	public $supportedLanguages = [ 'en', 'fr' ];
+
+	/**
+	 * @return array Languages supported by the app
+	 */
+	public function getSupportedLanguages() {
+		return $this->supportedLanguages;
+	}
+
+	/**
 	 * Apply settings to the Slim application.
 	 *
 	 * @param Slim $slim Application
@@ -267,13 +279,23 @@ class App extends AbstractApp {
 				$middleware['inject-user'], $middleware['set-environment'],
 			function () use ( $slim, $middleware, $routeConditions ) {
 				$slim->get( '', function() use ( $slim ) {
-					// Redirect root-URL requests to English.
-					$currentLang = $slim->i18nContext->getCurrentLanguage();
-					$slim->redirectTo( 'home', [ 'wikiLang' => $currentLang ] );
+					// See if we have a cookie indicating last version used
+					if ( isset( $_COOKIE['copypatrolLang'] ) ) {
+						$slim->redirectTo( 'home', [ 'wikiLang' => $_COOKIE['copypatrolLang'] ] );
+					} else {
+						// If no cookie, check if we support i18nContext's default language
+						$lang = $slim->i18nContext->getCurrentLanguage();
+						if ( in_array( $lang, $this->getSupportedLanguages() ) ) {
+							$slim->redirectTo( 'home', [ 'wikiLang' => $lang ] );
+						}
+						// We don't support i18nContext's current language, so redirect to en version
+						$slim->redirectTo( 'home', [ 'wikiLang' => 'en' ] );
+					}
 				} )->name( 'root' );
 				$slim->get( ':wikiLang',
 					function ( $wikiLang ) use ( $slim ) {
 						$page = new CopyPatrol( $slim );
+						setcookie( 'copypatrolLang', $wikiLang, time() + ( 86400 * 30 ) ); // Cookie persists 30 days
 						$page->setDao( $this->getPlagiabotDao() );
 						$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
 						$page();
