@@ -1,0 +1,34 @@
+{
+	"@metadata": {
+		"authors": [
+			"Wesalius"
+		]
+	},
+	"documentation": "Dokumentace",
+	"feedback": "Zpětná vazba",
+	"login": "Přihlášení",
+	"logout": "Odhlášení",
+	"form-drafts": "Pouze koncepty",
+	"wikiprojects": "WikiProjekty",
+	"submit": "Odeslat",
+	"page": "Stránka",
+	"diff": "Porovnání verzí",
+	"review-fixed-tooltip": "Editace porušovala autorská práva a byla vrácena",
+	"review-false": "Není nutná žádná akce",
+	"history": "Historie",
+	"talk": "Diskuze",
+	"contribs": "Příspěvky",
+	"record-editcount": "Počet editací:",
+	"compare": "Porovnat",
+	"record-ores": "ORES skóre: $1",
+	"article": "Článek",
+	"footer-loadmore": "Načíst další",
+	"footer-nomore": "Žádné další záznamy!",
+	"source": "Zdroj",
+	"phabricator": "Phabricator",
+	"lboard-week": "Případy uzavřené v posledních 7 dnech",
+	"lboard-month": "Případy uzavřené v posledních 30 dnech",
+	"lboard-back": "Zpět na CopyPatrol",
+	"close": "Zavřít",
+	"imageattr-logo": "CopyPatrol logo"
+}
