@@ -161,21 +161,28 @@ class PlagiabotDao extends AbstractDao {
 	}
 
 	/**
-	 * Get the names of Wikiprojects that a particular Wikipedia page belongs to.
+	 * Get the names of WikiProjects that a particular Wikipedia page belongs to.
 	 * @param string $lang The language code.
-	 * @param string $title Page title.
-	 * @return string[] Alphabetical list of Wikiprojects
+	 * @param string $title Page title. If null, all projects of $lang will be returned.
+	 * @return string Alphabetical list of WikiProjects
 	 */
-	public function getWikiProjects( $lang, $title ) {
+	public function getWikiProjects( $lang, $title = null ) {
+		$whereTitle = '';
+		$params = [ 'lang' => $lang ];
+		if ( !is_null( $title ) ) {
+			$whereTitle = 'AND wp_page_title = :title';
+			$params['title'] = $title;
+		}
 		$query = self::concat(
 			'SELECT wp_project FROM wikiprojects',
-			'WHERE wp_page_title = :title AND wp_lang = :lang',
+			'WHERE  wp_lang = :lang',
+			$whereTitle,
 			'ORDER BY wp_project ASC'
 		);
 
 		// extract out the WikiProject names from the result set
 		$wikiprojects = array_column(
-			$this->fetchAll( $query, [ 'lang' => $lang, 'title' => $title ] ),
+			$this->fetchAll( $query, $params ),
 			'wp_project'
 		);
 

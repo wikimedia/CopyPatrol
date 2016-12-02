@@ -101,6 +101,9 @@
 							</label>
 						</span>
 						{% endif %}
+
+					{% if hasWikiprojects %}
+					{# End the row and start a new one to display the WikiProjects' search box. #}
 					</div>
 					<div class="wikiproject-filter col-sm-12">
 						<label class="wikiproject-label" for="wikiproject-selector">
@@ -113,8 +116,11 @@
 						</select>
 						{# use hidden input field so we can submit with format 'WP1|WP2|WP3' #}
 						<input type="hidden" name="wikiprojects" value="{{ wikiprojects }}" formenctype="text/plain"/>
-						<button type="submit"
-						        class="btn btn-primary btn-sm btn-submit-filters">{{ 'submit' | message }}</button>
+					{% endif %}
+
+						<button type="submit" class="btn btn-primary btn-sm btn-submit-filters">
+							{{ 'submit' | message }}
+						</button>
 					</div>
 				</fieldset>
 			</form>
@@ -123,11 +129,13 @@
 		<section class="records">
 			{% block rowheader %}
 				<header class="header-div container-fluid">
-					<div class="header-col col-sm-3 text-center">{{ 'page' | message }}</div>
+					<div class="header-col {% if hasWikiprojects %}col-sm-3{% else %}col-sm-4{% endif %} text-center">{{ 'page' | message }}</div>
 					<div class="header-col col-sm-2 text-center">{{ 'diff' | message }}</div>
-					<div class="header-col col-sm-2 text-center">{{ 'editor' | message }}</div>
+					<div class="header-col {% if hasWikiprojects %}col-sm-2{% else %}col-sm-3{% endif %} text-center">{{ 'editor' | message }}</div>
+					{% if hasWikiprojects %}
 					<div class="header-col col-sm-3 text-center">{{ 'wikiprojects' | message }}</div>
-					<div class="header-col col-sm-2 text-center">{{ 'review' | message }}</div>
+					{% endif %}
+					<div class="header-col {% if hasWikiprojects %}col-sm-2{% else %}col-sm-3{% endif %} text-center">{{ 'review' | message }}</div>
 				</header>
 			{% endblock %}
 			<section class="record-container">

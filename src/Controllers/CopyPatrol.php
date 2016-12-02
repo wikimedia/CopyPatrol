@@ -354,6 +354,8 @@ class CopyPatrol extends Controller {
 		$this->view->set( 'filter', $filter );
 		$this->view->set( 'drafts', $drafts );
 		$this->view->set( 'draftsExist', $this->dao->draftsExist( $this->wikiDao->getLang() ) );
+		$hasWikiprojects = count( $this->dao->getWikiProjects( $this->wikiDao->getLang() ) ) > 0;
+		$this->view->set( 'hasWikiprojects', $hasWikiprojects );
 		$this->view->set( 'wikiprojects', $wikiprojects );
 		$this->view->set( 'wikiprojectsArray', $wikiprojectsArray );
 		$this->view->set( 'filterTypes', $this->getFilterTypes() );

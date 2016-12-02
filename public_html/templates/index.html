@@ -20,7 +20,7 @@
 					data-status="{{ row.status }}">
 				<div class="row-container clearfix">
 					{# Div for page title #}
-					<div class="row-div col-sm-3 page-div">
+					<div class="row-div {% if hasWikiprojects %}col-sm-3{% else %}col-sm-4{% endif %} page-div">
 						<strong>
 							<a href='{{ row.page_link }}' target="_blank"
 							   class="{{ row.page_dead ? 'text-danger' : '' }}">{{ row.page_title }}</a>
@@ -48,7 +48,7 @@
 						{% endif %}
 					</div>
 					{# Div for editor information #}
-					<div class="row-div col-sm-2 text-center report-div">
+					<div class="row-div {% if hasWikiprojects %}col-sm-2{% else %}col-sm-3{% endif %} text-center report-div">
 						{% if row.editor %}
 							<a href='{{ row.editor_page }}' class="{{ row.editor_page_dead ? 'text-danger' : '' }}"
 							   target="_blank">{{ row.editor }}</a>
@@ -72,6 +72,7 @@
 							</div>
 						{% endif %}
 					</div>
+					{% if hasWikiprojects %}{# Note the odd nesting of this if-else. #}
 					<div class="row-div col-sm-3 text-center wikiproject-div">
 						{% if row.wikiprojects is not empty %}
 							{% for wp in row.wikiprojects %}
@@ -79,7 +80,8 @@
 							{% endfor %}
 						{% endif %}
 					</div>
-					<div class="row-div col-sm-2 text-center status-div">
+					{% endif %}
+					<div class="row-div {% if hasWikiprojects %}col-sm-2{% else %}col-sm-3{% endif %} text-center status-div">
 						<button data-id="{{ row.ithenticate_id }}"
 						        data-status="fixed"
 						        class="btn btn-success btn-block btn-fixed js-save-state {{ user ? 'clickable' : '' }}"
