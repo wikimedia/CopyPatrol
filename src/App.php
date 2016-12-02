@@ -272,79 +272,94 @@ class App extends AbstractApp {
 				}
 			},
 		];
-		$routeConditions = [
-			'wikiLang' => '([a-z]{1,3})'
-		];
-		$slim->group( '/', $middleware['trailing-slash'],
-				$middleware['inject-user'], $middleware['set-environment'],
-			function () use ( $slim, $middleware, $routeConditions ) {
-				$slim->get( '', function() use ( $slim ) {
-					// See if we have a cookie indicating last version used
-					if ( isset( $_COOKIE['copypatrolLang'] ) ) {
-						$slim->redirectTo( 'home', [ 'wikiLang' => $_COOKIE['copypatrolLang'] ] );
-					} else {
-						// If no cookie, check if we support i18nContext's default language
-						$lang = $slim->i18nContext->getCurrentLanguage();
-						if ( in_array( $lang, $this->getSupportedLanguages() ) ) {
-							$slim->redirectTo( 'home', [ 'wikiLang' => $lang ] );
-						}
-						// We don't support i18nContext's current language, so redirect to en version
-						$slim->redirectTo( 'home', [ 'wikiLang' => 'en' ] );
+
+		// Root route.
+		$slim->get( '/', $middleware['trailing-slash'], $middleware['inject-user'],
+			$middleware['set-environment'],
+			function() use ( $slim ) {
+				// See if we have a cookie indicating last version used
+				if ( isset( $_COOKIE['copypatrolLang'] ) ) {
+					$slim->redirectTo( 'home', [ 'wikiLang' => $_COOKIE['copypatrolLang'] ] );
+				} else {
+					// If no cookie, check if we support i18nContext's default language
+					$lang = $slim->i18nContext->getCurrentLanguage();
+					if ( in_array( $lang, $this->getSupportedLanguages() ) ) {
+						$slim->redirectTo( 'home', [ 'wikiLang' => $lang ] );
 					}
-				} )->name( 'root' );
-				$slim->get( ':wikiLang',
+					// We don't support i18nContext's current language, so redirect to en version
+					$slim->redirectTo( 'home', [ 'wikiLang' => 'en' ] );
+				}
+			}
+		)->name( 'root' );
+
+		// Language-based routes.
+		$slim->group( '/:wikiLang', $middleware['trailing-slash'], $middleware['inject-user'],
+			$middleware['set-environment'],
+			function () use ( $slim, $middleware ) {
+				$routeConditions = [
+					'wikiLang' => '(' . join( '|', $this->getSupportedLanguages() ) . ')',
+				];
+				$slim->get( '/',
 					function ( $wikiLang ) use ( $slim ) {
 						$page = new CopyPatrol( $slim );
-						setcookie( 'copypatrolLang', $wikiLang, time() + ( 86400 * 30 ) ); // Cookie persists 30 days
+						// Cookie persists 30 days.
+						setcookie( 'copypatrolLang', $wikiLang, time() + ( 86400 * 30 ) );
 						$page->setDao( $this->getPlagiabotDao() );
 						$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
 						$page();
-					} )->name( 'home' )->setConditions( $routeConditions );
-				$slim->get( ':wikiLang/leaderboard',
+					}
+				)->name( 'home' )->setConditions( $routeConditions );
+				$slim->get( '/leaderboard',
 					function ( $wikiLang ) use ( $slim ) {
 						$leaderboard = new Leaderboard( $slim );
 						$leaderboard->setDao( $this->getPlagiabotDao() );
 						$leaderboard->setWikiDao( $this->getWikiDao( $wikiLang ) );
 						$leaderboard();
-					} )->name( 'leaderboard' )->setConditions( $routeConditions );
-				$slim->get( 'logout', function () use ( $slim ) {
-					$slim->authManager->logout();
-					$slim->redirect( $slim->urlFor( 'root' ) );
-				} )->name( 'logout' );
-				$slim->get( ':wikiLang/loadmore', function ( $wikiLang ) use ( $slim ) {
-					$page = new Controllers\CopyPatrol( $slim );
-					$page->setDao( $this->getPlagiabotDao() );
-					$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
-					$page();
-				} )->name( 'loadmore' )->setConditions( $routeConditions );
-				$slim->get( 'index.css', function () use ( $slim ) {
-					// Compile LESS if need be, otherwise serve cached asset
-					// Cached files get automatically deleted if they are over a week old
-					// The value for the .less key defines the root of assets within the Less
-					//   e.g. /copypatrol/ makes url('image.gif') route to /copypatrol/image.gif
-					$rootUri = $slim->request->getRootUri();
-					$lessFiles = [ APP_ROOT . '/src/Less/index.less' => $rootUri . '/' ];
-					$options = [ 'cache_dir' => APP_ROOT . '/cache/less' ];
-					$cssFileName = Less_Cache::Get( $lessFiles, $options );
-					$slim->response->headers->set( 'Content-Type', 'text/css' );
-					$slim->response->setBody( file_get_contents( APP_ROOT . '/cache/less/' . $cssFileName ) );
-				} )->name( 'index.css' );
+					}
+				)->name( 'leaderboard' )->setConditions( $routeConditions );
+				$slim->get( '/loadmore',
+					function ( $wikiLang ) use ( $slim ) {
+						$page = new CopyPatrol( $slim );
+						$page->setDao( $this->getPlagiabotDao() );
+						$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
+						$page();
+					}
+				)->name( 'loadmore' )->setConditions( $routeConditions );
+				$slim->get( '/review/add', $middleware['require-auth'],
+					function ( $wikiLang ) use ( $slim ) {
+						$page = new AddReview( $slim );
+						$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
+						$page->setDao( $this->getPlagiabotDao() );
+						$page();
+					}
+				)->name( 'add_review' );
+				$slim->get( '/review/undo', $middleware['require-auth'],
+					function ( $wikiLang ) use ( $slim ) {
+						$page = new UndoReview( $slim );
+						$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
+						$page->setDao( $this->getPlagiabotDao() );
+						$page();
+					}
+				)->name( 'undo_review' );
 			} );
-		$slim->group( '/:wikiLang/review/', $middleware['require-auth'],
+
+		// Stylesheet route.
+		$slim->get( '/index.css', $middleware['trailing-slash'],
 			function () use ( $slim ) {
-				$slim->get( 'add', function ( $wikiLang ) use ( $slim ) {
-					$page = new AddReview( $slim );
-					$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
-					$page->setDao( $this->getPlagiabotDao() );
-					$page();
-				} )->name( 'add_review' );
-				$slim->get( 'undo', function ( $wikiLang ) use ( $slim ) {
-					$page = new UndoReview( $slim );
-					$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
-					$page->setDao( $this->getPlagiabotDao() );
-					$page();
-				} )->name( 'undo_review' );
-			} );
+				// Compile LESS if need be, otherwise serve cached asset
+				// Cached files get automatically deleted if they are over a week old
+				// The value for the .less key defines the root of assets within the Less
+				// e.g. /copypatrol/ makes url('image.gif') route to /copypatrol/image.gif
+				$rootUri = $slim->request->getRootUri();
+				$lessFiles = [ APP_ROOT . '/src/Less/index.less' => $rootUri . '/' ];
+				$options = [ 'cache_dir' => APP_ROOT . '/cache/less' ];
+				$cssFileName = Less_Cache::Get( $lessFiles, $options );
+				$slim->response->headers->set( 'Content-Type', 'text/css' );
+				$slim->response->setBody( file_get_contents( APP_ROOT . '/cache/less/' . $cssFileName ) );
+			}
+		)->name( 'index.css' );
+
+		// Authentication routes.
 		$slim->group( '/oauth/',
 			function () use ( $slim ) {
 				$slim->get( '', function () use ( $slim ) {
@@ -358,7 +373,15 @@ class App extends AbstractApp {
 					$page->setUserManager( $slim->userManager );
 					$page( 'callback' );
 				} )->name( 'oauth_callback' );
-			} );
+			}
+		);
+		$slim->get( '/logout', $middleware['trailing-slash'], $middleware['inject-user'],
+			$middleware['set-environment'],
+			function () use ( $slim ) {
+				$slim->authManager->logout();
+				$slim->redirect( $slim->urlFor( 'root' ) );
+			}
+		)->name( 'logout' );
 	}
 
 	/**
