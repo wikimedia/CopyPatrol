@@ -22,6 +22,7 @@
  */
 namespace Plagiabot\Web;
 
+use DateInterval;
 use NumberFormatter;
 use Plagiabot\Web\Controllers\AddReview;
 use Plagiabot\Web\Controllers\AuthHandler;
@@ -49,15 +50,23 @@ use Wikimedia\SimpleI18n\JsonCache;
 class App extends AbstractApp {
 
 	/**
-	 * @var array Languages supported by the app
-	 */
-	public $supportedLanguages = [ 'en', 'fr' ];
-
-	/**
-	 * @return array Languages supported by the app
+	 * Get codes of all languages supported by CopyPatrol. This list is retrieved from the
+	 * copyright_diffs database table, and cached for a week.
+	 * @return string[] The 2-letter language codes.
 	 */
 	public function getSupportedLanguages() {
-		return $this->supportedLanguages;
+		// Use the cached list if possible.
+		$cacheItem = $this->slim->cache->getItem( 'supported-languages' );
+		if ( $cacheItem->isHit() ) {
+			return $cacheItem->get();
+		}
+
+		// Otherwise get the list from the database, and cache it for a week (Period 7 Days).
+		$langs = $this->getPlagiabotDao()->getLanguages();
+		$cacheItem->expiresAfter( new DateInterval( 'P7D' ) );
+		$cacheItem->set( $langs );
+		$this->slim->cache->save( $cacheItem );
+		return $langs;
 	}
 
 	/**
@@ -203,7 +212,8 @@ class App extends AbstractApp {
 	protected function configureView( View $view ) {
 		$view->replace( [
 			'app' => $this->slim,
-			'i18nCtx' => $this->slim->i18nContext
+			'i18nCtx' => $this->slim->i18nContext,
+			'supportedLanguages' => $this->getSupportedLanguages(),
 		] );
 		$view->parserExtensions = [
 			new TwigExtension(),
