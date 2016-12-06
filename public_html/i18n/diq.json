@@ -1,0 +1,34 @@
+{
+	"@metadata": {
+		"authors": [
+			"1917 Ekim Devrimi"
+		]
+	},
+	"name": "CopyPatrol",
+	"documentation": "Dokumantasyon",
+	"feedback": "Peydrışten",
+	"leaderboard": "Tabloy lideran",
+	"en-wikipedia": "Wikipediya İngilizki",
+	"fr-wikipedia": "Wikipediya Fransızki",
+	"login": "Cıkewtış",
+	"logout": "Veciyayış",
+	"header-loggedin": "$1 nameya şıma ronıştış akerd o.",
+	"form-all": "Weqey pêro",
+	"form-open": "Weqe akerê",
+	"form-reviewed": "weqe kontrol biya",
+	"form-mine": "kontrolê mı",
+	"wikiprojects": "Wikiprojey",
+	"form-wikiprojects-placeholder": "Namey tewra Wikiproji...",
+	"page": "Pele",
+	"diff": "Ferq",
+	"editor": "Vurner",
+	"history": "Veror",
+	"talk": "Behs",
+	"contribs": "İştıraki",
+	"record-editcount": "Hesabi bıvurne:",
+	"compare": "Pêvernayış",
+	"article": "Meqale",
+	"source": "Çıme",
+	"phabricator": "Phabricator",
+	"lboard-title": "Tabloy lideran"
+}

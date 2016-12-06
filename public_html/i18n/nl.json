@@ -61,6 +61,8 @@
 	"imageattr-logo": "Logo CopyPatrol",
 	"public-domain": "publiek domein",
 	"open-font-license": "Open Font License",
+	"imageattr-paragraph1": "$1 beschikbaar voor de $2 met dank aan $3 en de $4",
+	"imageattr-paragraph2": "$1 vrijgegeven onder de $2 met dank aan $3",
 	"alert-testing": "Dit is geen productieversie. Maak geen gebruik van dit hulpprogramma voor uw beoordelingen. Gebruik $1 voor de productieversie van CopyPatrol.",
 	"js-unauthorized": "U moet aangemeld zijn om te kunnen beoordelen.",
 	"js-dberror": "Er is een fout opgetreden bij het verbinden met de database.",
