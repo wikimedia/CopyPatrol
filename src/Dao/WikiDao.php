@@ -252,8 +252,8 @@ class WikiDao extends AbstractDao {
 		$links = $this->apiQuery( [
 			'prop' => 'links',
 			'titles' => 'User:EranBot/Copyright/User_whitelist'
-		] )['query']['pages'][0]['links'];
-		if ( !$links ) {
+		] );
+		if ( !isset( $links['query']['pages'][0]['links'] ) ) {
 			return [];
 		}
 		// return array with just usernames as strings, without the 'User:' prefix
@@ -261,7 +261,7 @@ class WikiDao extends AbstractDao {
 			// Split on : and pick the second element to get the username
 			// This is because for other wikis 'User:' may be different, but there was always be a colon
 			return explode( ':', $link['title'] )[1];
-		}, $links );
+		}, $links['query']['pages'][0]['links'] );
 	}
 
 	/**
