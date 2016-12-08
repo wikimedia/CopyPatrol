@@ -37,5 +37,9 @@ This application makes of use the [Wikimedia-slimapp](https://github.com/wikimed
 4. To use a translation message in JavaScript, add it as a global variable in `templates/base.html`. Then simply access it in the JS.
 5. To get a message in PHP, use `$this->i18nContext->message( '<message-key>' )`
 
+## Available languages
 
-
+CopyPatrol is able to work with any languages that are supported by iThenticate.
+This list is available at http://www.ithenticate.com/products/faqs
+and the corresponding list of messages in `i18n/*.json` should be updated periodically
+(there is no automatic process for this).

@@ -21,12 +21,13 @@
 							{{ (wikiLang~'-wikipedia') | message }} <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-							{% if wikiLang != 'en' %}
-							<li><a href="{{ urlFor( currentRoute, {wikiLang:'en'} ) }}">{{ ('en-wikipedia') | message }}</a></li>
-							{% endif %}
-							{% if wikiLang != 'fr' %}
-							<li><a href="{{ urlFor( currentRoute, {wikiLang:'fr'} ) }}">{{ ('fr-wikipedia') | message }}</a></li>
-							{% endif %}
+							{% for supLang in supportedLanguages %}
+								{% if supLang != wikiLang %}
+								<li>
+									<a href="{{ urlFor( currentRoute, {wikiLang: supLang} ) }}">{{ (supLang~'-wikipedia') | message }}</a>
+								</li>
+								{% endif %}
+							{% endfor %}
 						</ul>
 					</li>
 					<li><a target="_blank" href="https://meta.wikimedia.org/wiki/CopyPatrol">{{ 'documentation' | message }}</a></li>
