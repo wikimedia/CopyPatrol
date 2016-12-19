@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Shizhao"
 		]
 	},
 	"name": "版权巡查",
@@ -47,15 +48,15 @@
 	"form-reviewed": "已巡查的情况",
 	"form-mine": "我的巡查",
 	"form-drafts": "仅限草稿",
-	"wikiprojects": "专题",
-	"form-wikiprojects-placeholder": "请输入专题名称...",
+	"wikiprojects": "维基专题",
+	"form-wikiprojects-placeholder": "请输入维基专题名称...",
 	"submit": "提交",
 	"page": "页面",
 	"diff": "差异",
 	"editor": "编辑者",
 	"review": "巡查",
-	"review-fixed": "已修复的页面",
-	"review-fixed-tooltip": "此编辑是版权侵犯，并已被回退",
+	"review-fixed": "页面已修复",
+	"review-fixed-tooltip": "此编辑侵犯了版权，并已被回退",
 	"review-false": "不需要操作",
 	"review-false-tooltip": "此编辑是一次误判，不需要完成任何事",
 	"review-by": "巡查者：",
@@ -67,7 +68,7 @@
 	"record-ithenticate": "iThenticate报告",
 	"record-url-text": "编辑的$1（$2个词）",
 	"record-noeditor": "找不到编辑者",
-	"record-noeditor-tooltip": "修订拜拜可能已被删除，或者数据在实验室数据库中尚不可用。",
+	"record-noeditor-tooltip": "修订版本可能已被删除，或者数据在实验室数据库中尚不可用。",
 	"record-ores": "ORES分数：$1",
 	"article": "条目",
 	"compare-article-loading": "正在加载条目修订版本...",
@@ -77,7 +78,7 @@
 	"footer-broughtby": "由$1提供给您",
 	"footer-commtech": "社群技术",
 	"footer-poweredby": "由$1和$2提供技术支持",
-	"source": "源代码",
+	"source": "来源",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "图片署名",
 	"lboard-title": "排行榜",
