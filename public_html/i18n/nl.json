@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Siebrand"
+			"Siebrand",
+			"Mainframe98"
 		]
 	},
 	"name": "CopyPatrol",
@@ -9,6 +10,7 @@
 	"feedback": "Terugkoppeling",
 	"leaderboard": "Scorebord",
 	"en-wikipedia": "Engelstalige Wikipedia",
+	"nl-wikipedia": "Nederlandstalige Wikipedia",
 	"fr-wikipedia": "Franstalige Wikipedia",
 	"login": "Aanmelden",
 	"logout": "Afmelden",

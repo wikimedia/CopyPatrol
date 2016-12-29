@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"1917 Ekim Devrimi",
-			"Gırd"
+			"Gırd",
+			"Gambollar"
 		]
 	},
 	"name": "CopyPatrol",
@@ -49,16 +50,23 @@
 	"form-mine": "Çımraviyarnayışê mı",
 	"wikiprojects": "Wikiprocey",
 	"form-wikiprojects-placeholder": "Namanê wikiproceyan bınusê...",
+	"submit": "Deqewtış",
 	"page": "Pele",
 	"diff": "Ferq",
 	"editor": "Vurner",
+	"review": "Çım eşten",
 	"history": "Tarix",
 	"talk": "Vatış",
 	"contribs": "İştıraki",
 	"record-editcount": "Hesabi bıvurne:",
 	"compare": "Têversanayış",
+	"record-url-text": "vurnayışê $1 ($2 çekuy)",
+	"record-noeditor": "Vurnayoğ nêvineya",
 	"article": "Meqale",
+	"footer-commtech": "Community Tech",
+	"footer-poweredby": "Terefê $1 u $2",
 	"source": "Çıme",
 	"phabricator": "Phabricator",
-	"lboard-title": "Tabloy lideran"
+	"lboard-title": "Tabloy lideran",
+	"public-domain": "Malê Şari"
 }
