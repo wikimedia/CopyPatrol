@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kly"
+			"Kly",
+			"Liuxinyu970226"
 		]
 	},
 	"name": "CopyPatrol",
@@ -13,7 +14,7 @@
 	"th-wikipedia": "泰語維基百科",
 	"en-wikipedia": "英語維基百科",
 	"ko-wikipedia": "韓語維基百科",
-	"ca-wikipedia": "加泰羅尼亞語維基百科",
+	"ca-wikipedia": "加泰隆尼亞語維基百科",
 	"hr-wikipedia": "克羅埃西亞語維基百科",
 	"cs-wikipedia": "捷克語維基百科",
 	"da-wikipedia": "丹麥語維基百科",
