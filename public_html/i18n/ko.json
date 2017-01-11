@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ykhwong"
+			"Ykhwong",
+			"Jerrykim306"
 		]
 	},
 	"documentation": "설명서",
@@ -39,12 +40,14 @@
 	"tr-wikipedia": "터키어 위키백과",
 	"login": "로그인",
 	"logout": "로그아웃",
+	"header-loggedin": "$1님으로 로그인하고 있습니다.",
 	"form-drafts": "초안만",
 	"wikiprojects": "위키프로젝트",
 	"form-wikiprojects-placeholder": "위키프로젝트 이름 입력...",
 	"submit": "제출",
 	"page": "문서",
 	"diff": "차이",
+	"review-false": "필요한 작업 없음",
 	"history": "역사",
 	"talk": "토론",
 	"contribs": "기여",
@@ -56,6 +59,7 @@
 	"article": "문서",
 	"compare-article-loading": "문서 판을 불러오는 중...",
 	"footer-loadmore": "더 불러오기",
+	"source": "출처",
 	"phabricator": "파브리케이터",
 	"footer-imageattr": "그림 속성",
 	"close": "닫기",
