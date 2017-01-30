@@ -3,9 +3,11 @@
 		"authors": [
 			"Wesalius",
 			"Martin Urbanec",
-			"Matěj Suchánek"
+			"Matěj Suchánek",
+			"Walter Klosse"
 		]
 	},
+	"name": "CopyPatrol",
 	"documentation": "Dokumentace",
 	"feedback": "Zpětná vazba",
 	"leaderboard": "Žebříček",
