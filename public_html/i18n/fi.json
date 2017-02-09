@@ -2,13 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"Nike",
-			"Valtlait"
+			"Valtlait",
+			"Pyscowicz"
 		]
 	},
 	"feedback": "Palaute",
 	"zh-wikipedia": "Kiinankielinen Wikipedia",
 	"ja-wikipedia": "Japaninkielinen Wikipedia",
 	"th-wikipedia": "Thainkielinen Wikipedia",
+	"en-wikipedia": "Englanninkielinen Wikipedia",
 	"ko-wikipedia": "Koreankielinen Wikipedia",
 	"ca-wikipedia": "Katalaaninkielinen Wikipedia",
 	"hr-wikipedia": "Kroatiankielinen Wikipedia",
@@ -16,6 +18,7 @@
 	"da-wikipedia": "Tanskankielinen Wikipedia",
 	"nl-wikipedia": "Hollanninkielinen Wikipedia",
 	"fi-wikipedia": "Suomenkielinen Wikipedia",
+	"fr-wikipedia": "Ranskankielinen Wikipedia",
 	"de-wikipedia": "Saksankielinen Wikipedia",
 	"hu-wikipedia": "Unkarinkielinen Wikipedia",
 	"it-wikipedia": "Italiankielinen Wikipedia",
@@ -40,8 +43,15 @@
 	"form-drafts": "Vain luonnokset",
 	"submit": "Lähetä",
 	"page": "Sivu",
+	"editor": "Muokkain",
 	"history": "Historia",
 	"talk": "Keskustelu",
+	"record-editcount": "Muokkausmäärä",
+	"compare": "Vertaa",
+	"article": "Artikkeli",
 	"footer-loadmore": "Lataa lisää",
-	"close": "Sulje"
+	"source": "Lähde",
+	"close": "Sulje",
+	"imageattr-logo": "CopyPatrol logo",
+	"js-unauthorized": "Sinun täytyy olla kirjautuneena sisään voidakseen tarkastella."
 }
