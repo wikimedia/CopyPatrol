@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Ykhwong",
-			"Jerrykim306"
+			"Jerrykim306",
+			"SeoJeongHo"
 		]
 	},
 	"documentation": "설명서",
@@ -41,6 +42,7 @@
 	"login": "로그인",
 	"logout": "로그아웃",
 	"header-loggedin": "$1님으로 로그인하고 있습니다.",
+	"form-mine": "내 리뷰",
 	"form-drafts": "초안만",
 	"wikiprojects": "위키프로젝트",
 	"form-wikiprojects-placeholder": "위키프로젝트 이름 입력...",
@@ -49,7 +51,9 @@
 	"diff": "차이",
 	"editor": "편집자",
 	"review": "검토",
+	"review-fixed": "문서 고쳐짐",
 	"review-false": "필요한 작업 없음",
+	"review-by": "검토자:",
 	"history": "역사",
 	"talk": "토론",
 	"contribs": "기여",
@@ -70,5 +74,7 @@
 	"public-domain": "퍼블릭 도메인",
 	"open-font-license": "오픈 폰트 라이선스",
 	"js-unauthorized": "검토하려면 로그인해야 합니다.",
+	"js-dberror": "데이터베이스에 연결하는 데 문제가 있었습니다.",
+	"js-undo-own-only": "당신은 당신의 검토만 취소할 수 있습니다.",
 	"js-unknown-error": "결과를 불러오는 동안 알 수 없는 오류가 발생했습니다. 다시 시도해 주십시오."
 }
