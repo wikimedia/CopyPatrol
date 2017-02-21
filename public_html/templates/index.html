@@ -82,19 +82,25 @@
 					</div>
 					{% endif %}
 					<div class="row-div {% if hasWikiprojects %}col-sm-2{% else %}col-sm-3{% endif %} text-center status-div">
-						<button data-id="{{ row.ithenticate_id }}"
-						        data-status="fixed"
-						        class="btn btn-success btn-block btn-fixed js-save-state {{ user ? 'clickable' : '' }}"
-						        title="{{ 'review-fixed-tooltip'|message }}">
-							{{ 'review-fixed'|message }}
-						</button>
-						<button data-id="{{ row.ithenticate_id }}"
-						        data-status="false"
-						        class="btn btn-danger btn-block btn-no-action js-save-state {{ user ? 'clickable' : '' }}"
-						        title="{{ 'review-false-tooltip'|message }}">
-							{{ 'review-false'|message }}
-						</button>
+						<div class="status-buttons">
+							<button data-id="{{ row.ithenticate_id }}"
+							        data-status="fixed"
+							        class="btn btn-success btn-block btn-fixed js-save-state {{ user ? 'clickable' : '' }}"
+							        title="{{ 'review-fixed-tooltip'|message }}">
+								{{ 'review-fixed'|message }}
+							</button>
+							<button data-id="{{ row.ithenticate_id }}"
+							        data-status="false"
+							        class="btn btn-danger btn-block btn-no-action js-save-state {{ user ? 'clickable' : '' }}"
+							        title="{{ 'review-false-tooltip'|message }}">
+								{{ 'review-false'|message }}
+							</button>
+						</div>
 						{{ macros.reviewer_node( row ) }}
+						<a href="{{ urlFor( 'home', {wikiLang: wikiLang} ) }}?id={{ row.ithenticate_id }}" class='small'>
+							<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+							{{ 'permalink' | message }}
+						</a>
 					</div>
 				</div>
 				<div class="ithenticate-id">{{ row.ithenticate_id }}</div>

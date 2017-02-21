@@ -98,5 +98,7 @@
   "js-unauthorized": "You need to be logged in to be able to review.",
   "js-dberror": "There was an error in connecting to database.",
   "js-undo-own-only": "You can only undo your own reviews.",
-  "js-unknown-error": "An unknown error occurred when loading results. Please try again."
+  "js-unknown-error": "An unknown error occurred when loading results. Please try again.",
+  "permalink": "Permalink",
+  "show-all-records": "Show all records"
 }
