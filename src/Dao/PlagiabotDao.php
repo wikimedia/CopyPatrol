@@ -36,6 +36,8 @@ class PlagiabotDao extends AbstractDao {
 	 *   	 are in the Draft namespace
 	 *   integer 'last_id' offset of where to start fetching records, going by
 	 *     'ithenticate_id'
+	 *   integer 'id' exact ithenticate_id of a record. This will override all
+	 *   	 other filter options
 	 *   string 'wikiprojects' pipe-separated list of wikiprojects
 	 *   string 'wikiLang' The language code of the Wikipedia to query for
 	 * @return array|false Data for plagiabot db records or false if no data
@@ -45,6 +47,7 @@ class PlagiabotDao extends AbstractDao {
 		$filters = [];
 		$filterSql = '';
 		$wikiprojectsSql = '';
+		$id = isset( $options['id'] ) ? $options['id'] : null;
 		$lastId = isset( $options['last_id'] ) ? $options['last_id'] : null;
 		$filter = isset( $options['filter'] ) ? $options['filter'] : 'all';
 		$filterUser = isset( $options['filter_user'] ) ? $options['filter_user'] : null;
@@ -52,54 +55,59 @@ class PlagiabotDao extends AbstractDao {
 		$wikiLang = isset( $options['wikiLang'] ) ? $options['wikiLang'] : 'en';
 		$preparedParams = [];
 
-		// ensures only valid filters are used
-		switch ( $filter ) {
-			case 'reviewed':
-				$filters[] = "status IS NOT NULL";
-				break;
-			case 'open':
-				$filters[] = "status IS NULL";
-				break;
+		if ( $id ) {
+			// if given an exact ID, don't allow any other filter options
+			$filters[] = "ithenticate_id = '$id'";
+		} else {
+			// ensures only valid filters are used
+			switch ( $filter ) {
+				case 'reviewed':
+					$filters[] = "status IS NOT NULL";
+					break;
+				case 'open':
+					$filters[] = "status IS NULL";
+					break;
+			}
+			// allow filtering by user and status
+			if ( $filterUser ) {
+				$filters[] = "status_user = '$filterUser'";
+			}
+			// see if this is a load more click
+			if ( $lastId ) {
+				$filters[] = "ithenticate_id < '$lastId'";
+			}
+			// filtering to draft namespace
+			if ( isset( $options['drafts'] ) ) {
+				$filters[] = 'page_ns = 118';
+			}
+
+			// set up SQL to return pages in given WikiProjects if requested
+			if ( $wikiprojects ) {
+				// All spaces are underscores in the database
+				$wikiprojects = array_map( function ( $wp ) {
+					return str_replace( ' ', '_', $wp );
+				}, explode( '|', $wikiprojects ) );
+
+				$wikiprojectsSql = self::concat(
+					'INNER JOIN wikiprojects',
+					'ON wp_page_title = page_title'
+				);
+
+				// set up prepared params
+				$bindKeys = array_slice( range( 'a', 'z' ), 0, count( $wikiprojects ) );
+				$preparedParams = array_combine( $bindKeys, $wikiprojects );
+				$bindParams = implode( ', ', $this::makeBindParams( $bindKeys ) );
+
+				$filters[] = "wp_project IN ($bindParams)";
+			}
+
+			// Only fetch entries from the required language Wikipedia.
+			$filters[] = "lang = :lang";
+			$preparedParams['lang'] = $wikiLang;
+
+			// show only records after June 20, 2016; See phab:T138317
+			$filters[] = "diff_timestamp > 20160620000000";
 		}
-		// allow filtering by user and status
-		if ( $filterUser ) {
-			$filters[] = "status_user = '$filterUser'";
-		}
-		// see if this is a load more click
-		if ( $lastId ) {
-			$filters[] = "ithenticate_id < '$lastId'";
-		}
-		// filtering to draft namespace
-		if ( isset( $options['drafts'] ) ) {
-			$filters[] = 'page_ns = 118';
-		}
-
-		// set up SQL to return pages in given WikiProjects if requested
-		if ( $wikiprojects ) {
-			// All spaces are underscores in the database
-			$wikiprojects = array_map( function ( $wp ) {
-				return str_replace( ' ', '_', $wp );
-			}, explode( '|', $wikiprojects ) );
-
-			$wikiprojectsSql = self::concat(
-				'INNER JOIN wikiprojects',
-				'ON wp_page_title = page_title'
-			);
-
-			// set up prepared params
-			$bindKeys = array_slice( range( 'a', 'z' ), 0, count( $wikiprojects ) );
-			$preparedParams = array_combine( $bindKeys, $wikiprojects );
-			$bindParams = implode( ', ', $this::makeBindParams( $bindKeys ) );
-
-			$filters[] = "wp_project IN ($bindParams)";
-		}
-
-		// Only fetch entries from the required language Wikipedia.
-		$filters[] = "lang = :lang";
-		$preparedParams['lang'] = $wikiLang;
-
-		// show only records after June 20, 2016; See phab:T138317
-		$filters[] = "diff_timestamp > 20160620000000";
 
 		// construct necessary SQL based on filters
 		if ( !empty( $filters ) ) {

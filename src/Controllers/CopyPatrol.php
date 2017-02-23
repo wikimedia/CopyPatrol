@@ -160,8 +160,9 @@ class CopyPatrol extends Controller {
 				$record['page_title'] = 'Draft:' . $record['page_title'];
 			}
 			$pageDead = in_array( $record['page_title'], $deadPages );
-			// if the page is dead, mark it as reviewed by our bot and skip to next record
-			if ( $pageDead && $this->getFilter() === 'open' ) {
+			// If the page is dead and this is not a permalink,
+			//   mark it as reviewed by our bot and skip to next record
+			if ( $pageDead && $this->getFilter() === 'open' && !$this->view->get( 'permalink' ) ) {
 				$this->autoReview( $record['ithenticate_id'] );
 				unset( $records[$key] );
 				continue;
@@ -320,6 +321,33 @@ class CopyPatrol extends Controller {
 	 * @return array collection of plagiarism records
 	 */
 	protected function getRecords() {
+		// Set the language for the view.
+		$this->view->set( 'wikiLang', $this->wikiDao->getLang() );
+
+		// if an ID is set, we want to show just that record
+		$id = $this->request->get( 'id' );
+		if ( $id ) {
+			$this->view->set( 'permalink', true );
+			$this->view->set( 'filter', 'all' );
+			$records = $this->dao->getPlagiarismRecords( 1, [ 'id' => $id ] );
+
+			if ( isset( $records[0] ) ) {
+				$lang = $records[0]['lang'];
+
+				// if the requested record is for a different language, redirect
+				if ( $lang !== $this->wikiDao->getLang() ) {
+					return $this->redirect( $this->urlFor( 'home', [ 'wikiLang' => $lang ] ) . "?id=$id" );
+				}
+
+				$this->setHasWikiprojects();
+				return $records;
+			} else {
+				// no record found with requested ID, so simply show no results
+				$this->view->set( 'wikiLang', $this->wikiDao->getLang() );
+				return [];
+			}
+		}
+
 		$filter = $this->getFilter();
 		$filterUser = $this->getUsername();
 		$lastId = $this->request->get( 'lastId' ) ?: 0;
@@ -347,19 +375,27 @@ class CopyPatrol extends Controller {
 		if ( $filter === 'mine' && isset( $filterUser ) ) {
 			$options['filter_user'] = $filterUser;
 		}
-		// Set the language for the records and the view.
+		// Set the language for the records.
 		$options['wikiLang'] = $this->wikiDao->getLang();
-		$this->view->set( 'wikiLang', $this->wikiDao->getLang() );
 
 		$this->view->set( 'filter', $filter );
 		$this->view->set( 'drafts', $drafts );
 		$this->view->set( 'draftsExist', $this->dao->draftsExist( $this->wikiDao->getLang() ) );
-		$hasWikiprojects = count( $this->dao->getWikiProjects( $this->wikiDao->getLang() ) ) > 0;
-		$this->view->set( 'hasWikiprojects', $hasWikiprojects );
 		$this->view->set( 'wikiprojects', $wikiprojects );
 		$this->view->set( 'wikiprojectsArray', $wikiprojectsArray );
 		$this->view->set( 'filterTypes', $this->getFilterTypes() );
+
+		$this->setHasWikiprojects();
+
 		return $this->dao->getPlagiarismRecords( $numRecords, $options );
+	}
+
+	/**
+	 * Determine if the current project supports WikiProjects, and if so set the view
+	 */
+	private function setHasWikiprojects() {
+		$hasWikiprojects = count( $this->dao->getWikiProjects( $this->wikiDao->getLang() ) ) > 0;
+		$this->view->set( 'hasWikiprojects', $hasWikiprojects );
 	}
 
 	/**

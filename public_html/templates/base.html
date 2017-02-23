@@ -79,7 +79,8 @@
 	{% endblock %}
 
 	{% block main %}
-		<section class="filters container-fluid">
+		{# Make the filters invisible but don't hide markup so that JS can react to clicking on WP bubbles #}
+		<section class="filters container-fluid{% if permalink %} none{% endif %}">
 			<form id="filters-form">
 				<fieldset class="form-group filters-fieldset text-center">
 					<div class="cases-filter col-sm-12">
@@ -143,10 +144,14 @@
 				{% endblock %}
 			</section>
 			<div class="load-more-div">
-				{% block loadmore %}
-					<button id="btn-load-more"
-					        class="btn btn-md btn-primary js-load-more">{{ 'footer-loadmore' | message }}</button>
-				{% endblock %}
+				{% if permalink %}
+					<a href="{{ baseUrl() }}" class="btn btn-md btn-primary btn-load-more">{{ 'show-all-records' | message }}</a>
+				{% else %}
+					{% block loadmore %}
+						<button id="btn-load-more"
+						        class="btn btn-md btn-primary btn-load-more js-load-more">{{ 'footer-loadmore' | message }}</button>
+					{% endblock %}
+				{% endif %}
 			</div>
 		</section>
 	{% endblock %}
