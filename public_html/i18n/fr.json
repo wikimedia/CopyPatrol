@@ -98,5 +98,7 @@
 	"js-unauthorized": "Vous devez être connecté pour pouvoir vérifier les entrées",
 	"js-dberror": "Il y a eu une erreur durant la connexion à la base de données.",
 	"js-undo-own-only": "Vous pouvez seulement annuler vos propres vérifications.",
-	"js-unknown-error": "Une erreur inconnue a eu lieu durant le chargement des entrées, merci d'essayer plus tard."
+	"js-unknown-error": "Une erreur inconnue a eu lieu durant le chargement des entrées, merci d'essayer plus tard.",
+	"permalink": "Permalien",
+	"show-all-records": "Afficher tous les enregistrements"
 }

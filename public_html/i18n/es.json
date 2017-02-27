@@ -98,5 +98,7 @@
 	"js-unauthorized": "Debes acceder para realizar revisiones.",
 	"js-dberror": "Se produjo un error al conectar con la base de datos.",
 	"js-undo-own-only": "Puedes deshacer únicamente tus propias revisiones.",
-	"js-unknown-error": "Se produjo un error desconocido al cargar los resultados. Inténtalo de nuevo."
+	"js-unknown-error": "Se produjo un error desconocido al cargar los resultados. Inténtalo de nuevo.",
+	"permalink": "Enlace permanente",
+	"show-all-records": "Mostrar todos los registros"
 }

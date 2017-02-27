@@ -97,5 +97,7 @@
 	"js-unauthorized": "N'oc'h ket kevreet evit gallout gwiriañ ar monedoù.",
 	"js-dberror": "Ur fazi zo bet pa'z oc'h bet kevreet ouzh an diaz roadennoù.",
 	"js-undo-own-only": "Gallout a reot nullañ nemet ho kwiriekadurioù.",
-	"js-unknown-error": "Ur fazi dianav zo bet pa veze monedonoù o kargañ. Klaskit en-dro diwezhatoc'h, mar plij."
+	"js-unknown-error": "Ur fazi dianav zo bet pa veze monedonoù o kargañ. Klaskit en-dro diwezhatoc'h, mar plij.",
+	"permalink": "Peurliamm",
+	"show-all-records": "Diskouez an holl enrolladennoù"
 }

@@ -97,5 +97,7 @@
 	"js-unauthorized": "您需登入後才可巡查。",
 	"js-dberror": "在連接資料庫時出現錯誤。",
 	"js-undo-own-only": "您僅可撤銷您自己的巡查。",
-	"js-unknown-error": "在載入結果時發生一個不明錯誤。請再重試一次。"
+	"js-unknown-error": "在載入結果時發生一個不明錯誤。請再重試一次。",
+	"permalink": "靜態連結",
+	"show-all-records": "顯示所有記錄"
 }

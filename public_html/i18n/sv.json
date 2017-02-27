@@ -71,5 +71,7 @@
 	"js-unauthorized": "Du måste vara inloggad för att kunna granska.",
 	"js-dberror": "Ett fel uppstod vid anslutning till databasen.",
 	"js-undo-own-only": "Du kan endast ångra dina egna granskningar.",
-	"js-unknown-error": "Ett okänt fel uppstod när resultaten lästes in. Var god försök igen."
+	"js-unknown-error": "Ett okänt fel uppstod när resultaten lästes in. Var god försök igen.",
+	"permalink": "Permanent länk",
+	"show-all-records": "Visa alla poster"
 }

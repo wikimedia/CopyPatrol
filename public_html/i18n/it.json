@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Beta16",
-			"Nemo bis"
+			"Nemo bis",
+			"Redredsonia"
 		]
 	},
 	"documentation": "Documentazione",
@@ -78,5 +79,7 @@
 	"imageattr-paragraph1": "Il $1 è disponibile al $2 per gentile concessione di $3 e $4",
 	"imageattr-paragraph2": "$1 è rilasciato in base alla $2 per gentile concessione di $3",
 	"js-dberror": "Si è verificato un errore nella connessione al database.",
-	"js-unknown-error": "Si è verificato un errore sconosciuto durante il caricamento dei risultati. Riprova."
+	"js-unknown-error": "Si è verificato un errore sconosciuto durante il caricamento dei risultati. Riprova.",
+	"permalink": "Collegamento permanente",
+	"show-all-records": "Mostra tutti i record"
 }

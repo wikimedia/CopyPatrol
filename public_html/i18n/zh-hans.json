@@ -97,5 +97,7 @@
 	"js-unauthorized": "您需要登录来参与巡查。",
 	"js-dberror": "连接数据库时出错。",
 	"js-undo-own-only": "您只可以撤销您自己的巡查。",
-	"js-unknown-error": "加载结果时发生未知错误。请重试。"
+	"js-unknown-error": "加载结果时发生未知错误。请重试。",
+	"permalink": "固定链接",
+	"show-all-records": "显示所有记录"
 }

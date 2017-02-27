@@ -96,5 +96,7 @@
 	"js-unauthorized": "Du musst angemeldet sein, um Überprüfungen vornehmen zu können.",
 	"js-dberror": "Bei der Verbindung zur Datenbank gab es einen Fehler.",
 	"js-undo-own-only": "Du kannst nur deine eigenen Überprüfungen rückgängig machen.",
-	"js-unknown-error": "Beim Laden der Ergebnisse ist ein unbekannter Fehler aufgetreten. Bitte erneut versuchen."
+	"js-unknown-error": "Beim Laden der Ergebnisse ist ein unbekannter Fehler aufgetreten. Bitte erneut versuchen.",
+	"permalink": "Permanentlink",
+	"show-all-records": "Alle Aufzeichnungen anzeigen"
 }
