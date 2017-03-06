@@ -96,5 +96,7 @@
 	"js-unauthorized": "Precisa estar conectado para poder revisar as entradas.",
 	"js-dberror": "Houbo un erro coa conexión á base de datos.",
 	"js-undo-own-only": "Só pode desfacer as súas propias revisións.",
-	"js-unknown-error": "Houbo un erro descoñecido durante a carga dos resultados. Por favor, inténteo de novo."
+	"js-unknown-error": "Houbo un erro descoñecido durante a carga dos resultados. Por favor, inténteo de novo.",
+	"permalink": "Ligazón permanente",
+	"show-all-records": "Amosar tódolos rexistros"
 }

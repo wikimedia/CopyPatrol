@@ -77,5 +77,7 @@
 	"public-domain": "viešas domenas",
 	"js-dberror": "Įvyko klaida jungiantis prie duomenų bazės.",
 	"js-undo-own-only": "Galite anuliuoti tik savo peržiūras.",
-	"js-unknown-error": "Įvyko nežinoma klaida įkeliant rezultatus. Prašome bandyti dar kartą."
+	"js-unknown-error": "Įvyko nežinoma klaida įkeliant rezultatus. Prašome bandyti dar kartą.",
+	"permalink": "Nuoroda į šią vietą",
+	"show-all-records": "Rodyti visus įrašus"
 }

@@ -96,5 +96,7 @@
 	"js-unauthorized": "Tienes d'aniciar sesión pa facer revisiones.",
 	"js-dberror": "Hebo un error al conectar cola base de datos.",
 	"js-undo-own-only": "Solo puedes desfaer les revisiones propies.",
-	"js-unknown-error": "Hebo un error desconocíu al cargar les resultancies. Tenta nuevamente."
+	"js-unknown-error": "Hebo un error desconocíu al cargar les resultancies. Tenta nuevamente.",
+	"permalink": "Enllaz permanente",
+	"show-all-records": "Amosar tolos rexistros"
 }

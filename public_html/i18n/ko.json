@@ -76,5 +76,7 @@
 	"js-unauthorized": "검토하려면 로그인해야 합니다.",
 	"js-dberror": "데이터베이스에 연결하는 데 문제가 있었습니다.",
 	"js-undo-own-only": "당신은 당신의 검토만 취소할 수 있습니다.",
-	"js-unknown-error": "결과를 불러오는 동안 알 수 없는 오류가 발생했습니다. 다시 시도해 주십시오."
+	"js-unknown-error": "결과를 불러오는 동안 알 수 없는 오류가 발생했습니다. 다시 시도해 주십시오.",
+	"permalink": "고유링크",
+	"show-all-records": "모든 레코드 보기"
 }
