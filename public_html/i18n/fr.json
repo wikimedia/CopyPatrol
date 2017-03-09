@@ -3,7 +3,8 @@
 		"authors": [
 			"Framawiki",
 			"Wladek92",
-			"Gomoko"
+			"Gomoko",
+			"Shawn"
 		]
 	},
 	"name": "CopyPatrol",
@@ -41,12 +42,12 @@
 	"fa-wikipedia": "Wikipédia en persan",
 	"ru-wikipedia": "Wikipédia en russe",
 	"tr-wikipedia": "Wikipédia en turc",
-	"login": "Login",
+	"login": "Connexion",
 	"logout": "Déconnexion",
 	"header-loggedin": "Vous êtes connecté en tant que $1",
 	"form-all": "Toutes les entrées",
 	"form-open": "Entrées ouvertes",
-	"form-reviewed": "Entrées à vérifier",
+	"form-reviewed": "Entrées traitées",
 	"form-mine": "Mes vérifications",
 	"form-drafts": "Brouillons uniquement",
 	"wikiprojects": "WikiProjects",
