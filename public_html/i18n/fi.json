@@ -3,7 +3,8 @@
 		"authors": [
 			"Nike",
 			"Valtlait",
-			"Pyscowicz"
+			"Pyscowicz",
+			"Silvonen"
 		]
 	},
 	"documentation": "Dokumentaatio",
@@ -59,8 +60,10 @@
 	"article": "Artikkeli",
 	"footer-loadmore": "Lataa lisää",
 	"source": "Lähde",
+	"phabricator": "Phabricator",
 	"lboard-title": "Leaderboard",
 	"close": "Sulje",
 	"imageattr-logo": "CopyPatrol logo",
-	"js-unauthorized": "Sinun täytyy olla kirjautuneena sisään voidakseen tarkastella."
+	"js-unauthorized": "Sinun täytyy olla kirjautuneena sisään voidakseen tarkastella.",
+	"permalink": "Ikilinkki"
 }

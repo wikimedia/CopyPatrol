@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"BanKris",
-			"Máté"
+			"Máté",
+			"Notramo"
 		]
 	},
 	"name": "CopyPatrol",
@@ -43,6 +44,7 @@
 	"login": "Bejelentkezés",
 	"logout": "Kijelentkezés",
 	"header-loggedin": "Bejelentkeztél $1 néven.",
+	"form-all": "Minden eset",
 	"form-mine": "Felülvizsgálataim",
 	"wikiprojects": "Műhelyek",
 	"submit": "Küldés",
@@ -62,6 +64,7 @@
 	"compare": "Összehasonlítás",
 	"record-ithenticate": "iThenticate-jelentés",
 	"record-noeditor": "Nem található szerkesztő",
+	"record-noeditor-tooltip": "A vizsgálat lehet, hogy törölve lett, vagy az adat még nem érhető el a Labs adatbázisban.",
 	"record-ores": "ORES-pontszám: $1",
 	"article": "Szócikk",
 	"compare-article-loading": "Szócikk változatának betöltése…",
