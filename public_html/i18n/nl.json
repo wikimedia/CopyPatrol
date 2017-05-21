@@ -97,5 +97,7 @@
 	"js-unauthorized": "U moet aangemeld zijn om te kunnen beoordelen.",
 	"js-dberror": "Er is een fout opgetreden bij het verbinden met de database.",
 	"js-undo-own-only": "U kunt alleen uw eigen beoordelingen ongedaan maken.",
-	"js-unknown-error": "Er is een onbekende fout opgetreden bij het laden van de resultaten. Probeer het opnieuw."
+	"js-unknown-error": "Er is een onbekende fout opgetreden bij het laden van de resultaten. Probeer het opnieuw.",
+	"permalink": "Permanente koppeling",
+	"show-all-records": "Alle records weergeven"
 }
