@@ -77,5 +77,19 @@
 	"footer-broughtby": "Creà për chiel da $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "A marcia grassie a $1 e $2",
-	"source": "Sorgiss"
+	"source": "Sorgiss",
+	"phabricator": "Phabricator",
+	"footer-imageattr": "Atribussion dla plancia",
+	"lboard-title": "Tàula dij pontegg",
+	"lboard-week": "Cas sarà ant j'ùltim 7 di",
+	"lboard-month": "Cas sarà ant j'ùltim 30 di",
+	"lboard-alltime": "Cas sarà dal prinsipi",
+	"lboard-back": "Torné andré a CopyPatrol",
+	"close": "Saré",
+	"imageattr-title": "Atribussion ëd plancia",
+	"imageattr-logo": "Marca ëd CopyPatrol",
+	"public-domain": "domini pùblich",
+	"open-font-license": "Licensa Open Font",
+	"imageattr-paragraph1": "$1 disponìbil ant ël $2 grassie a $3 e $4",
+	"imageattr-paragraph2": "$1 publicà sota $2 grassie a $3"
 }
