@@ -91,5 +91,12 @@
 	"public-domain": "domini pùblich",
 	"open-font-license": "Licensa Open Font",
 	"imageattr-paragraph1": "$1 disponìbil ant ël $2 grassie a $3 e $4",
-	"imageattr-paragraph2": "$1 publicà sota $2 grassie a $3"
+	"imageattr-paragraph2": "$1 publicà sota $2 grassie a $3",
+	"alert-testing": "St'ambient a serv për preuva. Për piasì, ch'a deuvra nen s'utiss për argistré soe revision. Për la version corenta dl'utiss CopyPatrol, ch'a deuvra për piasì $1.",
+	"js-unauthorized": "A dev esse rintrà ant ël sistema për podèj fé ij contròj.",
+	"js-dberror": "A-i é staje n'eror durant la conession a la base ëd dàit.",
+	"js-undo-own-only": "A peul mach anulé soe pròpie verìfiche.",
+	"js-unknown-error": "A-i é staje n'eror ësconossù durant ël cariament ëd j'arzultà. Për piasì, ch'a preuva torna.",
+	"permalink": "Liura permanenta",
+	"show-all-records": "Smon-e tuti ij dàit argistrà"
 }
