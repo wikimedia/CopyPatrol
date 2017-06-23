@@ -119,7 +119,7 @@ class PlagiabotDao extends AbstractDao {
 			$wikiprojectsSql,
 			$filterSql,
 			'GROUP BY id',
-			'ORDER BY diff_timestamp DESC',
+			'ORDER BY id DESC',
 			'LIMIT ' . $n
 		);
 
