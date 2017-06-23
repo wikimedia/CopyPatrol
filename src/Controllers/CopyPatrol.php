@@ -23,6 +23,7 @@ namespace Plagiabot\Web\Controllers;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 use Plagiabot\Web\Dao\PlagiabotDao;
 use Plagiabot\Web\Dao\WikiDao;
 use Wikimedia\Slimapp\Controller;
@@ -63,6 +64,9 @@ class CopyPatrol extends Controller {
 			$response = $client->request( 'GET', $oresUrl )->getBody();
 		} catch ( ClientException $ex ) {
 			// ORES is not supported for this Wikipedia (or is down).
+			return false;
+		} catch ( ServerException $ex ) {
+			// ORES is not currently functional
 			return false;
 		}
 		$data = GuzzleHttp\json_decode( $response, true );
