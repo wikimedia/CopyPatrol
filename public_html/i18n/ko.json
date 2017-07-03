@@ -6,6 +6,7 @@
 			"SeoJeongHo"
 		]
 	},
+	"name": "CopyPatrol",
 	"documentation": "설명서",
 	"feedback": "피드백",
 	"zh-wikipedia": "중국어 위키백과",
@@ -65,12 +66,15 @@
 	"article": "문서",
 	"compare-article-loading": "문서 판을 불러오는 중...",
 	"footer-loadmore": "더 불러오기",
+	"footer-nomore": "더 이상의 레코드가 없습니다!",
 	"source": "출처",
 	"phabricator": "파브리케이터",
 	"footer-imageattr": "그림 속성",
 	"lboard-title": "순위 목록",
+	"lboard-back": "CopyPatrol로 돌아가기",
 	"close": "닫기",
 	"imageattr-title": "그림 속성",
+	"imageattr-logo": "CopyPatrol 로고",
 	"public-domain": "퍼블릭 도메인",
 	"open-font-license": "오픈 폰트 라이선스",
 	"js-unauthorized": "검토하려면 로그인해야 합니다.",

@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Warley Felipe C."
+			"Warley Felipe C.",
+			"Eduardo Addad de Oliveira"
 		]
 	},
 	"name": "CopyPatrol",
@@ -96,5 +97,7 @@
 	"js-unauthorized": "Você precisa estar logado para poder avaliar.",
 	"js-dberror": "Houve um erro em se conectar com a base de dados",
 	"js-undo-own-only": "Você só pode desfazer suas avaliações.",
-	"js-unknown-error": "Um erro desconhecido aconteceu ao carregar os resultados. Por favor tente novamente."
+	"js-unknown-error": "Um erro desconhecido aconteceu ao carregar os resultados. Por favor tente novamente.",
+	"permalink": "Link Permanente",
+	"show-all-records": "Mostrar todos os registros"
 }
