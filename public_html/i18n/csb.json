@@ -92,6 +92,7 @@
 	"open-font-license": "Licencëjô Open Font",
 	"imageattr-paragraph1": "$1 przistãpné na $2. Drëszno ùprzistãpnioné przez $3 ë $4.",
 	"imageattr-paragraph2": "$1 przistãpné pòdle $2. Drëszno ùprzistãpnioné przez $3.",
+	"alert-testing": "To je le rozwijowô wersëjô. Proszã nie ùżëwac tegò nôrzãdza dlô sprôwdzaniô swòjich przezdrzéniów. Aktualno robiącé nôrzãdze CopyPatrol je tuwò $1.",
 	"js-unauthorized": "Dlô przezeraniô je ce mùsz sã wlogòwac.",
 	"js-dberror": "Fela przë sparłãczeniém z bazą pòdôwków.",
 	"js-undo-own-only": "Mòżesz copac le swòjé przezdrzénia.",
