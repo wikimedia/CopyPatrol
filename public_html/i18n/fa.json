@@ -2,11 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Arash.pt",
-			"Dejavu"
+			"Dejavu",
+			"Alirezaaa"
 		]
 	},
+	"name": "CopyPatrol",
 	"documentation": "مستندات",
 	"feedback": "بازخورد",
+	"leaderboard": "رهبران",
 	"zh-wikipedia": "ویکی‌پدیای چینی",
 	"ja-wikipedia": "ویکی‌پدیای ژاپنی",
 	"th-wikipedia": "ویکی‌پدیای تایلندی",
@@ -46,19 +49,36 @@
 	"form-reviewed": "موارد بررسی‌شده",
 	"form-mine": "بازبینی‌های من",
 	"form-drafts": "تنها پیش‌نویس",
+	"wikiprojects": "ویکی‌پروژه‌ها",
 	"form-wikiprojects-placeholder": "نام‌ پروژه‌ها را تایپ کنید...",
 	"submit": "ارسال",
 	"page": "صفحه",
 	"diff": "تفاوت",
 	"editor": "ویرایشگر",
 	"review": "بازبینی",
+	"review-false": "کاری لازم نیست",
+	"review-by": "بازبین:",
 	"history": "تاریخچه",
+	"talk": "بحث",
 	"contribs": "مشارکت‌ها",
 	"record-editcount": "شمار ویرایش‌ها",
 	"compare": "مقایسه",
+	"record-noeditor": "هیچ ویراستاری یافت نشد",
 	"article": "مقاله",
 	"compare-article-loading": "در حال اجرای بازنگری مقاله...",
 	"footer-loadmore": "بارگیری بیشتر",
+	"footer-nomore": "نتایج بیشتری وجود ندارد!",
+	"footer-broughtby": "آورده‌شده توسط $1",
+	"footer-poweredby": "قدرت‌گرفته از $1 و $2",
 	"source": "منبع",
-	"permalink": "پیوند پایدار"
+	"footer-imageattr": "تخصیص تصویر",
+	"lboard-title": "رهبران",
+	"lboard-back": "بازگشت به کپی‌پاترل",
+	"close": "بستن",
+	"imageattr-title": "تخصصیص تصویر",
+	"imageattr-logo": "نماد کپی‌پاترل",
+	"public-domain": "مالکیت عمومی",
+	"open-font-license": "پروانهٔ آزاد قلم",
+	"permalink": "پیوند پایدار",
+	"show-all-records": "نمایش تمام نتایج"
 }
