@@ -4,7 +4,8 @@
 			"SatyamMishra",
 			"Sfic",
 			"Shyamal",
-			"Susant purohit"
+			"Susant purohit",
+			"Sachinkatiyar"
 		]
 	},
 	"name": "कॉपीपेट्रोल",
@@ -60,7 +61,7 @@
 	"review-fixed": "पृष्ठ ठीक हुआ",
 	"review-fixed-tooltip": "यह सम्पादन कॉपीराइट उलंघन था और प्रत्यावर्तित कर दिया गया",
 	"review-false": "कार्रवाई की जरूरत नहीं",
-	"review-false-tooltip": "यह सम्पादन कॉपी वाला नहीं है, कुछ करने की जरूरत नहीं है।",
+	"review-false-tooltip": "संपादन एक गलत सकारात्मक है, कुछ भी करने की आवश्यकता नहीं है",
 	"review-by": "समीक्षक:",
 	"history": "इतिहास",
 	"talk": "वार्ता",
