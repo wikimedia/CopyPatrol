@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Chrumps",
-			"Woytecr"
+			"Woytecr",
+			"Wojtas"
 		]
 	},
 	"name": "CopyPatrol",
@@ -58,6 +59,7 @@
 	"review-fixed": "Strona naprawiona",
 	"review-fixed-tooltip": "Ta edycja naruszała prawa autorskie i została wycofana",
 	"review-false": "Nie jest wymagana żadna akcja",
+	"review-false-tooltip": "Raport jest fałszywie pozytywny, nic nie musi być zrobione",
 	"review-by": "Przejrzane przez:",
 	"history": "Historia",
 	"talk": "Dyskusja",
@@ -66,6 +68,7 @@
 	"compare": "Porównaj",
 	"record-ithenticate": "Raport iThenticate",
 	"record-url-text": "$1 edycji ($2 {{PLURAL:$2|wyraz|wyrazy|wyrazów}})",
+	"record-noeditor": "Nie znaleziono autora",
 	"record-ores": "Wynik ORES: $1",
 	"article": "Artykuł",
 	"compare-article-loading": "Ładowanie wersji artykułu...",
@@ -84,6 +87,9 @@
 	"close": "Zamknij",
 	"imageattr-logo": "Logo CopyPatrol",
 	"public-domain": "domena publiczna",
+	"imageattr-paragraph2": "$1 utworzona na licencji $2 przez $3",
 	"js-dberror": "Wystąpił błąd podczas łączenia z bazą danych.",
-	"js-unknown-error": "Wystąpił nieznany błąd podczas ładowania wyników. Spróbuj jeszcze raz."
+	"js-undo-own-only": "Możesz cofnąć tyko własne oceny.",
+	"js-unknown-error": "Wystąpił nieznany błąd podczas ładowania wyników. Spróbuj jeszcze raz.",
+	"show-all-records": "Pokaż wszystkie pozycje"
 }
