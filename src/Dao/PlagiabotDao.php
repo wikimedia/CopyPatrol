@@ -50,6 +50,8 @@ class PlagiabotDao extends AbstractDao {
 		$id = isset( $options['id'] ) ? $options['id'] : null;
 		$lastId = isset( $options['last_id'] ) ? $options['last_id'] : null;
 		$filter = isset( $options['filter'] ) ? $options['filter'] : 'all';
+		$searchText = isset( $options['searchText'] ) ? $options['searchText'] : null;
+		$searchCriteria = isset( $options['searchCriteria'] ) ? $options['searchCriteria'] : 'page';
 		$filterUser = isset( $options['filter_user'] ) ? $options['filter_user'] : null;
 		$wikiprojects = isset( $options['wikiprojects'] ) ? $options['wikiprojects'] : null;
 		$wikiLang = isset( $options['wikiLang'] ) ? $options['wikiLang'] : 'en';
@@ -67,6 +69,10 @@ class PlagiabotDao extends AbstractDao {
 				case 'open':
 					$filters[] = "status IS NULL";
 					break;
+			}
+			// search filters
+			if ( $searchCriteria == 'page' && $searchText ) {
+				$filters[] = "page_title LIKE '%$searchText%'";
 			}
 			// allow filtering by user and status
 			if ( $filterUser ) {
