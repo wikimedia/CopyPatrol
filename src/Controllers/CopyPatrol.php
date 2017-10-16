@@ -356,7 +356,6 @@ class CopyPatrol extends Controller {
 		$filterUser = $this->getUsername();
 		$lastId = $this->request->get( 'lastId' ) ?: 0;
 		$drafts = $this->request->get( 'drafts' ) ? '1' : null;
-		$wikiprojects = null; // for the server and use in SQL
 		$searchText = $this->request->get( 'searchText' );
 		$searchCriteria = $this->request->get( 'searchCriteria' );
 
@@ -368,7 +367,6 @@ class CopyPatrol extends Controller {
 			'filter' => $filter,
 			'last_id' => $lastId > 0 ? $lastId : null,
 			'drafts' => $drafts,
-			'wikiprojects' => $wikiprojects,
 			'searchText' => str_replace( ' ', '_', $searchText ),
 			'searchCriteria' => $searchCriteria
 		];
@@ -383,7 +381,6 @@ class CopyPatrol extends Controller {
 		$this->view->set( 'filter', $filter );
 		$this->view->set( 'drafts', $drafts );
 		$this->view->set( 'draftsExist', $this->dao->draftsExist( $this->wikiDao->getLang() ) );
-		$this->view->set( 'wikiprojects', $wikiprojects );
 		$this->view->set( 'filterTypes', $this->getFilterTypes() );
 		$this->view->set( 'searchText', $searchText );
 		$this->view->set( 'searchCriteria', $searchCriteria );

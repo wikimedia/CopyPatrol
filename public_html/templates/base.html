@@ -113,15 +113,17 @@
 						{# Radio button for choosing search type #}
 						<div class="form-check">
 							<input type="radio" name="searchCriteria" value="page"
-									{% if searchCriteria == 'page' %} checked="checked" {% endif %}>
+									{# Todo - To be used if we get more criterias {% if searchCriteria == 'page' %} #}
+								checked="checked">
+									{#{% endif %}>#}
 							<label class="search-select-label" for="searchCriteria">
 								{{ 'search-page' | message }}
 							</label>
+						</div>
 
 						<button type="submit" class="btn btn-primary btn-sm btn-submit-filters">
 							{{ 'submit' | message }}
 						</button>
-						</div>
 					</div>
 				</fieldset>
 			</form>
