@@ -30,15 +30,17 @@ class PlagiabotDao extends AbstractDao {
 	 * @param array $options filter and filter user options, should look like:
 	 *   string 'filter' Filter SQL to show a certian status, one of 'all',
 	 *     'open', 'reviewed' or 'mine'
-	 *   string 'filter_user' Filter SQL to only return records reviewed by
+	 *   string 'filterUser' Filter SQL to only return records reviewed by
 	 *     given user
 	 *   boolean 'drafts' (any non-blank value), returns only records that
 	 *   	 are in the Draft namespace
-	 *   integer 'last_id' offset of where to start fetching records, going by
+	 *   integer 'lastId' offset of where to start fetching records, going by
 	 *     'ithenticate_id'
 	 *   integer 'id' exact ithenticate_id of a record. This will override all
 	 *   	 other filter options
 	 *   string 'wikiLang' The language code of the Wikipedia to query for
+	 *   string 'searchText' Search string (page title)
+	 *   string 'searchCriteria' Searching criteria (by page title only for now)
 	 * @return array|false Data for plagiabot db records or false if no data
 	 *   is not returned
 	 */
@@ -46,11 +48,11 @@ class PlagiabotDao extends AbstractDao {
 		$filters = [];
 		$filterSql = '';
 		$id = isset( $options['id'] ) ? $options['id'] : null;
-		$lastId = isset( $options['last_id'] ) ? $options['last_id'] : null;
+		$lastId = isset( $options['lastId'] ) ? $options['lastId'] : null;
 		$filter = isset( $options['filter'] ) ? $options['filter'] : 'all';
 		$searchText = isset( $options['searchText'] ) ? $options['searchText'] : null;
 		$searchCriteria = isset( $options['searchCriteria'] ) ? $options['searchCriteria'] : 'page';
-		$filterUser = isset( $options['filter_user'] ) ? $options['filter_user'] : null;
+		$filterUser = isset( $options['filterUser'] ) ? $options['filterUser'] : null;
 		$wikiLang = isset( $options['wikiLang'] ) ? $options['wikiLang'] : 'en';
 		$preparedParams = [];
 
@@ -69,7 +71,7 @@ class PlagiabotDao extends AbstractDao {
 			}
 			// search filters
 			if ( $searchCriteria == 'page' && $searchText ) {
-				$searchText = filter_var( $searchText, FILTER_SANITIZE_STRING );
+				$searchText = mysql_escape_string( $searchText );
 				$filters[] = "page_title LIKE '%" . $searchText . "%'";
 			}
 			// allow filtering by user and status

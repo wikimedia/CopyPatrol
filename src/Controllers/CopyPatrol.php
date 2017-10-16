@@ -365,7 +365,7 @@ class CopyPatrol extends Controller {
 		// compile all options in an array
 		$options = [
 			'filter' => $filter,
-			'last_id' => $lastId > 0 ? $lastId : null,
+			'lastId' => $lastId > 0 ? $lastId : null,
 			'drafts' => $drafts,
 			'searchText' => str_replace( ' ', '_', $searchText ),
 			'searchCriteria' => $searchCriteria
@@ -373,7 +373,7 @@ class CopyPatrol extends Controller {
 
 		// filter by current user if they are logged and the filter is 'mine'
 		if ( $filter === 'mine' && isset( $filterUser ) ) {
-			$options['filter_user'] = $filterUser;
+			$options['filterUser'] = $filterUser;
 		}
 		// Set the language for the records.
 		$options['wikiLang'] = $this->wikiDao->getLang();
