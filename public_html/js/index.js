@@ -132,7 +132,8 @@
 					lastId: lastId,
 					filter: $( 'input[name=filter]:checked' ).val(),
 					drafts: $( 'input[name=drafts]' ).is( ':checked' ) ? '1' : '',
-					wikiprojects: $( 'input[name=wikiprojects]' ).val()
+					searchText: $( 'input[name=searchText]' ).val(),
+					searchCriteria: $( 'input[name=searchCriteria]' ).is( ':checked' ) ? '1' : ''
 				}
 			} ).done( function ( ret ) {
 				$( '#btn-load-more' ).text( 'Load More' ).removeClass( 'btn-loading' );

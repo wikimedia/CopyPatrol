@@ -71,8 +71,8 @@ class PlagiabotDao extends AbstractDao {
 			}
 			// search filters
 			if ( $searchCriteria == 'page' && $searchText ) {
-				$searchText = mysql_escape_string( $searchText );
-				$filters[] = "page_title LIKE '%" . $searchText . "%'";
+				$filters[] = "page_title LIKE CONCAT('%', :searchtext, '%')";
+				$preparedParams['searchtext'] = $searchText;
 			}
 			// allow filtering by user and status
 			if ( $filterUser ) {
