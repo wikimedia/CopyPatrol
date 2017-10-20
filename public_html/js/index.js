@@ -131,9 +131,9 @@
 				data: {
 					lastId: lastId,
 					filter: $( 'input[name=filter]:checked' ).val(),
-					drafts: $( 'input[name=drafts]' ).is( ':checked' ) ? '1' : '',
 					searchText: $( 'input[name=searchText]' ).val(),
-					searchCriteria: $( 'input[name=searchCriteria]' ).is( ':checked' ) ? '1' : ''
+					searchCriteria: $( 'input[name=searchCriteria]' ).is( ':checked' ) ? 'page' : '',
+					drafts: $( 'input[name=drafts]' ).is( ':checked' ) ? '1' : '0'
 				}
 			} ).done( function ( ret ) {
 				$( '#btn-load-more' ).text( 'Load More' ).removeClass( 'btn-loading' );
