@@ -67,6 +67,9 @@
 					window.alert( jsUnauthorized );
 					// go back to initial state
 					setReviewState( id, 'open' );
+				} else if ( ret.error === 'Blocked' ) {
+					// Refresh the page, which will then show the blocked message.
+					window.location.reload();
 				} else {
 					window.alert( jsDbError );
 					setReviewState( id, 'open' );

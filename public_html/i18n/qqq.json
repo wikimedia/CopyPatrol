@@ -105,5 +105,7 @@
 	"js-unknown-error": "Alert shown to user when results could not be loaded, possibly due to connection issues, asking them to try again",
 	"permalink": "Text for a permanent link to a particular record.\n{{Identical|Permalink}}",
 	"search": "String label for a search box",
-	"show-all-records": "Label for the button to show all records. This button is shown when the user went to a permalink that shows a single record."
+	"show-all-records": "Label for the button to show all records. This button is shown when the user went to a permalink that shows a single record.",
+	"access-blocked": "Message shown when a user is blocked on the wiki they are trying to view in CopyPatrol. $1 is a link to the block entry on the wiki, with the message 'blocked' as the link text. $2 is the domain of the wiki.",
+	"blocked": "The MediaWiki term for when a user is unable to edit a wiki.\n{{Identical|Blocked}}"
 }
