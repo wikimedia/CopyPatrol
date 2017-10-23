@@ -79,6 +79,7 @@
   "footer-broughtby": "Brought to you by $1",
   "footer-commtech": "Community Tech",
   "footer-poweredby": "Powered by $1 and $2",
+  "search": "Search for page title:",
   "source": "Source",
   "phabricator": "Phabricator",
   "footer-imageattr": "Image attribution",

@@ -103,21 +103,23 @@
 						</span>
 						{% endif %}
 
-					{% if hasWikiprojects %}
-					{# End the row and start a new one to display the WikiProjects' search box. #}
+					{# End the row and start a new one to display the search box. #}
 					</div>
-					<div class="wikiproject-filter col-sm-12">
-						<label class="wikiproject-label" for="wikiproject-selector">
-							{{ 'wikiprojects' | message }}
-						</label>
-						<select id="wikiproject-selector" class="wikiproject-selector col-sm-5" multiple="multiple">
-							{% for wikiproject in wikiprojectsArray %}
-								<option value="{{ wikiproject }}" selected="selected">{{ wikiproject }}</option>
-							{% endfor %}
-						</select>
-						{# use hidden input field so we can submit with format 'WP1|WP2|WP3' #}
-						<input type="hidden" name="wikiprojects" value="{{ wikiprojects }}" formenctype="text/plain"/>
-					{% endif %}
+					<div class="search-filter col-sm-12">
+						<label class="search-label" for="searchText">
+							{{ 'search' | message }}
+						</label><input type="text" id="searchText" name="searchText" class="searchbox col-sm-3"
+						               value="{{ searchText }}">
+						{# Radio button for choosing search type #}
+						<div class="form-check">
+							<input type="radio" name="searchCriteria" value="page"
+									{# Todo - To be used if we get more criterias {% if searchCriteria == 'page' %} #}
+								checked="checked">
+									{#{% endif %}>#}
+							<label class="search-select-label" for="searchCriteria">
+								{{ 'search-page' | message }}
+							</label>
+						</div>
 
 						<button type="submit" class="btn btn-primary btn-sm btn-submit-filters">
 							{{ 'submit' | message }}

@@ -30,28 +30,29 @@ class PlagiabotDao extends AbstractDao {
 	 * @param array $options filter and filter user options, should look like:
 	 *   string 'filter' Filter SQL to show a certian status, one of 'all',
 	 *     'open', 'reviewed' or 'mine'
-	 *   string 'filter_user' Filter SQL to only return records reviewed by
+	 *   string 'filterUser' Filter SQL to only return records reviewed by
 	 *     given user
 	 *   boolean 'drafts' (any non-blank value), returns only records that
 	 *   	 are in the Draft namespace
-	 *   integer 'last_id' offset of where to start fetching records, going by
+	 *   integer 'lastId' offset of where to start fetching records, going by
 	 *     'ithenticate_id'
 	 *   integer 'id' exact ithenticate_id of a record. This will override all
 	 *   	 other filter options
-	 *   string 'wikiprojects' pipe-separated list of wikiprojects
 	 *   string 'wikiLang' The language code of the Wikipedia to query for
+	 *   string 'searchText' Search string (page title)
+	 *   string 'searchCriteria' Searching criteria (by page title only for now)
 	 * @return array|false Data for plagiabot db records or false if no data
 	 *   is not returned
 	 */
 	public function getPlagiarismRecords( $n = 50, $options ) {
 		$filters = [];
 		$filterSql = '';
-		$wikiprojectsSql = '';
 		$id = isset( $options['id'] ) ? $options['id'] : null;
-		$lastId = isset( $options['last_id'] ) ? $options['last_id'] : null;
+		$lastId = isset( $options['lastId'] ) ? $options['lastId'] : null;
 		$filter = isset( $options['filter'] ) ? $options['filter'] : 'all';
-		$filterUser = isset( $options['filter_user'] ) ? $options['filter_user'] : null;
-		$wikiprojects = isset( $options['wikiprojects'] ) ? $options['wikiprojects'] : null;
+		$searchText = isset( $options['searchText'] ) ? $options['searchText'] : null;
+		$searchCriteria = isset( $options['searchCriteria'] ) ? $options['searchCriteria'] : 'page';
+		$filterUser = isset( $options['filterUser'] ) ? $options['filterUser'] : null;
 		$wikiLang = isset( $options['wikiLang'] ) ? $options['wikiLang'] : 'en';
 		$preparedParams = [];
 
@@ -68,6 +69,11 @@ class PlagiabotDao extends AbstractDao {
 					$filters[] = "status IS NULL";
 					break;
 			}
+			// search filters
+			if ( $searchCriteria == 'page' && $searchText ) {
+				$filters[] = "page_title LIKE CONCAT('%', :searchtext, '%')";
+				$preparedParams['searchtext'] = $searchText;
+			}
 			// allow filtering by user and status
 			if ( $filterUser ) {
 				$filters[] = "status_user = '$filterUser'";
@@ -79,26 +85,6 @@ class PlagiabotDao extends AbstractDao {
 			// filtering to draft namespace
 			if ( isset( $options['drafts'] ) ) {
 				$filters[] = 'page_ns = 118';
-			}
-
-			// set up SQL to return pages in given WikiProjects if requested
-			if ( $wikiprojects ) {
-				// All spaces are underscores in the database
-				$wikiprojects = array_map( function ( $wp ) {
-					return str_replace( ' ', '_', $wp );
-				}, explode( '|', $wikiprojects ) );
-
-				$wikiprojectsSql = self::concat(
-					'INNER JOIN wikiprojects',
-					'ON wp_page_title = page_title'
-				);
-
-				// set up prepared params
-				$bindKeys = array_slice( range( 'a', 'z' ), 0, count( $wikiprojects ) );
-				$preparedParams = array_combine( $bindKeys, $wikiprojects );
-				$bindParams = implode( ', ', $this::makeBindParams( $bindKeys ) );
-
-				$filters[] = "wp_project IN ($bindParams)";
 			}
 
 			// Only fetch entries from the required language Wikipedia.
@@ -116,7 +102,6 @@ class PlagiabotDao extends AbstractDao {
 
 		$sql = self::concat(
 			'SELECT * FROM copyright_diffs',
-			$wikiprojectsSql,
 			$filterSql,
 			'GROUP BY id',
 			'ORDER BY id DESC',

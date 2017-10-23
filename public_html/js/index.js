@@ -34,12 +34,6 @@
 			// pass the dataset of the element as an object to toggleComparePane
 			toggleComparePane.call( this, this.dataset );
 		} );
-		// Set the hidden input for the clicked WikiProject bubble and submit the form
-		$( '.records' ).on( 'click', '.wproject', function (e) {
-			e.preventDefault();
-			$( 'input[name=wikiprojects]' ).val( $( this ).text() );
-			$( '#filters-form' ).submit();
-		} );
 		$( '.js-load-more' ).on( 'click', loadMoreResults );
 		// prevent fragment identifier from being added to URL
 		$( 'a[href="#"]' ).on( 'click', function ( e ) {
@@ -137,8 +131,9 @@
 				data: {
 					lastId: lastId,
 					filter: $( 'input[name=filter]:checked' ).val(),
-					drafts: $( 'input[name=drafts]' ).is( ':checked' ) ? '1' : '',
-					wikiprojects: $( 'input[name=wikiprojects]' ).val()
+					searchText: $( 'input[name=searchText]' ).val(),
+					searchCriteria: $( 'input[name=searchCriteria]' ).is( ':checked' ) ? 'page' : '',
+					drafts: $( 'input[name=drafts]' ).is( ':checked' ) ? '1' : '0'
 				}
 			} ).done( function ( ret ) {
 				$( '#btn-load-more' ).text( 'Load More' ).removeClass( 'btn-loading' );

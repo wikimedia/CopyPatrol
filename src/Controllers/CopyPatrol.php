@@ -165,7 +165,7 @@ class CopyPatrol extends Controller {
 			}
 			$pageDead = in_array( $record['page_title'], $deadPages );
 			// If the page is dead and this is not a permalink,
-			//   mark it as reviewed by our bot and skip to next record
+			// mark it as reviewed by our bot and skip to next record
 			if ( $pageDead && $this->getFilter() === 'open' && !$this->view->get( 'permalink' ) ) {
 				$this->autoReview( $record['ithenticate_id'] );
 				unset( $records[$key] );
@@ -356,28 +356,24 @@ class CopyPatrol extends Controller {
 		$filterUser = $this->getUsername();
 		$lastId = $this->request->get( 'lastId' ) ?: 0;
 		$drafts = $this->request->get( 'drafts' ) ? '1' : null;
-		$wikiprojects = null; // for the server and use in SQL
-		$wikiprojectsArray = []; // for the clientside and showing <option>s in Select2 control
-		// account for empty URL param, e.g. wikiprojects= (no value set)
-		if ( $this->request->get( 'wikiprojects' ) && $this->request->get( 'wikiprojects' ) !== '' ) {
-			// WikiProjects are submitted like 'Medicine|Military_History|Something'
-			// This is to be URL and Select2-friendly, and use the
-			//   standard pipe-separated titles we see in MediaWiki
-			$wikiprojects = $this->request->get( 'wikiprojects' );
-			$wikiprojectsArray = explode( '|', $wikiprojects );
-		}
+		$searchText = $this->request->get( 'searchText' );
+		$searchCriteria = $this->request->get( 'searchCriteria' );
+
 		// make this easier when working locally
 		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 10 : 50;
+
 		// compile all options in an array
 		$options = [
 			'filter' => $filter,
-			'last_id' => $lastId > 0 ? $lastId : null,
+			'lastId' => $lastId > 0 ? $lastId : null,
 			'drafts' => $drafts,
-			'wikiprojects' => $wikiprojects
+			'searchText' => str_replace( ' ', '_', $searchText ),
+			'searchCriteria' => $searchCriteria
 		];
+
 		// filter by current user if they are logged and the filter is 'mine'
 		if ( $filter === 'mine' && isset( $filterUser ) ) {
-			$options['filter_user'] = $filterUser;
+			$options['filterUser'] = $filterUser;
 		}
 		// Set the language for the records.
 		$options['wikiLang'] = $this->wikiDao->getLang();
@@ -385,9 +381,9 @@ class CopyPatrol extends Controller {
 		$this->view->set( 'filter', $filter );
 		$this->view->set( 'drafts', $drafts );
 		$this->view->set( 'draftsExist', $this->dao->draftsExist( $this->wikiDao->getLang() ) );
-		$this->view->set( 'wikiprojects', $wikiprojects );
-		$this->view->set( 'wikiprojectsArray', $wikiprojectsArray );
 		$this->view->set( 'filterTypes', $this->getFilterTypes() );
+		$this->view->set( 'searchText', $searchText );
+		$this->view->set( 'searchCriteria', $searchCriteria );
 
 		$this->setHasWikiprojects();
 
@@ -395,7 +391,7 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * Determine if the current project supports WikiProjects, and if so set the view
+	 * Determine if the current project/wiki supports WikiProjects, and if so set the view
 	 */
 	private function setHasWikiprojects() {
 		$hasWikiprojects = count( $this->dao->getWikiProjects( $this->wikiDao->getLang() ) ) > 0;
