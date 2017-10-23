@@ -337,6 +337,9 @@ class App extends AbstractApp {
 				)->name( 'loadmore' )->setConditions( $routeConditions );
 				$slim->get( '/review/add', $middleware['require-auth'],
 					function ( $wikiLang ) use ( $slim ) {
+						// First make sure they aren't blocked from CopyPatrol.
+						$this->checkIfBlocked( $slim, $wikiLang );
+
 						$page = new AddReview( $slim );
 						$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
 						$page->setDao( $this->getPlagiabotDao() );
@@ -345,6 +348,9 @@ class App extends AbstractApp {
 				)->name( 'add_review' );
 				$slim->get( '/review/undo', $middleware['require-auth'],
 					function ( $wikiLang ) use ( $slim ) {
+						// First make sure they aren't blocked from CopyPatrol.
+						$this->checkIfBlocked( $slim, $wikiLang );
+
 						$page = new UndoReview( $slim );
 						$page->setWikiDao( $this->getWikiDao( $wikiLang ) );
 						$page->setDao( $this->getPlagiabotDao() );
@@ -392,6 +398,30 @@ class App extends AbstractApp {
 				$slim->redirect( $slim->urlFor( 'root' ) );
 			}
 		)->name( 'logout' );
+	}
+
+	/**
+	 * Quick check to see if a user is blocked. This is ran at the top of the
+	 * review actions. If the user is blocked, the 'Blocked' error is rendered.
+	 * @param  Slim $slim
+	 * @param  string $wikiLang
+	 */
+	private function checkIfBlocked( Slim $slim, $wikiLang ) {
+		$userData = $slim->authManager->getUserData();
+
+		if ( !$userData ) {
+			// They aren't logged in.
+			return false;
+		}
+
+		$username = $userData->getName();
+		$wikiDao = $this->getWikiDao( $wikiLang );
+		$blockInfo = $wikiDao->getBlockInfo( $username );
+
+		if ( $blockInfo ) {
+			echo json_encode( [ 'error' => 'Blocked' ] );
+			$slim->stop();
+		}
 	}
 
 	/**

@@ -106,6 +106,14 @@ class CopyPatrol extends Controller {
 	 * editor_talk_dead: Bool. Is editor talk page non-existent?
 	 */
 	protected function handleGet() {
+		// Set the language for the view.
+		$this->view->set( 'wikiLang', $this->wikiDao->getLang() );
+
+		// Check if they are blocked on the requested wiki, and if so deny access.
+		if ( $this->isUserBlocked() ) {
+			return $this->render( 'blocked.html', [], 403 );
+		}
+
 		$records = $this->getRecords();
 		// nothing else needs to be done if there are no records
 		if ( empty( $records ) ) {
@@ -213,6 +221,26 @@ class CopyPatrol extends Controller {
 		$this->view->set( 'records', $records );
 
 		$this->render( 'index.html' );
+	}
+
+	/**
+	 * Determine if the user is blocked on-wiki.
+	 *
+	 * @return boolean
+	 */
+	protected function isUserBlocked() {
+		$userData = $this->authManager->getUserData();
+
+		if ( !$userData ) {
+			// They aren't logged in.
+			return false;
+		}
+
+		$blockInfo = $this->wikiDao->getBlockInfo(
+			$this->getUsername()
+		);
+
+		return $blockInfo;
 	}
 
 	/**
@@ -325,9 +353,6 @@ class CopyPatrol extends Controller {
 	 * @return array collection of plagiarism records
 	 */
 	protected function getRecords() {
-		// Set the language for the view.
-		$this->view->set( 'wikiLang', $this->wikiDao->getLang() );
-
 		// if an ID is set, we want to show just that record
 		$id = $this->request->get( 'id' );
 		if ( $id ) {

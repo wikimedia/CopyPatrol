@@ -188,6 +188,25 @@ class WikiDao extends AbstractDao {
 	}
 
 	/**
+	 * Get block information about the user. This is used to determine whether
+	 * their access to CopyPatrol should be denied.
+	 */
+	public function getBlockInfo( $username ) {
+		$sql = "SELECT ipb_expiry
+			FROM ipblocks
+			WHERE ipb_user = (
+				SELECT user_id
+				FROM user
+				WHERE user_name = :username
+			)
+			LIMIT 1";
+
+		return $this->fetch(
+			$sql, [ 'username' => $username ]
+		);
+	}
+
+	/**
 	 * Determine which of the given pages are dead
 	 *
 	 * @param $titles array Page titles
