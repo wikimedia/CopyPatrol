@@ -77,6 +77,7 @@
 	"footer-broughtby": "Ufrío por $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Funciona con $1 y $2",
+	"search": "Buscar un títulu de páxina:",
 	"source": "Fonte",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Atribución d'imáxenes",
@@ -98,5 +99,7 @@
 	"js-undo-own-only": "Solo puedes desfaer les revisiones propies.",
 	"js-unknown-error": "Hebo un error desconocíu al cargar les resultancies. Tenta nuevamente.",
 	"permalink": "Enllaz permanente",
-	"show-all-records": "Amosar tolos rexistros"
+	"show-all-records": "Amosar tolos rexistros",
+	"access-blocked": "Anguaño tas $1 en $2 y nun puedes usar CopyPatrol.",
+	"blocked": "bloquiáu"
 }

@@ -67,6 +67,7 @@
 	"compare-article-loading": "문서 판을 불러오는 중...",
 	"footer-loadmore": "더 불러오기",
 	"footer-nomore": "더 이상의 레코드가 없습니다!",
+	"search": "문서 제목 검색:",
 	"source": "출처",
 	"phabricator": "파브리케이터",
 	"footer-imageattr": "그림 속성",
@@ -82,5 +83,7 @@
 	"js-undo-own-only": "당신은 당신의 검토만 취소할 수 있습니다.",
 	"js-unknown-error": "결과를 불러오는 동안 알 수 없는 오류가 발생했습니다. 다시 시도해 주십시오.",
 	"permalink": "고유링크",
-	"show-all-records": "모든 레코드 보기"
+	"show-all-records": "모든 레코드 보기",
+	"access-blocked": "당신은 현재 $2의 $1이며 CopyPatrol을 사용할 수 없습니다.",
+	"blocked": "차단됨"
 }

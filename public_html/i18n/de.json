@@ -77,6 +77,7 @@
 	"footer-broughtby": "Zu dir gebracht von $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Powered by $1 and $2",
+	"search": "Nach Seitentitel suchen:",
 	"source": "Quelle",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Bildnennung",
@@ -98,5 +99,7 @@
 	"js-undo-own-only": "Du kannst nur deine eigenen Überprüfungen rückgängig machen.",
 	"js-unknown-error": "Beim Laden der Ergebnisse ist ein unbekannter Fehler aufgetreten. Bitte erneut versuchen.",
 	"permalink": "Permanentlink",
-	"show-all-records": "Alle Aufzeichnungen anzeigen"
+	"show-all-records": "Alle Aufzeichnungen anzeigen",
+	"access-blocked": "Du bist derzeit auf $2 $1 und du kannst CopyPatrol nicht verwenden.",
+	"blocked": "gesperrt"
 }

@@ -81,5 +81,7 @@
 	"js-dberror": "Si è verificato un errore nella connessione al database.",
 	"js-unknown-error": "Si è verificato un errore sconosciuto durante il caricamento dei risultati. Riprova.",
 	"permalink": "Collegamento permanente",
-	"show-all-records": "Mostra tutti i record"
+	"show-all-records": "Mostra tutti i record",
+	"access-blocked": "Attualmente sei $1 su $2 e non puoi utilizzare CopyPatrol.",
+	"blocked": "bloccato"
 }

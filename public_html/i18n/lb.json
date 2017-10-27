@@ -93,5 +93,6 @@
 	"js-unauthorized": "Dir musst ageloggt si fir nokucken ze kënnen.",
 	"js-dberror": "Et gouf e Feeler beim Verbanne mat der Datebank.",
 	"js-undo-own-only": "Dir kënnt nëmmen Är eegen nogekuckt Aktiounen zrécksetzen.",
-	"js-unknown-error": "Beim Luede vun de Resultater ass en onbekannte Feeler geschitt. Probéiert w.e.g. nach eng Kéier."
+	"js-unknown-error": "Beim Luede vun de Resultater ass en onbekannte Feeler geschitt. Probéiert w.e.g. nach eng Kéier.",
+	"blocked": "gespaart"
 }

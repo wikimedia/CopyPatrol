@@ -77,6 +77,7 @@
 	"footer-broughtby": "Creà për chiel da $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "A marcia grassie a $1 e $2",
+	"search": "Sërché un tìtol ëd pàgina:",
 	"source": "Sorgiss",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Atribussion dla plancia",
@@ -98,5 +99,7 @@
 	"js-undo-own-only": "A peul mach anulé soe pròpie verìfiche.",
 	"js-unknown-error": "A-i é staje n'eror ësconossù durant ël cariament ëd j'arzultà. Për piasì, ch'a preuva torna.",
 	"permalink": "Liura permanenta",
-	"show-all-records": "Smon-e tuti ij dàit argistrà"
+	"show-all-records": "Smon-e tuti ij dàit argistrà",
+	"access-blocked": "Chiel a l'é al moment $1 su $2 e a peul nen dovré CopyPatrol.",
+	"blocked": "blocà"
 }

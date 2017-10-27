@@ -78,6 +78,7 @@
 	"footer-broughtby": "由$1提供给您",
 	"footer-commtech": "社群技术",
 	"footer-poweredby": "由$1和$2提供技术支持",
+	"search": "搜索页面标题：",
 	"source": "源代码",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "图片署名",
@@ -99,5 +100,7 @@
 	"js-undo-own-only": "您只可以撤销您自己的巡查。",
 	"js-unknown-error": "加载结果时发生未知错误。请重试。",
 	"permalink": "固定链接",
-	"show-all-records": "显示所有记录"
+	"show-all-records": "显示所有记录",
+	"access-blocked": "您目前在$2$1，并因此无法使用CopyPatrol。",
+	"blocked": "被封禁"
 }

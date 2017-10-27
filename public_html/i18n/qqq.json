@@ -83,6 +83,7 @@
 	"footer-broughtby": "Footer text to indicate author. \n Parameters: $1 - String. Name of the team (community tech).",
 	"footer-commtech": "Footer text - name of team.",
 	"footer-poweredby": "Footer text to highlight sources used for development. \n Parameters: $1 - String('Eranbot', which maintains the database) and $2 - String('Turnitin', the service used for plagiarism detection)",
+	"search": "String label for a search box",
 	"source": "Footer link to source code ('''Not reference source''') for application\n{{Identical|Source}}",
 	"phabricator": "Footer link to phabricator workboard for application",
 	"footer-imageattr": "Footer link to open a pop up box to show attributions for images used in app",
@@ -104,7 +105,6 @@
 	"js-undo-own-only": "Alert shown to user when they try to undo other people's reviews",
 	"js-unknown-error": "Alert shown to user when results could not be loaded, possibly due to connection issues, asking them to try again",
 	"permalink": "Text for a permanent link to a particular record.\n{{Identical|Permalink}}",
-	"search": "String label for a search box",
 	"show-all-records": "Label for the button to show all records. This button is shown when the user went to a permalink that shows a single record.",
 	"access-blocked": "Message shown when a user is blocked on the wiki they are trying to view in CopyPatrol. $1 is a link to the block entry on the wiki, with the message 'blocked' as the link text. $2 is the domain of the wiki.",
 	"blocked": "The MediaWiki term for when a user is unable to edit a wiki.\n{{Identical|Blocked}}"

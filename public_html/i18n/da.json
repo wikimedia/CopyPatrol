@@ -77,6 +77,7 @@
 	"footer-broughtby": "Bragt til dig af $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Drevet af $1 og $2",
+	"search": "Søg efter sidetitel:",
 	"source": "Kilde",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Billedtilskrivning",
@@ -98,5 +99,7 @@
 	"js-undo-own-only": "Du kan kun fortryde dine egne korrekturlæsninger.",
 	"js-unknown-error": "Der opstod en ukendt fejl, under indlæsning af resultater. Prøv igen.",
 	"permalink": "Permalink",
-	"show-all-records": "Vis alle poster"
+	"show-all-records": "Vis alle poster",
+	"access-blocked": "Du er i øjeblikket på $1 på domænet $2 og kan ikke bruge CopyPatrol.",
+	"blocked": "Blokeret"
 }
