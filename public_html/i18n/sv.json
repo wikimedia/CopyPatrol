@@ -78,6 +78,7 @@
 	"footer-broughtby": "Tillhandahålls av $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Drivs av $1 och $2",
+	"search": "Sök efter sidtitel:",
 	"source": "Källa",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Bildattribution",
@@ -99,5 +100,7 @@
 	"js-undo-own-only": "Du kan endast ångra dina egna granskningar.",
 	"js-unknown-error": "Ett okänt fel uppstod när resultaten lästes in. Var god försök igen.",
 	"permalink": "Permanent länk",
-	"show-all-records": "Visa alla poster"
+	"show-all-records": "Visa alla poster",
+	"access-blocked": "Du är för närvarande $1 på $2 och kan inte använda CopyPatrol.",
+	"blocked": "blockerad"
 }
