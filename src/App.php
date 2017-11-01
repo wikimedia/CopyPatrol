@@ -75,9 +75,10 @@ class App extends AbstractApp {
 	 * @param Slim $slim Application
 	 */
 	protected function configureSlim( Slim $slim ) {
+		$debug = ( Config::getStr( 'LOG_LEVEL' ) === 'debug' );
 		$slim->config( [
-			'displayErrorDetails' => true,
-			'debug' => true,
+			'displayErrorDetails' => $debug,
+			'debug' => $debug,
 			'oauth.enable' => Config::getBool( 'USE_OAUTH', false ),
 			'oauth.consumer_token' => Config::getStr( 'OAUTH_CONSUMER_TOKEN' ),
 			'oauth.secret_token' => Config::getStr( 'OAUTH_SECRET_TOKEN' ),
