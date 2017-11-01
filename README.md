@@ -25,7 +25,7 @@ This is a web interface for [Plagiabot's Copyright RC feed](https://en.wikipedia
    ```
 5. Open up an SSH tunnel to access the databases on Tool Labs (substitute your own username).<br>
    ```
-   $ ssh -L 4711:enwiki.labsdb:3306 YOU@tools-login.wmflabs.org -N 
+   $ ssh -L 4711:enwiki.web.db.svc.eqiad.wmflabs:3306 -L 4712:tools-db:3306 YOU@tools-login.wmflabs.org -N
    ```
 
 This application makes of use the [Wikimedia-slimapp](https://github.com/wikimedia/wikimedia-slimapp) library and uses Twig as its templating engine.
