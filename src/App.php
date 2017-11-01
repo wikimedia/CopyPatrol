@@ -89,6 +89,10 @@ class App extends AbstractApp {
 			'db.port' => Config::getStr( 'DB_PORT', '3306' ),
 			'db.user' => Config::getStr( 'DB_USER' ),
 			'db.pass' => Config::getStr( 'DB_PASS' ),
+			'db.replica.host' => Config::getStr( 'DB_REPLICA_HOST', 'localhost' ),
+			'db.replica.port' => Config::getStr( 'DB_REPLICA_PORT', '3306' ),
+			'db.replica.user' => Config::getStr( 'DB_REPLICA_USER' ),
+			'db.replica.pass' => Config::getStr( 'DB_REPLICA_PASS' ),
 			'db.name.copypatrol' => Config::getStr( 'DB_NAME_COPYPATROL' ),
 			'templates.path' => APP_ROOT . '/public_html/templates',
 			'i18n.path' => APP_ROOT . '/public_html/i18n',
@@ -106,10 +110,10 @@ class App extends AbstractApp {
 		}
 		$this->slim->wikiDao = WikiDao::newFromLangCode(
 			$lang,
-			$this->slim->settings['db.host'],
-			$this->slim->settings['db.port'],
-			$this->slim->settings['db.user'],
-			$this->slim->settings['db.pass'],
+			$this->slim->settings['db.replica.host'],
+			$this->slim->settings['db.replica.port'],
+			$this->slim->settings['db.replica.user'],
+			$this->slim->settings['db.replica.pass'],
 			$this->slim->log
 		);
 		return $this->slim->wikiDao;
