@@ -79,6 +79,7 @@
 	"footer-broughtby": "Provista por $1",
 	"footer-commtech": "Tecnología comunitaria",
 	"footer-poweredby": "Funciona gracias a $1 y $2",
+	"search": "Buscar por título de página:",
 	"source": "Fuente",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Atribución de imágenes",
@@ -100,5 +101,7 @@
 	"js-undo-own-only": "Puedes deshacer únicamente tus propias revisiones.",
 	"js-unknown-error": "Se produjo un error desconocido al cargar los resultados. Inténtalo de nuevo.",
 	"permalink": "Enlace permanente",
-	"show-all-records": "Mostrar todos los registros"
+	"show-all-records": "Mostrar todos los registros",
+	"access-blocked": "Actualmente estás $1 en $2 y no puedes usar CopyPatrol.",
+	"blocked": "bloqueado"
 }
