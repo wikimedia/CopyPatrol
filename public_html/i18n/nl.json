@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Siebrand",
-			"Mainframe98"
+			"Mainframe98",
+			"Optilete"
 		]
 	},
 	"name": "CopyPatrol",
@@ -78,6 +79,7 @@
 	"footer-broughtby": "Aangeboden door $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Aangedreven door $1 en $2",
+	"search": "Zoek naar pagina titel:",
 	"source": "Bron",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Naamsvermelding afbeelding",
@@ -99,5 +101,7 @@
 	"js-undo-own-only": "U kunt alleen uw eigen beoordelingen ongedaan maken.",
 	"js-unknown-error": "Er is een onbekende fout opgetreden bij het laden van de resultaten. Probeer het opnieuw.",
 	"permalink": "Permanente koppeling",
-	"show-all-records": "Alle records weergeven"
+	"show-all-records": "Alle records weergeven",
+	"access-blocked": "U bent nu $1 op $2 en niet in staat om CopyPatrol te gebruiken.",
+	"blocked": "geblokkeerd"
 }
