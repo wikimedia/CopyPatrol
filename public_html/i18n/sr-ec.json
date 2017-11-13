@@ -80,6 +80,7 @@
 	"footer-broughtby": "Омогућио $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Покреће $1 и $2",
+	"search": "Претрага наслова странице:",
 	"source": "Извор",
 	"phabricator": "Фабрикатор",
 	"footer-imageattr": "Допринос за слику",
@@ -101,5 +102,7 @@
 	"js-undo-own-only": "Можете само вратити своје прегледе.",
 	"js-unknown-error": "Непозната грешка се десила при учитавању резултата. Молимо да покушате поново.",
 	"permalink": "Трајна веза",
-	"show-all-records": "Прикажи све извештаје."
+	"show-all-records": "Прикажи све извештаје.",
+	"access-blocked": "Тренутно сте $1 на $2 и нисте у могућности да користите CopyPatrol.",
+	"blocked": "блокирани"
 }
