@@ -78,6 +78,7 @@
 	"footer-broughtby": "Krouet evidoc'h gant $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "a ya en-dro gant $1 ha $2",
+	"search": "Klask dre ditl ar pajennoù :",
 	"source": "Mammenn",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Kred skeudenniñ",
@@ -99,5 +100,7 @@
 	"js-undo-own-only": "Gallout a reot nullañ nemet ho kwiriekadurioù.",
 	"js-unknown-error": "Ur fazi dianav zo bet pa veze monedonoù o kargañ. Klaskit en-dro diwezhatoc'h, mar plij.",
 	"permalink": "Peurliamm",
-	"show-all-records": "Diskouez an holl enrolladennoù"
+	"show-all-records": "Diskouez an holl enrolladennoù",
+	"access-blocked": "Emaoc'h evit poent $1 diwar $2 ha ne c'hallit ket ober gant CopyPatrol.",
+	"blocked": "stanket"
 }
