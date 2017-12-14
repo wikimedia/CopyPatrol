@@ -77,6 +77,7 @@
 	"footer-broughtby": "Przëniosłé do ce przez $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Wspiéróné przez $1 ë $2",
+	"search": "Szëkba za titlama starnów:",
 	"source": "Zdrój",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Òpisanié òbrôzka",
@@ -98,5 +99,7 @@
 	"js-undo-own-only": "Mòżesz copac le swòjé przezdrzénia.",
 	"js-unknown-error": "Nieznónô fela przë wladënkù wińdzenia. Spróbùjë znowa.",
 	"permalink": "Prosti lënk",
-	"show-all-records": "Wëskrzëni wszëtczé zapisenczi"
+	"show-all-records": "Wëskrzëni wszëtczé zapisenczi",
+	"access-blocked": "Jes terô na $2 $1 ë ni mòżesz ùżëwac CopyPatrol.",
+	"blocked": "zablokòwóné"
 }
