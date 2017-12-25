@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eitvys200"
+			"Eitvys200",
+			"Manvydasz"
 		]
 	},
 	"documentation": "Dokumentacija",
@@ -49,6 +50,7 @@
 	"form-wikiprojects-placeholder": "Įveskite VikiProjekto pavadinimus...",
 	"submit": "Siųsti",
 	"page": "Puslapis",
+	"diff": "skirt",
 	"editor": "Redaktorius",
 	"review": "Apžvalga",
 	"review-fixed": "Puslapis sutvarkytas",
@@ -79,5 +81,6 @@
 	"js-undo-own-only": "Galite anuliuoti tik savo peržiūras.",
 	"js-unknown-error": "Įvyko nežinoma klaida įkeliant rezultatus. Prašome bandyti dar kartą.",
 	"permalink": "Nuoroda į šią vietą",
-	"show-all-records": "Rodyti visus įrašus"
+	"show-all-records": "Rodyti visus įrašus",
+	"blocked": "užblokuotas"
 }

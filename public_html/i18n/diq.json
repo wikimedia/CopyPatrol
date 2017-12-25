@@ -3,7 +3,8 @@
 		"authors": [
 			"1917 Ekim Devrimi",
 			"Gırd",
-			"Gambollar"
+			"Gambollar",
+			"Mirzali"
 		]
 	},
 	"name": "CopyPatrol",
@@ -77,5 +78,6 @@
 	"close": "Racın",
 	"imageattr-logo": "Logoy CopyPatroli",
 	"public-domain": "malê şari",
-	"open-font-license": "Lisansê Tipê Nuştışi Akerê"
+	"open-font-license": "Lisansê Tipê Nuştışi Akerê",
+	"blocked": "kılit biyo"
 }
