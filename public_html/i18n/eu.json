@@ -79,6 +79,7 @@
 	"footer-broughtby": "Zuri ekarria $1-ren truke",
 	"footer-commtech": "Komunitatearen teknologia",
 	"footer-poweredby": "$1 eta $2-ren bidez bultzatua",
+	"search": "Bilatu orrialde izenburua:",
 	"source": "Iturria",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Irudi eskuduntza",
@@ -100,5 +101,7 @@
 	"js-undo-own-only": "Bakarrik zure berrikusketak atzera bota ditzakezu.",
 	"js-unknown-error": "Errore ezezagun bat gertatu da emaitzak kargatzerakoan. Saia zaitez berriro mesedez.",
 	"permalink": "Lotura iraunkorra",
-	"show-all-records": "Grabaketa guztiak erakutsi"
+	"show-all-records": "Grabaketa guztiak erakutsi",
+	"access-blocked": "$2 domainuan $1-rekin zaude eta ezin duzu CopyPatrol erabili.",
+	"blocked": "blokeatua"
 }

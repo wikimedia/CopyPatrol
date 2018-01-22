@@ -4,8 +4,10 @@
 			"Nikosgranturismogt"
 		]
 	},
+	"name": "CopyPatrol",
 	"documentation": "Τεκμηρίωση",
 	"feedback": "Ανατροφοδότηση",
+	"leaderboard": "Λίστα κατάταξης",
 	"zh-wikipedia": "Κινεζική Βικιπαίδεια",
 	"ja-wikipedia": "Ιαπωνική Βικιπαίδεια",
 	"th-wikipedia": "Ταϊλανδική Βικιπαίδεια",
@@ -40,6 +42,9 @@
 	"login": "Σύνδεση",
 	"logout": "Αποσύνδεση",
 	"header-loggedin": "Έχετε συνδεθεί ως $1.",
+	"form-all": "Όλες οι περιπτώσεις",
+	"form-mine": "Οι αναθεωρήσεις μου",
+	"wikiprojects": "Εγχειρήματα του βίκι",
 	"form-wikiprojects-placeholder": "Πληκτρολογήστε τα ονόματα εγχειρημάτων...",
 	"submit": "Υποβολή",
 	"page": "Σελίδα",
