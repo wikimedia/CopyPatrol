@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Piramidion"
+			"Piramidion",
+			"Movses"
 		]
 	},
 	"name": "CopyPatrol",
@@ -77,6 +78,7 @@
 	"footer-broughtby": "Створено для Вас $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "За підтримки $1 і $2",
+	"search": "Шукати заголовок сторінки:",
 	"source": "Джерело",
 	"phabricator": "Фабрикатор",
 	"footer-imageattr": "Атрибуція зображення",
@@ -98,5 +100,7 @@
 	"js-undo-own-only": "Ви можете скасовувати лише свої власні перевірки.",
 	"js-unknown-error": "Сталася невідома помилка при завантаженні результатів. Будь ласка, спробуйте ще раз.",
 	"permalink": "Постійне посилання",
-	"show-all-records": "Показати всі записи"
+	"show-all-records": "Показати всі записи",
+	"access-blocked": "Зараз вас $1 у $2 і ви не можете використовувати CopyPatrol.",
+	"blocked": "заблоковано"
 }
