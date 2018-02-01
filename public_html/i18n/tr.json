@@ -3,7 +3,8 @@
 		"authors": [
 			"Chansey",
 			"Hedda",
-			"Trockya"
+			"Trockya",
+			"Rapsar"
 		]
 	},
 	"name": "CopyPatrol",
@@ -69,11 +70,11 @@
 	"record-ithenticate": "iThenticate raporu",
 	"record-url-text": "İntihal edilen düzenleme yüzdesi: $1 ($2 kelime)",
 	"record-noeditor": "Editör bulunamadı",
-	"record-noeditor-tooltip": "Revizyon silindi veya veriler, Labs veritabanında henüz mevcut değil.",
+	"record-noeditor-tooltip": "Revizyon silindi veya veriler Labs veritabanında henüz mevcut değil.",
 	"record-ores": "ORES puanı: $1",
 	"article": "Madde",
 	"compare-article-loading": "Makale revizyonu yükleniyor...",
-	"compare-source-loading": "Muhtemel kopyalanma kaynağı yükleniyor...",
+	"compare-source-loading": "Muhtemel telif hakları ihlali kaynağı yükleniyor...",
 	"footer-loadmore": "Daha Fazla Yükle",
 	"footer-nomore": "Başka kayıt bulunamadı!",
 	"footer-broughtby": "$1 tarafından getirildi",
@@ -83,7 +84,7 @@
 	"source": "Kaynak",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Resim atfı",
-	"lboard-title": "Liderlik Sıralaması",
+	"lboard-title": "Liderlik sıralaması",
 	"lboard-week": "Son 7 gün içinde kapatılan vakalar",
 	"lboard-month": "Son 30 gün içinde kapatılan vakalar",
 	"lboard-alltime": "Tüm zamanların vakaları kapatıldı",
