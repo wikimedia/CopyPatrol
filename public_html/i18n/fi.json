@@ -65,5 +65,6 @@
 	"close": "Sulje",
 	"imageattr-logo": "CopyPatrol logo",
 	"js-unauthorized": "Sinun täytyy olla kirjautuneena sisään voidakseen tarkastella.",
-	"permalink": "Ikilinkki"
+	"permalink": "Ikilinkki",
+	"blocked": "estetty"
 }
