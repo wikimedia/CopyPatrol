@@ -69,7 +69,7 @@
 	"record-editcount": "Број измена:",
 	"compare": "Упореди",
 	"record-ithenticate": "iThenticate извештај",
-	"record-url-text": "$1 измене ($2 речи)",
+	"record-url-text": "$1 од измена ($2 речи)",
 	"record-noeditor": "Уређивач није пронађен",
 	"record-noeditor-tooltip": "Измена можда није обрисана или подаци још увек нису доступни у бази података Labs.",
 	"record-ores": "ORES оцена: $1",

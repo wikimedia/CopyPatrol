@@ -63,7 +63,12 @@
 	"contribs": "योगदानहरू",
 	"record-editcount": "सम्पादन गणना:",
 	"compare": "तुलना गर्नुहोस्",
+	"record-noeditor": "कुनै पनि सम्पादक भेटिएन",
 	"article": "लेख",
+	"footer-loadmore": "थप लोड गर्नुहोस्",
+	"footer-nomore": "कुनै पनि अभिलेख भेटिएन!",
+	"footer-broughtby": "$1 द्वारा ल्याइएको",
+	"search": "पृष्ठ शीर्षकबाट खोज्नुहोस्:",
 	"source": "स्रोत",
 	"phabricator": "फेब्रिकेटर",
 	"footer-imageattr": "तस्विव एट्रिब्युसन",
@@ -79,5 +84,6 @@
 	"open-font-license": "ओपन फन्ट लाइसेन्स",
 	"js-unknown-error": "An unknown error occurred when loading results. कृपया पुनः प्रयास गर्नुहोस् ।",
 	"permalink": "स्थायी लिङ्क",
-	"show-all-records": "सबै रेकर्ड देखाउनुहोस्"
+	"show-all-records": "सबै रेकर्ड देखाउनुहोस्",
+	"blocked": "निषेधित"
 }
