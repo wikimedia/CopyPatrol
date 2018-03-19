@@ -57,7 +57,9 @@
 	"diff": "Ferq",
 	"editor": "Vurner",
 	"review": "Çım eşten",
+	"review-fixed": "Pele kerde era raşt",
 	"review-false": "Hereket icab nêkeno",
+	"review-by": "Vênayoğ:",
 	"history": "Tarix",
 	"talk": "Vatış",
 	"contribs": "İştıraki",
@@ -81,5 +83,6 @@
 	"public-domain": "malê şari",
 	"open-font-license": "Lisansê Tipê Nuştışi Akerê",
 	"permalink": "Gıreyo daimi",
+	"show-all-records": "Heme qeydan bımocne",
 	"blocked": "kılit biyo"
 }

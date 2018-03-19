@@ -3,7 +3,8 @@
 		"authors": [
 			"Chrumps",
 			"Woytecr",
-			"Wojtas"
+			"Wojtas",
+			"DeRudySoulStorm"
 		]
 	},
 	"name": "CopyPatrol",
@@ -69,6 +70,7 @@
 	"record-ithenticate": "Raport iThenticate",
 	"record-url-text": "$1 edycji ($2 {{PLURAL:$2|wyraz|wyrazy|wyrazów}})",
 	"record-noeditor": "Nie znaleziono autora",
+	"record-noeditor-tooltip": "Wersja mogła zostać usunięta lub dane nie są jeszcze dostępne w bazie danych.",
 	"record-ores": "Wynik ORES: $1",
 	"article": "Artykuł",
 	"compare-article-loading": "Ładowanie wersji artykułu...",
@@ -78,18 +80,24 @@
 	"footer-broughtby": "Stworzone dla Ciebie przez $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Wspierane przez $1 oraz $2",
+	"search": "Wyszukaj tytuł strony:",
 	"source": "Źródło",
 	"phabricator": "Phabricator",
+	"footer-imageattr": "Atrybuty obrazu",
 	"lboard-title": "Tabela liderów",
 	"lboard-week": "Sprawy zamknięte w ciągu ostatnich 7 dni",
 	"lboard-month": "Sprawy zamknięte w ciągu ostatnich 30 dni",
 	"lboard-back": "Wróć do CopyPatrol",
 	"close": "Zamknij",
+	"imageattr-title": "Atrybuty obrazu",
 	"imageattr-logo": "Logo CopyPatrol",
 	"public-domain": "domena publiczna",
 	"imageattr-paragraph2": "$1 utworzona na licencji $2 przez $3",
+	"js-unauthorized": "Musisz być zalogowany, aby móc przeglądać.",
 	"js-dberror": "Wystąpił błąd podczas łączenia z bazą danych.",
 	"js-undo-own-only": "Możesz cofnąć tyko własne oceny.",
 	"js-unknown-error": "Wystąpił nieznany błąd podczas ładowania wyników. Spróbuj jeszcze raz.",
-	"show-all-records": "Pokaż wszystkie pozycje"
+	"permalink": "Stałe łącze",
+	"show-all-records": "Pokaż wszystkie pozycje",
+	"blocked": "Zablokowany"
 }
