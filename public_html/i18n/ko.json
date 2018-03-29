@@ -3,7 +3,8 @@
 		"authors": [
 			"Ykhwong",
 			"Jerrykim306",
-			"SeoJeongHo"
+			"SeoJeongHo",
+			"Revi"
 		]
 	},
 	"name": "CopyPatrol",
@@ -44,6 +45,9 @@
 	"login": "로그인",
 	"logout": "로그아웃",
 	"header-loggedin": "$1님으로 로그인하고 있습니다.",
+	"form-all": "모든 작업",
+	"form-open": "열린 작업",
+	"form-reviewed": "검토된 작업",
 	"form-mine": "내 리뷰",
 	"form-drafts": "초안만",
 	"wikiprojects": "위키프로젝트",
@@ -54,7 +58,9 @@
 	"editor": "편집자",
 	"review": "검토",
 	"review-fixed": "문서 고쳐짐",
+	"review-fixed-tooltip": "이 편집은 저작권 침해이며 되돌려졌습니다",
 	"review-false": "필요한 작업 없음",
+	"review-false-tooltip": "이 편집은 잘못된 감지이며 아무 행위도 취할 필요가 없습니다.",
 	"review-by": "검토자:",
 	"history": "역사",
 	"talk": "토론",
