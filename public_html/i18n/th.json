@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Aefgh39622",
-			"Ans"
+			"Ans",
+			"Horus"
 		]
 	},
 	"name": "CopyPatrol",
@@ -41,7 +42,7 @@
 	"ru-wikipedia": "วิกิพีเดียภาษารัสเซีย",
 	"tr-wikipedia": "วิกิพีเดียภาษาตุรกี",
 	"login": "ล็อกอิน",
-	"logout": "ออกจากระบบ",
+	"logout": "ลงชื่อออก",
 	"header-loggedin": "คุณล็อกอินแล้วในชื่อ: $1",
 	"submit": "ส่ง",
 	"page": "หน้า",
