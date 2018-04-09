@@ -4,7 +4,8 @@
 			"Wesalius",
 			"Martin Urbanec",
 			"Matěj Suchánek",
-			"Walter Klosse"
+			"Walter Klosse",
+			"Patriccck"
 		]
 	},
 	"name": "CopyPatrol",
@@ -80,6 +81,7 @@
 	"footer-broughtby": "Připraveno pro vás týmem $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Poskytují $1 a $2",
+	"search": "Hledat název stránky:",
 	"source": "Zdroj",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Uvedení autorství",
@@ -99,5 +101,9 @@
 	"js-unauthorized": "Před kontrolou článku se musíte přihlásit.",
 	"js-dberror": "Během pokusu o připojení se k databázi nastala chyba.",
 	"js-undo-own-only": "Můžete vrátit pouze vlastní kontroly článků.",
-	"js-unknown-error": "Během pokusu o načtení výsledků nastala chyba. Prosím, zkuste to znovu."
+	"js-unknown-error": "Během pokusu o načtení výsledků nastala chyba. Prosím, zkuste to znovu.",
+	"permalink": "Trvalý odkaz",
+	"show-all-records": "Zobrazit všechny nahrávky",
+	"access-blocked": "V současné době máte $1 v $2 a nemůžete používat CopyPatrol.",
+	"blocked": "zablokováno"
 }
