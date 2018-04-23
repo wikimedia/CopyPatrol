@@ -3,7 +3,8 @@
 		"authors": [
 			"Siebrand",
 			"Mainframe98",
-			"Optilete"
+			"Optilete",
+			"Ooswesthoesbes"
 		]
 	},
 	"name": "CopyPatrol",
@@ -79,7 +80,7 @@
 	"footer-broughtby": "Aangeboden door $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Aangedreven door $1 en $2",
-	"search": "Zoek naar pagina titel:",
+	"search": "Zoek naar paginatitel:",
 	"source": "Bron",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Naamsvermelding afbeelding",
