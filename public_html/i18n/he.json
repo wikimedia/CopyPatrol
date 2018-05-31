@@ -4,7 +4,8 @@
 			"Geagea",
 			"Or",
 			"Uziel302",
-			"YaronSh"
+			"YaronSh",
+			"Amire80"
 		]
 	},
 	"documentation": "תיעוד",
@@ -44,6 +45,7 @@
 	"login": "כניסה",
 	"logout": "יציאה",
 	"header-loggedin": "נכנסת בשם: $1",
+	"form-all": "כל המקרים",
 	"submit": "שליחה",
 	"page": "עמוד",
 	"diff": "השוואה בין גרסאות",
