@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Otokoume"
+			"Otokoume",
+			"Yusuke1109"
 		]
 	},
 	"name": "CopyPatrol",
@@ -42,6 +43,10 @@
 	"login": "ログイン",
 	"logout": "ログアウト",
 	"header-loggedin": "$1 としてログインしています",
+	"form-all": "すべてのケース",
+	"form-drafts": "下書きのみ",
+	"wikiprojects": "ウィキプロジェクト",
+	"form-wikiprojects-placeholder": "ウィキプロジェクト名を入力してください...",
 	"submit": "送信",
 	"page": "ページ",
 	"diff": "差分",
@@ -52,6 +57,7 @@
 	"compare": "比較",
 	"record-url-text": "$1一致 ($2 語)",
 	"record-noeditor-tooltip": "版が削除されているか、データが Labs データベースで利用できません。",
+	"article": "記事",
 	"compare-article-loading": "記事の版を読み込み中...",
 	"footer-loadmore": "さらに読み込む",
 	"footer-commtech": "Community Tech",
