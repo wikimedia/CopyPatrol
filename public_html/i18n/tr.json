@@ -94,6 +94,7 @@
 	"imageattr-logo": "CopyPatrol logosu",
 	"public-domain": "kamu malı",
 	"open-font-license": "Açık Yazı Tipi Lisansı",
+	"alert-testing": "Bu gösterim ortamıdır. Lütfen yorumlarınızı kaydetmek için bu aracı kullanmayın. Gerçek CopyPatrol aracı için lütfen $1 kullanın.",
 	"js-unauthorized": "İnceleme yapabilmek için giriş yapmanız gerekir.",
 	"js-dberror": "Veri tabanına bağlanırken bir hata oluştu.",
 	"js-undo-own-only": "Yalnızca kendi incelemelerinizi geri alabilirsiniz.",
