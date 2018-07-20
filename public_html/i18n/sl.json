@@ -1,9 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"NegativeTwelveDollars"
+			"NegativeTwelveDollars",
+			"Janezdrilc"
 		]
 	},
+	"name": "Patrulja za kopiranja",
+	"documentation": "Dokumentacija",
+	"feedback": "Povratne informacije",
 	"zh-wikipedia": "Kitajska Wikipedija",
 	"ja-wikipedia": "Japonska Wikipedija",
 	"ko-wikipedia": "Korejska Wikipedija",
