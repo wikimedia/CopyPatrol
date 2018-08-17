@@ -74,6 +74,10 @@ class PlagiabotDao extends AbstractDao {
 				$filters[] = "page_title LIKE CONCAT('%', :searchtext, '%')";
 				$preparedParams['searchtext'] = $searchText;
 			}
+			if ( $searchCriteria == 'page_exact' && $searchText ) {
+				$filters[] = "page_title = :searchtext";
+				$preparedParams['searchtext'] = $searchText;
+			}
 			// allow filtering by user and status
 			if ( $filterUser ) {
 				$filters[] = "status_user = '$filterUser'";
