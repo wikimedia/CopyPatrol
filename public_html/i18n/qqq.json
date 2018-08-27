@@ -7,7 +7,8 @@
 			"Liuxinyu970226",
 			"Fitoschido",
 			"Matěj Suchánek",
-			"Tacsipacsi"
+			"Tacsipacsi",
+			"BadDog"
 		]
 	},
 	"name": "{{Optional}}\nTitle of the application/tool",
@@ -47,7 +48,7 @@
 	"tr-wikipedia": "{{identical|Turkish Wikipedia}}",
 	"login": "Button label\n{{Identical|Login}}",
 	"logout": "Button label\n{{Identical|Logout}}",
-	"header-loggedin": "Message to tell user who they are logged in as.\n Parameter: $1 - Wiki username.",
+	"header-loggedin": "Message to tell user who they are logged in as.\n\nParameter: \n* $1 - Wiki username.",
 	"form-all": "Form radio button label - show all possible records",
 	"form-open": "Form radio button label - show unreviewed records",
 	"form-reviewed": "Form radio button label - show reviewed records",
@@ -80,9 +81,9 @@
 	"compare-source-loading": "Temporary text shown to user while copyvio text source loads",
 	"footer-loadmore": "Label for a button to load more records.",
 	"footer-nomore": "Label to indicate no more records in database.",
-	"footer-broughtby": "Footer text to indicate author. \n Parameters: $1 - String. Name of the team (community tech).",
+	"footer-broughtby": "Footer text to indicate author. \n\nParameters: \n* $1 - String; name of the team (community tech).",
 	"footer-commtech": "Footer text - name of team.",
-	"footer-poweredby": "Footer text to highlight sources used for development. \n Parameters: $1 - String('Eranbot', which maintains the database) and $2 - String('Turnitin', the service used for plagiarism detection)",
+	"footer-poweredby": "Footer text to highlight sources used for development. \n\nParameters:\n* $1 - String ('Eranbot', which maintains the database).\n* $2 - String ('Turnitin', the service used for plagiarism detection).",
 	"search": "String label for a search box",
 	"source": "Footer link to source code ('''Not reference source''') for application\n{{Identical|Source}}",
 	"phabricator": "Footer link to phabricator workboard for application",
@@ -106,6 +107,6 @@
 	"js-unknown-error": "Alert shown to user when results could not be loaded, possibly due to connection issues, asking them to try again",
 	"permalink": "Text for a permanent link to a particular record.\n{{Identical|Permalink}}",
 	"show-all-records": "Label for the button to show all records. This button is shown when the user went to a permalink that shows a single record.",
-	"access-blocked": "Message shown when a user is blocked on the wiki they are trying to view in CopyPatrol. $1 is a link to the block entry on the wiki, with the message 'blocked' as the link text. $2 is the domain of the wiki.",
+	"access-blocked": "Message shown when a user is blocked on the wiki they are trying to view in CopyPatrol. \n\nParameters:\n* $1 — link to the block entry on the wiki, with the message 'blocked' as the link text. \n* $2 — domain of the wiki.",
 	"blocked": "The MediaWiki term for when a user is unable to edit a wiki.\n{{Identical|Blocked}}"
 }
