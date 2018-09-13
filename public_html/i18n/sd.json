@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Indus Asia",
-			"Mehtab ahmed"
+			"Mehtab ahmed",
+			"Tweety"
 		]
 	},
 	"feedback": "اوهان جي راءِ",
@@ -38,6 +39,8 @@
 	"ru-wikipedia": "رشيائي وڪيپيڊيا",
 	"tr-wikipedia": "ترڪي وڪيپيڊيا",
 	"login": "داخل ٿيو",
+	"logout": "خارج ٿيو",
+	"header-loggedin": "توھان $1 نالي سان داخل ٿيل آھيو.",
 	"form-all": "سڀئي معاملا (آل ڪيسز)",
 	"form-open": "هلندڙ معاملا (اوپن ڪيسز)",
 	"form-reviewed": "جائزو ورتل معاملا (رِوويوڊ ڪيسز)",
@@ -59,10 +62,13 @@
 	"compare": "ڀيٽ",
 	"record-noeditor": "ڪو به سنواريندڙ نه مليو (نو ايڊيٽر فائونڊ)",
 	"article": "مضمون",
+	"footer-loadmore": "وڌيڪ ڏسو",
 	"footer-nomore": "ڪي به وڌيڪ ريڪارڊَ ڪونهي!",
 	"footer-broughtby": "جي ذريعي توهان ڏانهن آندو ويو $1",
 	"source": "ذريعو",
-	"lboard-alltime": "سدائين لاءِ معاملا بند ٿيل (آل ٽائيم ڪيسز ڪلوزڊ)",
-	"public-domain": "پبلڪ ڊومين (عوامي ڊومين)",
-	"show-all-records": "سڀ رڪارڊ ڏيکارو"
+	"lboard-alltime": "سدائين لاءِ معاملا بند ٿيل",
+	"close": "بند ڪريو",
+	"public-domain": "عوامي کاتو",
+	"show-all-records": "سڀ رڪارڊ ڏيکارو",
+	"blocked": "بندش وڌل"
 }
