@@ -55,6 +55,18 @@
 	"editor": "Cangiatore",
 	"review": "Revisite",
 	"review-fixed": "Pàgene corrette",
+	"review-fixed-tooltip": "Stu cangiamende ere 'na violazione de copyright e ha state luate",
+	"review-false": "Nisciune azione richieste",
+	"review-false-tooltip": "'U cangiamende tune jè 'nu false positive, non g'ha fà ninde",
+	"review-by": "Reviste da:",
+	"history": "Cunde",
+	"talk": "'Ngazzamende",
+	"contribs": "Condrebbute",
+	"record-editcount": "Condegge de le cangiaminde:",
+	"compare": "Combronde",
+	"record-ithenticate": "Rapporte de iThenticate",
+	"record-url-text": "$1 d'u cangiamende ($2 parole)",
+	"record-noeditor": "Nisciune cangiatore acchiate",
 	"article": "Vôsce",
 	"blocked": "bloccate"
 }
