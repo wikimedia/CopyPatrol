@@ -59,7 +59,7 @@ class PlagiabotDao extends AbstractDao {
 		if ( $id ) {
 			// if given an exact ID, don't allow any other filter options
 			$filters[] = "ithenticate_id = :id";
-			$preparedParams['int_id'] = $id;
+			$preparedParams['id'] = $id;
 		} else {
 			// ensures only valid filters are used
 			switch ( $filter ) {
@@ -87,7 +87,7 @@ class PlagiabotDao extends AbstractDao {
 			// see if this is a load more click
 			if ( $lastId ) {
 				$filters[] = "ithenticate_id < :lastId";
-				$preparedParams['int_lastId'] = $lastId;
+				$preparedParams['lastId'] = $lastId;
 			}
 			// filtering to draft namespace
 			if ( isset( $options['drafts'] ) ) {
