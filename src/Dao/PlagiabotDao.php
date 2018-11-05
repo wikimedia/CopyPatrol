@@ -46,6 +46,7 @@ class PlagiabotDao extends AbstractDao {
 	 */
 	public function getPlagiarismRecords( $n = 50, $options ) {
 		$filters = [];
+		$records = [];
 		$filterSql = '';
 		$id = isset( $options['id'] ) ? $options['id'] : null;
 		$lastId = isset( $options['lastId'] ) ? $options['lastId'] : null;
@@ -54,6 +55,7 @@ class PlagiabotDao extends AbstractDao {
 		$searchCriteria = isset( $options['searchCriteria'] ) ? $options['searchCriteria'] : 'page';
 		$filterUser = isset( $options['filterUser'] ) ? $options['filterUser'] : null;
 		$wikiLang = isset( $options['wikiLang'] ) ? $options['wikiLang'] : 'en';
+		$revision = isset( $options['revision'] ) ? $options['revision'] : null;
 		$preparedParams = [];
 
 		if ( $id ) {
@@ -115,7 +117,20 @@ class PlagiabotDao extends AbstractDao {
 			'LIMIT ' . intval( $n )
 		);
 
-		return $this->fetchAll( $sql, $preparedParams );
+		if ( $revision ) {
+			$filters = [];
+			$filters[] = "diff = :revision";
+			$revisionPreparedParams['revision'] = (int)$revision;
+			$revisionIdSql = self::concat(
+				'SELECT * FROM copyright_diffs',
+				self::buildWhere( $filters ),
+				'LIMIT 1'
+			);
+			$records = $this->fetchAll( self::concat( $revisionIdSql ), $revisionPreparedParams );
+		}
+
+		$records = array_merge( $this->fetchAll( $sql, $preparedParams ), $records );
+		return array_unique( $records, SORT_REGULAR );
 	}
 
 	/**

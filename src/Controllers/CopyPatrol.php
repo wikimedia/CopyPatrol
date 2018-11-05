@@ -393,7 +393,8 @@ class CopyPatrol extends Controller {
 			'lastId' => $lastId > 0 ? $lastId : null,
 			'drafts' => $drafts,
 			'searchText' => str_replace( ' ', '_', $searchText ),
-			'searchCriteria' => $searchCriteria
+			'searchCriteria' => $searchCriteria,
+			'revision' => $this->request->get( 'revision' ) ?: null
 		];
 
 		// filter by current user if they are logged and the filter is 'mine'
