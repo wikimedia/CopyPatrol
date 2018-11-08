@@ -67,6 +67,9 @@
 	"record-ithenticate": "Rapporte de iThenticate",
 	"record-url-text": "$1 d'u cangiamende ($2 parole)",
 	"record-noeditor": "Nisciune cangiatore acchiate",
+	"record-noeditor-tooltip": "'A revisione pò essere state scangellate o 'u date non g'è disponibbile sus a le database jndr'à le labboratorije.",
+	"record-ores": "Pundegge ORES: $1",
 	"article": "Vôsce",
+	"compare-article-loading": "Stoche a careche 'a revisione d'a vôsce...",
 	"blocked": "bloccate"
 }
