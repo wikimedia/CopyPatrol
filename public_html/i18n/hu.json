@@ -4,7 +4,8 @@
 			"BanKris",
 			"Máté",
 			"Notramo",
-			"Tacsipacsi"
+			"Tacsipacsi",
+			"Bencemac"
 		]
 	},
 	"name": "CopyPatrol",
@@ -77,6 +78,7 @@
 	"compare-source-loading": "Lehetséges másolás forrásának betöltése…",
 	"footer-loadmore": "Továbbiak betöltése",
 	"footer-nomore": "Nincs több bejegyzés!",
+	"search": "Keresés lapcím alapján:",
 	"source": "Forrás",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Képek forrása",
@@ -98,5 +100,6 @@
 	"js-undo-own-only": "Csak a saját átnézéseidet vonhatod vissza.",
 	"js-unknown-error": "Ismeretlen hiba történt az eredmények betöltésekor. Kérjük, próbáld újra.",
 	"permalink": "Állandó hivatkozás",
-	"show-all-records": "Összes bejegyzés megjelenítése"
+	"show-all-records": "Összes bejegyzés megjelenítése",
+	"blocked": "blokkolva"
 }
