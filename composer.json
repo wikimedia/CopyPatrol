@@ -1,6 +1,7 @@
 {
-  "license": "GPL-3.0+",
+  "license": "GPL-3.0-or-later",
   "require": {
+    "php": "^7.2",
     "oyejorge/less.php": "~1.5",
     "mediawiki/oauthclient": "~0.1",
     "wikimedia/slimapp": "dev-master",
