@@ -227,10 +227,12 @@ class App extends AbstractApp {
 		// If the intl PHP extension is installed, customise the number formatting.
 		if ( class_exists( NumberFormatter::class ) ) {
 			// Set number formatting for Twig, based on the Accept header or SimpleI18N.
-			$lang = $this->slim->i18nContext->getCurrentLanguage();
-			$httpLocale = Locale::acceptFromHttp( $_SERVER['HTTP_ACCEPT_LANGUAGE'] );
-			// Only use the HTTP locale if it's a more specific form of the current language.
-			$locale = ( substr( $httpLocale, 0, strlen( $lang ) ) === $lang ) ? $httpLocale : $lang;
+			$lang = $locale = $this->slim->i18nContext->getCurrentLanguage();
+			if ( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
+				$httpLocale = Locale::acceptFromHttp( $_SERVER['HTTP_ACCEPT_LANGUAGE'] );
+				// Only use the HTTP locale if it's a more specific form of the current language.
+				$locale = ( substr( $httpLocale, 0, strlen( $lang ) ) === $lang ) ? $httpLocale : $lang;
+			}
 			$formatter = new NumberFormatter( $locale, NumberFormatter::DECIMAL );
 			// Get separator symbols (include decimal as it is required and we might use it at some point)
 			$decimal = $formatter->getSymbol( NumberFormatter::DECIMAL_SEPARATOR_SYMBOL );
