@@ -3,7 +3,8 @@
 		"authors": [
 			"Aefgh39622",
 			"Ans",
-			"Horus"
+			"Horus",
+			"B20180"
 		]
 	},
 	"name": "CopyPatrol",
@@ -44,9 +45,17 @@
 	"login": "ล็อกอิน",
 	"logout": "ลงชื่อออก",
 	"header-loggedin": "คุณล็อกอินแล้วในชื่อ: $1",
+	"form-all": "ทุกกรณี",
+	"form-open": "เปิดกรณี",
+	"form-reviewed": "ตรวจสอบกรณี",
+	"form-mine": "การทบทวนของฉัน",
+	"form-drafts": "ร่างเท่านั้น",
+	"wikiprojects": "โครงการวิกิ",
+	"form-wikiprojects-placeholder": "พิมพ์ชื่อโครงการวิกิ...",
 	"submit": "ส่ง",
 	"page": "หน้า",
 	"diff": "ส่วนต่าง",
+	"editor": "ผู้แก้ไข",
 	"history": "ประวัติ",
 	"talk": "คุย",
 	"contribs": "การมีส่วนร่วม",

@@ -93,7 +93,7 @@
 	"public-domain": "domínio público",
 	"open-font-license": "Licença Open Font",
 	"imageattr-paragraph1": "$1 disponível por $2, graças a $3 e $4",
-	"imageattr-paragraph2": "$1 publicado sob $2, graças a $3",
+	"imageattr-paragraph2": "$1 publicado com a licença $2, graças a $3",
 	"alert-testing": "Está em estágio de programação. Por favor, não utilize esta ferramenta para gravar as suas revisões. Para a atual versão da CopyPatrol, por favor utilize $1.",
 	"js-unauthorized": "Precisa entrar para poder revisar.",
 	"js-dberror": "Houve um erro em estabelecer ligação com a base de dados",

@@ -3,7 +3,8 @@
 		"authors": [
 			"Arash.pt",
 			"Dejavu",
-			"Alirezaaa"
+			"Alirezaaa",
+			"Amirsara"
 		]
 	},
 	"name": "CopyPatrol",
@@ -80,5 +81,6 @@
 	"public-domain": "مالکیت عمومی",
 	"open-font-license": "پروانهٔ آزاد قلم",
 	"permalink": "پیوند پایدار",
-	"show-all-records": "نمایش تمام نتایج"
+	"show-all-records": "نمایش تمام نتایج",
+	"blocked": "بسته شده"
 }
