@@ -4,7 +4,8 @@
 			"1917 Ekim Devrimi",
 			"Gırd",
 			"Gambollar",
-			"Mirzali"
+			"Mirzali",
+			"Orbot707"
 		]
 	},
 	"name": "CopyPatrol",
@@ -94,11 +95,15 @@
 	"imageattr-logo": "Logoy CopyPatroli",
 	"public-domain": "malê şari",
 	"open-font-license": "Lisansê Tipê Nuştışi Akerê",
+	"imageattr-paragraph1": "$1, $2'i sero mewcudo $3 u $4 de nayıfo",
+	"imageattr-paragraph2": "$1, $2'i bın de neşıriya $3",
+	"alert-testing": "No cay mocnayışiyo. Kerem keme, vatışanê xo qeyd kerdışi rê nê hacrti mekarıne. Raştıkên haceta CopyPatrol rê  $1'i bıkarıne.",
 	"js-unauthorized": "Seba çımeştışi rê şıma gani cıkewte bê.",
 	"js-dberror": "Danegehi rê gırebıyayışi de yew xeta biye.",
 	"js-undo-own-only": "Şıma tenya çımeştışanê xo şenê peyser bıgêrê.",
 	"js-unknown-error": "Neticeyê barkerdışi de yew xeta veciye. Kerem ke, reyna bıcerrebne.",
 	"permalink": "Gıreyo daimi",
 	"show-all-records": "Heme qeydan bımocne",
+	"access-blocked": "$1, hali hazır de $2 sero şıma şenê CopyPatrol ra istifade bıkerê",
 	"blocked": "kılit biyo"
 }
