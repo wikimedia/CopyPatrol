@@ -5,7 +5,8 @@
 			"Irus",
 			"Kaganer",
 			"Okras",
-			"Redredsonia"
+			"Redredsonia",
+			"Diralik"
 		]
 	},
 	"name": "CopyPatrol",
@@ -71,7 +72,7 @@
 	"record-ithenticate": "отчет iThenticate",
 	"record-url-text": "$1 правки (число слов: $2)",
 	"record-noeditor": "Редактор не найден",
-	"record-noeditor-tooltip": "Пересмотр может быть удален или данные еще не доступны в базе данных лаборатории.",
+	"record-noeditor-tooltip": "Пересмотр может быть удалён или данные ещё не доступны в базе данных лаборатории.",
 	"record-ores": "Рейтинг ORES: $1",
 	"article": "Статья",
 	"compare-article-loading": "Загрузка версии статьи...",
