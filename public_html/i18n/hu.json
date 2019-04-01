@@ -5,7 +5,8 @@
 			"Máté",
 			"Notramo",
 			"Tacsipacsi",
-			"Bencemac"
+			"Bencemac",
+			"R-Joe"
 		]
 	},
 	"name": "CopyPatrol",
@@ -78,6 +79,9 @@
 	"compare-source-loading": "Lehetséges másolás forrásának betöltése…",
 	"footer-loadmore": "Továbbiak betöltése",
 	"footer-nomore": "Nincs több bejegyzés!",
+	"footer-broughtby": "Önnek az $1",
+	"footer-commtech": "Közösségi Tech",
+	"footer-poweredby": "Táplált $1 és $2 által",
 	"search": "Keresés lapcím alapján:",
 	"source": "Forrás",
 	"phabricator": "Phabricator",
@@ -101,5 +105,6 @@
 	"js-unknown-error": "Ismeretlen hiba történt az eredmények betöltésekor. Kérjük, próbáld újra.",
 	"permalink": "Állandó hivatkozás",
 	"show-all-records": "Összes bejegyzés megjelenítése",
+	"access-blocked": "Jelenleg $1 és a $2 és nem tudja használni a CopyPatrol szolgáltatást.",
 	"blocked": "blokkolva"
 }
