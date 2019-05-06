@@ -1,11 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robin van der Vliet"
+			"Robin van der Vliet",
+			"Mirin"
 		]
 	},
 	"zh-wikipedia": "Ĉina Vikipedio",
 	"ja-wikipedia": "Japana Vikipedio",
+	"th-wikipedia": "Tajlingva Vikipedio",
+	"en-wikipedia": "Anglalingva Vikipedio",
 	"ko-wikipedia": "Korea Vikipedio",
 	"ca-wikipedia": "Kataluna Vikipedio",
 	"hr-wikipedia": "Kroata Vikipedio",
@@ -13,11 +16,15 @@
 	"da-wikipedia": "Dana Vikipedio",
 	"nl-wikipedia": "Nederlanda Vikipedio",
 	"fi-wikipedia": "Finna Vikipedio",
+	"fr-wikipedia": "Franclingva Vikipedio",
 	"de-wikipedia": "Germana Vikipedio",
 	"hu-wikipedia": "Hungara Vikipedio",
 	"it-wikipedia": "Itala Vikipedio",
+	"no-wikipedia": "Dannorveglingva Vikipedio",
+	"nn-wikipedia": "Novnorveglingva Vikipedio",
 	"pl-wikipedia": "Pola Vikipedio",
 	"pt-wikipedia": "Portugala Vikipedio",
+	"ro-wikipedia": "Rumanlingva Vikipedio",
 	"sr-wikipedia": "Serba Vikipedio",
 	"sk-wikipedia": "Slovaka Vikipedio",
 	"sl-wikipedia": "Slovena Vikipedio",
@@ -28,5 +35,26 @@
 	"he-wikipedia": "Hebrea Vikipedio",
 	"fa-wikipedia": "Persa Vikipedio",
 	"ru-wikipedia": "Rusa Vikipedio",
-	"tr-wikipedia": "Turka Vikipedio"
+	"tr-wikipedia": "Turka Vikipedio",
+	"login": "Ensaluti",
+	"logout": "Elsaluti",
+	"form-all": "Ĉiuj kazoj",
+	"form-open": "Aktualaj kazoj",
+	"form-reviewed": "Kontrolitaj kazoj",
+	"wikiprojects": "VikiProjektoj",
+	"submit": "Sendi",
+	"page": "Paĝo",
+	"editor": "Reviziinto",
+	"history": "Historio",
+	"talk": "Diskutpaĝo",
+	"contribs": "Kontribuoj",
+	"record-editcount": "Nombro de redaktoj:",
+	"compare": "Kompari",
+	"article": "Artikolo",
+	"search": "Serĉi per paĝan titolon:",
+	"source": "Fonto",
+	"phabricator": "Phabricator",
+	"close": "Fermi",
+	"public-domain": "publika havaĵo",
+	"blocked": "forbarita"
 }
