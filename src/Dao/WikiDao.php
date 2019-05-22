@@ -166,11 +166,10 @@ class WikiDao extends AbstractDao {
 	 */
 	public function getUserDetails( $diff ) {
 		$query = self::concat(
-			'SELECT r.rev_id, r.rev_page, r.rev_user, r.rev_user_text, u.user_editcount,
-			u.user_name, p.page_namespace',
+			'SELECT u.user_editcount, u.user_name',
 			'FROM revision r',
-			'LEFT JOIN user u ON r.rev_user = u.user_id',
-			'LEFT JOIN page p ON r.rev_page = p.page_id',
+			'LEFT JOIN actor a ON r.rev_actor = a.actor_id',
+			'LEFT JOIN user u ON a.actor_user = u.user_id',
 			'WHERE r.rev_id = ?'
 		);
 		$data = [
@@ -181,7 +180,7 @@ class WikiDao extends AbstractDao {
 		if ( $result == false ) {
 			return $data;
 		} else {
-			$data['editor'] = $result['rev_user_text'];
+			$data['editor'] = $result['user_name'];
 			$data['editcount'] = $result['user_editcount'];
 		}
 		return $data;
