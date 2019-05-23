@@ -1,0 +1,34 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joseagush"
+		]
+	},
+	"documentation": "Dokumentasi",
+	"zh-wikipedia": "Wikipedia Cina",
+	"ja-wikipedia": "Wikipedia Jepang",
+	"th-wikipedia": "Wikipedia Thailand",
+	"en-wikipedia": "Wikipedia Inggris",
+	"ko-wikipedia": "Wikipedia Korea",
+	"ca-wikipedia": "Wikipedia Catalan",
+	"hr-wikipedia": "Wikipedia Kroasia",
+	"cs-wikipedia": "Wikipedia Chechya",
+	"da-wikipedia": "Wikipedia Denmark",
+	"nl-wikipedia": "Wikipedia Belanda",
+	"el-wikipedia": "Wikipedia Yunani",
+	"he-wikipedia": "Wikipedia Israel",
+	"fa-wikipedia": "Wikipedia Persia",
+	"ru-wikipedia": "Wikipedia Rusia",
+	"tr-wikipedia": "Wikipedia Turki",
+	"login": "Ngranjing",
+	"logout": "Medal",
+	"header-loggedin": "Ida dane ngranjing anggen wastan: $1",
+	"form-all": "samian lembar",
+	"page": "lembar",
+	"history": "babad",
+	"talk": "Babaosan",
+	"contribs": "Kawigunan",
+	"compare": "Banding",
+	"article": "Suratan",
+	"source": "Sumber"
+}
