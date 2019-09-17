@@ -47,11 +47,11 @@ class WikiDao extends AbstractDao {
 	 * @param string $port
 	 * @param string $user
 	 * @param string $password
-	 * @param \Psr\Log\LoggerInterface $log
+	 * @param \Psr\Log\LoggerInterface|null $log
 	 * @return WikiDao
 	 */
 	public static function newFromLangCode( $lang, $host, $port, $user, $password, $log = null ) {
-		$dbName = $lang.'wiki_p';
+		$dbName = $lang . 'wiki_p';
 		$dsn = "mysql:host=$host;port=$port;dbname=$dbName";
 		$dao = new self( $dsn, $user, $password, $log );
 		$dao->setLang( $lang );
@@ -79,7 +79,7 @@ class WikiDao extends AbstractDao {
 	 * @return string The HTTPS URL, with no trailing slash.
 	 */
 	public function getWikipediaUrl() {
-		return "https://".$this->getLang().".wikipedia.org";
+		return "https://" . $this->getLang() . ".wikipedia.org";
 	}
 
 	/**
@@ -92,7 +92,7 @@ class WikiDao extends AbstractDao {
 	/**
 	 * Get the editors of the given revisions
 	 *
-	 * @param $diffs array Revision IDs
+	 * @param array $diffs Revision IDs
 	 * @return array Associative array by revids and editor as the value
 	 */
 	public function getRevisionsEditors( $diffs ) {
@@ -132,7 +132,7 @@ class WikiDao extends AbstractDao {
 
 	/**
 	 * Get edit counts of given users
-	 * @param $usernames array The users to fetch edit counts for
+	 * @param array $usernames The users to fetch edit counts for
 	 * @return promise Resolves with associative array of usernames/edit counts
 	 */
 	public function getEditCounts( $usernames ) {
@@ -160,7 +160,7 @@ class WikiDao extends AbstractDao {
 	/**
 	 * Get editor details
 	 *
-	 * @param $diff int Diff revision ID
+	 * @param int $diff Diff revision ID
 	 * @return array|false If editor exists, return array with params
 	 *   'editor', 'editcount'. Else, false.
 	 */
@@ -189,6 +189,8 @@ class WikiDao extends AbstractDao {
 	/**
 	 * Get block information about the user. This is used to determine whether
 	 * their access to CopyPatrol should be denied.
+	 * @param string $username
+	 * @return array Query result.
 	 */
 	public function getBlockInfo( $username ) {
 		$sql = "SELECT ipb_expiry
@@ -208,8 +210,8 @@ class WikiDao extends AbstractDao {
 	/**
 	 * Determine which of the given pages are dead
 	 *
-	 * @param $titles array Page titles
-	 * @return promise Resolves with an array of the pages that are dead
+	 * @param array $titles Page titles
+	 * @return Promise Resolves with an array of the pages that are dead
 	 */
 	public function getDeadPages( $titles ) {
 		// create empty promise so we can make multiple async calls in CopyPatrol controller
@@ -224,9 +226,9 @@ class WikiDao extends AbstractDao {
 		$chunks = array_chunk( $titles, 50 );
 
 		// build array of promises so we can initiate API calls all at once
-		$promises = array_map( function( $chunk ) {
+		$promises = array_map( function ( $chunk ) {
 			return $this->apiQuery( [
-				'titles' => join( '|', $chunk )
+				'titles' => implode( '|', $chunk )
 			], true );
 		}, $chunks );
 
@@ -275,7 +277,7 @@ class WikiDao extends AbstractDao {
 			return [];
 		}
 		// return array with just usernames as strings, without the 'User:' prefix
-		return array_map( function( $link ) {
+		return array_map( function ( $link ) {
 			// Split on : and pick the second element to get the username
 			// This is because for other wikis 'User:' may be different, but there was always be a colon
 			return explode( ':', $link['title'] )[1];
@@ -285,7 +287,7 @@ class WikiDao extends AbstractDao {
 	/**
 	 * Wrapper to make simple API query for JSON and in formatversion 2
 	 * @param string[] $params Params to add to the request
-	 * @param boolean $async Pass 'true' to make asynchronous
+	 * @param bool $async Pass 'true' to make asynchronous
 	 * @return GuzzleHttp\Promise\PromiseInterface|array Promise if $async is true,
 	 *   otherwise the API result in the form of an array
 	 */

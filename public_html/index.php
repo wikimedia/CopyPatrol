@@ -43,4 +43,3 @@ if ( is_readable( APP_ROOT . '/.env' ) ) {
 }
 $app = new App( APP_ROOT );
 $app->run();
-

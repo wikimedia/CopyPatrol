@@ -21,7 +21,6 @@
  */
 namespace Plagiabot\Web\Controllers;
 
-use Plagiabot\Web\Controllers\OAuthUserManager;
 use Wikimedia\Slimapp\Controller;
 use Wikimedia\Slimapp\Auth\AuthManager;
 use MediaWiki\OAuthClient\Client;
@@ -44,21 +43,33 @@ class AuthHandler extends Controller {
 	protected $slim;
 
 	/**
-	 * @param \Slim\Slim $slim Slim application
+	 * @param \Slim\Slim|null $slim Slim application
 	 */
 	public function __construct( \Slim\Slim $slim = null ) {
 		parent::__construct( $slim );
 		$this->slim = $slim;
 	}
 
+	/**
+	 * Set the OAuth client.
+	 * @param Client $oauth
+	 */
 	public function setOAuth( Client $oauth ) {
 		$this->oauth = $oauth;
 	}
 
+	/**
+	 * Set the OAuth user manager.
+	 * @param OAuthUserManager $manager
+	 */
 	public function setUserManager( OAuthUserManager $manager ) {
 		$this->manager = $manager;
 	}
 
+	/**
+	 * Handle the callback, if given.
+	 * @param string $stage
+	 */
 	protected function handleGet( $stage ) {
 		switch ( $stage ) {
 			case 'callback':
