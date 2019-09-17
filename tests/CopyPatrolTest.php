@@ -4,7 +4,7 @@ use Plagiabot\Web\App;
 use Plagiabot\Web\Dao\PlagiabotDao;
 use Plagiabot\Web\Dao\WikiDao;
 
-class CopyPatrolTest extends PHPUnit_Framework_TestCase {
+class CopyPatrolTest extends \PHPUnit\Framework\TestCase {
 
 	public function setEnv() {
 		define( 'APP_ROOT', dirname( __DIR__ ) );

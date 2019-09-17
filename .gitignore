@@ -24,3 +24,4 @@ service.manifest
 restart_webservice.sh
 deploy.sh
 !.gitkeep
+.phpunit.result.cache
