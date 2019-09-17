@@ -7,7 +7,7 @@
     "wikimedia/slimapp": "dev-master",
     "addwiki/mediawiki-api-base": "~2.1",
     "wikimedia/simplei18n": "~1.0",
-    "tedivm/stash": "^0.14"
+    "tedivm/stash": "^0.15"
   },
   "autoload": {
     "psr-4": {
