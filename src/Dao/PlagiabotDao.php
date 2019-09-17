@@ -178,7 +178,7 @@ class PlagiabotDao extends AbstractDao {
 	/**
 	 * Get the names of WikiProjects that a particular Wikipedia page belongs to.
 	 * @param string $lang The language code.
-	 * @param string $title Page title. If null, all projects of $lang will be returned.
+	 * @param string|null $title Page title. If null, all projects of $lang will be returned.
 	 * @return string Alphabetical list of WikiProjects
 	 */
 	public function getWikiProjects( $lang, $title = null ) {
@@ -205,10 +205,10 @@ class PlagiabotDao extends AbstractDao {
 	}
 
 	/**
-	 * @param $ithenticateId int Ithenticate ID of the report
-	 * @param $value string Value of the state saved by user
-	 * @param $user string the reviewer's username
-	 * @param $timestamp date timestamp of when the review took place
+	 * @param int $ithenticateId Ithenticate ID of the report
+	 * @param string $value Value of the state saved by user
+	 * @param string $user The reviewer's username
+	 * @param string $timestamp Timestamp of when the review took place
 	 * @return true|false depending on query success/fail
 	 */
 	public function insertCopyvioAssessment( $ithenticateId, $value, $user, $timestamp ) {
@@ -227,8 +227,8 @@ class PlagiabotDao extends AbstractDao {
 
 	/**
 	 * Get a particular record by ithenticate ID
-	 *
-	 * @param $ithenticateId int ID get record for
+	 * @param int $ithenticateId ID of record.
+	 * @return array Query result.
 	 */
 	public function getRecordById( $ithenticateId ) {
 		$sql = self::concat(
@@ -257,7 +257,7 @@ class PlagiabotDao extends AbstractDao {
 	/**
 	 * Find out whether a particular language has any drafts.
 	 * @param string $lang The Wikipedia language code
-	 * @return boolean
+	 * @return bool
 	 */
 	public function draftsExist( $lang = 'en' ) {
 		$sql = 'SELECT COUNT(*) AS total FROM copyright_diffs WHERE page_ns = :ns AND lang = :lang';

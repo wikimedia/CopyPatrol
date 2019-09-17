@@ -2,9 +2,8 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 use Plagiabot\Web\App;
 use Plagiabot\Web\Dao\PlagiabotDao;
-use Plagiabot\Web\Dao\WikiDao;
 
-class CopyPatrolTest extends \PHPUnit\Framework\TestCase {
+class CopyPatrolTest extends PHPUnit\Framework\TestCase {
 
 	public function setEnv() {
 		define( 'APP_ROOT', dirname( __DIR__ ) );
@@ -24,6 +23,9 @@ class CopyPatrolTest extends \PHPUnit\Framework\TestCase {
 		}
 	}
 
+	/**
+	 * @covers \Plagiabot\Web\Dao\WikiDao::getRevisionsEditors
+	 */
 	public function testGetRevisionsEditors() {
 		$this->setEnv();
 		$app = new App( __DIR__ );
@@ -33,6 +35,9 @@ class CopyPatrolTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( $editors, [ 736294997 => 'CllrP' ] );
 	}
 
+	/**
+	 * @covers \Plagiabot\Web\Dao\WikiDao::getDeadPages
+	 */
 	public function testGetDeadPages() {
 		$app = new App( __DIR__ );
 		$obj = $app->getWikiDao( 'en' );
@@ -40,7 +45,8 @@ class CopyPatrolTest extends \PHPUnit\Framework\TestCase {
 			'Donald Trump',
 			'Thispageissurelydead',
 			'Kite',
-			'Kites', // Redirects to kite
+			// Redirects to kite
+			'Kites',
 			'Kittykitty'
 		];
 		$deadTrue = [
@@ -54,10 +60,13 @@ class CopyPatrolTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( $dead, $deadTrue );
 	}
 
+	/**
+	 * @covers \Plagiabot\Web\Dao\PlagiabotDao::getWikiProjects
+	 */
 	public function testGetWikiprojects() {
-		$dsn = "mysql:host=".getenv( 'DB_HOST' ).";"
-		       ."port=".getenv( 'DB_PORT' ).";"
-		       ."dbname=".getenv( 'DB_NAME_COPYPATROL' );
+		$dsn = "mysql:host=" . getenv( 'DB_HOST' ) . ";"
+			   . "port=" . getenv( 'DB_PORT' ) . ";"
+			   . "dbname=" . getenv( 'DB_NAME_COPYPATROL' );
 		$plagiabotDao = new PlagiabotDao( $dsn, getenv( 'DB_USER' ), getenv( 'DB_PASS' ) );
 		$expected = [
 			// All of the commented out fail for some yet unknown reason
@@ -65,7 +74,7 @@ class CopyPatrolTest extends \PHPUnit\Framework\TestCase {
 			// 'Florence' => ['Cities', 'Italy', 'World_Heritage_Sites'],
 			// 'Taj_Mahal' => [ 'Architecture', 'Death', 'India', 'World_Heritage_Sites' ],
 			'Florence_Dixie' => [ 'Biography', 'England', 'Gender_Studies', 'Science_Fiction',
-			                      'Scotland', 'Women\'s_History', 'Women_writers' ],
+								  'Scotland', 'Women\'s_History', 'Women_writers' ],
 			'India' => [ 'Asia', 'Countries', 'India', 'South_Asia', 'Spoken_Wikipedia' ],
 		];
 		foreach ( $expected as $title => $projects ) {
@@ -73,4 +82,3 @@ class CopyPatrolTest extends \PHPUnit\Framework\TestCase {
 		}
 	}
 }
-

@@ -21,7 +21,6 @@
  */
 namespace Plagiabot\Web\Controllers;
 
-use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Wikimedia\Slimapp\Auth\UserManager;
 use MediaWiki\OAuthClient\Client;
@@ -40,8 +39,8 @@ class OAuthUserManager implements UserManager {
 	protected $oauth;
 
 	/**
-	 * @param Client $oauth
-	 * @param LoggerInterface $logger
+	 * @param Client|null $client
+	 * @param LoggerInterface|null $logger
 	 */
 	public function __construct(
 		Client $client = null,
@@ -69,7 +68,7 @@ class OAuthUserManager implements UserManager {
 	 * Get a user by accessToken.
 	 *
 	 * @param Token $accessToken
-	 * @return UserData
+	 * @return OAuthUser
 	 */
 	public function getUserData( $accessToken ) {
 		$ident = $this->oauth->identify( $accessToken );

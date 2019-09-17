@@ -54,12 +54,12 @@ class CopyPatrol extends Controller {
 	 * @link https://ores.wikimedia.org/v2/#!/scoring/get_v2_scores
 	 *
 	 * @param string[] $revisions The page revisions to retrieve scores for.
-	 * @return string[]|boolean The ORES scores, or false if they can't be retrieved.
+	 * @return string[]|bool The ORES scores, or false if they can't be retrieved.
 	 */
 	public function oresScores( array $revisions ) {
-		$wikiCode = $this->wikiDao->getLang().'wiki';
+		$wikiCode = $this->wikiDao->getLang() . 'wiki';
 		$oresUrl = "https://ores.wikimedia.org/v2/scores/$wikiCode/damaging/";
-		$client = new Client( [ 'query' => [ 'revids' => join( '|', $revisions ) ] ] );
+		$client = new Client( [ 'query' => [ 'revids' => implode( '|', $revisions ) ] ] );
 		try {
 			$response = $client->request( 'GET', $oresUrl )->getBody();
 		} catch ( ClientException $ex ) {
@@ -70,7 +70,7 @@ class CopyPatrol extends Controller {
 			return false;
 		}
 		$data = GuzzleHttp\json_decode( $response, true );
-		$wikiCode = $this->wikiDao->getLang().'wiki';
+		$wikiCode = $this->wikiDao->getLang() . 'wiki';
 		$data = $data['scores'][$wikiCode]['damaging']['scores'];
 		$scores = [];
 		foreach ( $data as $revId => $value ) {
@@ -85,25 +85,8 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * Handle GET route for app
-	 *
-	 * @param $lastId int Ithenticate ID of the last record displayed on the
-	 *   page; needed for Load More calls
-	 * @return array with following params:
-	 * page_title: Page with copyvio edit
-	 * page_link: Link to page
-	 * diff_timestamp: Timestamp of edit
-	 * turnitin_report: Link to turnitin report
-	 * status: 'fp' or 'tp'
-	 * report: Report blob from plagiabot db
-	 * copyvios: List of copyvio urls
-	 * editor: Username of editor
-	 * editor_page: Link to editor user page
-	 * editor_talk: Link to editor talk page
-	 * editor_contribs: Link to editor Special:Contributions
-	 * editcount: Edit count of user
-	 * editor_page_dead: Bool. Is editor page non-existent?
-	 * editor_talk_dead: Bool. Is editor talk page non-existent?
+	 * Handle GET route for app.
+	 * @return string Rendered HTML.
 	 */
 	protected function handleGet() {
 		// Set the language for the view.
@@ -220,13 +203,13 @@ class CopyPatrol extends Controller {
 		}
 		$this->view->set( 'records', $records );
 
-		$this->render( 'index.html' );
+		return $this->render( 'index.html' );
 	}
 
 	/**
 	 * Determine if the user is blocked on-wiki.
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function isUserBlocked() {
 		$userData = $this->authManager->getUserData();
@@ -246,7 +229,7 @@ class CopyPatrol extends Controller {
 	/**
 	 * Get the current user's username, or null if they are logged out
 	 *
-	 * @return boolean true or false
+	 * @return bool true or false
 	 */
 	protected function getUsername() {
 		static $username = null;
@@ -285,18 +268,20 @@ class CopyPatrol extends Controller {
 		}
 		// Default to 'open'
 		$filter = $this->request->get( 'filter' ) ? $this->request->get( 'filter' ) : 'open';
-		// check user is logged in if filter requested is 'mine', if not, use 'open' by default
+		// Check user is logged in if filter requested is 'mine', if not, use 'open' by default.
 		if ( $filter === 'mine' && !$this->getUsername() ) {
 			$this->flashNow( 'warning', 'You must be logged in to view your own reviews.' );
 			$filter = 'open';
 		} else {
-			$filterTypeKeys = $this->getFilterTypes(); // Check that the filter value was valid.
+			$filterTypeKeys = $this->getFilterTypes();
+			// Check that the filter value was valid.
 			if ( !in_array( $filter, $filterTypeKeys ) ) {
 				$this->flashNow(
 					'error',
-					'Invalid filter. Values must be one of: ' . join( ', ', $filterTypeKeys )
+					'Invalid filter. Values must be one of: ' . implode( ', ', $filterTypeKeys )
 				);
-				$filter = 'open';  // Set to default
+				// Set to default
+				$filter = 'open';
 			}
 		}
 		return $filter;
@@ -349,8 +334,7 @@ class CopyPatrol extends Controller {
 	 * Get plagiarism records based on URL parameters and whether or not the user is logged in
 	 * This function also sets view variables for the filters, which get rendered as radio options
 	 *
-	 * @param $lastId int Ithenticate ID of last record on page
-	 * @return array collection of plagiarism records
+	 * @return array Collection of plagiarism records
 	 */
 	protected function getRecords() {
 		// if an ID is set, we want to show just that record
@@ -425,7 +409,7 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * @param $page string Page title
+	 * @param string $page Page title
 	 * @return string URL of wiki page on Wikipedia.
 	 */
 	public function getPageLink( $page ) {
@@ -433,18 +417,18 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * @param $page string Page title
-	 * @param $diff string Diff id
+	 * @param string $page Page title
+	 * @param string $diff Diff id
 	 * @return string URL of the diff page on Wikipedia.
 	 */
 	public function getDiffLink( $page, $diff ) {
 		return $this->wikiDao->getWikipediaUrl()
-		       . '/w/index.php?title=' . urlencode( $page )
-		       . '&diff=' . urlencode( $diff );
+			   . '/w/index.php?title=' . urlencode( $page )
+			   . '&diff=' . urlencode( $diff );
 	}
 
 	/**
-	 * @param $ithenticateId int Report id for Turnitin
+	 * @param int $ithenticateId Report id for Turnitin
 	 * @return string Link to report
 	 */
 	public function getReportLink( $ithenticateId ) {
@@ -452,7 +436,7 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * @param $datetime string Datetime of edit
+	 * @param string $datetime Datetime of edit
 	 * @return string Reformatted date
 	 */
 	public function formatTimestamp( $datetime ) {
@@ -461,7 +445,7 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * @param $title String to change underscores to spaces for
+	 * @param string $title String to change underscores to spaces for
 	 * @return string
 	 */
 	public function removeUnderscores( $title ) {
@@ -471,16 +455,16 @@ class CopyPatrol extends Controller {
 	/**
 	 * Get URL for revision history of given page
 	 *
-	 * @param $title string page title
+	 * @param string $title page title
 	 * @return string the URL
 	 */
 	public function getHistoryLink( $title ) {
 		return $this->wikiDao->getWikipediaUrl() . '/wiki/'
-		       . urlencode( $title ) . '?action=history';
+			   . urlencode( $title ) . '?action=history';
 	}
 
 	/**
-	 * @param $user string User name
+	 * @param string $user User name
 	 * @return string Talk page for a user on $this->wikipedia
 	 */
 	public function getUserTalk( $user ) {
@@ -492,7 +476,7 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * @param $user string User name
+	 * @param string $user User name
 	 * @return string User page for a user on $this->wikipedia
 	 */
 	public function getUserPage( $user ) {
@@ -504,7 +488,7 @@ class CopyPatrol extends Controller {
 	}
 
 	/**
-	 * @param $user string User name
+	 * @param string $user User name
 	 * @return string Contributions page for a user on $this->wikipedia
 	 */
 	public function getUserContribs( $user ) {
@@ -512,13 +496,13 @@ class CopyPatrol extends Controller {
 			return false;
 		}
 		return $this->wikiDao->getWikipediaUrl() . '/wiki/Special:Contributions/'
-		       . urlencode( str_replace( ' ', '_', $user ) );
+			   . urlencode( str_replace( ' ', '_', $user ) );
 	}
 
 	/**
 	 * Get URLs and scores for the copyvio sources
 	 *
-	 * @param $text string Blob from db
+	 * @param string $text Blob from db
 	 * @return array Associative array with URLs and scores
 	 */
 	public function getSources( $text ) {

@@ -127,9 +127,9 @@ class App extends AbstractApp {
 		if ( $this->slim->plagiabotDao instanceof PlagiabotDao ) {
 			return $this->slim->plagiabotDao;
 		}
-		$dsn = "mysql:host=".$this->slim->settings['db.host'].";"
-		       ."port=".$this->slim->settings['db.port'].";"
-		       ."dbname=".$this->slim->settings['db.name.copypatrol'];
+		$dsn = "mysql:host=" . $this->slim->settings['db.host'] . ";"
+			   . "port=" . $this->slim->settings['db.port'] . ";"
+			   . "dbname=" . $this->slim->settings['db.name.copypatrol'];
 		$user = $this->slim->settings['db.user'];
 		$password = $this->slim->settings['db.pass'];
 		$this->slim->plagiabotDao = new PlagiabotDao( $dsn, $user, $password, $this->slim->log );
@@ -190,7 +190,7 @@ class App extends AbstractApp {
 			);
 		} );
 		// Set up cache (Redis if config is provided, otherwise local filesystem).
-		$container->singleton( 'cache', function( $c ) {
+		$container->singleton( 'cache', function ( $c ) {
 			$cache = new Pool();
 			if ( Config::getStr( 'REDIS_HOST' ) ) {
 				$driver = new Redis( [
@@ -242,7 +242,7 @@ class App extends AbstractApp {
 			$twig->getExtension( 'core' )->setNumberFormat( 0, $decimal, $thousands );
 		}
 		// add URL decoder filter to Twig
-		$filter = new Twig_SimpleFilter( 'url_decode', function( $string ) {
+		$filter = new Twig_SimpleFilter( 'url_decode', function ( $string ) {
 			return urldecode( $string );
 		} );
 		$twig = $this->slim->view->getEnvironment();
@@ -293,7 +293,7 @@ class App extends AbstractApp {
 		// Root route.
 		$slim->get( '/', $middleware['trailing-slash'], $middleware['inject-user'],
 			$middleware['set-environment'],
-			function() use ( $slim ) {
+			function () use ( $slim ) {
 				// See if we have a cookie indicating last version used
 				if ( isset( $_COOKIE['copypatrolLang'] ) ) {
 					$slim->redirectTo( 'home', [ 'wikiLang' => $_COOKIE['copypatrolLang'] ] );
@@ -314,7 +314,7 @@ class App extends AbstractApp {
 			$middleware['set-environment'],
 			function () use ( $slim, $middleware ) {
 				$routeConditions = [
-					'wikiLang' => '(' . join( '|', $this->getSupportedLanguages() ) . ')',
+					'wikiLang' => '(' . implode( '|', $this->getSupportedLanguages() ) . ')',
 				];
 				$slim->get( '/',
 					function ( $wikiLang ) use ( $slim ) {
