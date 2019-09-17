@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "15bff3ffd754d014a6dba20022e0cdfd",
+    "content-hash": "1ebd3279b18f3952d0ba81b5fa133a72",
     "packages": [
         {
             "name": "addwiki/mediawiki-api-base",
@@ -890,28 +890,28 @@
         },
         {
             "name": "tedivm/stash",
-            "version": "v0.14.2",
+            "version": "v0.15.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tedious/Stash.git",
-                "reference": "7ea9749784152dcd2dab72c4bbf2bef18c326e41"
+                "reference": "7a6a74106c49b1bdc3a10a725b03c509dc773dbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tedious/Stash/zipball/7ea9749784152dcd2dab72c4bbf2bef18c326e41",
-                "reference": "7ea9749784152dcd2dab72c4bbf2bef18c326e41",
+                "url": "https://api.github.com/repos/tedious/Stash/zipball/7a6a74106c49b1bdc3a10a725b03c509dc773dbb",
+                "reference": "7a6a74106c49b1bdc3a10a725b03c509dc773dbb",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.4|^7.0",
+                "php": "^7.0",
                 "psr/cache": "~1.0"
             },
             "provide": {
                 "psr/cache-implementation": "1.0.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^1.9",
-                "phpunit/phpunit": "4.8.*",
+                "friendsofphp/php-cs-fixer": "^2.8",
+                "phpunit/phpunit": "^6",
                 "satooshi/php-coveralls": "1.0.*"
             },
             "type": "library",
@@ -946,7 +946,7 @@
                 "redis",
                 "sessions"
             ],
-            "time": "2017-04-23T17:16:57+00:00"
+            "time": "2019-03-09T21:04:14+00:00"
         },
         {
             "name": "twig/twig",
