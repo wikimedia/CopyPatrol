@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Athena in Wonderland",
-			"Hamilton Abreu"
+			"Hamilton Abreu",
+			"Mansil alfalb"
 		]
 	},
 	"name": "CopyPatrol",
@@ -67,8 +68,8 @@
 	"compare": "Comparar",
 	"record-ithenticate": "Relatório de iThenticate",
 	"record-url-text": "$1 da edição ($2 palavras)",
-	"record-noeditor": "Não encontrou o editor",
-	"record-noeditor-tooltip": "Esta avaliação pode ter sido apagada, porque os dados não estão disponíveis na base de dados do Labs.",
+	"record-noeditor": "Não foi encontrado nenhum editor",
+	"record-noeditor-tooltip": "Esta revisão poderá ter sido eliminada ou os dados não estão disponíveis na base de dados do Labs.",
 	"record-ores": "Pontuação ORES: $1",
 	"article": "Artigo",
 	"compare-article-loading": "A carregar a revisão do artigo...",
