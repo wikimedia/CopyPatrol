@@ -4,7 +4,8 @@
 			"Chansey",
 			"Hedda",
 			"Trockya",
-			"Rapsar"
+			"Rapsar",
+			"BaRaN6161 TURK"
 		]
 	},
 	"name": "CopyPatrol",
@@ -94,6 +95,8 @@
 	"imageattr-logo": "CopyPatrol logosu",
 	"public-domain": "kamu malı",
 	"open-font-license": "Açık Yazı Tipi Lisansı",
+	"imageattr-paragraph1": "$1, $2 için kullanılabilir $3 ve $4",
+	"imageattr-paragraph2": "$2, $3'ın $1 altında",
 	"alert-testing": "Bu gösterim ortamıdır. Lütfen yorumlarınızı kaydetmek için bu aracı kullanmayın. Gerçek CopyPatrol aracı için lütfen $1 kullanın.",
 	"js-unauthorized": "İnceleme yapabilmek için giriş yapmanız gerekir.",
 	"js-dberror": "Veri tabanına bağlanırken bir hata oluştu.",
@@ -101,5 +104,6 @@
 	"js-unknown-error": "Sonuçlar yüklenirken bilinmeyen bir hata oluştu. Lütfen tekrar deneyin.",
 	"permalink": "Kalıcı bağlantı",
 	"show-all-records": "Tüm kayıtları göster",
+	"access-blocked": "Şu anda $2'dan $1 ve CopyPatrol'ü kullanamıyorsunuz.",
 	"blocked": "engellendi"
 }
