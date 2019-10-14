@@ -5,7 +5,8 @@
 			"Hedda",
 			"Trockya",
 			"Rapsar",
-			"BaRaN6161 TURK"
+			"BaRaN6161 TURK",
+			"Grkn gll"
 		]
 	},
 	"name": "CopyPatrol",
@@ -14,7 +15,7 @@
 	"leaderboard": "Liderlik sıralaması",
 	"zh-wikipedia": "Çince Vikipedi",
 	"ja-wikipedia": "Japonca Vikipedi",
-	"th-wikipedia": "Tai dili Vikipedi",
+	"th-wikipedia": "Tayca Vikipedi",
 	"en-wikipedia": "İngilizce Vikipedi",
 	"ko-wikipedia": "Korece Vikipedi",
 	"ca-wikipedia": "Katalanca Vikipedi",
@@ -80,7 +81,7 @@
 	"footer-nomore": "Başka kayıt bulunamadı!",
 	"footer-broughtby": "$1 tarafından getirildi",
 	"footer-commtech": "Community Tech",
-	"footer-poweredby": "$1 ve $2 tarafından güçlendirildi",
+	"footer-poweredby": "$1 ve $2 tarafından desteklendi",
 	"search": "Sayfa başlığına göre ara:",
 	"source": "Kaynak",
 	"phabricator": "Phabricator",
@@ -97,7 +98,7 @@
 	"open-font-license": "Açık Yazı Tipi Lisansı",
 	"imageattr-paragraph1": "$1, $2 için kullanılabilir $3 ve $4",
 	"imageattr-paragraph2": "$2, $3'ın $1 altında",
-	"alert-testing": "Bu gösterim ortamıdır. Lütfen yorumlarınızı kaydetmek için bu aracı kullanmayın. Gerçek CopyPatrol aracı için lütfen $1 kullanın.",
+	"alert-testing": "Bu bir gösterim ortamıdır. Lütfen yorumlarınızı kaydetmek için bu aracı kullanmayın. Gerçek CopyPatrol aracı için lütfen $1'i kullanın.",
 	"js-unauthorized": "İnceleme yapabilmek için giriş yapmanız gerekir.",
 	"js-dberror": "Veri tabanına bağlanırken bir hata oluştu.",
 	"js-undo-own-only": "Yalnızca kendi incelemelerinizi geri alabilirsiniz.",
