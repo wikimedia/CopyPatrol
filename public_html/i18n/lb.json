@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Les Meloures"
 		]
 	},
 	"name": "CopyPatrol",
@@ -32,7 +33,7 @@
 	"sk-wikipedia": "Wikipedia op slowakesch",
 	"sl-wikipedia": "Wikipedia op slowenesch",
 	"es-wikipedia": "Wikipedia op spuenesch",
-	"sv-wikipedia": "Wikipedia op schwedesch",
+	"sv-wikipedia": "Wikipedia op Schweedesch",
 	"ar-wikipedia": "Wikipedia op arabesch",
 	"el-wikipedia": "Wikipedia op griichesch",
 	"he-wikipedia": "Wikipedia op hebräesch",
