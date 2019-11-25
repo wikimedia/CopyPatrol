@@ -28,7 +28,7 @@ use MediaWiki\OAuthClient\Token;
 
 class AuthHandler extends Controller {
 
-	const REQEST_KEY = 'oauthreqtoken';
+	protected const REQUEST_KEY = 'oauthreqtoken';
 
 	/**
 	 * @var Client $oauth
@@ -87,7 +87,7 @@ class AuthHandler extends Controller {
 	 */
 	protected function handleInitiate() {
 		list( $next, $token ) = $this->oauth->initiate();
-		$_SESSION[self::REQEST_KEY] = "{$token->key}:{$token->secret}";
+		$_SESSION[self::REQUEST_KEY] = "{$token->key}:{$token->secret}";
 		$this->redirect( $next );
 	}
 
@@ -100,12 +100,12 @@ class AuthHandler extends Controller {
 			$next = $_SESSION[AuthManager::NEXTPAGE_SESSION_KEY];
 			$next = filter_var( $next, \FILTER_VALIDATE_URL, \FILTER_FLAG_PATH_REQUIRED );
 		}
-		if ( !isset( $_SESSION[self::REQEST_KEY] ) ) {
+		if ( !isset( $_SESSION[self::REQUEST_KEY] ) ) {
 			$this->flash( 'error', 'Session request incomplete' );
 			$this->redirect( $this->urlFor( 'root' ) );
 		}
-		list( $key, $secret ) = explode( ':', $_SESSION[self::REQEST_KEY] );
-		unset( $_SESSION[self::REQEST_KEY] );
+		list( $key, $secret ) = explode( ':', $_SESSION[self::REQUEST_KEY] );
+		unset( $_SESSION[self::REQUEST_KEY] );
 		$token = new Token( $key, $secret );
 		$this->form->requireString( 'oauth_verifier' );
 		$this->form->requireInArray( 'oauth_token', [ $key ] );
