@@ -4,7 +4,8 @@
 			"Aftabuzzaman",
 			"Elias Ahmmad",
 			"Rasal Lia",
-			"আফতাবুজ্জামান"
+			"আফতাবুজ্জামান",
+			"ShahadatHossain"
 		]
 	},
 	"name": "কপিপ্যাট্রোল",
@@ -63,7 +64,7 @@
 	"review-false-tooltip": "সম্পাদনাটি একটি মিথ্যা ধনাত্মক, কোনো পদক্ষেপের প্রয়োজন নেই",
 	"review-by": "পর্যালোচনা করেছেন:",
 	"history": "ইতিহাস",
-	"talk": "আলোচনা",
+	"talk": "আলাপ",
 	"contribs": "অবদান",
 	"record-editcount": "সম্পাদনা গণনা:",
 	"compare": "তুলনা",

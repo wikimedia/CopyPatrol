@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Adithyak1997"
+			"Adithyak1997",
+			"Praveenp"
 		]
 	},
 	"documentation": "വിവരണം",
@@ -22,7 +23,8 @@
 	"de-wikipedia": "ജർമ്മൻ വിക്കിപീഡിയ",
 	"hu-wikipedia": "ഹംഗേറിയൻ വിക്കിപീഡിയ",
 	"it-wikipedia": "ഇറ്റാലിയൻ വിക്കിപീഡിയ",
-	"no-wikipedia": "നോർവീജിയൻ വിക്കിപീഡിയ (ബൊക്മാൽ)",
+	"no-wikipedia": "നോർവീജിയൻ വിക്കിപീഡിയ (Bokmål)",
+	"nn-wikipedia": "നോർവീജിയൻ വിക്കിപീഡിയ (Nynorsk)",
 	"pl-wikipedia": "പോളിഷ് വിക്കിപീഡിയ",
 	"pt-wikipedia": "പോർച്ചുഗീസ് വിക്കിപീഡിയ",
 	"ro-wikipedia": "റൊമേനിയൻ വിക്കിപീഡിയ",
@@ -39,6 +41,7 @@
 	"tr-wikipedia": "തുർക്കിഷ് വിക്കിപീഡിയ",
 	"login": "പ്രവേശിക്കുക",
 	"logout": "പുറത്തിറങ്ങുക",
+	"header-loggedin": "താങ്കൾ $1 ആയി പ്രവേശിച്ചിരിക്കുന്നു",
 	"form-mine": "എന്റെ അഭിപ്രായങ്ങൾ",
 	"form-drafts": "കരടുകൾ മാത്രം",
 	"wikiprojects": "വിക്കിപദ്ധതികൾ",
