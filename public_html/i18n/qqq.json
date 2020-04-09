@@ -1,14 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Niharika Kohli",
-			"MusikAnimal",
-			"Ryan Kaldari",
-			"Liuxinyu970226",
+			"BadDog",
 			"Fitoschido",
+			"Liuxinyu970226",
 			"Matěj Suchánek",
-			"Tacsipacsi",
-			"BadDog"
+			"MusikAnimal",
+			"Niharika Kohli",
+			"Ryan Kaldari",
+			"Tacsipacsi"
 		]
 	},
 	"name": "{{Optional}}\nTitle of the application/tool",
