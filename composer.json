@@ -2,6 +2,7 @@
   "license": "GPL-3.0-or-later",
   "require": {
     "php": "^7.2",
+    "ext-json": "*",
     "oyejorge/less.php": "~1.5",
     "mediawiki/oauthclient": "~1.0",
     "wikimedia/slimapp": "dev-master",
