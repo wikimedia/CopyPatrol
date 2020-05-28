@@ -281,17 +281,10 @@ class App extends AbstractApp {
 					$slim->stop();
 				}
 			},
-			'trailing-slash' => function () use ( $slim ) {
-				// Remove trailing slashes
-				if ( substr( $_SERVER['REQUEST_URI'], -1 ) === '/' ) {
-					$uri = rtrim( $_SERVER['REQUEST_URI'], '/' );
-					$slim->redirect( $uri );
-				}
-			},
 		];
 
 		// Root route.
-		$slim->get( '/', $middleware['trailing-slash'], $middleware['inject-user'],
+		$slim->get( '/', $middleware['inject-user'],
 			$middleware['set-environment'],
 			function () use ( $slim ) {
 				// See if we have a cookie indicating last version used
@@ -310,7 +303,7 @@ class App extends AbstractApp {
 		)->name( 'root' );
 
 		// Language-based routes.
-		$slim->group( '/:wikiLang', $middleware['trailing-slash'], $middleware['inject-user'],
+		$slim->group( '/:wikiLang', $middleware['inject-user'],
 			$middleware['set-environment'],
 			function () use ( $slim, $middleware ) {
 				$routeConditions = [
@@ -367,7 +360,7 @@ class App extends AbstractApp {
 			} );
 
 		// Stylesheet route.
-		$slim->get( '/index.css', $middleware['trailing-slash'],
+		$slim->get( '/index.css',
 			function () use ( $slim ) {
 				// Compile LESS if need be, otherwise serve cached asset
 				// Cached files get automatically deleted if they are over a week old
@@ -398,7 +391,7 @@ class App extends AbstractApp {
 				} )->name( 'oauth_callback' );
 			}
 		);
-		$slim->get( '/logout', $middleware['trailing-slash'], $middleware['inject-user'],
+		$slim->get( '/logout', $middleware['inject-user'],
 			$middleware['set-environment'],
 			function () use ( $slim ) {
 				$slim->authManager->logout();
