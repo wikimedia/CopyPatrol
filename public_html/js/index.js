@@ -168,7 +168,7 @@
 			if ( !$( compareDiv ).hasClass( 'copyvios-fetched' ) ) {
 				$.ajax( {
 					type: 'GET',
-					url: 'https://tools.wmflabs.org/copyvios/api.json',
+					url: 'https://copyvios.toolforge.org/api.json',
 					data: {
 						oldid: params.diffid,
 						url: params.copyvio,
