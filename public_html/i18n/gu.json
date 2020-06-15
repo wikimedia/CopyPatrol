@@ -1,0 +1,33 @@
+{
+	"@metadata": {
+		"authors": [
+			"CptViraj"
+		]
+	},
+	"zh-wikipedia": "ચાઇનીઝ વિકિપીડિયા",
+	"ja-wikipedia": "જાપાનીઝ વિકિપીડિયા",
+	"th-wikipedia": "થાઈ વિકિપીડિયા",
+	"en-wikipedia": "અંગ્રેજી વિકિપીડિયા",
+	"ko-wikipedia": "કોરિયન વિકિપીડિયા",
+	"nl-wikipedia": "ડચ વિકિપીડિયા",
+	"fr-wikipedia": "ફ્રેન્ચ વિકિપીડિયા",
+	"de-wikipedia": "જર્મન વિકિપીડિયા",
+	"hu-wikipedia": "હંગેરિયન વિકિપીડિયા",
+	"pt-wikipedia": "પોર્ટુગીઝ વિકિપીડિયા",
+	"sr-wikipedia": "સર્બિયન વિકિપીડિયા",
+	"es-wikipedia": "સ્પેનિશ વિકિપીડિયા",
+	"sv-wikipedia": "સ્વીડિશ વિકિપીડિયા",
+	"ar-wikipedia": "અરેબિક વિકિપીડિયા",
+	"el-wikipedia": "ગ્રીક વિકિપીડિયા",
+	"he-wikipedia": "હીબ્રુ વિકિપીડિયા",
+	"fa-wikipedia": "પર્શિયન વિકિપીડિયા",
+	"ru-wikipedia": "રશિયન વિકિપીડિયા",
+	"page": "પાનું",
+	"editor": "સંપાદક",
+	"history": "ઈતિહાસ",
+	"talk": "ચર્ચા",
+	"article": "લેખ",
+	"source": "સ્રોત",
+	"phabricator": "ફેબ્રિકેટર",
+	"blocked": "પ્રતિબંધીત"
+}
