@@ -3,6 +3,7 @@
 		"authors": [
 			"Albe Albe460",
 			"Beta16",
+			"Gianfranco",
 			"Nemo bis",
 			"Redredsonia"
 		]
@@ -67,9 +68,14 @@
 	"contribs": "Contributi",
 	"record-editcount": "Conteggio modifiche:",
 	"compare": "Confronta",
+	"record-ithenticate": "Rapporto di iThenticate",
 	"record-url-text": "$1 della modifica ($2 parole)",
+	"record-noeditor": "Nessun editor trovato",
+	"record-noeditor-tooltip": "È possibile che l'edit sia stato cancellato o che i dati non stiano ancora disponibili nel database di Labs.",
 	"record-ores": "Punteggio ORES: $1",
 	"article": "Voce",
+	"compare-article-loading": "Versione della voce in caricamento...",
+	"compare-source-loading": "Possibile fonte del copyviol in caricamento...",
 	"footer-loadmore": "Caricane ancora",
 	"footer-nomore": "Nessun altro record!",
 	"footer-broughtby": "Creato per te dalla $1",
@@ -91,6 +97,8 @@
 	"open-font-license": "licenza Open Font",
 	"imageattr-paragraph1": "Il $1 è disponibile al $2 per gentile concessione di $3 e $4",
 	"imageattr-paragraph2": "$1 è rilasciato in base alla $2 per gentile concessione di $3",
+	"alert-testing": "Questo è un ambiente di test. Per favore non usare questo strumento per registrare le tue revisioni. Per il CopyPatrol funzionante, usa $1",
+	"js-unauthorized": "Devi aver fatto accesso per poter verificare le modifiche.",
 	"js-dberror": "Si è verificato un errore nella connessione al database.",
 	"js-undo-own-only": "Puoi annullare solo le tue versioni.",
 	"js-unknown-error": "Si è verificato un errore sconosciuto durante il caricamento dei risultati. Riprova.",
