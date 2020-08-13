@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Bengtsson96",
+			"Sabelöga",
 			"WikiPhoenix"
 		]
 	},
@@ -49,10 +50,10 @@
 	"form-mine": "Mina granskningar",
 	"form-drafts": "Endast utkast",
 	"wikiprojects": "Wikiprojekt",
-	"form-wikiprojects-placeholder": "Ange Wikiprojektets namn …",
+	"form-wikiprojects-placeholder": "Ange Wikiprojektens namn...",
 	"submit": "Skicka",
 	"page": "Sida",
-	"diff": "Diff",
+	"diff": "Skillnad",
 	"editor": "Redigerare",
 	"review": "Granskning",
 	"review-fixed": "Sidan är rättad",
@@ -72,7 +73,7 @@
 	"record-ores": "ORES-poäng: $1",
 	"article": "Artikel",
 	"compare-article-loading": "Läser in artikelversion …",
-	"compare-source-loading": "Hämtar möjlig källa till upphovsrättsöverträdelsen …",
+	"compare-source-loading": "Hämtar möjlig källa till upphovsrättsöverträdelsen...",
 	"footer-loadmore": "Läs in fler",
 	"footer-nomore": "Inga fler poster!",
 	"footer-broughtby": "Tillhandahålls av $1",
