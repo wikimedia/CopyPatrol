@@ -99,7 +99,7 @@
 	"imageattr-paragraph1": "$1 disponible dans le $2 grâce à $3 et $4",
 	"imageattr-paragraph2": "$1 disponible sous $2 grâce à $3",
 	"alert-testing": "Cet environnement sert d’essai, merci de ne pas l’utiliser en condition réelle pour vérifier les entrées. Pour une version fonctionnelle de CopyPatrol, merci d’utiliser $1",
-	"js-unauthorized": "Vous devez être connecté(e) pour pouvoir vérifier les entrées.",
+	"js-unauthorized": "Vous devez être connecté(e) pour pouvoir relire.",
 	"js-dberror": "Une erreur est survenue durant la connexion à la base de données.",
 	"js-undo-own-only": "Vous pouvez seulement annuler vos propres vérifications.",
 	"js-unknown-error": "Une erreur inconnue est survenue durant le chargement des entrées, veuillez essayer à nouveau.",
