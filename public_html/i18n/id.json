@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Akmaie Ajam",
 			"Hidayatsrf",
 			"Sonic Speedy"
 		]
@@ -15,6 +16,8 @@
 	"en-wikipedia": "Wikipedia bahasa Inggris",
 	"ko-wikipedia": "Wikipedia bahasa Korea",
 	"ca-wikipedia": "Wikipedia Catalan",
+	"hr-wikipedia": "Wikipedia bahasa Kroasia",
+	"cs-wikipedia": "Wikipedia bahasa Ceko",
 	"fr-wikipedia": "Wikipedia bahasa Perancis",
 	"de-wikipedia": "Wikipedia bahasa Jerman",
 	"hu-wikipedia": "Wikipedia bahasa Hungaria",
@@ -40,5 +43,12 @@
 	"review-fixed": "Perbaiki halaman",
 	"review-fixed-tooltip": "Hasil edit adalah pelanggaran hak cipta dan telah dikembalikan",
 	"review-false": "Tidak ada tindakan yang diperlukan",
-	"permalink": "Pranala permanen"
+	"history": "Riwayat",
+	"talk": "Pembicaraan",
+	"contribs": "Kontribusi",
+	"record-editcount": "Jumlah suntingan",
+	"compare": "Bandingkan",
+	"record-noeditor": "Tidak ada penyunting yang ditemukan.",
+	"permalink": "Pranala permanen",
+	"blocked": "diblokir"
 }
