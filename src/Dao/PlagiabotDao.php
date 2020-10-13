@@ -264,4 +264,18 @@ class PlagiabotDao extends AbstractDao {
 		$results = $this->fetchAll( $sql, [ 'ns' => WikiDao::NS_ID_DRAFTS, 'lang' => $lang ] );
 		return $results[0]['total'] > 0;
 	}
+
+	/**
+	 * Check if a copyvio has occurred in the past $offset hours.
+	 * This is used to monitor if the bot has gone down.
+	 * @see https://phabricator.wikimedia.org/T262767
+	 * @param string $lang Language code
+	 * @param int $offset Number of hours
+	 * @return bool
+	 */
+	public function hasActivity( $lang, $offset ) {
+		$sql = 'SELECT 1 FROM copyright_diffs WHERE lang = :lang ' .
+			'AND diff_timestamp > DATE_SUB(NOW(), INTERVAL :offset HOUR)';
+		return (bool)$this->fetch( $sql, [ 'lang' => $lang, 'offset' => $offset ] );
+	}
 }

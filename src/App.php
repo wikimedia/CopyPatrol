@@ -398,6 +398,19 @@ class App extends AbstractApp {
 				$slim->redirect( $slim->urlFor( 'root' ) );
 			}
 		)->name( 'logout' );
+
+		// Activity check route.
+		$slim->get( '/activity_check',
+			function () use ( $slim ) {
+				$dao = $this->getPlagiabotDao();
+				$lang = $slim->request->get( 'lang', 'en' );
+				$offset = $slim->request->get( 'offset', 4 );
+				if ( !$dao->hasActivity( $lang, $offset ) ) {
+					$slim->halt( 500, "No activity for $lang in the past $offset hours" );
+				}
+				// Defaults to 200 status code
+			}
+		)->name( 'activity_check' );
 	}
 
 	/**
