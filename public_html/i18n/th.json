@@ -4,7 +4,8 @@
 			"Aefgh39622",
 			"Ans",
 			"B20180",
-			"Horus"
+			"Horus",
+			"Just Sayori"
 		]
 	},
 	"name": "CopyPatrol",
@@ -62,7 +63,9 @@
 	"record-editcount": "จำนวนการแก้ไข:",
 	"compare": "เปรียบเทียบ",
 	"record-url-text": "$1 ของการแก้ไข ($2 คำ)",
+	"record-noeditor": "ไม่พบผู้แก้ไข",
 	"record-noeditor-tooltip": "รุ่นแก้ไขอาจถูกลบไปแล้ว หรือข้อมูลยังไม่ปรากฏในฐานข้อมูล Labs",
+	"article": "บทความ",
 	"compare-article-loading": "กำลังโหลดรุ่นแก้ไขบทความ...",
 	"footer-loadmore": "โหลดเพิ่มเติม",
 	"footer-commtech": "Community Tech",
@@ -77,5 +80,6 @@
 	"imageattr-logo": "โลโก้ CopyPatrol",
 	"public-domain": "สาธารณสมบัติ",
 	"open-font-license": "Open Font License",
-	"permalink": "ลิงก์ถาวร"
+	"permalink": "ลิงก์ถาวร",
+	"show-all-records": "แสดงบันทึกทั้งหมด"
 }
