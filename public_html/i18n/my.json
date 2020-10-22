@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Dr Lotus Black"
+			"Dr Lotus Black",
+			"Sithu015"
 		]
 	},
 	"name": "CopyPatrol",
@@ -49,7 +50,7 @@
 	"form-drafts": "စာမူကြမ်းများသာ",
 	"wikiprojects": "ဝီကီပရောဂျက်များ",
 	"form-wikiprojects-placeholder": "ဝီကီပရောဂျက်အမည်ကို ရိုက်ထည့်ပါ...",
-	"submit": "ထည့်သွင်းရန်",
+	"submit": "တင်သွင်းရန်",
 	"page": "စာမျက်နှာ",
 	"diff": "ကွဲပြားချက်",
 	"editor": "တည်းဖြတ်သူ",
