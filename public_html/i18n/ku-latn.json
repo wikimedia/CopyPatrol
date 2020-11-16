@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Balyozxane",
 			"George Animal"
 		]
 	},
@@ -13,7 +14,7 @@
 	"en-wikipedia": "Wîkîpediyaya Îngilîzî",
 	"ca-wikipedia": "Wîkîpediyaya katalanî",
 	"da-wikipedia": "Wîkîpediyaya danmarkî",
-	"fr-wikipedia": "Wîkîpediyaya Frensî",
+	"fr-wikipedia": "Wîkîpediyaya Fransî",
 	"login": "Têkeve",
 	"logout": "Derkeve",
 	"header-loggedin": "Tu têketiyî wek: $1",
