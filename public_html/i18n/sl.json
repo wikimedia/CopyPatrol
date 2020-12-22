@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Eleassar",
 			"Janezdrilc",
 			"NegativeTwelveDollars"
 		]
@@ -11,18 +12,18 @@
 	"zh-wikipedia": "Kitajska Wikipedija",
 	"ja-wikipedia": "Japonska Wikipedija",
 	"th-wikipedia": "Tajska Wikipedija",
-	"en-wikipedia": "Angleška Wikipedija",
+	"en-wikipedia": "Angleška wikipedija",
 	"ko-wikipedia": "Korejska Wikipedija",
 	"ca-wikipedia": "Katalonska Wikipedija",
-	"hr-wikipedia": "Hrvaška Wikipedija",
+	"hr-wikipedia": "Hrvaška wikipedija",
 	"cs-wikipedia": "Češka Wikipedija",
 	"da-wikipedia": "Danska Wikipedija",
 	"nl-wikipedia": "Nizozemska Wikipedija",
 	"fi-wikipedia": "Finska Wikipedija",
-	"fr-wikipedia": "Francoska Wikipedija",
-	"de-wikipedia": "Nemška Wikipedija",
+	"fr-wikipedia": "Francoska wikipedija",
+	"de-wikipedia": "Nemška wikipedija",
 	"hu-wikipedia": "Madžarska Wikipedija",
-	"it-wikipedia": "Italijanska Wikipedija",
+	"it-wikipedia": "Italijanska wikipedija",
 	"no-wikipedia": "Norveška Wikipedija (Bokmål)",
 	"nn-wikipedia": "Norveška Wikipedija (Nynorsk)",
 	"pl-wikipedia": "Poljska Wikipedija",
@@ -31,7 +32,7 @@
 	"sr-wikipedia": "Srbska Wikipedija",
 	"sk-wikipedia": "Slovaška Wikipedija",
 	"sl-wikipedia": "Slovenska Wikipedija",
-	"es-wikipedia": "Španska Wikipedija",
+	"es-wikipedia": "Španska wikipedija",
 	"sv-wikipedia": "Švedska Wikipedija",
 	"ar-wikipedia": "Arabska Wikipedija",
 	"el-wikipedia": "Grška Wikipedija",
