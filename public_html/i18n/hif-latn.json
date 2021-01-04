@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Abdul Kadir",
+			"Smobile",
 			"Thakurji"
 		]
 	},
@@ -78,6 +79,7 @@
 	"footer-broughtby": "Brought to you by $1",
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Powered by $1 and $2",
+	"search": "Panna ke naam khojo:",
 	"source": "Source",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Image attribution",
@@ -99,5 +101,7 @@
 	"js-undo-own-only": "App aapan review ke pahile jaise kare saktaa hai.",
 	"js-unknown-error": "Results load kare ke time kuchh anjaan garrbarri hoe gais hai. Meharbaani kar ke fir se kosis karo.",
 	"permalink": "Permalink",
-	"show-all-records": "Sab record ke dekhao"
+	"show-all-records": "Sab record ke dekhao",
+	"access-blocked": "Aap abhi $1 hai, $2 pe, aur CopyPatrol ke kaam me laae nai saktaa hai.",
+	"blocked": "Rok dewa gais hai"
 }
