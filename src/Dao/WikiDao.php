@@ -51,8 +51,10 @@ class WikiDao extends AbstractDao {
 	 * @return WikiDao
 	 */
 	public static function newFromLangCode( $lang, $host, $port, $user, $password, $log = null ) {
-		$dbName = $lang . 'wiki_p';
-		$dsn = "mysql:host=$host;port=$port;dbname=$dbName";
+		$dbName = $lang . 'wiki';
+		// Replace wildcard in hostname with dbname for compatbility with new replicas. See T270407
+		$host = str_replace( '*', $dbName, $host );
+		$dsn = "mysql:host=$host;port=$port;dbname={$dbName}_p";
 		$dao = new self( $dsn, $user, $password, $log );
 		$dao->setLang( $lang );
 		return $dao;
