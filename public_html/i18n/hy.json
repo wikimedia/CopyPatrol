@@ -37,6 +37,7 @@
 	"fa-wikipedia": "Պարսկերեն Վիքիպեդիա",
 	"ru-wikipedia": "Ռուսերեն Վիքիպեդիա",
 	"tr-wikipedia": "Թուրքերեն Վիքիպեդիա",
+	"login": "Մտնել",
 	"logout": "Դուրս գալ",
 	"header-loggedin": "Դուք մտել եք որպես $1",
 	"form-all": "Բոլոր դեպքերում",
@@ -60,5 +61,8 @@
 	"phabricator": "Ֆաբրիկատոր",
 	"footer-imageattr": "Պատկերի նկարագրություն",
 	"close": "Փակել",
-	"imageattr-logo": "CopyPatrol պատկերանիշ"
+	"imageattr-logo": "CopyPatrol պատկերանիշ",
+	"public-domain": "հանրային սեփականություն",
+	"permalink": "Մշտական հղում",
+	"blocked": "արգելափակված է"
 }

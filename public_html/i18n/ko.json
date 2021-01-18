@@ -4,7 +4,8 @@
 			"Jerrykim306",
 			"Revi",
 			"SeoJeongHo",
-			"Ykhwong"
+			"Ykhwong",
+			"그냥기여자"
 		]
 	},
 	"name": "CopyPatrol",
@@ -74,6 +75,7 @@
 	"record-ores": "ORES 점수: $1",
 	"article": "문서",
 	"compare-article-loading": "문서 판을 불러오는 중...",
+	"compare-source-loading": "가능한 copyvio 소스를 불러오는 중...",
 	"footer-loadmore": "더 불러오기",
 	"footer-nomore": "더 이상의 레코드가 없습니다!",
 	"footer-broughtby": "$1님이 개발함",
@@ -84,6 +86,9 @@
 	"phabricator": "파브리케이터",
 	"footer-imageattr": "그림 속성",
 	"lboard-title": "순위 목록",
+	"lboard-week": "지난 7일 동안 마감된 사건",
+	"lboard-month": "지난 30일 동안 마감된 사건",
+	"lboard-alltime": "모든 마감된 사건",
 	"lboard-back": "CopyPatrol로 돌아가기",
 	"close": "닫기",
 	"imageattr-title": "그림 속성",
