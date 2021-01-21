@@ -37,9 +37,25 @@ This application makes of use the [Wikimedia-slimapp](https://github.com/wikimed
 4. To use a translation message in JavaScript, add it as a global variable in `templates/base.html`. Then simply access it in the JS.
 5. To get a message in PHP, use `$this->i18nContext->message( '<message-key>' )`
 
-## Available languages
+## To add a new language
 
-CopyPatrol is able to work with any languages that are supported by iThenticate.
-This list is available at http://www.ithenticate.com/products/faqs
-and the corresponding list of messages in `i18n/*.json` should be updated periodically
-(there is no automatic process for this).
+To add a new language, follow these steps:
+
+1. Make sure the language is supported by iThenticate. This list is available at http://www.ithenticate.com/products/faqs. Look for the "Which international languages does iThenticate have content for in its database?" section.
+1. Make sure there is community consensus for CopyPatrol. This helps ensure they will **regularly** make use of CopyPatrol. EranBot, which powers the CopyPatrol feed, is expensive in terms of the resources it uses. Any languages that are not regularly being used should be removed.
+1. Make sure the corresponding `-wikipedia` message in `public_html/i18n/en.json` (and qqq.json) exists and is translated in the desired language.
+1. On Toolforge, `become community-tech-tools`, then `become eranbot`. Add the following to the crontab, replcaing `enwiki` and `-lang:en` accordingly:
+```
+*/10 * * * * jsub -N enwiki -mem 500m -l h_rt=4:05:00 -once -quiet -o /data/project/eranbot/outs python /data/project/eranbot/gitPlagiabot/plagiabot/plagiabot.py -lang:en -blacklist:User:EranBot/Copyright/Blacklist -live:on -reportlogger
+```
+5. Monitor the `.err` file (i.e. enwiki.err) for output. If looks similar to the other .err files, you know it's running properly. Once a copyvio is found and stored in the database, the feed for the new language in CopyPatrol should show up within 7 days (due to caching).
+
+## To remove a language
+
+1. Remove the entry from `eranbot`'s crontab.
+1. Remove all relevant rows from the database. While logged in as eranbot, run:
+```
+sql local
+MariaDB [(none)]> USE s51306__copyright_p;
+MariaDB [s51306__copyright_p]> DELETE FROM copyright_diffs WHERE lang = 'xx'
+```
