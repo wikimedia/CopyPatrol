@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Aboubacar.banamoridou.toure",
 			"Lancine.kounfantoh.fofana"
 		]
 	},
@@ -40,12 +41,17 @@
 	"logout": "ߌ ߜߊ߲߬ߞߎ߲߬ߣߍ߲ ߓߐ߫",
 	"header-loggedin": "ߌ ߓߘߴߌ ߜߊ߲߬ߞߎ߲߫: ߴߴ$1ߴߴ ߘߌ߫.",
 	"form-all": "ߞߍߣߍ߲ ߠߎ߬ ߓߍ߯",
+	"form-open": "ߗߏ߯ߦߊ ߟߎ߬ ߘߟߊߞߊ߬",
+	"form-reviewed": "ߗߏ߯ߦߊ ߟߎ߬ ߡߊߛߊ߬ߦߌ߬",
+	"form-mine": "ߒ ߠߊ߫ ߡߛߊ߬ߦߌ߬ߟߌ ߟߎ߬",
 	"wikiprojects": "ߥߞߌߖߊ߬ߕߋ߬ߘߐ߬ߛߌ߮ ߟߎ߬",
 	"form-wikiprojects-placeholder": "ߥߞߌߖߊ߬ߕߋ߬ߘߐ߬ߛߌ߮ ߕߐ߮ ߛߐ߲߬ߞߌ߲߫...",
 	"submit": "ߊ߬ ߞߘߊߡߊ߫",
 	"page": "ߞߐߜߍ",
 	"diff": "ߓߐߣߍ߲ߢߐ߲߰ߡߊ",
 	"editor": "ߛߓߍߦߟߊ",
+	"review": "ߡߛߊ߬ߦߌ߬ߟߌ",
+	"review-by": "ߊ߬ ߡߊߛߊ߬ߦߌ߬ ߞߊ߬ ߓߍ߲߬:",
 	"history": "ߘߐ߬ߝߐ",
 	"talk": "ߞߎߡߊ߫",
 	"contribs": "ߓߟߏߓߌߟߊߢߐ߲߯ߞߊ߲ ߠߎ߬",
@@ -60,5 +66,12 @@
 	"footer-poweredby": "ߊ߬ ߝߊ߲߬ߞߊߘߏ߲߬ߣߍ߲߬ ߦߋ߫$1 ߣߌ߫ $2 ߟߋ߬ ߓߟߏ߫",
 	"search": "ߞߐߜߍ ߞߎ߲߬ߕߐ߮ ߢߌߣߌ߲߫:",
 	"source": "ߛߎ߲",
-	"phabricator": "ߛߌ߲ߘߌߟߊ"
+	"phabricator": "ߛߌ߲ߘߌߟߊ",
+	"lboard-week": "ߗߏ߯ߦߊ ߘߊߕߎ߲߯ ߠߊ߫ ߕߟߋ߬ ߇ ߟߊ߬ߓߊ߲ ߞߘߐ߫",
+	"lboard-month": "ߗߏ߯ߦߊ ߘߊߕߎ߲߯ ߠߊ߫ ߕߟߋ߬ ߃߀ ߟߊ߬ߓߊ߲ ߞߘߐ߫",
+	"lboard-alltime": "ߕߎ߬ߡߊ߬ ߓߍ߯ ߸ ߗߏ߯ߦߊ ߘߊߕߎ߲߯ߣߍ߲߫",
+	"lboard-back": "ߌ ߞߐߛߊ߬ߦߌ߬ ߕߊ߯ߟߊߡߌߣߌ߲ ߓߊߓߌߟߊ ߡߊ߬",
+	"public-domain": "ߝߘߏ߬ߓߊ߬ ߡߊߘߎ߮",
+	"show-all-records": "ߟߊ߬ߞߎ߲߬ߘߎ߬ߟߌ ߓߍ߯ ߦߌ߬ߘߊ߬",
+	"blocked": "ߛߐ߰ߣߍ߲߫"
 }
