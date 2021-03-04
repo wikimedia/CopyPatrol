@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Jaroslav.micek",
 			"TomášPolonec"
 		]
 	},
@@ -72,7 +73,7 @@
 	"footer-nomore": "Žiadne ďalšie záznamy",
 	"footer-broughtby": "Pripravené tímom $1",
 	"footer-commtech": "Community Tech",
-	"footer-poweredby": "Poskytujú $1 a $2",
+	"footer-poweredby": "Poháňané cez $1 a $2",
 	"source": "Zdroj",
 	"phabricator": "Phabricator"
 }
