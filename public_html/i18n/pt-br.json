@@ -3,6 +3,7 @@
 		"authors": [
 			"Eduardo Addad de Oliveira",
 			"Eduardoaddad",
+			"Juan90264",
 			"Warley Felipe C."
 		]
 	},
@@ -67,7 +68,7 @@
 	"record-editcount": "Contagem de edições",
 	"compare": "Comparar",
 	"record-ithenticate": "Informe de iThenticate",
-	"record-url-text": "$1 de dição ($2 palavras)",
+	"record-url-text": "$1 de edição ($2 palavras)",
 	"record-noeditor": "Não encontrou o editor",
 	"record-noeditor-tooltip": "Esta avaliação pode ter sido deletada por que os dados não estão disponíveis na base de dados de Labs.",
 	"record-ores": "ORES pontuação: $1",
