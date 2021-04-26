@@ -46,7 +46,7 @@
 	"tr-wikipedia": "Wikipédia en turc",
 	"login": "Se connecter",
 	"logout": "Se déconnecter",
-	"header-loggedin": "Vous êtes connecté{{GENDER:||e}} en tant que $1",
+	"header-loggedin": "Vous êtes connecté(e) en tant que $1",
 	"form-all": "Toutes les entrées",
 	"form-open": "Entrées ouvertes",
 	"form-reviewed": "Entrées traitées",
