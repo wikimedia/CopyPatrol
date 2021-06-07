@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kareyac",
+			"Red Winged Duck",
+			"Renessaince"
+		]
+	},
+	"name": "CopyPatrol",
+	"documentation": "Дакумэнтацыя",
+	"feedback": "Водгук",
+	"leaderboard": "Табліца лідэраў",
+	"zh-wikipedia": "Кітайская Вікіпэдыя",
+	"ja-wikipedia": "Японская Вікіпэдыя",
+	"th-wikipedia": "Тайская Вікіпэдыя",
+	"en-wikipedia": "Ангельская Вікіпэдыя",
+	"ko-wikipedia": "Карэйская Вікіпэдыя",
+	"ca-wikipedia": "Каталянская Вікіпэдыя",
+	"hr-wikipedia": "Харвацкая Вікіпэдыя",
+	"cs-wikipedia": "Чэская Вікіпэдыя",
+	"da-wikipedia": "Дацкая Вікіпэдыя",
+	"nl-wikipedia": "Нідэрляндзкая Вікіпэдыя",
+	"fi-wikipedia": "Фінская Вікіпэдыя",
+	"fr-wikipedia": "Француская Вікіпэдыя",
+	"de-wikipedia": "Нямецкая Вікіпэдыя",
+	"hu-wikipedia": "Вугорская Вікіпэдыя",
+	"it-wikipedia": "Італьянская Вікіпэдыя",
+	"logout": "Выйсьці",
+	"page": "Старонка",
+	"editor": "Рэдактар",
+	"history": "Гісторыя",
+	"article": "Артыкул",
+	"source": "Крыніца",
+	"close": "Закрыць"
+}
