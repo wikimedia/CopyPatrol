@@ -5,7 +5,8 @@
 			"Amirsara",
 			"Arash.pt",
 			"Dejavu",
-			"Jeeputer"
+			"Jeeputer",
+			"Mohammad ebz"
 		]
 	},
 	"name": "CopyPatrol",
@@ -60,9 +61,9 @@
 	"review": "بازبینی",
 	"review-fixed": "صفحه تعمیر شد",
 	"review-fixed-tooltip": "این ویرایش ناقض حق تکثیر بوده و واگردانی شده‌است",
-	"review-false": "کاری لازم نیست",
+	"review-false": "اقدامی لازم نیست",
 	"review-false-tooltip": "این ویرایش یک مثبت کاذب است، نیاز به انجام کاری نیست",
-	"review-by": "بازبین:",
+	"review-by": "بازبینی شده توسط:",
 	"history": "تاریخچه",
 	"talk": "بحث",
 	"contribs": "مشارکت‌ها",
