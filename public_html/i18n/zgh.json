@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Brahim-essaidi",
 			"Ya2sine"
 		]
 	},
@@ -48,7 +49,7 @@
 	"history": "ⴰⵎⵣⵔⴰⵢ",
 	"talk": "ⵎⵙⴰⵡⴰⵍ",
 	"contribs": "ⵜⵓⵎⵓⵜⵉⵏ",
-	"record-url-text": "$1 ⵏ ⵓⵙⵏⴼⵍ ($2 ⵏ ⵜⴳⵓⵔⵉⵡⵉⵏ)",
+	"record-url-text": "$1 ⵏ ⵓⵙⵏⴼⵍ ($2 ⵜⴳⵓⵔⵉⵡⵉⵏ)",
 	"record-noeditor": "ⵡⴰⵍⵓ ⴰⵎⵙⵙⵏⴼⵍ ⵉⵜⵜⵢⴰⴼⴰⵏ",
 	"article": "ⴰⵎⴳⵔⴰⴷ",
 	"footer-loadmore": "ⵣⴷⵎ ⵓⴳⴳⴰⵔ",
