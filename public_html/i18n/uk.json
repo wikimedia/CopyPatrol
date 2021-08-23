@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"DDPAT",
 			"Movses",
 			"Piramidion"
 		]
@@ -20,12 +21,12 @@
 	"da-wikipedia": "Данська Вікіпедія",
 	"nl-wikipedia": "Нідерландська Вікіпедія",
 	"fi-wikipedia": "Фінська Вікіпедія",
-	"fr-wikipedia": "French Wikipedia",
+	"fr-wikipedia": "Французька Вікіпедія",
 	"de-wikipedia": "Німецька Вікіпедія",
 	"hu-wikipedia": "Угорська Вікіпедія",
 	"it-wikipedia": "Італійська Вікіпедія",
 	"no-wikipedia": "Норвезька Вікіпедія (Букмол)",
-	"nn-wikipedia": "Норвезька Вікіпедія, (Нюношк)",
+	"nn-wikipedia": "Норвезька Вікіпедія (Нюношк)",
 	"pl-wikipedia": "Польська Вікіпедія",
 	"pt-wikipedia": "Португальська Вікіпедія",
 	"ro-wikipedia": "Румунська Вікіпедія",
@@ -48,8 +49,8 @@
 	"form-reviewed": "Перевірені сторінки",
 	"form-mine": "Мої перевірки",
 	"form-drafts": "Лише чернетки",
-	"wikiprojects": "Вікіпроекти",
-	"form-wikiprojects-placeholder": "Введіть назви Вікіпроектів...",
+	"wikiprojects": "Вікіпроєкти",
+	"form-wikiprojects-placeholder": "Введіть назви вікіпроєктів…",
 	"submit": "Надіслати",
 	"page": "Сторінка",
 	"diff": "Різниця",
@@ -71,8 +72,8 @@
 	"record-noeditor-tooltip": "Цю версію могли вже вилучити або дані ще недоступні в базі даних Labs.",
 	"record-ores": "Оцінка ORES: $1",
 	"article": "Стаття",
-	"compare-article-loading": "Завантаження версії статті...",
-	"compare-source-loading": "Завантаження ймовірного джерела копівіо...",
+	"compare-article-loading": "Завантаження версії статті…",
+	"compare-source-loading": "Завантаження ймовірного джерела копівіо…",
 	"footer-loadmore": "Завантажити більше",
 	"footer-nomore": "Більше жодних записів!",
 	"footer-broughtby": "Створено для Вас $1",

@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Aue Nai"
+			"Aue Nai",
+			"咽頭べさ"
 		]
 	},
 	"documentation": "လိက်ပရူပရာ",
@@ -10,7 +11,7 @@
 	"ja-wikipedia": "ဝဳကဳပဳဒဳယာ ဂျပါန်",
 	"th-wikipedia": "ဝဳကဳပဳဒဳယာ သေံ",
 	"en-wikipedia": "ဝဳကဳပဳဒဳယာ အၚ်္ဂလိက်",
-	"ko-wikipedia": "ဝဳကဳပဳဒဳယာ ကိုရဳယာန်",
+	"ko-wikipedia": "ဝဳကဳပဳဒဳယာ ကိုဝ်ရဳယျာ",
 	"ca-wikipedia": "ဝဳကဳပဳဒဳယာ ကတလာန်",
 	"hr-wikipedia": "ဝဳကဳပဳဒဳယာ ခရဳသျာန်",
 	"cs-wikipedia": "ဝဳကဳပဳဒဳယာ ချေတ်",
@@ -25,9 +26,14 @@
 	"nn-wikipedia": "ဝဳကဳပဳဒဳယာ နေဝ်ဝေဂျေန်",
 	"pl-wikipedia": "ဝဳကဳပဳဒဳယာ ပိုလေတ်",
 	"pt-wikipedia": "ဝဳကဳပဳဒဳယာ ပဝ်တူကဳ",
-	"ro-wikipedia": "ဝဳကဳပဳဒဳယာ ရီုမေနဳယာ",
+	"ro-wikipedia": "ဝဳကဳပဳဒဳယာ ရဝ်မေနဳယျာ",
 	"sr-wikipedia": "ဝဳကဳပဳဒဳယာ သာဘိန်",
 	"sk-wikipedia": "ဝဳကဳပဳဒဳယာ သိုဝ်ဗက်",
+	"es-wikipedia": "ဝဳကဳပဳဒဳယာ သပုင်",
+	"sv-wikipedia": "ဝဳကဳပဳဒဳယာ သွဳဒေန်",
+	"ar-wikipedia": "အာရဗဳ ဝဳကဳပဳဒဳယာ",
+	"el-wikipedia": "ဝဳကဳပဳဒဳယာ ဂရေတ်",
+	"ru-wikipedia": "ဝဳကဳပဳဒဳယာ ရုရှာ",
 	"login": "လုပ်လံက်အေန်",
 	"logout": "တိတ်",
 	"wikiprojects": "ဝဳကဳပရဝ်ဂျေတ်",
