@@ -403,8 +403,8 @@ class App extends AbstractApp {
 		$slim->get( '/activity_check',
 			function () use ( $slim ) {
 				$dao = $this->getPlagiabotDao();
-				$lang = $slim->request->get( 'lang', 'en' );
-				$offset = $slim->request->get( 'offset', 4 );
+				$lang = htmlspecialchars( $slim->request->get( 'lang', 'en' ) );
+				$offset = (int)$slim->request->get( 'offset', 4 );
 				if ( !$dao->hasActivity( $lang, $offset ) ) {
 					$slim->halt( 500, "No activity for $lang in the past $offset hours" );
 				}
