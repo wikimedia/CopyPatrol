@@ -4,6 +4,7 @@
 			"Alirezaaa",
 			"Amirsara",
 			"Arash.pt",
+			"Darafsh",
 			"Dejavu",
 			"Jeeputer",
 			"Mohammad ebz"
@@ -96,6 +97,9 @@
 	"imageattr-logo": "نماد کپی‌پاترل",
 	"public-domain": "مالکیت عمومی",
 	"open-font-license": "پروانهٔ آزاد قلم",
+	"imageattr-paragraph1": "$1 در دسترس است برای $2 حسن‌نیت $3 و $4",
+	"imageattr-paragraph2": "$1 تحت لیسانس $2 منتشر شده با حسن نیت $3",
+	"alert-testing": "این یک محیط آزمایشی است. لطفاً از این ابزار برای ثبت نظرات خود استفاده نکنید. برای ابزار CopyPatrol واقعی، لطفاً از $1 استفاده نمایید.",
 	"js-unauthorized": "برای بازبینی باید وارد سامانه شوید.",
 	"js-dberror": "خطایی در اتصال به پایگاه داده رخ داد.",
 	"js-undo-own-only": "شما تنها قادر به خنثی‌سازی بازبینی‌های خودتان هستید.",
