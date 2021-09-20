@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"JohnsonLee01",
-			"Leducthn"
+			"Leducthn",
+			"Minh Nguyen"
 		]
 	},
 	"name": "CopyPatrol",
@@ -58,7 +59,7 @@
 	"review-fixed": "Trang đã sửa",
 	"review-fixed-tooltip": "Sửa đổi này vi phạm bản quyền và đã được hồi sửa",
 	"review-false": "Không cần hành động",
-	"review-false-tooltip": "Chỉnh sửa là một sai lầm, không cần phải làm gì cả",
+	"review-false-tooltip": "Sửa đổi là một sai lầm, không cần phải làm gì cả",
 	"review-by": "Đánh giá bởi:",
 	"history": "Lịch sử",
 	"talk": "Thảo luận",
@@ -67,7 +68,7 @@
 	"compare": "So sánh",
 	"record-ithenticate": "Báo cáo iThenticate",
 	"record-url-text": "$1 của sửa đổi ($2 từ)",
-	"record-noeditor": "Không tìm thấy trình chỉnh sửa",
+	"record-noeditor": "Không tìm thấy người sửa đổi",
 	"record-noeditor-tooltip": "Bản sửa đổi có thể đã bị xóa hoặc dữ liệu chưa có sẵn trong cơ sở dữ liệu Labs.",
 	"record-ores": "Điểm ORES: $1",
 	"article": "Bài viết",
