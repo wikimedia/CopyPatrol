@@ -6,6 +6,7 @@
 			"Grkn gll",
 			"Hedda",
 			"Rapsar",
+			"SaldırganSincap",
 			"Stonecy",
 			"Trockya"
 		]
@@ -58,7 +59,7 @@
 	"submit": "Gönder",
 	"page": "Sayfa",
 	"diff": "Fark",
-	"editor": "Editör",
+	"editor": "Düzenleyici",
 	"review": "İnceleme",
 	"review-fixed": "Sayfa düzeltildi",
 	"review-fixed-tooltip": "Düzenleme telif hakkı ihlali içermektedir ve geri alınmıştır",
@@ -72,7 +73,7 @@
 	"compare": "Karşılaştır",
 	"record-ithenticate": "iThenticate raporu",
 	"record-url-text": "İntihal edilen düzenleme yüzdesi: $1 ($2 kelime)",
-	"record-noeditor": "Editör bulunamadı",
+	"record-noeditor": "Düzenleyici bulunamadı",
 	"record-noeditor-tooltip": "Revizyon silindi veya veriler Labs veritabanında henüz mevcut değil.",
 	"record-ores": "ORES puanı: $1",
 	"article": "Madde",
