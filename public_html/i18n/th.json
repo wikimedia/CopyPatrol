@@ -5,7 +5,8 @@
 			"Ans",
 			"B20180",
 			"Horus",
-			"Just Sayori"
+			"Just Sayori",
+			"Trisorn Triboon"
 		]
 	},
 	"name": "CopyPatrol",
@@ -57,6 +58,12 @@
 	"page": "หน้า",
 	"diff": "ส่วนต่าง",
 	"editor": "ผู้แก้ไข",
+	"review": "ตรวจทาน",
+	"review-fixed": "แก้ไขหน้า",
+	"review-fixed-tooltip": "การแก้ไขเป็นการละเมิดลิขสิทธิ์และได้เปลี่ยนกลับแล้ว",
+	"review-false": "ไม่ต้องดำเนินการใด ๆ",
+	"review-false-tooltip": "การแก้ไขเป็นผลบวกลวง ไม่มีอะไรต้องทำ",
+	"review-by": "ตรวจทานโดย:",
 	"history": "ประวัติ",
 	"talk": "คุย",
 	"contribs": "การมีส่วนร่วม",
@@ -71,15 +78,16 @@
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "ขับเคลื่อนโดย $1 และ $2",
 	"source": "แหล่งที่มา",
-	"phabricator": "Phabricator",
-	"footer-imageattr": "แอตทริบิวต์ภาพ",
+	"phabricator": "ฟาบริเคเตอร์",
+	"footer-imageattr": "การแสดงที่มาของภาพ",
 	"lboard-title": "ลีดเดอร์บอร์ด",
 	"lboard-back": "กลับไปที่ CopyPatrol",
 	"close": "ปิด",
-	"imageattr-title": "แอตทริบิวต์ภาพ",
+	"imageattr-title": "การแสดงที่มาของภาพ",
 	"imageattr-logo": "โลโก้ CopyPatrol",
 	"public-domain": "สาธารณสมบัติ",
-	"open-font-license": "Open Font License",
+	"open-font-license": "ใบอนุญาตอักษรแบบเปิด",
 	"permalink": "ลิงก์ถาวร",
-	"show-all-records": "แสดงบันทึกทั้งหมด"
+	"show-all-records": "แสดงบันทึกทั้งหมด",
+	"blocked": "ถูกบล็อก"
 }
