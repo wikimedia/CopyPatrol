@@ -219,7 +219,7 @@ class CopyPatrol extends Controller {
 			return false;
 		}
 
-		$blockInfo = $this->wikiDao->getBlockInfo(
+		$blockInfo = (bool)$this->wikiDao->getBlockInfo(
 			$this->getUsername()
 		);
 
@@ -432,7 +432,7 @@ class CopyPatrol extends Controller {
 	 * @return string Link to report
 	 */
 	public function getReportLink( $ithenticateId ) {
-		return 'https://tools.wmflabs.org/eranbot/ithenticate.py?rid=' . urlencode( $ithenticateId );
+		return $this->slim->router()->urlFor( 'ithenticate', [ 'rid' => $ithenticateId ] );
 	}
 
 	/**
