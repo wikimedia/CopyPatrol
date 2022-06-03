@@ -27,6 +27,7 @@ use NumberFormatter;
 use Plagiabot\Web\Controllers\AddReview;
 use Plagiabot\Web\Controllers\AuthHandler;
 use Plagiabot\Web\Controllers\CopyPatrol;
+use Plagiabot\Web\Controllers\Ithenticate;
 use Plagiabot\Web\Controllers\Leaderboard;
 use Plagiabot\Web\Controllers\UndoReview;
 use Plagiabot\Web\Dao\PlagiabotDao;
@@ -96,6 +97,8 @@ class App extends AbstractApp {
 			'db.name.copypatrol' => Config::getStr( 'DB_NAME_COPYPATROL' ),
 			'templates.path' => APP_ROOT . '/public_html/templates',
 			'i18n.path' => APP_ROOT . '/public_html/i18n',
+			'ithenticate.user' => Config::getStr( 'ITHENTICATE_USER' ),
+			'ithenticate.pass' => Config::getStr( 'ITHENTICATE_PASS' ),
 		] );
 	}
 
@@ -411,6 +414,16 @@ class App extends AbstractApp {
 				// Defaults to 200 status code
 			}
 		)->name( 'activity_check' );
+
+		// Ithenticate route.
+		$slim->get( '/ithenticate/:rid',
+			function ( $rid ) use ( $slim ) {
+				$page = new Ithenticate( $slim, $rid );
+				$page();
+			}
+		)->name( 'ithenticate' )->setConditions( [
+			'rid' => "\d+"
+		] );
 	}
 
 	/**
