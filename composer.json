@@ -1,5 +1,5 @@
 {
-  "name": "CopyPatrol",
+  "name": "copypatrol",
   "description": "The web interface for Plagiabot",
   "license": "GPL-3.0-or-later",
   "require": {
