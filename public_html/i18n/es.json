@@ -3,7 +3,8 @@
 		"authors": [
 			"Fitoschido",
 			"Kaldari",
-			"Macofe"
+			"Macofe",
+			"MarcoAurelio"
 		]
 	},
 	"name": "CopyPatrol",
@@ -76,17 +77,17 @@
 	"compare-source-loading": "Cargando la posible fuente de la violación de derechos…",
 	"footer-loadmore": "Cargar más",
 	"footer-nomore": "¡No hay más registros!",
-	"footer-broughtby": "Provista por $1",
+	"footer-broughtby": "Creado por $1",
 	"footer-commtech": "Tecnología comunitaria",
 	"footer-poweredby": "Funciona gracias a $1 y $2",
 	"search": "Buscar por título de página:",
-	"source": "Fuente",
+	"source": "Código fuente",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Atribución de imágenes",
 	"lboard-title": "Tabla de posiciones",
 	"lboard-week": "Casos cerrados en los últimos 7 días",
 	"lboard-month": "Casos cerrados en los últimos 30 días",
-	"lboard-alltime": "Casos cerrados de todos los tiempos",
+	"lboard-alltime": "Todos los casos cerrados",
 	"lboard-back": "Volver a CopyPatrol",
 	"close": "Cerrar",
 	"imageattr-title": "Atribución de imagen",
