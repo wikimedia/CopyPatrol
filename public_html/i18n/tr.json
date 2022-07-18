@@ -8,6 +8,7 @@
 			"Rapsar",
 			"SaldırganSincap",
 			"Stonecy",
+			"ToprakM",
 			"Trockya"
 		]
 	},
@@ -59,7 +60,7 @@
 	"submit": "Gönder",
 	"page": "Sayfa",
 	"diff": "Fark",
-	"editor": "Düzenleyici",
+	"editor": "Editör",
 	"review": "İnceleme",
 	"review-fixed": "Sayfa düzeltildi",
 	"review-fixed-tooltip": "Düzenleme telif hakkı ihlali içermektedir ve geri alınmıştır",
