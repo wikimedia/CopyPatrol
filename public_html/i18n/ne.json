@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Bada Kaji",
 			"सरोज कुमार ढकाल",
 			"हिमाल सुबेदी"
 		]
@@ -52,7 +53,7 @@
 	"form-wikiprojects-placeholder": "विकी प्रोजेक्टको नाम लेख्नुहोस्...",
 	"submit": "पेश गर्नुहोस्",
 	"page": "पृष्ठ",
-	"diff": "डिफ",
+	"diff": "अन्तर",
 	"editor": "सम्पादक",
 	"review": "समिक्षा",
 	"review-fixed": "बनाइएको पृष्ठहरू",
