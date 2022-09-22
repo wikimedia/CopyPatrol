@@ -70,7 +70,7 @@
 	"record-noeditor-tooltip": "Moguće je da je ova izmjena obrisana ili podaci nisu dostupni u Labsovoj bazi podataka.",
 	"record-ores": "ORES-ova ocjena: $1",
 	"article": "Članak",
-	"compare-article-loading": "Učitavam reviziju članka...",
+	"compare-article-loading": "Učitavam inačicu članka...",
 	"compare-source-loading": "Učitavam mogući izvor kršenja...",
 	"footer-loadmore": "Učitaj više",
 	"footer-nomore": "Nema više zapisa!",
