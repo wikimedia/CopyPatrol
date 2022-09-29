@@ -99,7 +99,7 @@
 	"js-unauthorized": "Za pregledovanje se morate prijaviti.",
 	"js-dberror": "Pri povezovanju s podatkovno zbirko je prišlo do napake.",
 	"js-undo-own-only": "Razveljavite lahko samo svoje preglede.",
-	"js-unknown-error": "Pri nalaganju rezultatov se je pojavila neznana napaka. Prosimo, poskusite znova.",
+	"js-unknown-error": "Pri nalaganju zadetkov se je pojavila neznana napaka. Prosimo, poskusite znova.",
 	"permalink": "Trajna povezava",
 	"show-all-records": "Prikaži vse zapise",
 	"access-blocked": "Trenutno ste v $2 $1 in orodja CopyPatrol ne morete uporabljati.",

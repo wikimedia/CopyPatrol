@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"GinawaSaHapon"
+			"GinawaSaHapon",
+			"Jojit fb"
 		]
 	},
 	"documentation": "Dokumentasyon",
@@ -56,15 +57,15 @@
 	"review-fixed": "Maayos na ang pahina",
 	"review-fixed-tooltip": "Paglabag sa karapatang-sipi ang edit kaya ni-revert",
 	"review-false": "Walang kailangang gawin",
-	"review-false-tooltip": "Pekeng positibo ang edit, walang kailangang gawin",
+	"review-false-tooltip": "Pekeng positibo ang binago, walang kailangang gawin",
 	"review-by": "Nirebyu ni:",
 	"history": "Nakaraan",
 	"talk": "Usapan",
 	"contribs": "Mga ambag",
-	"record-editcount": "Dami ng edit:",
+	"record-editcount": "Bilang ng binago:",
 	"compare": "Ikumpara",
 	"record-ithenticate": "Ulat ng iThenticate",
-	"record-url-text": "$1 ng edit ($2 (na) salita)",
+	"record-url-text": "$1 ng binago ($2 (na) salita)",
 	"record-noeditor": "Walang nakitang editor",
 	"record-noeditor-tooltip": "Baka nabura na ang pagbabago o hindi pa available ang data sa Labs database.",
 	"record-ores": "ORES score: $1",
