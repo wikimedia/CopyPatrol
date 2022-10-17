@@ -96,7 +96,7 @@
 	"imageattr-paragraph1": "$1 je na voljo za $2 zahvaljujoč $3 in $4",
 	"imageattr-paragraph2": "Pisava $1 je objavljena pod licenco $2, z dovoljenjem avtorja $3",
 	"alert-testing": "To je preizkusno okolje. Tega orodja ne uporabljajte za beleženje opravljenih pregledov. Za dejansko orodje CopyPatrol uporabite $1.",
-	"js-unauthorized": "Za pregledovanje se morate prijaviti.",
+	"js-unauthorized": "Za pregledovanje morate biti prijavljeni.",
 	"js-dberror": "Pri povezovanju s podatkovno zbirko je prišlo do napake.",
 	"js-undo-own-only": "Razveljavite lahko samo svoje preglede.",
 	"js-unknown-error": "Pri nalaganju zadetkov se je pojavila neznana napaka. Prosimo, poskusite znova.",
