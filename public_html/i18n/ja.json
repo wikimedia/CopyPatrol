@@ -6,7 +6,8 @@
 			"Omotecho",
 			"Otokoume",
 			"TKsdik8900",
-			"Yusuke1109"
+			"Yusuke1109",
+			"春春眠眠"
 		]
 	},
 	"name": "CopyPatrol",
@@ -14,7 +15,7 @@
 	"feedback": "フィードバック",
 	"leaderboard": "リーダーボード",
 	"zh-wikipedia": "中国語版ウィキペディア",
-	"ja-wikipedia": "ウィキペディア日本語版",
+	"ja-wikipedia": "日本語版ウィキペディア",
 	"th-wikipedia": "タイ語版ウィキペディア",
 	"en-wikipedia": "英語版ウィキペディア",
 	"ko-wikipedia": "韓国語版ウィキペディア",
@@ -62,7 +63,7 @@
 	"review-fixed": "修正済みのページ",
 	"review-fixed-tooltip": "編集は著作権に違反しており差し戻されました",
 	"review-false": "対処不要",
-	"review-false-tooltip": "編集は誤判定のため、対処不用です",
+	"review-false-tooltip": "編集は誤判定のため、対処不要です",
 	"review-by": "査読者：",
 	"history": "履歴",
 	"talk": "トーク",
@@ -70,7 +71,7 @@
 	"record-editcount": "編集回数:",
 	"compare": "比較",
 	"record-ithenticate": "iThenticate 報告",
-	"record-url-text": "$1一致 ($2 語)",
+	"record-url-text": "編集の$1 ($2 語)",
 	"record-noeditor": "編集者が見つかりません",
 	"record-noeditor-tooltip": "版が削除されているか、データが Labs データベースで利用できません。",
 	"record-ores": "ORES スコア: $1",
