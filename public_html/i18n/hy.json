@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"23artashes",
-			"Kareyac"
+			"Kareyac",
+			"Սերգեյ Սաֆարյան"
 		]
 	},
 	"name": "CopyPatrol",
@@ -49,6 +50,7 @@
 	"editor": "Խմբագիր",
 	"review": "Ստուգել",
 	"review-false": "Գործողություն չի պահանջվում",
+	"review-by": "Վերանայող՝",
 	"history": "Պատմություն",
 	"talk": "Քննարկում",
 	"contribs": "Ներդրումներ",
@@ -56,7 +58,7 @@
 	"compare": "Համեմատել",
 	"record-noeditor": "Խմբագիրը չի գտնվել",
 	"article": "Հոդված",
-	"footer-loadmore": "Բեռնել դեռ",
+	"footer-loadmore": "Բեռնել ևս",
 	"footer-poweredby": "Սնուցվում է $1 և $2 -ով",
 	"source": "Աղբյուր",
 	"phabricator": "Ֆաբրիկատոր",
