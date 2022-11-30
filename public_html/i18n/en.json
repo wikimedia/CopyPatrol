@@ -41,6 +41,7 @@
   "fa-wikipedia": "Persian Wikipedia",
   "ru-wikipedia": "Russian Wikipedia",
   "tr-wikipedia": "Turkish Wikipedia",
+  "simple-wikipedia": "Simple English Wikipedia",
   "login": "Login",
   "logout": "Logout",
   "header-loggedin": "You are logged in as: $1",

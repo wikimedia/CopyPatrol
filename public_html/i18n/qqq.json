@@ -49,6 +49,7 @@
 	"fa-wikipedia": "{{identical|Persian Wikipedia}}",
 	"ru-wikipedia": "{{identical|Russian Wikipedia}}",
 	"tr-wikipedia": "{{identical|Turkish Wikipedia}}",
+	"simple-wikipedia": "{{identical|Simple English Wikipedia}}",
 	"login": "Button label\n{{Identical|Login}}",
 	"logout": "Button label\n{{Identical|Logout}}",
 	"header-loggedin": "Message to tell user who they are logged in as.\n\nParameter: \n* $1 - Wiki username.",
