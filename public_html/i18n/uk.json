@@ -4,7 +4,8 @@
 			"DDPAT",
 			"Ice bulldog",
 			"Movses",
-			"Piramidion"
+			"Piramidion",
+			"Пан Хаунд"
 		]
 	},
 	"name": "CopyPatrol",
@@ -42,6 +43,7 @@
 	"fa-wikipedia": "Перська Вікіпедія",
 	"ru-wikipedia": "Російська Вікіпедія",
 	"tr-wikipedia": "Турецька Вікіпедія",
+	"simple-wikipedia": "Вікіпедія спрощеною англійською",
 	"login": "Увійти",
 	"logout": "Вийти",
 	"header-loggedin": "Ви увійшли як: $1",

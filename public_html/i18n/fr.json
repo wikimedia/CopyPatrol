@@ -45,6 +45,7 @@
 	"fa-wikipedia": "Wikipédia en persan",
 	"ru-wikipedia": "Wikipédia en russe",
 	"tr-wikipedia": "Wikipédia en turc",
+	"simple-wikipedia": "Wikipédia en anglais simplifié",
 	"login": "Se connecter",
 	"logout": "Se déconnecter",
 	"header-loggedin": "Vous êtes connecté(e) en tant que : $1",

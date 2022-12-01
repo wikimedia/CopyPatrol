@@ -3,6 +3,7 @@
 		"authors": [
 			"Aefgh39622",
 			"LaMagiaaa",
+			"MathXplore",
 			"Omotecho",
 			"Otokoume",
 			"TKsdik8900",
@@ -45,6 +46,7 @@
 	"fa-wikipedia": "ペルシア語版ウィキペディア",
 	"ru-wikipedia": "ロシア語版ウィキペディア",
 	"tr-wikipedia": "トルコ語版ウィキペディア",
+	"simple-wikipedia": "シンプル英語版ウィキペディア",
 	"login": "ログイン",
 	"logout": "ログアウト",
 	"header-loggedin": "$1 としてログインしています",
