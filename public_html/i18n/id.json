@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Akmaie Ajam",
+			"DARMAS BUDI SANTOSO",
 			"Hidayatsrf",
 			"Sonic Speedy"
 		]
@@ -25,6 +26,7 @@
 	"fa-wikipedia": "Wikipedia bahasa Persia",
 	"ru-wikipedia": "Wikipedia bahasa Rusia",
 	"tr-wikipedia": "Wikipedia bahasa Turki",
+	"simple-wikipedia": "Simple English Wikipedia",
 	"login": "Masuk log",
 	"logout": "Keluar log",
 	"header-loggedin": "Anda telah masuk log sebagai $1.",
