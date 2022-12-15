@@ -41,6 +41,7 @@
 	"fa-wikipedia": "波斯語維基百科",
 	"ru-wikipedia": "俄文維基百科",
 	"tr-wikipedia": "土耳其語維基百科",
+	"simple-wikipedia": "簡單英語維基百科",
 	"login": "登入",
 	"logout": "登出",
 	"header-loggedin": "您已登入為：$1",
