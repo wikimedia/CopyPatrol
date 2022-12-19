@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Elisardojm"
+			"Elisardojm",
+			"Toliño"
 		]
 	},
 	"name": "CopyPatrol",
@@ -39,6 +40,7 @@
 	"fa-wikipedia": "Wikipedia en persa",
 	"ru-wikipedia": "Wikipedia en ruso",
 	"tr-wikipedia": "Wikipedia en turco",
+	"simple-wikipedia": "Wikipedia en inglés simplificado",
 	"login": "Rexistro",
 	"logout": "Saír",
 	"header-loggedin": "Está conectado comoː $1.",
