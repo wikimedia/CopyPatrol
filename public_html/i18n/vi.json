@@ -3,7 +3,8 @@
 		"authors": [
 			"JohnsonLee01",
 			"Leducthn",
-			"Minh Nguyen"
+			"Minh Nguyen",
+			"Nguyenphutrong2"
 		]
 	},
 	"name": "CopyPatrol",
@@ -41,6 +42,7 @@
 	"fa-wikipedia": "Wikipedia tiếng Ba Tư",
 	"ru-wikipedia": "Wikipedia tiếng Nga",
 	"tr-wikipedia": "Wikipedia tiếng Thổ Nhĩ Kỳ",
+	"simple-wikipedia": "Wikipedia tiếng Anh đơn giản",
 	"login": "Đăng nhập",
 	"logout": "Đăng xuất",
 	"header-loggedin": "Bạn đã đăng nhập với tên $1.",
