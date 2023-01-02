@@ -3,6 +3,7 @@
 		"authors": [
 			"Chrumps",
 			"DeRudySoulStorm",
+			"Superjurek",
 			"Wojtas",
 			"Woytecr"
 		]
@@ -42,6 +43,7 @@
 	"fa-wikipedia": "Wikipedia w języku perskim",
 	"ru-wikipedia": "Wikipedia w języku rosyjskim",
 	"tr-wikipedia": "Wikipedia w języku tureckim",
+	"simple-wikipedia": "Wikipedia w uproszczonym języku angielskim (Simple English)",
 	"login": "Zaloguj się",
 	"logout": "Wyloguj",
 	"header-loggedin": "Jesteś zalogowany jako: $1",
