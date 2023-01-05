@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Justman10000",
 			"Metalhead64"
 		]
 	},
@@ -39,6 +40,7 @@
 	"fa-wikipedia": "Persischsprachige Wikipedia",
 	"ru-wikipedia": "Russischsprachige Wikipedia",
 	"tr-wikipedia": "Türkischsprachige Wikipedia",
+	"simple-wikipedia": "Einfache englische Wikipedia",
 	"login": "Anmelden",
 	"logout": "Abmelden",
 	"header-loggedin": "Du bist angemeldet als: $1",
