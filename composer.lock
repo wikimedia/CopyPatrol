@@ -728,16 +728,16 @@
         },
         {
             "name": "phpxmlrpc/phpxmlrpc",
-            "version": "4.7.2",
+            "version": "4.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gggeek/phpxmlrpc.git",
-                "reference": "0336f44b51a40b674ef93c35529373d2225b5f1d"
+                "reference": "4f6278c27bc749ef7623b325cfada24cdb4dd9ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gggeek/phpxmlrpc/zipball/0336f44b51a40b674ef93c35529373d2225b5f1d",
-                "reference": "0336f44b51a40b674ef93c35529373d2225b5f1d",
+                "url": "https://api.github.com/repos/gggeek/phpxmlrpc/zipball/4f6278c27bc749ef7623b325cfada24cdb4dd9ff",
+                "reference": "4f6278c27bc749ef7623b325cfada24cdb4dd9ff",
                 "shasum": ""
             },
             "require": {
@@ -751,12 +751,12 @@
                 "ext-curl": "*",
                 "ext-dom": "*",
                 "ext-mbstring": "*",
-                "phpunit/phpunit": "^5.0 || ^8.5.14",
+                "phpunit/phpunit": "^4.8 || ^5.0 || ^8.5.14",
                 "phpunit/phpunit-selenium": "*",
                 "yoast/phpunit-polyfills": "*"
             },
             "suggest": {
-                "ext-curl": "Needed for HTTPS and HTTP 1.1 support, NTLM Auth etc...",
+                "ext-curl": "Needed for HTTPS, HTTP2 and HTTP 1.1 support, NTLM Auth etc...",
                 "ext-mbstring": "Needed to allow reception of requests/responses in character sets other than ASCII,LATIN-1,UTF-8",
                 "ext-zlib": "Needed for sending compressed requests and receiving compressed responses, if cURL is not available",
                 "phpxmlrpc/extras": "Adds more featured Server classes and other useful bits",
@@ -781,9 +781,9 @@
             ],
             "support": {
                 "issues": "https://github.com/gggeek/phpxmlrpc/issues",
-                "source": "https://github.com/gggeek/phpxmlrpc/tree/4.7.2"
+                "source": "https://github.com/gggeek/phpxmlrpc/tree/4.9.4"
             },
-            "time": "2022-05-26T22:09:28+00:00"
+            "time": "2023-01-07T19:10:47+00:00"
         },
         {
             "name": "psr/cache",
