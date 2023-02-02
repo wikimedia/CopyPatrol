@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Fitoschido",
-			"Mguix"
+			"Mguix",
+			"Robertgarrigos"
 		]
 	},
 	"name": "CopyPatrol",
@@ -40,6 +41,7 @@
 	"fa-wikipedia": "Viquipèdia en persa",
 	"ru-wikipedia": "Viquipèdia en rus",
 	"tr-wikipedia": "Viquipèdia en turc",
+	"simple-wikipedia": "Viquipèdia en anglès bàsic",
 	"login": "Accedir",
 	"logout": "Sortir",
 	"header-loggedin": "Heu iniciat la sessió com a $1",
