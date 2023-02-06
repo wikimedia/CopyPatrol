@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Mainframe98",
+			"McDutchie",
 			"Ooswesthoesbes",
 			"Optilete",
 			"Siebrand"
@@ -42,6 +43,7 @@
 	"fa-wikipedia": "Perzische Wikipedia",
 	"ru-wikipedia": "Russische Wikipedia",
 	"tr-wikipedia": "Turkse Wikipedia",
+	"simple-wikipedia": "Wikipedia in eenvoudig Engels",
 	"login": "Aanmelden",
 	"logout": "Afmelden",
 	"header-loggedin": "U bent aangemeld als: $1",
