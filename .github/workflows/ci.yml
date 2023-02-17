@@ -1,0 +1,25 @@
+name: CI/CD
+
+on:
+    push:
+    pull_request:
+
+env:
+    COMPOSER_DISABLE_XDEBUG_WARN: "1"
+
+jobs:
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v3
+                with:
+                    fetch-depth: 0
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '7.2'
+                    extensions: json
+                    tools: composer
+            -   run: composer update
+            -   run: composer test

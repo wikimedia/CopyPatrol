@@ -1,8 +1,6 @@
 # CopyPatrol
 This is a web interface for [Plagiabot's Copyright RC feed](https://en.wikipedia.org/wiki/User:EranBot/Copyright/rc).
 
-[![Build Status](https://travis-ci.org/wikimedia/CopyPatrol.svg?branch=master)](https://travis-ci.org/wikimedia/CopyPatrol)
-
 ## To install locally
 1. Clone the repository and run `composer install`.
 2. Edit the `.env` file that was created by composer.
