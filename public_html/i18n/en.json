@@ -81,6 +81,7 @@
   "footer-commtech": "Community Tech",
   "footer-poweredby": "Powered by $1 and $2",
   "search": "Search for page title:",
+  "filter-user": "Search reviews by user:",
   "source": "Source",
   "phabricator": "Phabricator",
   "footer-imageattr": "Image attribution",

@@ -349,10 +349,6 @@ a[href=''] {
 	margin-bottom: 10px;
 }
 
-.btn-submit-filters {
-	margin-left: 10px;
-}
-
 .load-more-div {
 	padding: 10px;
 	text-align: center;
@@ -424,9 +420,48 @@ a[href=''] {
 	}
 }
 
+.search-form {
+	display: grid;
+	column-gap: 10px;
+	row-gap: 2px;
+
+	max-width: 768px;
+	margin: 0 auto;
+
+	.cases-filter {
+		grid-row: 1;
+		grid-column: ~"1/8";
+	}
+
+	.search-title {
+		grid-row: 2;
+	}
+
+	&.reviewed .search-user {
+		display: none;
+	}
+
+	.search-user {
+		grid-row: 3;
+	}
+
+	.search-label {
+		grid-column: 1;
+		text-align: right;
+	}
+
+	.searchbox {
+		grid-column: ~"2/7";
+	}
+
+	.btn-submit-filters {
+		grid-row: ~"2/3";
+		grid-column: 7;
+	}
+}
+
 .searchbox {
 	float: none;
-	margin-top: 2px;
 	padding: 2px;
 }
 

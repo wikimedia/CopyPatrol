@@ -83,8 +83,8 @@
 		{# Make the filters invisible but don't hide markup so that JS can react to clicking on WP bubbles #}
 		<section class="filters container-fluid{% if permalink %} none{% endif %}">
 			<form id="filters-form">
-				<fieldset class="form-group filters-fieldset text-center">
-					<div class="cases-filter col-sm-12">
+				<fieldset class="form-group filters-fieldset text-center search-form{% if filter != 'reviewed' %} reviewed{% endif %}">
+					<div class="cases-filter">
 						{% for type in filterTypes %}
 							<span class="radio-inline">
 								<label>
@@ -106,26 +106,26 @@
 
 					{# End the row and start a new one to display the search box. #}
 					</div>
-					<div class="search-filter col-sm-12">
-						<label class="search-label" for="searchText">
-							{{ 'search' | message }}
-						</label><input type="text" id="searchText" name="searchText" class="searchbox col-sm-3"
-						               value="{{ searchText }}">
-						{# Radio button for choosing search type #}
-						<div class="form-check">
-							<input type="radio" name="searchCriteria" value="page"
-									{# Todo - To be used if we get more criterias {% if searchCriteria == 'page' %} #}
+					<label class="search-title search-label" for="searchText">
+						{{ 'search' | message }}
+					</label><input type="text" id="searchText" name="searchText" class="search-title searchbox"
+							value="{{ searchText }}">
+					<label class="search-user search-label" for="filterUser">
+						{{ 'filter-user' | message }}
+					</label><input type="text" id="filterUser" name="filterUser" class="search-user searchbox"
+							value="{{ filterUser }}">
+					<div class="form-check">
+						<input type="radio" name="searchCriteria" value="page"
+								{# Todo - To be used if we get more criterias {% if searchCriteria == 'page' %} #}
 								checked="checked">
-									{#{% endif %}>#}
-							<label class="search-select-label" for="searchCriteria">
-								{{ 'search-page' | message }}
-							</label>
-						</div>
-
-						<button type="submit" class="btn btn-primary btn-sm btn-submit-filters">
-							{{ 'submit' | message }}
-						</button>
+						{#{% endif %}>#}
+						<label class="search-select-label" for="searchCriteria">
+							{{ 'search-page' | message }}
+						</label>
 					</div>
+					<button type="submit" class="btn btn-primary btn-sm btn-submit-filters">
+						{{ 'submit' | message }}
+					</button>
 				</fieldset>
 			</form>
 		</section>
