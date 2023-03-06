@@ -3,6 +3,7 @@
 		"authors": [
 			"Kly",
 			"Liuxinyu970226",
+			"Winston Sung",
 			"Wwycheuk"
 		]
 	},
@@ -101,7 +102,7 @@
 	"js-dberror": "在連接資料庫時出現錯誤。",
 	"js-undo-own-only": "您僅可撤銷您自己的巡查。",
 	"js-unknown-error": "在載入結果時發生一個不明錯誤。請再重試一次。",
-	"permalink": "靜態連結",
+	"permalink": "固定連結",
 	"show-all-records": "顯示所有記錄",
 	"access-blocked": "您目前在 $2 上已被$1因此不能使用 CopyPatrol。",
 	"blocked": "已封禁"
