@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Kareyac",
 			"Mechanizatar"
 		]
 	},
@@ -40,6 +41,7 @@
 	"logout": "Выйсці",
 	"header-loggedin": "Вы ўвайшлі як: $1",
 	"form-all": "Усе выпадкі",
+	"page": "Старонка",
 	"review": "Праверка",
 	"review-fixed": "Старонка выпраўлена",
 	"review-fixed-tooltip": "Праўка парушала аўтарскае права і была скасавана",
