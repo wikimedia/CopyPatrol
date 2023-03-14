@@ -363,7 +363,7 @@ class App extends AbstractApp {
 			} );
 
 		// Stylesheet route.
-		$slim->get( '/index.css',
+		$slim->get( '/styles',
 			function () use ( $slim ) {
 				// Compile LESS if need be, otherwise serve cached asset
 				// Cached files get automatically deleted if they are over a week old
@@ -376,7 +376,7 @@ class App extends AbstractApp {
 				$slim->response->headers->set( 'Content-Type', 'text/css' );
 				$slim->response->setBody( file_get_contents( APP_ROOT . '/cache/less/' . $cssFileName ) );
 			}
-		)->name( 'index.css' );
+		)->name( 'styles' );
 
 		// Authentication routes.
 		$slim->group( '/oauth/',
