@@ -134,6 +134,7 @@
 				data: {
 					lastId: lastId,
 					filter: $( 'input[name=filter]:checked' ).val(),
+					filterUser: $( 'input[name=filterUser]' ).val(),
 					searchText: $( 'input[name=searchText]' ).val(),
 					searchCriteria: $( 'input[name=searchCriteria]' ).is( ':checked' ) ? 'page' : '',
 					drafts: $( 'input[name=drafts]' ).is( ':checked' ) ? '1' : '0'

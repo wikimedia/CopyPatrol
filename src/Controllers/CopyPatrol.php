@@ -362,7 +362,8 @@ class CopyPatrol extends Controller {
 		}
 
 		$filter = $this->getFilter();
-		$filterUser = $this->getUsername();
+		$loggedInUser = $this->getUsername();
+		$filterUser = $this->request->get( 'filterUser' );
 		$lastId = $this->request->get( 'lastId' ) ?: 0;
 		$drafts = $this->request->get( 'drafts' ) ? '1' : null;
 		$searchText = $this->request->get( 'searchText' );
@@ -382,13 +383,17 @@ class CopyPatrol extends Controller {
 		];
 
 		// filter by current user if they are logged and the filter is 'mine'
-		if ( $filter === 'mine' && isset( $filterUser ) ) {
-			$options['filterUser'] = $filterUser;
+		if ( $filter === 'mine' && isset( $loggedInUser ) ) {
+			$options[ 'filterUser' ] = $loggedInUser;
+		// filter by requested user if the filter is 'reviewed'
+		} elseif ( $filter === 'reviewed' && isset( $filterUser ) ) {
+			$options[ 'filterUser' ] = $filterUser;
 		}
 		// Set the language for the records.
 		$options['wikiLang'] = $this->wikiDao->getLang();
 
 		$this->view->set( 'filter', $filter );
+		$this->view->set( 'filterUser', $filterUser );
 		$this->view->set( 'drafts', $drafts );
 		$this->view->set( 'draftsExist', $this->dao->draftsExist( $this->wikiDao->getLang() ) );
 		$this->view->set( 'filterTypes', $this->getFilterTypes() );
