@@ -8,23 +8,14 @@ This is a web interface for [Plagiabot's Copyright RC feed](https://en.wikipedia
       at [Special:OAuthConsumerRegistration](https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration).
    2. To use Redis caching, also add `REDIS_HOST` and `REDIS_PORT`;
       without these, a local filesystem cache will be used.
-3. Make the `cache/` directory writable by the web server.
-4. Rewrite your routing, if needed.<br>
-   For Lighttpd, use this in your `.lighttpd.conf`:<br>
+3. Start a development server with `cd public_html && php -S localhost:8000`
+4. Open up an SSH tunnel to access the databases on Toolforge (substitute your own username).<br>
    ```
-   url.rewrite-if-not-file += ( "(.*)" => "/copypatrol/index.php/$0" )
+   $ ssh -L 4711:enwiki.web.db.svc.eqiad.wmflabs:3306 -L 4712:tools.db.svc.eqiad.wmflabs:3306 USERNAME@login.toolforge.org -N
    ```
-   <br>Or for Apache, this (in `.htaccess` at the root of the project):<br>
-   ```
-   DirectorySlash Off
-   RewriteEngine On
-   RewriteCond %{REQUEST_FILENAME} !-f
-   RewriteRule ^public_html(.*)$ public_html/index.php$1 [L]
-   ```
-5. Open up an SSH tunnel to access the databases on Tool Labs (substitute your own username).<br>
-   ```
-   $ ssh -L 4711:enwiki.web.db.svc.eqiad.wmflabs:3306 -L 4712:tools-db:3306 YOU@tools-login.wmflabs.org -N
-   ```
+   In this example, `DB_REPLICA_PORT` would be `4711` and `DB_PORT` would be `4712`. Note that the above also only
+   allows you to query English Wikipedia. You'll need to change the host accordingly to test other languages, such as
+   `eswiki.web.db.svc.eqiad.wmflabs` if you need to test against Spanish Wikipedia.
 
 This application makes of use the [Wikimedia-slimapp](https://github.com/wikimedia/wikimedia-slimapp) library and uses Twig as its templating engine.
 
@@ -40,9 +31,9 @@ This application makes of use the [Wikimedia-slimapp](https://github.com/wikimed
 To add a new language, follow these steps:
 
 1. Make sure the language is supported by iThenticate. This list is available at http://www.ithenticate.com/products/faqs. Look for the "Which international languages does iThenticate have content for in its database?" section.
-1. Make sure there is community consensus for CopyPatrol. This helps ensure they will **regularly** make use of CopyPatrol. EranBot, which powers the CopyPatrol feed, is expensive in terms of the resources it uses. Any languages that are not regularly being used should be removed.
-1. Make sure the corresponding `-wikipedia` message in `public_html/i18n/en.json` (and qqq.json) exists and is translated in the desired language.
-1. On Toolforge, `become community-tech-tools`, then `become eranbot`. Add the following to the crontab, replcaing `enwiki` and `-lang:en` accordingly:
+2. Make sure there is community consensus for CopyPatrol. This helps ensure they will **regularly** make use of CopyPatrol. EranBot, which powers the CopyPatrol feed, is expensive in terms of the resources it uses. Any languages that are not regularly being used should be removed.
+3. Make sure the corresponding `-wikipedia` message in `public_html/i18n/en.json` (and qqq.json) exists and is translated in the desired language.
+4. On Toolforge, `become community-tech-tools`, then `become eranbot`. Add the following to the crontab, replcaing `enwiki` and `-lang:en` accordingly:
 ```
 */10 * * * * jsub -N enwiki -mem 500m -l h_rt=4:05:00 -once -quiet -o /data/project/eranbot/outs python /data/project/eranbot/gitPlagiabot/plagiabot/plagiabot.py -lang:en -blacklist:User:EranBot/Copyright/Blacklist -live:on -reportlogger
 ```
@@ -51,7 +42,7 @@ To add a new language, follow these steps:
 ## To remove a language
 
 1. Remove the entry from `eranbot`'s crontab.
-1. Remove all relevant rows from the database. While logged in as eranbot, run:
+2. Remove all relevant rows from the database. While logged in as eranbot, run:
 ```
 sql local
 MariaDB [(none)]> USE s51306__copyright_p;
