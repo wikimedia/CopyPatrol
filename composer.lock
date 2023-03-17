@@ -4,26 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc45cb100d6af85db14ffc4296bdc237",
+    "content-hash": "1384887a9c2e7d98855d4750f247412a",
     "packages": [
         {
             "name": "addwiki/mediawiki-api-base",
-            "version": "2.8.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/addwiki/mediawiki-api-base.git",
-                "reference": "d8eff31b54fd39d90eb14457e5ce478cfdf08394"
+                "reference": "9db3892b18e79e8f47d59624ae85cabe93cd42ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/addwiki/mediawiki-api-base/zipball/d8eff31b54fd39d90eb14457e5ce478cfdf08394",
-                "reference": "d8eff31b54fd39d90eb14457e5ce478cfdf08394",
+                "url": "https://api.github.com/repos/addwiki/mediawiki-api-base/zipball/9db3892b18e79e8f47d59624ae85cabe93cd42ef",
+                "reference": "9db3892b18e79e8f47d59624ae85cabe93cd42ef",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/guzzle": "~6.3|~7.0",
+                "guzzlehttp/guzzle": "~6.3||~7.0",
                 "guzzlehttp/promises": "~1.0",
-                "php": ">=7.3",
+                "mediawiki/oauthclient": "^1.1",
+                "php": ">=7.4",
                 "psr/log": "~1.0"
             },
             "require-dev": {
@@ -32,17 +33,18 @@
                 "phpunit/phpunit": "~9"
             },
             "suggest": {
-                "etsy/phan": "Allows running static analysis on the package (requires PHP 7+)"
+                "ext-dom": "Needed if you want to discover APIs using only page URLs",
+                "ext-simplexml": "Needed if you want to discover APIs using only page URLs"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.8-dev"
+                    "dev-main": "3.0-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Mediawiki\\Api\\": "src/"
+                    "Addwiki\\Mediawiki\\Api\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -60,9 +62,9 @@
                 "mediawiki"
             ],
             "support": {
-                "source": "https://github.com/addwiki/mediawiki-api-base/tree/2.8.0"
+                "source": "https://github.com/addwiki/mediawiki-api-base/tree/3.0.0"
             },
-            "time": "2021-02-16T19:46:17+00:00"
+            "time": "2021-10-23T08:50:12+00:00"
         },
         {
             "name": "bd808/monolog-udp2log-handler",

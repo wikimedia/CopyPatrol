@@ -6,7 +6,7 @@
     "ext-intl": "*",
     "mediawiki/oauthclient": "~1.0",
     "wikimedia/slimapp": "dev-master",
-    "addwiki/mediawiki-api-base": "~2.1",
+    "addwiki/mediawiki-api-base": "~3.0",
     "wikimedia/simplei18n": "~1.0",
     "tedivm/stash": "^0.17",
     "phpxmlrpc/phpxmlrpc": "^4",
