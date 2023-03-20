@@ -81,6 +81,7 @@
 	"footer-commtech": "Tehnična skupnost",
 	"footer-poweredby": "Omogočata $1 in $2",
 	"search": "Išči naslov strani:",
+	"filter-user": "Iskanje ocen po uporabniku:",
 	"source": "Vir",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Avtor slike",

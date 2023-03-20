@@ -82,6 +82,7 @@
 	"footer-commtech": "社群技術",
 	"footer-poweredby": "由$1與$2提供技術支援",
 	"search": "搜尋頁面標題：",
+	"filter-user": "按使用者搜尋巡查：",
 	"source": "原始碼",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "圖片屬性",

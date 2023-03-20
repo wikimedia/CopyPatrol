@@ -85,6 +85,7 @@
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Fonctionne avec $1 et $2",
 	"search": "Rechercher par titre de page :",
+	"filter-user": "Rechercher les relectures par utilisateur :",
 	"source": "Source",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Crédits d’image",
