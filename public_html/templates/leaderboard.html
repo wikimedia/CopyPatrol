@@ -9,6 +9,7 @@
 				<a target="_blank" href="https://{{ wikiLang }}.wikipedia.org/wiki/User:{{ leader.user }}"
 				   class="{{ username == leader.user ? 'mine' : '' }}">{{ leader.user }}</a>:
 				<a href="{{ urlFor( 'home', {wikiLang:wikiLang} ) }}?filter=reviewed&filterUser={{ leader.user }}"
+					title="{{ 'lboard-count-title' | message(leader.count | number_format) }}"
 					>{{ leader.count | number_format }}</a></li>
 		{% endfor %}
 	</ol>

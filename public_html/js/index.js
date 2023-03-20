@@ -5,6 +5,11 @@
 		/** Initialize Select2 */
 		setupSelect2();
 
+		/** Variables */
+
+		/** @type HTMLFormElement */
+		var filtersForm = document.forms["filters-form"];
+
 		/** Listeners */
 		$( 'body' ).tooltip( {
 			selector: '[data-toggle="tooltip"]'
@@ -39,6 +44,13 @@
 		$( 'a[href="#"]' ).on( 'click', function ( e ) {
 			e.preventDefault();
 		} );
+		// enable additional search features based on active filter
+		$( filtersForm.elements.filter ).on( 'change', function () {
+			var newFilter = filtersForm.elements["filter"].value;
+			filtersForm.setAttribute( "data-filter", newFilter );
+		} );
+		// set the filter where the radio value may have been remembered from a page reload
+		filtersForm.setAttribute( "data-filter", filtersForm.elements["filter"].value );
 
 		/**
 		 * Save a review
