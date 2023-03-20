@@ -273,8 +273,8 @@ class App extends AbstractApp {
 			},
 			'set-environment' => function () use ( $slim ) {
 				// determine if we are on the staging environment, so we can show a banner in the view
-				$rootUri = $slim->request->getRootUri();
-				$slim->view->set( 'staging', strpos( $rootUri, 'plagiabot' ) );
+				$rootUrl = $slim->request->getUrl();
+				$slim->view->set( 'staging', strpos( $rootUrl, 'plagiabot' ) );
 				// Give the view the current route name, for inter-language linking.
 				$slim->view->set( 'currentRoute', $slim->router->getCurrentRoute()->getName() );
 			},
