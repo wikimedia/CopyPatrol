@@ -43,9 +43,9 @@
 	{% block banners %}
 		<section class="banners">
 			{% if staging %}
-				{% set copypatrol_link %}
-					<a href="https://tools.wmflabs.org/copypatrol/">tools.wmflabs.org/copypatrol</a>
-				{% endset %}
+				{% set copypatrol_link -%}
+					<a href="https://copypatrol.toolforge.org/">copypatrol.toolforge.org</a>
+				{%- endset %}
 				<div class="alert alert-danger text-center">{{ 'alert-testing' | message( copypatrol_link ) | raw }}</div>
 			{% endif %}
 			{% block flashes %}
