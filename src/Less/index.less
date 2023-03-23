@@ -420,13 +420,15 @@ a[href=''] {
 	}
 }
 
-.search-form {
-	display: grid;
-	column-gap: 10px;
-	row-gap: 2px;
+#filters-form {
+	&> fieldset {
+		display: grid;
+		column-gap: 10px;
+		row-gap: 2px;
 
-	max-width: 768px;
-	margin: 0 auto;
+		max-width: 768px;
+		margin: 0 auto;
+	}
 
 	.cases-filter {
 		grid-row: 1;
@@ -437,8 +439,11 @@ a[href=''] {
 		grid-row: 2;
 	}
 
-	&.reviewed .search-user {
-		display: none;
+	/* Styles to be applied whenever the filter is not "Reviewed cases" */
+	&:not([data-filter="reviewed"]) {
+		.search-user {
+			display: none;
+		}
 	}
 
 	.search-user {
