@@ -147,8 +147,7 @@
 					lastId: lastId,
 					filter: $( 'input[name=filter]:checked' ).val(),
 					filterUser: $( 'input[name=filterUser]' ).val(),
-					searchText: $( 'input[name=searchText]' ).val(),
-					searchCriteria: $( 'input[name=searchCriteria]' ).is( ':checked' ) ? 'page' : '',
+					filterPage: $( 'input[name=filterPage]' ).val(),
 					drafts: $( 'input[name=drafts]' ).is( ':checked' ) ? '1' : '0'
 				}
 			} ).done( function ( ret ) {

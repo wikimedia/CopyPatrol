@@ -31,6 +31,8 @@ use GuzzleHttp;
 
 class CopyPatrol extends Controller {
 
+	public const FILTER_TYPES = [ 'all', 'open', 'reviewed' ];
+
 	/**
 	 * @var WikiDao The DAO for Wikipedia data access.
 	 */
@@ -69,8 +71,7 @@ class CopyPatrol extends Controller {
 			// ORES is not currently functional
 			return false;
 		}
-		$data = GuzzleHttp\json_decode( $response, true );
-		$wikiCode = $this->wikiDao->getLang() . 'wiki';
+		$data = json_decode( $response, true );
 		$data = $data['scores'][$wikiCode]['damaging']['scores'];
 		$scores = [];
 		foreach ( $data as $revId => $value ) {
@@ -99,7 +100,7 @@ class CopyPatrol extends Controller {
 
 		$records = $this->getRecords();
 		// nothing else needs to be done if there are no records
-		if ( empty( $records ) ) {
+		if ( !$records ) {
 			return $this->render( 'index.html' );
 		}
 		$userWhitelist = $this->getUserWhitelist();
@@ -268,40 +269,16 @@ class CopyPatrol extends Controller {
 		}
 		// Default to 'open'
 		$filter = $this->request->get( 'filter' ) ? $this->request->get( 'filter' ) : 'open';
-		// Check user is logged in if filter requested is 'mine', if not, use 'open' by default.
-		if ( $filter === 'mine' && !$this->getUsername() ) {
-			$this->flashNow( 'warning', 'You must be logged in to view your own reviews.' );
+		// Check that the filter value was valid.
+		if ( !in_array( $filter, self::FILTER_TYPES ) ) {
+			$this->flashNow(
+				'error',
+				'Invalid filter. Values must be one of: ' . implode( ', ', self::FILTER_TYPES )
+			);
+			// Set to default
 			$filter = 'open';
-		} else {
-			$filterTypeKeys = $this->getFilterTypes();
-			// Check that the filter value was valid.
-			if ( !in_array( $filter, $filterTypeKeys ) ) {
-				$this->flashNow(
-					'error',
-					'Invalid filter. Values must be one of: ' . implode( ', ', $filterTypeKeys )
-				);
-				// Set to default
-				$filter = 'open';
-			}
 		}
 		return $filter;
-	}
-
-	/**
-	 * Get the currently-available filter types.
-	 *
-	 * @return string[] Array by filter codes.
-	 */
-	protected function getFilterTypes() {
-		static $filterTypes = null;
-		if ( $filterTypes === null ) {
-			$filterTypes = [ 'all', 'open', 'reviewed' ];
-			// Add 'My reviews' to filter options if user is logged in.
-			if ( $this->getUsername() ) {
-				$filterTypes[] = 'mine';
-			}
-		}
-		return $filterTypes;
 	}
 
 	/**
@@ -334,9 +311,9 @@ class CopyPatrol extends Controller {
 	 * Get plagiarism records based on URL parameters and whether or not the user is logged in
 	 * This function also sets view variables for the filters, which get rendered as radio options
 	 *
-	 * @return array Collection of plagiarism records
+	 * @return array|null Collection of plagiarism records
 	 */
-	protected function getRecords() {
+	protected function getRecords(): ?array {
 		// if an ID is set, we want to show just that record
 		$id = $this->request->get( 'id' );
 		if ( $id ) {
@@ -362,12 +339,10 @@ class CopyPatrol extends Controller {
 		}
 
 		$filter = $this->getFilter();
-		$loggedInUser = $this->getUsername();
 		$filterUser = $this->request->get( 'filterUser' );
+		$filterPage = $this->request->get( 'filterPage' );
 		$lastId = $this->request->get( 'lastId' ) ?: 0;
 		$drafts = $this->request->get( 'drafts' ) ? '1' : null;
-		$searchText = $this->request->get( 'searchText' );
-		$searchCriteria = $this->request->get( 'searchCriteria' );
 
 		// make this easier when working locally
 		$numRecords = $_SERVER['HTTP_HOST'] === 'localhost' ? 10 : 50;
@@ -377,28 +352,23 @@ class CopyPatrol extends Controller {
 			'filter' => $filter,
 			'lastId' => $lastId > 0 ? $lastId : null,
 			'drafts' => $drafts,
-			'searchText' => str_replace( ' ', '_', $searchText ),
-			'searchCriteria' => $searchCriteria,
+			'filterPage' => str_replace( ' ', '_', $filterPage ),
 			'revision' => $this->request->get( 'revision' ) ?: null
 		];
 
-		// filter by current user if they are logged and the filter is 'mine'
-		if ( $filter === 'mine' && isset( $loggedInUser ) ) {
-			$options[ 'filterUser' ] = $loggedInUser;
 		// filter by requested user if the filter is 'reviewed'
-		} elseif ( $filter === 'reviewed' && isset( $filterUser ) ) {
+		if ( $filter === 'reviewed' && isset( $filterUser ) ) {
 			$options[ 'filterUser' ] = $filterUser;
 		}
 		// Set the language for the records.
 		$options['wikiLang'] = $this->wikiDao->getLang();
 
 		$this->view->set( 'filter', $filter );
+		$this->view->set( 'filterTypes', self::FILTER_TYPES );
+		$this->view->set( 'filterPage', $filterPage );
 		$this->view->set( 'filterUser', $filterUser );
 		$this->view->set( 'drafts', $drafts );
 		$this->view->set( 'draftsExist', $this->dao->draftsExist( $this->wikiDao->getLang() ) );
-		$this->view->set( 'filterTypes', $this->getFilterTypes() );
-		$this->view->set( 'searchText', $searchText );
-		$this->view->set( 'searchCriteria', $searchCriteria );
 
 		$this->setHasWikiprojects();
 
