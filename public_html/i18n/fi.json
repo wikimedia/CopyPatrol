@@ -60,6 +60,7 @@
 	"record-noeditor": "Muokkainta ei löytynyt",
 	"article": "Artikkeli",
 	"footer-loadmore": "Lataa lisää",
+	"footer-poweredby": "Palvelun mahdollistaa $1 ja $2",
 	"source": "Lähde",
 	"phabricator": "Phabricator",
 	"lboard-title": "Leaderboard",

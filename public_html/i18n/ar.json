@@ -3,6 +3,7 @@
 		"authors": [
 			"Ali1",
 			"Dr-Taher",
+			"MRidhaAJ",
 			"ديفيد",
 			"محمد أحمد عبد الفتاح"
 		]
@@ -82,6 +83,7 @@
 	"footer-commtech": "مجتمع التقنية",
 	"footer-poweredby": "مدعوم من $1 و$2",
 	"search": "البحث عن عنوان الصفحة:",
+	"filter-user": "بحث عن مراجعات من قبل المستخدم:",
 	"source": "المصدر",
 	"phabricator": "فبريكاتور",
 	"footer-imageattr": "إحالة الصورة",

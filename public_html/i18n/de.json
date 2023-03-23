@@ -80,6 +80,7 @@
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Powered by $1 and $2",
 	"search": "Nach Seitentitel suchen:",
+	"filter-user": "Suche Bewertungen nach Benutzer:",
 	"source": "Quelle",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Bildnennung",
