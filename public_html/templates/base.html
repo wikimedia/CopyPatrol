@@ -106,23 +106,14 @@
 
 					{# End the row and start a new one to display the search box. #}
 					</div>
-					<label class="search-title search-label" for="searchText">
+					<label class="search-title search-label" for="filterPage">
 						{{ 'filter-page' | message }}
-					</label><input type="text" id="searchText" name="searchText" class="search-title searchbox"
-							value="{{ searchText }}">
+					</label><input type="text" id="filterPage" name="filterPage" class="search-title searchbox"
+							value="{{ filterPage }}">
 					<label class="search-user search-label" for="filterUser">
 						{{ 'filter-user' | message }}
 					</label><input type="text" id="filterUser" name="filterUser" class="search-user searchbox"
 							value="{{ filterUser }}">
-					<div class="form-check">
-						<input type="radio" name="searchCriteria" value="page"
-								{# Todo - To be used if we get more criterias {% if searchCriteria == 'page' %} #}
-								checked="checked">
-						{#{% endif %}>#}
-						<label class="search-select-label" for="searchCriteria">
-							{{ 'searchCriteria-page' | message }}
-						</label>
-					</div>
 					<button type="submit" class="btn btn-primary btn-sm btn-submit-filters">
 						{{ 'submit' | message }}
 					</button>
