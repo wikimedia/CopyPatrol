@@ -4,7 +4,7 @@
     "php": "^7.4",
     "ext-json": "*",
     "ext-intl": "*",
-    "mediawiki/oauthclient": "~1.0",
+    "mediawiki/oauthclient": "~2.0",
     "wikimedia/slimapp": "dev-master",
     "addwiki/mediawiki-api-base": "~2.1",
     "wikimedia/simplei18n": "~1.0",
