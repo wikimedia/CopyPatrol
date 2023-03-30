@@ -88,6 +88,7 @@
 	"lboard-month": "Fälle, die in den letzten 30 Tagen geschlossen wurden",
 	"lboard-alltime": "Alle Zeitfälle geschlossen",
 	"lboard-back": "Zurück zu CopyPatrol",
+	"lboard-count-title": "Siehe $1 von diesem Benutzer bewertete Fälle",
 	"close": "Schließen",
 	"imageattr-title": "Bildnennung",
 	"imageattr-logo": "CopyPatrol-Logo",

@@ -91,6 +91,7 @@
 	"lboard-month": "מקרים שנסגרו בחודש החולף",
 	"lboard-alltime": "כל המקרים שנסגרו אי פעם",
 	"lboard-back": "חזרה ל־CopyPatrol",
+	"lboard-count-title": "ר' {{PLURAL:$1|מקרה אחד|$1 מקרים}} שנבדקו על־ידי המשתמש הזה",
 	"close": "סגירה",
 	"imageattr-title": "ייחוס תמונה",
 	"imageattr-logo": "הלוגו של CopyPatrol",
