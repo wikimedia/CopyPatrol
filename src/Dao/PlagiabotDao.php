@@ -21,6 +21,7 @@
  */
 namespace Plagiabot\Web\Dao;
 
+use DateTime;
 use Wikimedia\Slimapp\Dao\AbstractDao;
 
 class PlagiabotDao extends AbstractDao {
@@ -208,10 +209,11 @@ class PlagiabotDao extends AbstractDao {
 			'SET status = :status, status_user = :status_user, review_timestamp = :review_timestamp',
 			'WHERE ithenticate_id = :id'
 		);
+		$timestamp = new DateTime( $timestamp );
 		return $this->update( $sql, [
 			'status' => $value,
 			'status_user' => $user,
-			'review_timestamp' => $timestamp,
+			'review_timestamp' => $timestamp->format( 'Y-m-d H:i' ),
 			'id' => $ithenticateId
 		] );
 	}
