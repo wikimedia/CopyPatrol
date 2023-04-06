@@ -4,6 +4,7 @@
 			"Ali1",
 			"Dr-Taher",
 			"MRidhaAJ",
+			"Mohanad Kh",
 			"ديفيد",
 			"محمد أحمد عبد الفتاح"
 		]
@@ -91,6 +92,7 @@
 	"lboard-month": "الحالات المغلقة في آخر  30 يوما",
 	"lboard-alltime": "الحالات المغلقة كل الوقت",
 	"lboard-back": "العودة إلى CopyPatrol",
+	"lboard-count-title": "انظر $1 حالات راجعها هذا المستخدم",
 	"close": "أغلق",
 	"imageattr-title": "إحالة الصورة",
 	"imageattr-logo": "شعار CopyPatrol",
