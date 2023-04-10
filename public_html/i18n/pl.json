@@ -4,6 +4,7 @@
 			"Chrumps",
 			"DeRudySoulStorm",
 			"Superjurek",
+			"WaldiSt",
 			"Wojtas",
 			"Woytecr"
 		]
@@ -82,6 +83,7 @@
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Wspierane przez $1 oraz $2",
 	"filter-page": "Wyszukaj tytuł strony:",
+	"filter-user": "Wyszukaj recenzje według użytkownika:",
 	"source": "Źródło",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Atrybuty obrazu",
