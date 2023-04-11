@@ -1446,23 +1446,23 @@
         },
         {
             "name": "wikimedia/less.php",
-            "version": "v4.0.0",
+            "version": "v4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wikimedia/less.php.git",
-                "reference": "62ff1b15a14449542521e1d68e1bb3019c273582"
+                "reference": "80694e356d0ea4237e7643d90e60a772b0fe4214"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikimedia/less.php/zipball/62ff1b15a14449542521e1d68e1bb3019c273582",
-                "reference": "62ff1b15a14449542521e1d68e1bb3019c273582",
+                "url": "https://api.github.com/repos/wikimedia/less.php/zipball/80694e356d0ea4237e7643d90e60a772b0fe4214",
+                "reference": "80694e356d0ea4237e7643d90e60a772b0fe4214",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4.3"
             },
             "require-dev": {
-                "mediawiki/mediawiki-codesniffer": "40.0.1",
+                "mediawiki/mediawiki-codesniffer": "41.0.0",
                 "mediawiki/mediawiki-phan-config": "0.12.0",
                 "mediawiki/minus-x": "1.1.1",
                 "php-parallel-lint/php-console-highlighter": "1.0.0",
@@ -1515,9 +1515,9 @@
             ],
             "support": {
                 "issues": "https://github.com/wikimedia/less.php/issues",
-                "source": "https://github.com/wikimedia/less.php/tree/v4.0.0"
+                "source": "https://github.com/wikimedia/less.php/tree/v4.1.0"
             },
-            "time": "2023-03-11T23:30:18+00:00"
+            "time": "2023-04-10T22:43:59+00:00"
         },
         {
             "name": "wikimedia/simplei18n",
