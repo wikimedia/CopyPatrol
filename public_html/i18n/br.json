@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Adriendelucca",
 			"Fulup",
 			"Gwenn-Ael"
 		]
@@ -40,6 +41,7 @@
 	"fa-wikipedia": "Wikipedia persek",
 	"ru-wikipedia": "Wikipedia rusianek",
 	"tr-wikipedia": "Wikipedia turkek",
+	"simple-wikipedia": "Wikipedia Saozneg Eeun",
 	"login": "Kevreañ",
 	"logout": "Digevreañ",
 	"header-loggedin": "Kevreet oc'h evel $1",
