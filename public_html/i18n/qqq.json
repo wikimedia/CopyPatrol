@@ -11,6 +11,7 @@
 			"MusikAnimal",
 			"Niharika Kohli",
 			"Ryan Kaldari",
+			"Shawn",
 			"Tacsipacsi",
 			"Uzume"
 		]
@@ -53,7 +54,7 @@
 	"simple-wikipedia": "{{identical|Simple English Wikipedia}}",
 	"login": "Button label\n{{Identical|Login}}",
 	"logout": "Button label\n{{Identical|Logout}}",
-	"header-loggedin": "Message to tell user who they are logged in as.\n\nParameter: \n* $1 - Wiki username.",
+	"header-loggedin": "Message to tell user who they are logged in as. <br/>\nWarning: this message is used outside Mediawiki and cannot handle <nowiki>{{GENDER:}}</nowiki> syntax.\n\nParameter: \n* $1 - Wiki username.",
 	"form-all": "Form radio button label - show all possible records",
 	"form-open": "Form radio button label - show unreviewed records",
 	"form-reviewed": "Form radio button label - show reviewed records",
