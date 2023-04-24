@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"HanV",
 			"Mainframe98",
 			"McDutchie",
 			"Ooswesthoesbes",
@@ -91,6 +92,7 @@
 	"lboard-month": "In de afgelopen 30 dagen gesloten zaken",
 	"lboard-alltime": "Alle gesloten zaken",
 	"lboard-back": "Terug naar CopyPatrol",
+	"lboard-count-title": "Bekijk $1 zaken die door deze gebruiker zijn beoordeeld",
 	"close": "Sluiten",
 	"imageattr-title": "Naamsvermelding afbeelding",
 	"imageattr-logo": "Logo CopyPatrol",
