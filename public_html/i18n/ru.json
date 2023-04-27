@@ -94,6 +94,7 @@
 	"lboard-month": "Дела, которые были закрыты в течение последних 30 дней",
 	"lboard-alltime": "Дела, закрытые за всё время",
 	"lboard-back": "Вернуться к CopyPatrol",
+	"lboard-count-title": "Посмотреть $1 дел, рассмотренные этим участником",
 	"close": "Закрыть",
 	"imageattr-title": "Атрибуция изображения",
 	"imageattr-logo": "Логотип CopyPatrol",
