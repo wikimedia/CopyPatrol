@@ -3,7 +3,8 @@
 		"authors": [
 			"Andibing",
 			"Dejavu",
-			"Janezdrilc"
+			"Janezdrilc",
+			"Mako001"
 		]
 	},
 	"name": "CopyPatrol",
@@ -41,6 +42,7 @@
 	"fa-wikipedia": "Persian Wikipedia",
 	"ru-wikipedia": "Russian Wikipedia",
 	"tr-wikipedia": "Turkish Wikipedia",
+	"simple-wikipedia": "Simple English Wikipedia",
 	"login": "Login",
 	"logout": "Logout",
 	"header-loggedin": "You are logged in as: $1",
@@ -79,6 +81,7 @@
 	"footer-commtech": "Community Tech",
 	"footer-poweredby": "Powered by $1 and $2",
 	"filter-page": "Search for page title:",
+	"filter-user": "Search reviews by user:",
 	"source": "Source",
 	"phabricator": "Phabricator",
 	"footer-imageattr": "Image attribution",
@@ -87,6 +90,7 @@
 	"lboard-month": "Cases closed in the last 30 days",
 	"lboard-alltime": "All time cases closed",
 	"lboard-back": "Back to CopyPatrol",
+	"lboard-count-title": "See $1 cases reviewed by this user",
 	"close": "Close",
 	"imageattr-title": "Image attribution",
 	"imageattr-logo": "CopyPatrol logo",
