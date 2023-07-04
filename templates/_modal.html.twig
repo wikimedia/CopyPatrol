@@ -1,0 +1,51 @@
+<div class="modal fade" id="image-attribution" tabindex="-1" role="dialog"
+	 aria-labelledby="image-attribution-label">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="image-attribution-label">
+						{{ msg('imageattr-title') }}
+					</h4>
+				</div>
+				<div class="modal-body">
+					<p>
+						{% set copypatrol_logo %}
+							<a target="_blank" href="https://commons.wikimedia.org/wiki/File:Dialog-error-copyright.svg">{{ msg('imageattr-logo') }}</a>
+						{% endset %}
+						{% set public_domain %}
+							<a target="_blank" href="https://en.wikipedia.org/wiki/Public_domain">{{ msg('public-domain') }}</a>
+						{% endset %}
+						{% set xander89 %}
+							<a target="_blank" href="https://commons.wikimedia.org/wiki/User:Xander89">Xander89</a>
+						{% endset %}
+						{% set tango %}
+							<a target="_blank" href="http://tango.freedesktop.org/Tango_Desktop_Project">Tango Desktop Project</a>.
+						{% endset %}
+						{{ msg('imageattr-paragraph1', [copypatrol_logo, public_domain, xander89, tango]) }}
+					</p>
+					<p>
+						{% set bitter %}
+							<a target="_blank" href="https://fonts.google.com/specimen/Bitter">Bitter font</a>
+						{% endset %}
+						{% set open_font %}
+							<a target="_blank" href="http://scripts.sil.org/cms/scripts/page.php?item_id=OFL">{{ msg('open-font-license') }}</a>
+						{% endset %}
+						{% set huerta %}
+							<a target="_blank" href="http://huertatipografica.com/">Huerta Tipográfica</a>.
+						{% endset %}
+						{{ msg('imageattr-paragraph2', [bitter, open_font, huerta]) }}
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						{{ msg('close') }}
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,6 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        notice_text: '%env(APP_NOTICE_TEXT)%'
+        notice_style: '%env(APP_NOTICE_STYLE)%'
+        supported_languages: '%env(csv:APP_ENABLED_LANGS)%'

@@ -1,0 +1,20 @@
+<footer class="app-footer">
+	{% set broughtby %}
+		<a href="https://meta.wikimedia.org/wiki/Community_Tech">{{ msg('footer-commtech') }}</a>
+	{% endset %}
+	{{ msg('footer-broughtby', [broughtby])|raw }}
+	&bull;
+	{% set eranbot %}
+		<a href="https://meta.wikimedia.org/wiki/User:CopyPatrolBot">CopyPatrolBot</a>
+	{% endset %}
+	{% set turnitin %}
+		<a href="https://en.wikipedia.org/wiki/Wikipedia:Turnitin">Turnitin</a>
+	{% endset %}
+	{{ msg('footer-poweredby', [eranbot, turnitin]) }}
+	&bull;
+	<a href="https://github.com/wikimedia/CopyPatrol">{{ msg('source') }}</a> &bull;
+	<a href="https://phabricator.wikimedia.org/project/profile/1638">{{ msg('phabricator') }}</a> &bull;
+	<a href="#" data-toggle="modal" data-target="#image-attribution">{{ msg('footer-imageattr') }}</a>
+</footer>
+
+{% include '_modal.html.twig' %}

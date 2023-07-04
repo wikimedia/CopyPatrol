@@ -1,25 +1,51 @@
-# CopyPatrol
-This is a web interface for [Plagiabot's Copyright RC feed](https://en.wikipedia.org/wiki/User:EranBot/Copyright/rc).
+CopyPatrol
+==========
 
-## To install locally
-1. Clone the repository and run `composer install`.
-2. Edit the `.env` file that was created by composer.
-   1. Get OAuth tokens by registering a new consumer on Meta
-      at [Special:OAuthConsumerRegistration](https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration).
-   2. To use Redis caching, also add `REDIS_HOST` and `REDIS_PORT`;
-      without these, a local filesystem cache will be used.
-3. Start a development server with `cd public_html && php -S localhost:8000`
-4. Open up an SSH tunnel to access the databases on Toolforge (substitute your own username).<br>
+A tool that allows you to see recent Wikipedia edits that are flagged as possible
+[copyright violations](https://en.wikipedia.org/wiki/Wikipedia:Copyright_violations).
+
+* User documentation: https://meta.wikimedia.org/wiki/Special:MyLanguage/CopyPatrol
+* Issue tracker: https://phabricator.wikimedia.org/tag/copypatrol/
+* Source code: https://gitlab.wikimedia.org/repos/commtech/copypatrol
+
+## Installing manually
+
+### Prerequisites
+
+* PHP 7.4+
+* [Symfony CLI](https://symfony.com/download#step-1-install-symfony-cli)
+* Node using the version specified by [.nvmrc](.nvmrc)
+* [Toolforge access](https://wikitech.wikimedia.org/wiki/Help:Toolforge/Quickstart)
+
+This application makes use of the [Symfony framework](https://symfony.com/) and
+the [ToolforgeBundle](https://github.com/wikimedia/ToolforgeBundle).
+
+### Instructions
+
+1. Copy [.env](.env) to [.env.local](.env.local) and fill in the appropriate details.
+    1. Use the credentials in your `replica.my.cnf` file in the home directory of your
+       Toolforge account for `REPLICAS_USERNAME`, `REPLICAS_PASSWORD`, as well as
+       `TOOLSDB_USERNAME` and `TOOLSDB_PASSWORD`.
+    2. If you need to test (un)reviewing CopyPatrol cases, `TOOLSDB_USERNAME` and `TOOLSDB_PASSWORD`
+       need to be set to a user with an installation of the CopyPatrol database (`COPYPATROL_DB_NAME`).
+    3. If you need to test OAuth, obtain tokens by registering a new consumer on Meta at
+       [Special:OAuthConsumerRegistration](https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration).
+       Alternatively, you can set `LOGGED_IN_USER` to any value to simulate being that user
+       after clicking on 'Login'.
+    4. `ITHENTICATE_USERNAME` and `ITHENTICATE_PASSWORD` are not necessary unless you need
+       to test the "iThenticate report" functionality.
+2. Run `composer install`
+3. Open up an SSH tunnel to access the databases on Toolforge. This assumes you have left
+   the `REPLICAS_HOST_*` and `REPLICAS_PORT_*` variables at their defaults.
    ```bash
-   ssh -L 4711:enwiki.web.db.svc.eqiad.wmflabs:3306 -L 4712:tools.db.svc.eqiad.wmflabs:3306 USERNAME@login.toolforge.org -N
+   symfony console toolforge:ssh --toolsdb
    ```
-   In this example, `DB_REPLICA_PORT` would be `4711` and `DB_PORT` would be `4712`. Note that the above also only
-   allows you to query English Wikipedia. You'll need to change the host accordingly to test other languages, such as
-   `eswiki.web.db.svc.eqiad.wmflabs` if you need to test against Spanish Wikipedia.
+4. Start the Symfony web server with `symfony serve`
 
-This application makes of use the [Wikimedia-slimapp](https://github.com/wikimedia/wikimedia-slimapp) library and uses Twig as its templating engine.
+## Installing using Docker
 
-### Using Docker
+_TODO: Update any of these instructions as necessary following the Symfony migration._
+
 1. Build the Docker image for CopyPatrol.
    ```bash
    docker-compose -f docker-compose.dev.yml build
@@ -33,63 +59,52 @@ This application makes of use the [Wikimedia-slimapp](https://github.com/wikimed
    ```bash
    docker run --rm -it -v %CD%:/app wikimedia/copypatrol-development composer install
    ```
-3. Edit the `.env` file that was created by composer.
-   1. Get OAuth tokens by registering a new consumer on Meta
-      at [Special:OAuthConsumerRegistration](https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration).
-   2. Set `DB_HOST` and `DB_REPLICA_HOST` to `host.docker.internal` to use the tunneled ports on the host machine (later step).
-   3. Use the proper username and password for accessing the Replicas and ToolsDB databases.
-4. Open up an SSH tunnel to access the databases on Toolforge (substitute your own username).
+3. Edit the `.env.local` file that was created by composer.
+    1. Use the credentials in your `replica.my.cnf` file in the home directory of your
+       Toolforge account for `REPLICAS_USERNAME`, `REPLICAS_PASSWORD`, as well as
+       `TOOLSDB_USERNAME` and `TOOLSDB_PASSWORD`.
+    2. If you need to test (un)reviewing CopyPatrol cases, `TOOLSDB_USERNAME` and `TOOLSDB_PASSWORD`
+       need to be set to a user with an installation of the CopyPatrol database (`COPYPATROL_DB_NAME`).
+    3. If you need to test OAuth, obtain tokens by registering a new consumer on Meta at
+       [Special:OAuthConsumerRegistration](https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration).
+       Alternatively, you can set `LOGGED_IN_USER` to any value to simulate being that user
+       after clicking on 'Login'.
+    4. `ITHENTICATE_USERNAME` and `ITHENTICATE_PASSWORD` are not necessary unless you need
+       to test the "iThenticate report" functionality.
+4. Open up an SSH tunnel to access the databases on Toolforge. This assumes you have left
+   the `REPLICAS_HOST_*` and `REPLICAS_PORT_*` variables at their defaults.
    ```bash
-   ssh -L 4711:enwiki.web.db.svc.wikimedia.cloud:3306 -L 4712:tools.db.svc.wikimedia.cloud:3306 YOU@dev.toolforge.org -N
+   symfony console toolforge:ssh --bind-address=0.0.0.0 --toolsdb
    ```
-   In this example, `DB_REPLICA_PORT` would be `4711` and `DB_PORT` would be `4712`. Note that the above also only
-   allows you to query English Wikipedia. You'll need to change the host accordingly to test other languages, such as
-   `eswiki.web.db.svc.eqiad.wmflabs` if you need to test against Spanish Wikipedia.
 5. Run the Docker Compose file. CopyPatrol will be accessible on http://localhost:80
    ```bash
    docker-compose -f docker-compose.dev.yml up
    ```
 
-Redis caching is automatically included within the `docker-compose.dev.yml` file. This is automatically
-used even without further configuration of the `.env` file (which uses a Redis cache by default).
-
 Changes to this folder will automatically be applied to the running Docker container. This includes
-changes to `src` files, `.env`, etc. XDebug is set up to connect to the host machine (the computer
+changes to `src` files, `.env.local`, etc. XDebug is set up to connect to the host machine (the computer
 running the Docker container) on request, see the `Dockerfile` for the specific configuration values.
 
-If you wish to use testing databases instead of the Plagiabot databases live on Toolforge, change `DB_HOST`,
+If you wish to use testing databases instead of the Plagiabot databases live on Toolforge, change `COPYPATROL_DB_NAME`,
 and all related connection options. You will still need to connect to the Replica DBs for revision
-information, so leave `DB_REPLICA_HOST` untouched and keep tunneling the port for the Replica DB in step 4.
+information, so leave `REPLICAS_HOST_*` untouched and keep tunneling the port for the Replica DB in step 4.
 
 To make a **production-level** build, run `docker build --target production -t wikimedia/copypatrol:latest`.
 XDebug and other related components will be disabled.
 
-## To add a new translation message:
-1. Add it to en.json
-2. Update the qqq.json documentation accordingly
-3. Call it in Twig as `{{ '<message-key>'|message }}`. If the message contains any HTML, you'll need to append the `|raw` filter after `message`.
-4. To use a translation message in JavaScript, add it as a global variable in `templates/base.html`. Then simply access it in the JS.
-5. To get a message in PHP, use `$this->i18nContext->message( '<message-key>' )`
+## Adding new languages
 
-## To add a new language
+1. Make sure the language is supported by iThenticate. This list is available at https://www.ithenticate.com/resources
+   under the "General" section of the FAQ. Look for "_Which international languages does iThenticate have content for in its database?_".
+2. Make sure there is community consensus for CopyPatrol. This helps ensure they will **regularly** make use of CopyPatrol.
+   The bot which powers the CopyPatrol feed is expensive in terms of the resources it uses.
+   Any languages that are not regularly being used should be removed.
+3. Make sure the corresponding `-wikipedia` message in [i18n/en.json](i18n/en.json) (and [qqq.json](i18n/qqq.json)
+   exists and is translated in the desired language.
+4. Add the language code to `APP_ENABLED_LANGS` in the [.env](.env) files.
+5. _We now use https://github.com/JJMC89/copypatrol-backend as the bot backend; technical instructions TBD_
 
-To add a new language, follow these steps:
+## Removing a language
 
-1. Make sure the language is supported by iThenticate. This list is available at http://www.ithenticate.com/products/faqs. Look for the "Which international languages does iThenticate have content for in its database?" section.
-2. Make sure there is community consensus for CopyPatrol. This helps ensure they will **regularly** make use of CopyPatrol. EranBot, which powers the CopyPatrol feed, is expensive in terms of the resources it uses. Any languages that are not regularly being used should be removed.
-3. Make sure the corresponding `-wikipedia` message in `public_html/i18n/en.json` (and qqq.json) exists and is translated in the desired language.
-4. On Toolforge, `become community-tech-tools`, then `become eranbot`. Add the following to the crontab, replacing `enwiki` and `-lang:en` accordingly:
-   ```
-   */10 * * * * jsub -N enwiki -mem 500m -l h_rt=4:05:00 -once -quiet -o /data/project/eranbot/outs python /data/project/eranbot/gitPlagiabot/plagiabot/plagiabot.py -lang:en -blacklist:User:EranBot/Copyright/Blacklist -live:on -reportlogger
-   ```
-5. Monitor the `.err` file (i.e. enwiki.err) for output. If looks similar to the other .err files, you know it's running properly. Once a copyvio is found and stored in the database, the feed for the new language in CopyPatrol should show up within 7 days (due to caching).
-
-## To remove a language
-
-1. Remove the entry from `eranbot`'s crontab.
-2. Remove all relevant rows from the database. While logged in as eranbot, run:
-   ```
-   sql local
-   MariaDB [(none)]> USE s51306__copyright_p;
-   MariaDB [s51306__copyright_p]> DELETE FROM copyright_diffs WHERE lang = 'xx'
-   ```
+1. Remove the language from `APP_ENABLED_LANGS`.
+2. _TBD_: Remove the job from CopyPatrolBot.

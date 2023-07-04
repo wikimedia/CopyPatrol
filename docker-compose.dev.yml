@@ -3,7 +3,7 @@ version: '3.8'
 # =========================================================
 #
 # This file allows anyone to start the CopyPatrol web interface
-# locally. Additional configuration on the `.env` file is still
+# locally. Additional configuration on the `.env.local` file is still
 # required to bring this up.
 #
 # Ensure the following before bringing this file up (in order):
@@ -11,12 +11,12 @@ version: '3.8'
 #    - Use `docker-compose -f docker-compose.dev.yml build` to build the image.
 #  - Composer packages must be installed
 #    - Use `docker run --rm -it -v $(pwd):/app wikimedia/copypatrol composer install` to install packages.
-#  - `.env` contains appropriate credentials
+#  - `.env.local` contains appropriate credentials
 #    - `OAUTH_CONSUMER_TOKEN` and `OAUTH_SECRET_TOKEN` must be supplied
 #    - SQL usernames and passwords must be supplied
-#    - `DB_HOST` and `DB_REPLICA_HOST` must be `host.docker.internal`
+#    - `TOOLSDB_HOST` and `REPLICAS_HOST_*` must be `host.docker.internal`
 #  - Replica SQL DB must be accessible through port 4711 on the host (see README)
-#  - Tool SQL DB must be accessible through port 4712 on the host (see README)
+#  - Tool SQL DB must be accessible through port 4720 on the host (see README)
 #
 # =========================================================
 
@@ -47,7 +47,7 @@ services:
             # Cache directory should not be read-only
             -   type: bind
                 source: "./cache"
-                target: "/app/cache"
+                target: "/app/var/cache"
         restart: always
         stop_grace_period: 1m
     copypatrol-redis:

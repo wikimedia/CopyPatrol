@@ -1,0 +1,60 @@
+<header class="app-header">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navigation" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="{{ path( 'feed', {lang: lang} ) }}">
+					<img src="{{ asset( '/assets/images/copypatrol.png' ) }}" alt="'CopyPatrol' logo (with text)" />
+				</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="main-navigation">
+				<ul class="nav navbar-nav navbar-left">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							{{ msg(lang ~ '-wikipedia') }} <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							{% for supLang in supported_languages %}
+								{% if supLang != lang %}
+									<li>
+										<a href="{{ path( app.request.attributes.get('_route'), {lang: supLang} ) }}">{{ msg(supLang ~ '-wikipedia') }}</a>
+									</li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</li>
+					<li><a target="_blank" href="https://meta.wikimedia.org/wiki/Special:MyLanguage/CopyPatrol">{{ msg('documentation') }}</a></li>
+					<li><a target="_blank" href="https://meta.wikimedia.org/wiki/Talk:CopyPatrol">{{ msg('feedback') }}</a></li>
+					<li><a href="{{ path( 'leaderboard', {lang: lang} ) }}">{{ msg('leaderboard') }}</a></li>
+				</ul>
+
+				{% if logged_in_user() %}
+					<div class="navbar-form navbar-right">
+						<div class="form-group">
+							<label>{{ msg( 'toolforge-logged-in-as', [ logged_in_user().username ] ) }}</label>
+							<a class="btn btn-default logged-in" href="{{ path( 'logout' ) }}">
+								<span class="glyphicon glyphicon-log-out"></span>
+								{{ msg('toolforge-logout') }}
+							</a>
+						</div>
+					</div>
+				{% else %}
+					<div class="navbar-form navbar-right">
+						<a class="btn btn-default" href="{{ path('toolforge_login') }}">
+							<span class="glyphicon glyphicon-log-in"></span>
+							{{ msg('toolforge-login') }}
+						</a>
+					</div>
+				{% endif %}
+
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+</header>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="{{ lang() }}">
+<head>
+	<meta charset="UTF-8">
+	<meta name="robots" content="noindex" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>{{ msg('name') }} | {{ msg(lang ~ '-wikipedia') }}</title>
+	<link href="{{ asset( '/assets/images/favicon.ico' ) }}" rel="shortcut icon" sizes="16x16 32x32"/>
+	{{ encore_entry_link_tags('app') }}
+	<script defer>
+		const jsUnauthorized = "{{ msg('js-unauthorized') }}",
+			jsDbError = "{{ msg( 'js-dberror' ) }}",
+			jsUndoOwnOnly = "{{ msg( 'js-undo-own-only' ) }}",
+			jsUnknownError = "{{ msg( 'js-unknown-error' ) }}",
+			jsLoadMore = "{{ msg( 'footer-loadmore' ) }}",
+			jsNoMore = "{{ msg( 'footer-nomore' ) }}",
+			wikiLang = "{{ lang }}";
+	</script>
+	{{ encore_entry_script_tags('app') }}
+</head>
+<body>
+	{% include '_header.html.twig' %}
+
+	{% block banners %}
+		<section class="banners">
+			{% if notice_text is not empty %}
+				<div class="alert alert-{{ notice_style }} text-center">{{ notice_text|raw }}</div>
+			{% endif %}
+
+			{% if app.session.flashBag.peekAll %}
+				{% for level, messages in app.session.flashBag.all %}
+					{% set level = level == 'error' ? 'danger' : level %}
+					<div class="alert alert-{{ level }} alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						{{ messages[0] }}
+					</div>
+					{{ layout.alert(level, messages[0]) }}
+				{% endfor %}
+			{% endif %}
+		</section>
+	{% endblock %}
+
+	<main class="app-body">
+		{% block main %}
+			<section class="filters container-fluid{% if permalink|default(false) %} none{% endif %}">
+				<form id="filters-form" class="filters-form" data-filter="{{ filter }}">
+					<fieldset class="form-group filters-fieldset text-center">
+						<div class="cases-filter">
+							{% for type in filter_types %}
+								<span class="radio-inline">
+									<label>
+										<input type="radio" name="filter" value="{{ type }}"
+											{% if filter == type %} checked="checked"{% endif %}
+										/> {{ msg('form-'~type) }}
+									</label>
+								</span>
+							{% endfor %}
+							{% if drafts_exist %}
+								<span class="checkbox-inline">
+									<label>
+										<input type="checkbox" name="drafts" value="1"
+											{% if drafts %} checked="checked"{% endif %}
+										/> {{ msg('form-drafts') }}
+									</label>
+								</span>
+							{% endif %}
+
+							{# End the row and start a new one to display the search box. #}
+						</div>
+						<label class="search-title search-label" for="filterPage">
+							{{ msg('filter-page') }}
+						</label><input type="text" id="filterPage" name="filterPage" class="search-title searchbox"
+							value="{{ filter_page }}">
+						<label class="search-user search-label" for="filterUser">
+							{{ msg('filter-user') }}
+						</label><input type="text" id="filterUser" name="filterUser" class="search-user searchbox"
+							value="{{ filter_user }}">
+						<button type="submit" class="btn btn-primary btn-sm btn-submit-filters">
+							{{ msg('submit') }}
+						</button>
+					</fieldset>
+				</form>
+			</section>
+
+			<section class="records">
+				{% block rowheader %}
+					<header class="header-div container-fluid">
+						<div class="header-col {% if has_wikiprojects %}col-sm-3{% else %}col-sm-4{% endif %} text-center">{{ msg('page') }}</div>
+						<div class="header-col col-sm-2 text-center">{{ msg('diff') }}</div>
+						<div class="header-col {% if has_wikiprojects %}col-sm-2{% else %}col-sm-3{% endif %} text-center">{{ msg('editor') }}</div>
+						{% if has_wikiprojects %}
+							<div class="header-col col-sm-3 text-center">{{ msg('wikiprojects') }}</div>
+						{% endif %}
+						<div class="header-col {% if has_wikiprojects %}col-sm-2{% else %}col-sm-3{% endif %} text-center">{{ msg('review') }}</div>
+					</header>
+				{% endblock %}
+				<section class="record-container">
+					{% block records %}
+					{% endblock %}
+				</section>
+				<div class="load-more-div">
+					{% if permalink %}
+						<a href="{{ path('feed', {lang: lang}) }}" class="btn btn-md btn-primary btn-load-more">{{ msg('show-all-records') }}</a>
+					{% else %}
+						{% block loadmore %}
+							<button id="btn-load-more"
+								class="btn btn-md btn-primary btn-load-more js-load-more">{{ msg('footer-loadmore') }}</button>
+						{% endblock %}
+					{% endif %}
+				</div>
+			</section>
+		{% endblock %}
+	</main>
+
+	{% include '_footer.html.twig' %}
+</body>

@@ -1,0 +1,7 @@
+{
+    "extends": "stylelint-config-wikimedia",
+    "rules": {
+        "color-named": null,
+        "declaration-property-unit-disallowed-list": null
+    }
+}

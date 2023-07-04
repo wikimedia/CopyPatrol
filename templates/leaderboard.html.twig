@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+{% import _self as macros %}
+
+{# must pass in wiki as view-level variables are not accessible in macros #}
+{% macro leaderboard_list( lang, dataset ) %}
+	<ol class="leaderboard-list">
+		{% for leader in dataset %}
+			<li>
+				<a target="_blank" href="https://{{ lang }}.wikipedia.org/wiki/User:{{ leader.user }}"
+				   class="{{ logged_in_user() == leader.user ? 'mine' : '' }}">{{ leader.user }}</a>:
+				<a href="{{ path( 'feed', {lang: lang} ) }}?filter=reviewed&filterUser={{ leader.user }}"
+				   title="{{ msg('lboard-count-title', [leader.count|number_format()]) }}"
+				>{{ leader.count|number_format() }}</a></li>
+		{% endfor %}
+	</ol>
+{% endmacro %}
+
+{% block main %}
+	<section class="leaderboard container">
+		<a class="back-to-copypatrol" href="{{ path( 'feed', {lang:lang} ) }}">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+			{{ msg('lboard-back') }}
+		</a>
+		<h1 class="text-center">{{ msg('lboard-title') }}</h1>
+		<div class="text-center clearfix">
+			<span class="leaderboard-column col-sm-4">
+				<h3>{{ msg('lboard-week') }}</h3>
+				{{ macros.leaderboard_list( lang, data['last-week'] ) }}
+			</span>
+			<span class="leaderboard-column col-sm-4">
+				<h3>{{ msg('lboard-month') }}</h3>
+				{{ macros.leaderboard_list( lang, data['last-month'] ) }}
+			</span>
+			<span class="leaderboard-column col-sm-4">
+				<h3>{{ msg('lboard-alltime') }}</h3>
+				{{ macros.leaderboard_list( lang, data['all-time'] ) }}
+			</span>
+		</div>
+	</section>
+{% endblock %}

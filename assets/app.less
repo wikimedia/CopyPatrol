@@ -1,0 +1,481 @@
+@import '../node_modules/bootstrap/dist/css/bootstrap.css';
+@import '../node_modules/bootstrap/less/variables';
+@import '../node_modules/bootstrap/less/mixins/buttons';
+@import '../node_modules/bootstrap/less/mixins/gradients';
+
+html {
+	// to make floating footer work
+	height: 100%;
+}
+
+body {
+	// to make floating footer work
+	min-height: 100%;
+	position: relative;
+}
+
+.loading-indic(@size: 20px) {
+	animation-duration: 0.75s;
+	animation-iteration-count: infinite;
+	animation-name: spin;
+	border: 3px solid white;
+	border-radius: 50%;
+	border-top-color: transparent;
+	bottom: 0;
+	content: '';
+	height: @size;
+	left: 0;
+	margin: auto;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: @size;
+}
+
+.not-clickable {
+	cursor: default;
+	pointer-events: none;
+}
+
+.ellipsis {
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate( 0deg );
+	}
+
+	to {
+		transform: rotate( 360deg );
+	}
+}
+
+/* Glyphicons supported by http://glyphicons.com via Bootstrap */
+.padded {
+	margin: 15px auto;
+	width: 100%;
+}
+
+.wproject {
+	background: #f2f2f2;
+	border-radius: 10px;
+	display: inline-block;
+	font-size: 13px;
+	margin: 1px;
+	padding: 6px;
+}
+
+.btn-xs {
+	margin: 2px;
+}
+
+.page-div {
+	word-wrap: break-word;
+}
+
+.report-div {
+	word-wrap: break-word;
+}
+
+.form-group {
+	align-items: center;
+	display: block;
+	flex-flow: row wrap;
+	text-align: center;
+}
+
+.header-div {
+	align-items: center;
+	border-bottom: 2px solid black;
+	border-top: 2px solid black;
+	margin: 10px;
+	padding: 5px 0;
+}
+
+.header-col {
+	font-weight: bold;
+	margin: auto;
+}
+
+// fix bootstrap weirdness around radio buttons
+.filters-fieldset {
+	.radio-inline,
+	.checkbox-inline {
+		margin-left: 30px;
+		padding: 0;
+	}
+
+	label {
+		margin: 0;
+	}
+}
+
+/** button styles */
+.btn {
+	transition: background linear 350ms;
+	position: relative;
+
+	&.loading {
+		.not-clickable;
+		color: transparent;
+
+		&::after {
+			.loading-indic;
+		}
+	}
+}
+
+.btn-grayed {
+	background: white;
+	border-color: darkgrey;
+	color: darkgrey;
+}
+
+.btn-undo {
+	content: 'Undo review';
+	height: 100%;
+	left: 0;
+	line-height: 32px;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+/** record styles and state changes */
+.record {
+	border-bottom: 1px solid darkgrey;
+	padding: 10px 0;
+}
+
+.record-status-0 {
+	.btn-fixed,
+	.btn-no-action {
+		background: white;
+	}
+
+	.btn-fixed {
+		.button-variant(@brand-success; white; @brand-success);
+
+		&:hover {
+			color: white;
+			background: @brand-success;
+		}
+	}
+
+	.btn-no-action {
+		.button-variant(@brand-danger; white; @brand-danger);
+
+		&:hover {
+			color: white;
+			background: @brand-danger;
+		}
+	}
+}
+
+.record-status-1 {
+	// stylelint-disable-next-line no-descending-specificity
+	.btn-no-action {
+		.btn-grayed;
+
+		&.clickable:hover {
+			.button-variant(white; @brand-danger; @brand-danger);
+		}
+	}
+
+	.btn-fixed.clickable:not( .loading ):hover::after {
+		.btn-undo;
+		background: darken( @brand-success, 10% );
+	}
+}
+
+.record-status-2 {
+	// stylelint-disable-next-line no-descending-specificity
+	.btn-fixed {
+		.btn-grayed;
+
+		&.clickable:hover {
+			.button-variant( white; @brand-success; @brand-success );
+		}
+	}
+
+	.btn-no-action.clickable:not( .loading ):hover::after {
+		.btn-undo;
+		background: darken( @brand-danger, 10% );
+	}
+}
+
+.row-container {
+	align-items: center;
+}
+
+.compare-links-container {
+	padding: 15px;
+	clear: both;
+}
+
+.compare-button {
+	margin-left: 0;
+	margin-right: 10px;
+}
+
+.compare-pane {
+	border: 2px double dimgrey;
+	display: none;
+	height: 300px;
+	justify-content: space-between;
+	margin: 2px auto;
+	overflow: hidden;
+	padding: 5px 0;
+	text-align: justify;
+	width: 98%;
+	white-space: normal;
+
+	h4 {
+		#gradient.vertical(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0), 65%, 100%);
+		margin: 0;
+		padding-bottom: 12px;
+		position: absolute;
+		width: 100%;
+	}
+}
+
+.compare-pane-left,
+.compare-pane-right {
+	float: left;
+	height: 100%;
+	padding: 0 8px;
+	position: relative;
+	width: 50%;
+}
+
+.compare-pane-body {
+	height: 100%;
+	overflow: scroll;
+	padding: 25px 0 8px;
+}
+
+.compare-pane-right {
+	border-left: 1px dashed dimgrey;
+}
+
+.app-body {
+	// padding-bottom large enough to account for floating footer (and some additional spacing)
+	padding: 12px 12px 95px;
+}
+
+.app-header .navbar {
+	background: url( images/gradient.png );
+	border-bottom: solid 2px #ccc;
+	margin-bottom: 10px;
+	text-align: left;
+}
+
+.app-header .navbar-brand {
+	padding: 2px;
+}
+
+.app-header .navbar-left {
+	font-size: larger;
+}
+
+.app-header .navbar-right {
+	margin-top: 8px;
+
+	label {
+		font-weight: normal;
+		margin: 5px 20px 0 0;
+	}
+}
+
+// absolutely positioned at the bottom to appear at the bottom
+//	 if the content is less than the window size, otherwise it
+//	 appears at the bottom of the document
+.app-footer {
+	background: url( images/gradient.png );
+	border-top: solid 2px #ccc;
+	bottom: 0;
+	left: 0;
+	margin-top: 30px;
+	padding: 15px;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+}
+
+.status-div {
+	padding: 0;
+
+	.btn {
+		margin-left: auto;
+		margin-right: auto; // margin-top and margin-bottom need to inherit
+		max-width: 200px; // don't make it ridiculously big
+	}
+}
+
+.status-buttons {
+	margin-bottom: 10px;
+}
+
+.status-div-reviewer {
+	text-align: center;
+}
+
+.none {
+	display: none;
+}
+
+/* make anchor tags with empty href unclickable */
+a[ href='' ] {
+	color: inherit;
+	pointer-events: none;
+}
+
+/* CSS for compare panels, like Earwig's tool */
+.cv-hl {
+	background: #ffc264;
+}
+
+.cv-hl-in {
+	#gradient.horizontal(white, #FFC264);
+}
+
+.cv-hl-out {
+	#gradient.horizontal(#FFC264, white);
+}
+
+.filter-legend {
+	margin-bottom: 10px;
+}
+
+.load-more-div {
+	padding: 10px;
+	text-align: center;
+	width: 100%;
+}
+
+.btn-load-more {
+	background-color: white;
+	color: @brand-primary;
+	height: 40px;
+	line-height: 26px;
+	width: 50%;
+	transition: background-color linear 350ms;
+
+	&:hover {
+		background-color: @brand-primary;
+		color: white;
+	}
+
+	&.btn-loading {
+		background-color: white;
+		background-image: url( images/loading2.gif );
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: contain;
+	}
+}
+
+.submission-id {
+	display: none;
+}
+
+// Leaderboard-specific styling
+.leaderboard {
+	h1 {
+		margin-bottom: 40px;
+	}
+
+	h3 {
+		margin-bottom: 30px;
+		text-align: center;
+	}
+}
+
+.leaderboard-list {
+	font-size: 18px;
+	list-style-position: inside;
+	padding-left: 40px;
+	text-align: left;
+
+	li {
+		margin-top: 10px;
+	}
+
+	.mine {
+		font-weight: bold;
+	}
+}
+
+// the "Back to CopyPatrol" link seen on the Leaderboard page
+//	 and possibly others moving forward
+.back-to-copypatrol {
+	left: 25px;
+	position: absolute;
+	top: 100px;
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+.searchbox {
+	float: none;
+	padding: 2px;
+}
+
+.cases-filter {
+	margin-bottom: 10px;
+	padding-left: 5px; // to account for left-margin of the first child .radio-line
+}
+
+.search-label {
+	display: inline-block;
+	padding-right: 5px;
+}
+
+.filters-form {
+	& > fieldset {
+		display: grid;
+		column-gap: 10px;
+		row-gap: 2px;
+		max-width: 768px;
+		margin: 0 auto;
+	}
+
+	.cases-filter {
+		grid-row: 1;
+		grid-column: ~'1/8';
+	}
+
+	.search-title {
+		grid-row: 2;
+	}
+
+	.search-user {
+		grid-row: 3;
+	}
+
+	/* Styles to be applied whenever the filter is not "Reviewed cases" */
+	&:not( [ data-filter='reviewed' ] ) {
+		.search-user {
+			display: none;
+		}
+	}
+
+	.search-label {
+		grid-column: 1;
+		text-align: right;
+	}
+
+	.searchbox {
+		grid-column: ~'2/7';
+	}
+
+	.btn-submit-filters {
+		grid-row: ~'2/3';
+		grid-column: 7;
+	}
+}

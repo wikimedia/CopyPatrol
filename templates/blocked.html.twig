@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block main %}
+	<div class="alert alert-danger text-center">
+		<p>
+			{% set blockLink %}
+				<strong>
+					<a target="_blank" href="https://{{ lang }}.wikipedia.org/w/index.php?title=Special:BlockList&amp;wpTarget={{ username }}">{{ msg('blocked') }}</a>
+				</strong>
+			{% endset %}
+			{% set wikiLink %}
+				<a target="_blank" href="https://{{ lang }}.wikipedia.org">{{ lang }}.wikipedia.org</a>
+			{% endset %}
+
+			{{ msg('access-blocked', [blockLink, wikiLink]) }}
+		</p>
+	</div>
+{% endblock %}
