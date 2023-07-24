@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"MR973"
+			"MR973",
+			"З. ӘЙЛЕ"
 		]
 	},
 	"documentation": "Документация",
@@ -38,12 +39,14 @@
 	"fa-wikipedia": "Фарсы Википедияһы",
 	"ru-wikipedia": "Рус Википедияһы",
 	"tr-wikipedia": "Төрөк Википедияһы",
+	"simple-wikipedia": "Ябайлаштырылған инглиз телендә Википедия",
 	"login": "Инеү",
 	"logout": "Сығыу",
 	"header-loggedin": "Һеҙ $1 булып танылдығыҙ",
 	"form-all": "Бөтә эштәр",
 	"form-open": "Асыҡ эштәр",
 	"form-reviewed": "Тикшерелгән биттәр",
+	"form-drafts": "Тик ҡараламалар ғына",
 	"wikiprojects": "Википроекттар",
 	"form-wikiprojects-placeholder": "Википроекттың исемен яҙығыҙ...",
 	"submit": "Ҡарауға",
