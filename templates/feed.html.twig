@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+{% import _self as macros %}
+
+{% macro reviewer_node( row ) %}
+	<div class="status-div-reviewer{{ row.statusUser ? '': ' none' }} status-div-reviewer-{{ row.submissionId }}">
+		<small>{{ msg('review-by') }}
+			<span>
+				<a class="reviewer-link" href="{{ row.reviewedByUrl }}" target="_blank">{{ row.statusUser }}</a>
+			</span><br/>
+			<time datetime="{{ row.statusTimestamp }}" class="reviewer-timestamp">{{ row.statusTimestamp }}</time>
+		</small>
+	</div>
+{% endmacro %}
+
+{% block records %}
+	{% if records is not empty %}
+		{% for row in records %}
+			<article class="js-record record record-status-{{ row.status }} record-{{ row.submissionId }}" data-status="{{ row.status }}">
+				<div class="row-container clearfix">
+					{# Div for page title #}
+					<div class="row-div {% if has_wikiprojects %}col-sm-3{% else %}col-sm-4{% endif %} page-div">
+						<strong>
+							<a href='{{ row.pageUrl }}' target="_blank" class="{{ row.pageDead ? 'text-danger' : '' }}">
+								{{ row.pageTitle }}
+							</a>
+						</strong>
+						<div class="small">
+							<a href='{{ row.pageHistoryUrl }}' target="_blank" class="{{ row.pageDead ? 'text-danger' : '' }}">
+								{{ msg('history') }}
+							</a>
+						</div>
+					</div>
+					{# Div for diff information and link #}
+					<div class="row-div col-sm-2 text-center diff-div">
+						<a href='{{ row.diffUrl }}' target="_blank" class="{{ row.pageDead ? 'text-danger' : '' }}">{{ msg('diff') }}</a>
+						<br/>
+						<small class="diff-div-timestamp">
+							<time datetime="{{ row.diffTimestamp }}">{{ row.diffTimestamp }}</time>
+						</small>
+						{% if row.oresScore is not empty %}
+							<br/>
+							<small class="diff-div-ores">
+								<a href="https://www.mediawiki.org/wiki/Special:MyLanguage/ORES" target="_blank">
+									{{ msg('record-ores', [row.oresScore]) }}%
+								</a>
+							</small>
+						{% endif %}
+					</div>
+					{# Div for editor information #}
+					<div class="row-div {% if has_wikiprojects %}col-sm-2{% else %}col-sm-3{% endif %} text-center report-div">
+						{% if row.editor %}
+							<a href='{{ row.userPageUrl }}' class="{{ row.userPageDead ? 'text-danger' : '' }}"
+							   target="_blank">{{ row.editor }}</a>
+							<br/>
+							<small>
+								<a href='{{ row.userTalkPageUrl }}' class="{{ row.userTalkPageDead ? 'text-danger' : '' }}" target="_blank">{{ msg('talk') }}</a>
+								|
+								<a href='{{ row.userContribsUrl }}' target="_blank">
+									{{ msg('contribs') }}
+								</a>
+								{% if row.editcount %}
+									<div>{{ msg('record-editcount') }} {{ row.editcount | number_format }}</div>
+								{% endif %}
+							</small>
+						{% else %}
+							<span class="glyphicon glyphicon-exclamation-sign"></span>
+							<div class="text-muted" title="{{ msg('record-noeditor-tooltip') }}">
+								{{ msg('record-noeditor') }}
+							</div>
+						{% endif %}
+					</div>
+					{% if has_wikiprojects %}{# Note the odd nesting of this if-else. #}
+						<div class="row-div col-sm-3 text-center wikiproject-div">
+							{% if row.wikiprojects is not empty %}
+								{% for wp in row.wikiprojects %}
+									<div class="row-div wproject">{{ wp }}</div>
+								{% endfor %}
+							{% endif %}
+						</div>
+					{% endif %}
+					<div class="row-div {% if has_wikiprojects %}col-sm-2{% else %}col-sm-3{% endif %} text-center status-div">
+						<div class="status-buttons">
+							<button data-id="{{ row.submissionId }}"
+									data-status="1"
+									class="btn btn-success btn-block btn-fixed js-save-state {{ logged_in_user() ? 'clickable' : '' }}"
+									title="{{ msg('review-fixed-tooltip') }}">
+								{{ msg('review-fixed') }}
+							</button>
+							<button data-id="{{ row.submissionId }}"
+									data-status="2"
+									class="btn btn-danger btn-block btn-no-action js-save-state {{ logged_in_user() ? 'clickable' : '' }}"
+									title="{{ msg('review-false-tooltip') }}">
+								{{ msg('review-false') }}
+							</button>
+						</div>
+						{{ macros.reviewer_node( row ) }}
+						<a href="{{ path( 'feed', {lang: lang} ) }}?id={{ row.submissionId }}" class='small'>
+							<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+							{{ msg('permalink') }}
+						</a>
+					</div>
+				</div>
+				<div class="submission-id">{{ row.submissionId }}</div>
+				<div class="compare-links-container">
+					{% if row.sources is not empty %}
+						{% for source in row.sources %}
+							<div class="compare-div ellipsis">
+								<button class="btn btn-xs btn-primary dropdown-toggle compare-button js-compare-button"
+										data-id="{{ row.submissionId }}" data-index="{{ loop.index }}"
+										data-url="{{ source.url }}" data-oldid="{{ row.revId }}">
+									<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+									{{ msg('compare') }}
+								</button>
+								{{ msg('record-url-text', [source.percent ~ '%']) }}
+								<a href="{{ source.url }}" target="_blank">{{ source.url }}</a><br/>
+								<div class="compare-pane" id="{{ 'comp' ~ row.submissionId ~ '-' ~ loop.index }}">
+									<div class="compare-pane-left">
+										<h4 class="compare-pane-title">{{ msg('article') }}</h4>
+										<div class="compare-pane-left-body compare-pane-body">
+											<span class="text-muted">{{ msg('compare-article-loading') }}</span>
+										</div>
+									</div>
+									<div class="compare-pane-right">
+										<h4 class="compare-pane-title">{{ msg('source') }}</h4>
+										<div class="compare-pane-right-body compare-pane-body">
+											<span class="text-muted">{{ msg('compare-source-loading') }}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					{% endif %}
+					<a class="btn btn-xs btn-primary compare-button" href='{{ path('ithenticate', {id: row.submissionId}) }}' rel='nofollow noreferrer noopener' target="_blank">
+						<span class="glyphicon glyphicon-new-window"></span>
+						{{ msg('record-ithenticate') }}
+					</a>
+				</div>
+			</article>
+		{% endfor %}
+	{% endif %}
+{% endblock %}

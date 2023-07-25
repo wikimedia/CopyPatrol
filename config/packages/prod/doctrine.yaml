@@ -1,0 +1,58 @@
+doctrine:
+    dbal:
+        connections:
+            toolforge_s1:
+                host: '%env(REPLICAS_HOST_S1)%'
+                port: '%env(REPLICAS_PORT_S1)%'
+                user: '%env(REPLICAS_USERNAME)%'
+                password: '%env(REPLICAS_PASSWORD)%'
+            toolforge_s2:
+                host: '%env(REPLICAS_HOST_S2)%'
+                port: '%env(REPLICAS_PORT_S2)%'
+                user: '%env(REPLICAS_USERNAME)%'
+                password: '%env(REPLICAS_PASSWORD)%'
+            toolforge_s3:
+                host: '%env(REPLICAS_HOST_S3)%'
+                port: '%env(REPLICAS_PORT_S3)%'
+                user: '%env(REPLICAS_USERNAME)%'
+                password: '%env(REPLICAS_PASSWORD)%'
+            toolforge_s4:
+                host: '%env(REPLICAS_HOST_S4)%'
+                port: '%env(REPLICAS_PORT_S4)%'
+                user: '%env(REPLICAS_USERNAME)%'
+                password: '%env(REPLICAS_PASSWORD)%'
+            toolforge_s5:
+                host: '%env(REPLICAS_HOST_S5)%'
+                port: '%env(REPLICAS_PORT_S5)%'
+                user: '%env(REPLICAS_USERNAME)%'
+                password: '%env(REPLICAS_PASSWORD)%'
+            toolforge_s6:
+                host: '%env(REPLICAS_HOST_S6)%'
+                port: '%env(REPLICAS_PORT_S6)%'
+                user: '%env(REPLICAS_USERNAME)%'
+                password: '%env(REPLICAS_PASSWORD)%'
+            toolforge_s7:
+                host: '%env(REPLICAS_HOST_S7)%'
+                port: '%env(REPLICAS_PORT_S7)%'
+                user: '%env(REPLICAS_USERNAME)%'
+                password: '%env(REPLICAS_PASSWORD)%'
+            toolforge_s8:
+                host: '%env(REPLICAS_HOST_S8)%'
+                port: '%env(REPLICAS_PORT_S8)%'
+                user: '%env(REPLICAS_USERNAME)%'
+                password: '%env(REPLICAS_PASSWORD)%'
+            copypatrol:
+                host: '%env(DB_HOST)%'
+                port: '%env(DB_PORT)%'
+                user: '%env(DB_USERNAME)%'
+                password: '%env(DB_PASSWORD)%'
+                dbname: '%env(COPYPATROL_DB_NAME)%'
+
+
+framework:
+    cache:
+        pools:
+            doctrine.result_cache_pool:
+                adapter: cache.app
+            doctrine.system_cache_pool:
+                adapter: cache.system

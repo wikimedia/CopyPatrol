@@ -1,0 +1,5 @@
+framework:
+    cache:
+        pools:
+            cache.replicas:
+                adapter: cache.adapter.apcu

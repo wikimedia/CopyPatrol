@@ -22,7 +22,13 @@ jobs:
                     extensions: json
                     tools: composer
             -   run: composer update
-            -   run: composer test
+            -   run: |
+                    composer validate
+                    ./vendor/bin/phpcs -s .
+                    ./bin/console lint:twig ./templates
+                    ./bin/console lint:yaml ./config
+                    ./vendor/bin/minus-x check .
+                    ./bin/phpunit --exclude-group=integration
     build_image:
         name: Build Docker image
         runs-on: ubuntu-latest
@@ -87,7 +93,6 @@ jobs:
               run: |
                   docker load --input /tmp/copypatrol-${{ matrix.targets.name }}.image.tar
                   docker image ls -a
-
             - name: Dive
               uses: yuichielectric/dive-action@0.0.4
               with:

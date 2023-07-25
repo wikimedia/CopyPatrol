@@ -1,27 +1,26 @@
-.DS_Store
-.lighttpd.conf
-.htaccess
-.viminfo
-.my.cnf
-.env
-.*_history
-.bash*
-*.log
-tmp/
-/vendor/
-/cache/*
-src/Less/cache/*
-fill_patroller/
-flask-mwoauth/
-.composer/
-.npm/
 .idea/
-.local/
-.subversion/
-.kube/
-replica.my.cnf
-service.manifest
-restart_webservice.sh
-deploy.sh
-!.gitkeep
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+###< squizlabs/php_codesniffer ###
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
+
+###> symfony/phpunit-bridge ###
 .phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###

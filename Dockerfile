@@ -37,7 +37,7 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Add rewrite rules
-RUN echo 'url.rewrite-if-not-file += ( "(.*)" => "/index.php/$0" )' >> /etc/lighttpd/conf-enabled/90-copypatrol.conf
+RUN echo 'url.rewrite-if-not-file += ( "^(/.*)" => "/index.php$0" )' >> /etc/lighttpd/conf-enabled/90-copypatrol.conf
 
 ## Only these two copy statements below actually matter. Everything before this was
 ## just to set up a Toolforge-like environment for local development.
@@ -47,9 +47,9 @@ COPY --from=dependencies ${COPYPATROL_ROOT}/vendor ${COPYPATROL_ROOT}/vendor
 # Copy files
 COPY . ${COPYPATROL_ROOT}
 
-# Symlink CopyPatrol public_html to document root
+# Symlink CopyPatrol public to document root
 RUN rm -rf /var/www/html
-RUN ln -s ${COPYPATROL_ROOT}/public_html /var/www/html
+RUN ln -s ${COPYPATROL_ROOT}/public /var/www/html
 
 # Set start command (enable FastCGI and start lighttpd)
 CMD [ "lighttpd", "-D", "-f", "/etc/lighttpd/lighttpd.conf" ]
