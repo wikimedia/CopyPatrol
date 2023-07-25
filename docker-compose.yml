@@ -1,0 +1,43 @@
+version: '3.8'
+
+# =========================================================
+#
+# This file allows anyone to start the CopyPatrol web interface
+# locally. Additional configuration on the `.env.local` file is still
+# required to bring this up.
+#
+# Ensure the following before bringing services from this file up (in order):
+#  - Images must be built (see README)
+#  - Composer packages must be installed (see README)
+#  - `.env.local` contains appropriate credentials (see README)
+#    - `REPLICAS_USERNAME` and `REPLICAS_PASSWORD` must be supplied
+#    - `TOOLSDB_USERNAME` and `TOOLSDB_PASSWORD` must be supplied
+#    - `TOOLSDB_HOST` and `REPLICAS_HOST_*` must be `toolforge-gateway.internal`
+#
+# =========================================================
+
+services:
+    copypatrol:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+            target: development
+        image: wikimedia/copypatrol:development
+        command: serve
+        stdin_open: true
+        tty: true
+        extra_hosts:
+            - host.docker.internal:host-gateway
+        ports:
+            - "8000:8000"
+        volumes:
+            # This binds your SSH configuration into the container.
+            -   type: bind
+                source: "$HOME/.ssh"
+                target: "/ssh"
+                read_only: true
+            # This will bind the files in the development directory to the app.
+            -   type: bind
+                source: "."
+                target: "/app"
+        stop_signal: SIGINT

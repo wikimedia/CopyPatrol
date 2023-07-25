@@ -43,54 +43,76 @@ the [ToolforgeBundle](https://github.com/wikimedia/ToolforgeBundle).
 4. Start the Symfony web server with `symfony serve`
 
 ## Installing using Docker
+Development through Docker is suggested if you have a different version of PHP locally
+installed, or if you wish to keep an isolated installation of PHP 7.4 for CopyPatrol.
+The base Docker image used is the `toolforge-php74-sssd-base` image from the Toolforge
+Docker image registry, to ensure an environment as close to Toolforge as possible.
 
-_TODO: Update any of these instructions as necessary following the Symfony migration._
-
-1. Build the Docker image for CopyPatrol.
-   ```bash
-   docker-compose -f docker-compose.dev.yml build
-   ```
-2. Install Composer packages using the PHP version used by the Docker image. Be sure that your current/present working directory is this repository.
-   ```bash
-   # The `wikimedia/copypatrol-development` image is generated in the first step.
-   docker run --rm -it -v $(pwd):/app wikimedia/copypatrol-development composer install
-   ```
-   On Windows, use the following command instead:
-   ```bash
-   docker run --rm -it -v %CD%:/app wikimedia/copypatrol-development composer install
-   ```
-3. Edit the `.env.local` file that was created by composer.
-    1. Use the credentials in your `replica.my.cnf` file in the home directory of your
+1. Copy [.env](.env) to [.env.local](.env.local) and fill in the appropriate details.
+    1. Set `REPLICAS_HOST_*` and `TOOLSDB_HOST` to `127.0.0.1`
+    2. Use the credentials in your `replica.my.cnf` file in the home directory of your
        Toolforge account for `REPLICAS_USERNAME`, `REPLICAS_PASSWORD`, as well as
        `TOOLSDB_USERNAME` and `TOOLSDB_PASSWORD`.
-    2. If you need to test (un)reviewing CopyPatrol cases, `TOOLSDB_USERNAME` and `TOOLSDB_PASSWORD`
+    3. If you need to test (un)reviewing CopyPatrol cases, `TOOLSDB_USERNAME` and `TOOLSDB_PASSWORD`
        need to be set to a user with an installation of the CopyPatrol database (`COPYPATROL_DB_NAME`).
-    3. If you need to test OAuth, obtain tokens by registering a new consumer on Meta at
+    4. If you need to test OAuth, obtain tokens by registering a new consumer on Meta at
        [Special:OAuthConsumerRegistration](https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration).
        Alternatively, you can set `LOGGED_IN_USER` to any value to simulate being that user
        after clicking on 'Login'.
-    4. `ITHENTICATE_USERNAME` and `ITHENTICATE_PASSWORD` are not necessary unless you need
+    5. `ITHENTICATE_USERNAME` and `ITHENTICATE_PASSWORD` are not necessary unless you need
        to test the "iThenticate report" functionality.
-4. Open up an SSH tunnel to access the databases on Toolforge. This assumes you have left
-   the `REPLICAS_HOST_*` and `REPLICAS_PORT_*` variables at their defaults.
+2. Build the development image once and install Composer dependencies with the following
    ```bash
-   symfony console toolforge:ssh --bind-address=0.0.0.0 --toolsdb
+   # (optional) Prevent double-downloading when the build occurs.
+   docker image pull docker-registry.tools.wmflabs.org/toolforge-php74-sssd-base:latest
+   docker compose build
+   # On Windows, use `%CD%` instead of `$(pwd)`.
+   docker run --rm -ti -v $(pwd):/app wikimedia/copypatrol:development composer install
    ```
-5. Run the Docker Compose file. CopyPatrol will be accessible on http://localhost:80
+3. (*Windows only*) Set the `HOME` environment variable to your user profile directory.
+   ```cmd
+   setx HOME "%UserProfile%"
+   set HOME "%UserProfile%"
+   ```
+   The first command sets `HOME` for future shells. The second command sets `HOME` for the current shell.
+4. Open a new terminal and start the development container with
    ```bash
-   docker-compose -f docker-compose.dev.yml up
+   docker compose up
    ```
+   Starting the local development server will be delayed until the next
+   step is finished.
+5. Open up an SSH tunnel to access the databases on Toolforge.
+   ```bash
+   # Your SSH config at $HOME/.ssh will be used.
+   # Your passphrase will be requested if your private key is protected.
+   # If your Toolforge shell name is different from the default, append
+   # your shell name after "ssh". (e.g. `... start ssh exampleuser`)
+   docker compose exec copypatrol start ssh
+   ```
+   This terminal will stay open as long as SSH is connected. No successful
+   connection message is shown, but Symfony will start immediately once the
+   ports are open.
 
 Changes to this folder will automatically be applied to the running Docker container. This includes
-changes to `src` files, `.env.local`, etc. XDebug is set up to connect to the host machine (the computer
-running the Docker container) on request, see the `Dockerfile` for the specific configuration values.
+changes to `src` files, `.env.local`, etc. XDebug is set up to connect to the host machine
+(the computer running the Docker container) on port 9003 upon request ([more info](https://xdebug.org/docs/step_debug)).
 
-If you wish to use testing databases instead of the Plagiabot databases live on Toolforge, change `COPYPATROL_DB_NAME`,
-and all related connection options. You will still need to connect to the Replica DBs for revision
-information, so leave `REPLICAS_HOST_*` untouched and keep tunneling the port for the Replica DB in step 4.
+If you wish to use testing databases instead of the Plagiabot databases live on Toolforge, change
+`COPYPATROL_DB_NAME`, and all related connection options. You will still need to connect to
+the Replica DBs for revision information, so leave `REPLICAS_HOST_*` untouched and keep
+tunneling the port for the Replica DB in step 5.
 
-To make a **production-level** build, run `docker build --target production -t wikimedia/copypatrol:latest`.
-XDebug and other related components will be disabled.
+To make a **production-level** (Toolforge-like) build, run the following. XDebug and
+other related components will be disabled.
+```bash
+docker build -f docker/Dockerfile . --target production -t wikimedia/copypatrol:latest
+```
+When using this image, bind an `.env.local` file to `/app/.env.local` for configuration.
+This configuration file must also point to proper hosts. When using local ports, use
+`host.docker.internal` for Windows, or `172.17.0.1` for other platforms.
+```bash
+docker run -ti -p 80:80 -v $(pwd)/.env.local:/app/.env.local wikimedia/copypatrol:latest
+```
 
 ## Adding new languages
 

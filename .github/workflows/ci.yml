@@ -45,17 +45,18 @@ jobs:
                 uses: actions/checkout@v2
 
             -   name: Set up QEMU
-                uses: docker/setup-qemu-action@v1
+                uses: docker/setup-qemu-action@v2
 
             -   name: Set up Docker Buildx
                 id: buildx
-                uses: docker/setup-buildx-action@v1
+                uses: docker/setup-buildx-action@v2
 
             - name: Build image
               id: docker_build
-              uses: docker/build-push-action@v2
+              uses: docker/build-push-action@v4
               with:
                   context: .
+                  file: docker/Dockerfile
                   target: ${{ matrix.targets.name }}
                   tags: ${{ matrix.targets.tag }}:latest
                   outputs: type=docker,dest=/tmp/copypatrol-${{ matrix.targets.name }}.image.tar
