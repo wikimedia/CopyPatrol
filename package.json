@@ -2,7 +2,7 @@
   "name": "copypatrol",
   "private": true,
   "dependencies": {
-    "bootstrap": "3.4.0",
+    "bootstrap": "3.4.1",
     "jquery": "^3.6.0"
   },
   "devDependencies": {
