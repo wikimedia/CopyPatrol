@@ -52,10 +52,10 @@ class Record {
 	/**
 	 * Get the submission ID.
 	 *
-	 * @return int
+	 * @return string UUID or stringified integer for older submissions.
 	 */
-	public function getSubmissionId(): int {
-		return $this->data['submission_id'];
+	public function getSubmissionId(): string {
+		return (string)$this->data['submission_id'];
 	}
 
 	/**
@@ -76,7 +76,7 @@ class Record {
 	 * @return string
 	 */
 	public function getPageTitle( bool $underscored = false ): string {
-		$nsName = $this->data['page_namespace'] === WikiRepository::NS_ID_DRAFTS ? 'Draft:' : '';
+		$nsName = (int)$this->data['page_namespace'] === WikiRepository::NS_ID_DRAFTS ? 'Draft:' : '';
 		$pageTitle = $nsName . $this->data['page_title'];
 		if ( !$underscored ) {
 			// Remove underscores for display purposes.
@@ -157,7 +157,7 @@ class Record {
 	 * @return int
 	 */
 	public function getRevId(): int {
-		return $this->data['rev_id'];
+		return (int)$this->data['rev_id'];
 	}
 
 	/**
@@ -166,7 +166,7 @@ class Record {
 	 * @return int
 	 */
 	public function getRevParentId(): int {
-		return $this->data['rev_parent_id'];
+		return (int)$this->data['rev_parent_id'];
 	}
 
 	/** EDITOR / USER */
@@ -242,7 +242,7 @@ class Record {
 	 * @return int On the CopyPatrolRepository::STATUS_ constants.
 	 */
 	public function getStatus(): int {
-		return $this->data['status'];
+		return (int)$this->data['status'];
 	}
 
 	/**

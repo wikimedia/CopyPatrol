@@ -278,7 +278,7 @@ class AppController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/ithenticate/{id}", name="ithenticate", requirements={"id"="\d+"})
+	 * @Route("/ithenticate/{id}", name="ithenticate", requirements={"id"="\d+|[\d+\-]"})
 	 * @param CopyPatrolRepository $copyPatrolRepo
 	 * @param string $iThenticateUser
 	 * @param string $iThenticatePassword
