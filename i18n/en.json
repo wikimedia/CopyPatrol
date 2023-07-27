@@ -63,7 +63,7 @@
   "record-editcount": "Edit count:",
   "compare": "Compare",
   "record-ithenticate": "iThenticate report",
-  "record-url-text": "$1 of edit ($2 words)",
+  "record-url-text": "$1 of edit",
   "record-noeditor": "No editor found",
   "record-noeditor-tooltip": "The revision may have been deleted or the data is not yet available in Labs database.",
   "record-ores": "ORES score: $1",

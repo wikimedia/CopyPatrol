@@ -68,8 +68,7 @@ class CopyPatrolRepository {
 				'status_user_text', 'source_id', 'url', 'percent',
 			] )
 			->from( 'diffs', 'd' )
-			->join( 'd', 'report_sources', 's', 'd.submission_id = s.submission_id' )
-			->orderBy( 'diff_id', 'DESC' );
+			->join( 'd', 'report_sources', 's', 'd.submission_id = s.submission_id' );
 
 		if ( $options['id'] ) {
 			// if given an exact submission ID, don't allow any other filter options
@@ -119,6 +118,7 @@ class CopyPatrolRepository {
 
 		return $outerQuery->select( '*' )
 			->from( '(' . $qb->getSQL() . ') a' )
+			->orderBy( 'diff_id', 'DESC' )
 			->setMaxResults( $limit )
 			->executeQuery()
 			->fetchAllAssociative();

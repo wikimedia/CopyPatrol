@@ -59,7 +59,7 @@ class RecordTest extends TestCase {
 	}
 
 	public function testGetters(): void {
-		static::assertSame( 23323186, $this->record->getSubmissionId() );
+		static::assertSame( '23323186', $this->record->getSubmissionId() );
 		static::assertSame( [
 			[
 				'source_id' => 28671,

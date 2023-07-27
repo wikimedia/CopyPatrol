@@ -75,8 +75,14 @@ class WikiRepository {
 		$sql = "SELECT user_name, user_editcount
 				FROM {$this->getDb()}.user
 				WHERE user_name IN (:usernames)";
-		return $this->executeQuery( $sql, [ 'usernames' => $usernames ], [ 'usernames' => ArrayParameterType::STRING ] )
-			->fetchAllKeyValue();
+		$ret = $this->executeQuery( $sql,
+			[ 'usernames' => $usernames ],
+			[ 'usernames' => ArrayParameterType::STRING ]
+		);
+		if ( $ret->rowCount() > 0 ) {
+			return $ret->fetchAllKeyValue();
+		}
+		return [];
 	}
 
 	/**
