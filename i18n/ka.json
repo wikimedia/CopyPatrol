@@ -5,7 +5,6 @@
 			"OpusDEI"
 		]
 	},
-	"name": "CopyPatrol",
 	"documentation": "დოკუმანტაცია",
 	"feedback": "გამოხმაურება",
 	"leaderboard": "ლიდერების სია",
@@ -40,9 +39,6 @@
 	"fa-wikipedia": "სპარსული ვიკიპედია",
 	"ru-wikipedia": "რუსული ვიკიპედია",
 	"tr-wikipedia": "თურქული ვიკიპედია",
-	"login": "შესვლა",
-	"logout": "გასვლა",
-	"header-loggedin": "თქვენ შემოსული ხართ როგორც: $1",
 	"form-all": "ყველა საქმე",
 	"form-open": "ღია საქმეები",
 	"form-reviewed": "შემოწმებული გვერდები",

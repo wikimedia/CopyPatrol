@@ -5,7 +5,6 @@
 			"Sayem AtVkm"
 		]
 	},
-	"name": "CopyPatrol",
 	"documentation": "Tasemlit",
 	"feedback": "Tikti",
 	"leaderboard": "Tafelwit n yigmaḍ",
@@ -34,15 +33,11 @@
 	"el-wikipedia": "Wikipedia s tegrikkit",
 	"fa-wikipedia": "Wikipedia s tfarsit",
 	"ru-wikipedia": "Wikipedia s trusit",
-	"login": "Qqen",
-	"logout": "Tuffɣa",
-	"header-loggedin": "Teqqneḍ s: $1",
 	"form-all": "Akk inekcam",
 	"form-open": "Inekccam yeldin",
 	"form-reviewed": "Inekcam yettwaɣran",
 	"form-drafts": "Irewwayen kan",
 	"wikiprojects": "Isenfaṛen Wiki",
-	"form-wikiprojects-placeholder": "Aru ismawwen n isenfaṛen...",
 	"submit": "Azen",
 	"page": "Asebter",
 	"diff": "Amgired",

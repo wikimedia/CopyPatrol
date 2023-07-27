@@ -4,7 +4,6 @@
 			"Yasen igra"
 		]
 	},
-	"name": "CopyPatrol",
 	"documentation": "Mwongozo",
 	"feedback": "Mrejezo",
 	"leaderboard": "Kiongozi",
@@ -39,8 +38,6 @@
 	"fa-wikipedia": "Wikipedia ya Kiajemi",
 	"ru-wikipedia": "Wikipedia ya Kirusi",
 	"tr-wikipedia": "Wikipedia ya Kituruki",
-	"login": "Ingia",
-	"logout": "Toka",
 	"page": "Ukurasa",
 	"diff": "Tofauti",
 	"editor": "Mhariri",

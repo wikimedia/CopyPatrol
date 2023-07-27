@@ -5,7 +5,6 @@
 			"Ya2sine"
 		]
 	},
-	"name": "CopyPatrol",
 	"documentation": "ⵜⴰⵏⵜⴰⵎⵜ",
 	"feedback": "ⵜⴰⵏⵏⴰⵢⵜ",
 	"leaderboard": "ⵜⴰⴼⵍⵡⵉⵜ ⵏ ⵉⵎⵣⵡⵓⵔⴰ",
@@ -40,9 +39,6 @@
 	"fa-wikipedia": "ⵡⵉⴽⵉⴱⵉⴷⵢⴰ ⵙ ⵜⴼⴰⵔⵙⵉⵜ",
 	"ru-wikipedia": "ⵡⵉⴽⵉⴱⵉⴷⵢⴰ ⵙ ⵜⵔⵓⵙⵉⵜ",
 	"tr-wikipedia": "ⵡⵉⴽⵉⴱⵉⴷⵢⴰ ⵙ ⵜⴻⵜⵓⵔⴽⵉⵜ",
-	"login": "ⴰⴽⵛⴰⵎ",
-	"logout": "ⵓⴼⵓⵖ",
-	"header-loggedin": "ⵜⴽⵛⵎⴷ ⴰⵎ: $1",
 	"page": "ⵜⴰⵙⵏⴰ",
 	"editor": "ⴰⵎⵙⵙⵏⴼⵍ",
 	"review-false": "ⵡⴰⵍⵓ ⵜⵉⴳⴰⵡⵜ ⵉⵅⵚⵚⴰⵏ",

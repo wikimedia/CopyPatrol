@@ -4,7 +4,6 @@
 			"Munkhzaya.E"
 		]
 	},
-	"name": "CopyPatrol",
 	"documentation": "Баримтжуулалт",
 	"feedback": "Санал хүсэлт",
 	"leaderboard": "Тэргүүлэгчдийн жагсаалт",
@@ -39,15 +38,11 @@
 	"fa-wikipedia": "Перс хэлний Википедиа",
 	"ru-wikipedia": "Орос хэлний Википедиа",
 	"tr-wikipedia": "Турк хэлний Википедиа",
-	"login": "Нэвтрэх",
-	"logout": "Гарах",
-	"header-loggedin": "Таны нэвтэрсэн байгаа нь: $1",
 	"form-all": "Бүх тохиолдолд",
 	"form-open": "Нээлттэй тохиолдолд",
 	"form-reviewed": "Шалгасан тохиолдолд",
 	"form-drafts": "Зөвхөн ноорог",
 	"wikiprojects": "ВикиТөслүүд",
-	"form-wikiprojects-placeholder": "ВикиТөслүүдийн нэрийг өгнө үү",
 	"submit": "Хянуулах",
 	"page": "Хуудас",
 	"diff": "Ялгаа",

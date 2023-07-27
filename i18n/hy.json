@@ -6,7 +6,6 @@
 			"Սերգեյ Սաֆարյան"
 		]
 	},
-	"name": "CopyPatrol",
 	"documentation": "Ձեռնարկ",
 	"feedback": "Հետադարձ կապ",
 	"zh-wikipedia": "Չինարենն Վիքիպեդիա",
@@ -39,9 +38,6 @@
 	"fa-wikipedia": "Պարսկերեն Վիքիպեդիա",
 	"ru-wikipedia": "Ռուսերեն Վիքիպեդիա",
 	"tr-wikipedia": "Թուրքերեն Վիքիպեդիա",
-	"login": "Մտնել",
-	"logout": "Դուրս գալ",
-	"header-loggedin": "Դուք մտել եք որպես $1",
 	"form-all": "Բոլոր դեպքերում",
 	"wikiprojects": "ՎիքիՆախագծեր",
 	"submit": "Հաստատել",

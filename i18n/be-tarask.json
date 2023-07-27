@@ -6,7 +6,6 @@
 			"Renessaince"
 		]
 	},
-	"name": "CopyPatrol",
 	"documentation": "Дакумэнтацыя",
 	"feedback": "Водгук",
 	"leaderboard": "Табліца лідэраў",
@@ -25,7 +24,6 @@
 	"de-wikipedia": "Нямецкая Вікіпэдыя",
 	"hu-wikipedia": "Вугорская Вікіпэдыя",
 	"it-wikipedia": "Італьянская Вікіпэдыя",
-	"logout": "Выйсьці",
 	"page": "Старонка",
 	"editor": "Рэдактар",
 	"history": "Гісторыя",

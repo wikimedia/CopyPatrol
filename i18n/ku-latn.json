@@ -5,7 +5,6 @@
 			"George Animal"
 		]
 	},
-	"name": "CopyPatrol",
 	"documentation": "Belgekirin",
 	"feedback": "Paşragihandin",
 	"leaderboard": "Leaderboard",
@@ -15,9 +14,6 @@
 	"ca-wikipedia": "Wîkîpediyaya katalanî",
 	"da-wikipedia": "Wîkîpediyaya danmarkî",
 	"fr-wikipedia": "Wîkîpediyaya Fransî",
-	"login": "Têkeve",
-	"logout": "Derkeve",
-	"header-loggedin": "Tu têketiyî wek: $1",
 	"form-all": "Hemû rewş",
 	"submit": "Tomar bike",
 	"page": "Rûpel",
@@ -31,7 +27,6 @@
 	"compare": "Bide berhev",
 	"article": "Gotar",
 	"source": "Çavkanî",
-	"phabricator": "Phabricator",
 	"close": "Bigre",
 	"imageattr-logo": "Logoya CopyPatrolê"
 }

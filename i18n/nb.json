@@ -5,7 +5,6 @@
 			"SuperPotato"
 		]
 	},
-	"name": "CopyPatrol",
 	"documentation": "Dokumentasjon",
 	"feedback": "Tilbakemelding",
 	"leaderboard": "Toppliste",
@@ -40,15 +39,11 @@
 	"fa-wikipedia": "Persisk Wikipedia",
 	"ru-wikipedia": "Russisk Wikipedia",
 	"tr-wikipedia": "Tyrkisk Wikipedia",
-	"login": "Logg inn",
-	"logout": "Logg ut",
-	"header-loggedin": "Du er logget inn som: $1",
 	"form-all": "Alle saker",
 	"form-open": "Åpne saker",
 	"form-reviewed": "Gjennomsette saker",
 	"form-drafts": "Kun kladder",
 	"wikiprojects": "WikiProsjekter",
-	"form-wikiprojects-placeholder": "Skriv WikiProsjekt-navn…",
 	"submit": "Send inn",
 	"page": "Side",
 	"diff": "Diff",
@@ -60,7 +55,6 @@
 	"article": "Artikkel",
 	"footer-loadmore": "Last inn mer",
 	"source": "Kilde",
-	"phabricator": "Phabricator",
 	"close": "Lukk",
 	"open-font-license": "Open Font-lisens",
 	"permalink": "Permanent lenke"
