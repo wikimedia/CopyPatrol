@@ -91,7 +91,7 @@ class CopyPatrolRepository {
 			// search filters
 			if ( $options['filter_page'] ) {
 				$qb->andWhere( "page_title LIKE CONCAT('%', :filterPage, '%')" );
-				$outerQuery->setParameter( 'filterPage', $options['filter_page'] );
+				$outerQuery->setParameter( 'filterPage', str_replace( ' ', '_', $options['filter_page'] ) );
 			}
 			// allow filtering by user and status
 			if ( $options['filter_user'] ) {
