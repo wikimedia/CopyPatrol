@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"A Chinese Wikipedian",
+			"GuoPC",
 			"Liuxinyu970226",
 			"Shizhao"
 		]
@@ -63,7 +64,7 @@
 	"record-editcount": "编辑计数：",
 	"compare": "比较",
 	"record-ithenticate": "iThenticate报告",
-	"record-url-text": "占编辑的$1（$2个字）",
+	"record-url-text": "占编辑的$1",
 	"record-noeditor": "找不到编者",
 	"record-noeditor-tooltip": "修订版本可能已被删除，或者数据在labs数据库中尚不可用。",
 	"record-ores": "ORES分数：$1",

@@ -64,7 +64,7 @@
 	"record-editcount": "מספר העריכות:",
 	"compare": "השוואה",
 	"record-ithenticate": "דוח iThenticate",
-	"record-url-text": "$1 מתוך עריכה ($2 מילים)",
+	"record-url-text": "$1 מתוך העריכה",
 	"record-noeditor": "לא נמצא עורך",
 	"record-noeditor-tooltip": "הגרסה נמחקה והנתונים אינם זמינים עוד במסד הנתונים של המעבדה.",
 	"record-ores": "דירוג ORES‏: $1",

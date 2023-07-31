@@ -67,7 +67,7 @@
 	"record-editcount": "Počet editací:",
 	"compare": "Porovnat",
 	"record-ithenticate": "Výsledek z iThenticate",
-	"record-url-text": "$1 editací ($2 slov)",
+	"record-url-text": "$1 editace",
 	"record-noeditor": "Editor nebyl nalezen",
 	"record-noeditor-tooltip": "Tato editace mohla být smazána anebo data k ní ještě nejsou k dispozici v databázi.",
 	"record-ores": "ORES skóre: $1",
@@ -99,6 +99,6 @@
 	"js-unknown-error": "Během pokusu o načtení výsledků nastala chyba. Prosím, zkuste to znovu.",
 	"permalink": "Trvalý odkaz",
 	"show-all-records": "Zobrazit všechny nahrávky",
-	"access-blocked": "V současné době máte $1 v $2 a nemůžete používat CopyPatrol.",
-	"blocked": "zablokováno"
+	"access-blocked": "V současné době jste na $2 $1 a nemůžete používat CopyPatrol.",
+	"blocked": "zablokován(a)"
 }

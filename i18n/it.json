@@ -64,7 +64,7 @@
 	"record-editcount": "Conteggio modifiche:",
 	"compare": "Confronta",
 	"record-ithenticate": "Rapporto di iThenticate",
-	"record-url-text": "$1 della modifica ($2 parole)",
+	"record-url-text": "$1 della modifica",
 	"record-noeditor": "Nessun editor trovato",
 	"record-noeditor-tooltip": "È possibile che l'edit sia stato cancellato o che i dati non stiano ancora disponibili nel database di Labs.",
 	"record-ores": "Punteggio ORES: $1",
