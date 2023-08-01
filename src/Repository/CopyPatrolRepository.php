@@ -73,7 +73,7 @@ class CopyPatrolRepository {
 		if ( $options['id'] ) {
 			// if given an exact submission ID, don't allow any other filter options
 			$qb->where( 'd.submission_id = :id' );
-			$outerQuery->setParameter( 'id', $options['id'], ParameterType::INTEGER );
+			$outerQuery->setParameter( 'id', $options['id'] );
 		} elseif ( $options['revision'] ) {
 			// Same situation for diff IDs, except we still want the language.
 			$qb->where( 'rev_id = :rev_id' );
@@ -101,7 +101,7 @@ class CopyPatrolRepository {
 			// see if this is a load more click
 			if ( $options['last_id'] ) {
 				$qb->andWhere( "d.submission_id > :lastId" );
-				$outerQuery->setParameter( 'lastId', $options['last_id'], ParameterType::INTEGER );
+				$outerQuery->setParameter( 'lastId', $options['last_id'] );
 			}
 			// filtering to draft namespace
 			if ( $options['drafts'] ) {
