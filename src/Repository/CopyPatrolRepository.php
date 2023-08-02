@@ -52,7 +52,7 @@ class CopyPatrolRepository {
 	 *   string 'filter_user' Filter SQL to only return records reviewed by given user
 	 *   string 'filter_page' Search string (page title)
 	 *   boolean 'drafts' returns only records that are in the Draft namespace
-	 *   integer 'last_id' offset of where to start fetching records, going by 'ithenticate_id'
+	 *   integer 'last_id' offset of where to start fetching records, going by 'diff_id'
 	 *   integer 'id' exact submission_id of a record. This will override all other filter options
 	 *   string 'lang' The language code of the Wikipedia to query for
 	 * @param int $limit Number of records asked for
@@ -60,66 +60,66 @@ class CopyPatrolRepository {
 	 */
 	public function getPlagiarismRecords( array $options = [], int $limit = 50 ): array {
 		$outerQuery = $this->client->createQueryBuilder();
-		$qb = $this->client->createQueryBuilder()
+		$diffsQb = $this->client->createQueryBuilder()
 			->select( [
 				// There's two submission_id columns so we need to specify all the columns that we want.
 				'diff_id', 'project', 'lang', 'page_namespace', 'page_title', 'rev_id', 'rev_parent_id',
 				'rev_timestamp', 'rev_user_text', 'd.submission_id', 'status', 'status_timestamp',
-				'status_user_text', 'source_id', 'url', 'percent',
+				'status_user_text',
 			] )
 			->from( 'diffs', 'd' )
-			->join( 'd', 'report_sources', 's', 'd.submission_id = s.submission_id' );
+			->orderBy( 'diff_id', 'DESC' )
+			->setMaxResults( $limit );
 
 		if ( $options['id'] ) {
 			// if given an exact submission ID, don't allow any other filter options
-			$qb->where( 'd.submission_id = :id' );
+			$diffsQb->where( 'd.submission_id = :id' );
 			$outerQuery->setParameter( 'id', $options['id'] );
 		} elseif ( $options['revision'] ) {
 			// Same situation for diff IDs, except we still want the language.
-			$qb->where( 'rev_id = :rev_id' );
+			$diffsQb->where( 'rev_id = :rev_id' );
 			$outerQuery->setParameter( 'rev_id', $options['revision'], ParameterType::INTEGER );
 		} else {
 			// Ensures only valid filters are used
 			switch ( $options['filter'] ) {
 				case self::FILTER_REVIEWED:
-					$qb->andWhere( "status > " . self::STATUS_READY );
+					$diffsQb->andWhere( "status > " . self::STATUS_READY );
 					break;
 				case self::FILTER_OPEN:
-					$qb->andWhere( "status = " . self::STATUS_READY );
+					$diffsQb->andWhere( "status = " . self::STATUS_READY );
 					break;
 			}
 			// search filters
 			if ( $options['filter_page'] ) {
-				$qb->andWhere( "page_title LIKE CONCAT('%', :filterPage, '%')" );
+				$diffsQb->andWhere( "page_title LIKE CONCAT('%', :filterPage, '%')" );
 				$outerQuery->setParameter( 'filterPage', str_replace( ' ', '_', $options['filter_page'] ) );
 			}
 			// allow filtering by user and status
 			if ( $options['filter_user'] ) {
-				$qb->andWhere( "status_user_text = :filterUser" );
+				$diffsQb->andWhere( "status_user_text = :filterUser" );
 				$outerQuery->setParameter( 'filterUser', $options['filter_user'] );
 			}
 			// see if this is a load more click
 			if ( $options['last_id'] ) {
-				$qb->andWhere( "d.submission_id > :lastId" );
-				$outerQuery->setParameter( 'lastId', $options['last_id'] );
+				$diffsQb->andWhere( "diff_id < :lastId" );
+				$outerQuery->setParameter( 'lastId', $options['last_id'], ParameterType::INTEGER );
 			}
 			// filtering to draft namespace
 			if ( $options['drafts'] ) {
-				$qb->andWhere( "page_namespace = " . WikiRepository::NS_ID_DRAFTS );
+				$diffsQb->andWhere( "page_namespace = " . WikiRepository::NS_ID_DRAFTS );
 			}
 
 			// Only fetch entries from the required language Wikipedia.
-			$qb->andWhere( "lang = :lang" );
+			$diffsQb->andWhere( "lang = :lang" );
 			$outerQuery->setParameter( 'lang', $options['lang'] );
 
 			// show only records after June 20, 2016; See phab:T138317
-			$qb->andWhere( "rev_timestamp > 20160620000000" );
+			$diffsQb->andWhere( "rev_timestamp > 20160620000000" );
 		}
 
-		return $outerQuery->select( '*' )
-			->from( '(' . $qb->getSQL() . ') a' )
-			->orderBy( 'diff_id', 'DESC' )
-			->setMaxResults( $limit )
+		return $outerQuery->select( '*', 'source_id', 'url', 'percent' )
+			->from( '(' . $diffsQb->getSQL() . ')', 'a' )
+			->join( 'a', 'report_sources', 's', 'a.submission_id = s.submission_id' )
 			->executeQuery()
 			->fetchAllAssociative();
 	}

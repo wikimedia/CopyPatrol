@@ -15,7 +15,7 @@
 {% block records %}
 	{% if records is not empty %}
 		{% for row in records %}
-			<article class="js-record record record-status-{{ row.status }} record-{{ row.submissionId }}" data-status="{{ row.status }}">
+			<article class="record record-status-{{ row.status }} data-status="{{ row.status }}" data-diff-id="{{ row.diffId }}">
 				<div class="row-container clearfix">
 					{# Div for page title #}
 					<div class="row-div {% if has_wikiprojects %}col-sm-3{% else %}col-sm-4{% endif %} page-div">
@@ -82,13 +82,13 @@
 						<div class="status-buttons">
 							<button data-id="{{ row.submissionId }}"
 									data-status="1"
-									class="btn btn-success btn-block btn-fixed js-save-state {{ logged_in_user() ? 'clickable' : '' }}"
+									class="btn btn-success btn-block btn-fixed save-state {{ logged_in_user() ? 'clickable' : '' }}"
 									title="{{ msg('review-fixed-tooltip') }}">
 								{{ msg('review-fixed') }}
 							</button>
 							<button data-id="{{ row.submissionId }}"
 									data-status="2"
-									class="btn btn-danger btn-block btn-no-action js-save-state {{ logged_in_user() ? 'clickable' : '' }}"
+									class="btn btn-danger btn-block btn-no-action save-state {{ logged_in_user() ? 'clickable' : '' }}"
 									title="{{ msg('review-false-tooltip') }}">
 								{{ msg('review-false') }}
 							</button>
@@ -100,12 +100,11 @@
 						</a>
 					</div>
 				</div>
-				<div class="submission-id">{{ row.submissionId }}</div>
 				<div class="compare-links-container">
 					{% if row.sources is not empty %}
 						{% for source in row.sources %}
 							<div class="compare-div ellipsis">
-								<button class="btn btn-xs btn-primary dropdown-toggle compare-button js-compare-button"
+								<button class="btn btn-xs btn-primary dropdown-toggle compare-button"
 										data-id="{{ row.submissionId }}" data-index="{{ loop.index }}"
 										data-url="{{ source.url }}" data-oldid="{{ row.revId }}">
 									<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
@@ -130,7 +129,7 @@
 							</div>
 						{% endfor %}
 					{% endif %}
-					<a class="btn btn-xs btn-primary compare-button" href='{{ path('ithenticate', {id: row.submissionId}) }}' rel='nofollow noreferrer noopener' target="_blank">
+					<a class="btn btn-xs btn-primary" href='{{ path('ithenticate', {id: row.submissionId}) }}' rel='nofollow noreferrer noopener' target="_blank">
 						<span class="glyphicon glyphicon-new-window"></span>
 						{{ msg('record-ithenticate') }}
 					</a>

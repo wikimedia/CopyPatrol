@@ -18,9 +18,9 @@ class CopyPatrol {
 	}
 
 	addListeners() {
-		this.$records.on( 'click', '.js-save-state', this.saveState.bind( this ) );
-		this.$records.on( 'click', '.js-compare-button', this.toggleComparePane.bind( this ) );
-		$( '.js-load-more' ).on( 'click', this.loadMoreResults );
+		this.$records.on( 'click', '.save-state', this.saveState.bind( this ) );
+		this.$records.on( 'click', '.compare-button', this.toggleComparePane.bind( this ) );
+		$( '.btn-load-more' ).on( 'click', this.loadMoreResults );
 
 		// enable additional search features based on active filter
 		$( this.filtersForm.elements.filter ).on( 'change', () => {
@@ -201,7 +201,7 @@ class CopyPatrol {
 	 */
 	loadMoreResults() {
 		$( '#btn-load-more' ).text( '' ).addClass( 'btn-loading' );
-		const lastId = $( '.submission-id:last' ).text(),
+		const lastId = $( '.record:last' ).data( 'diffId' ),
 			params = new URLSearchParams( location.search );
 		params.set( 'lastid', lastId );
 		$.ajax( { url: `/${wikiLang}?${params}` } ).done( ( ret ) => {
@@ -209,10 +209,10 @@ class CopyPatrol {
 				.removeClass( 'btn-loading' );
 			const $newRecords = $( ret ).find( '.record-container' );
 
-			if ( $newRecords.find( '.js-record' ).length ) {
+			if ( $newRecords.find( '.record' ).length ) {
 				$( '.record-container' ).append( $newRecords.html() );
 			} else {
-				$( '.js-load-more' ).replaceWith( '<p>' + jsNoMore + '</p>' );
+				$( '.btn-load-more' ).replaceWith( '<p>' + jsNoMore + '</p>' );
 			}
 		} ).fail( function () {
 			window.alert( jsUnknownError );
@@ -223,7 +223,7 @@ class CopyPatrol {
 
 $( () => {
 	const copyPatrol = new CopyPatrol();
-	if ( $( '.js-record' ).length ) {
+	if ( $( '.record' ).length ) {
 		copyPatrol.addListeners();
 	}
 } );

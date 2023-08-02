@@ -113,6 +113,15 @@ class Record {
 	}
 
 	/**
+	 * Get the diff ID.
+	 *
+	 * @return int
+	 */
+	public function getDiffId(): int {
+		return (int)$this->data['diff_id'];
+	}
+
+	/**
 	 * Get the URL to the diff page for the revision.
 	 *
 	 * @return string
