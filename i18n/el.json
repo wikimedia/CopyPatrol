@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Geraki",
 			"NikosLikomitros",
 			"Nikosgranturismogt"
 		]
@@ -39,6 +40,7 @@
 	"fa-wikipedia": "Περσική Βικιπαίδεια",
 	"ru-wikipedia": "Ρωσική Βικιπαίδεια",
 	"tr-wikipedia": "Τουρκική Βικιπαίδεια",
+	"simple-wikipedia": "Απλή Αγγλική Βικιπαίδεια",
 	"form-all": "Όλες οι περιπτώσεις",
 	"form-open": "Ανοιχτές περιπτώσεις",
 	"form-reviewed": "Επιθεωρημένες περιπτώσεις",
@@ -60,7 +62,7 @@
 	"record-editcount": "Καταμέτρηση επεξεργασιών:",
 	"compare": "Σύγκριση",
 	"record-ithenticate": "αναφορά iThenticate",
-	"record-url-text": "$1 τις επεξεργασίας ($2 λέξεις)",
+	"record-url-text": "$1 της επεξεργασίας",
 	"record-noeditor": "Δεν βρέθηκε συντάκτες.",
 	"record-noeditor-tooltip": "Αυτή η αναθεώρηση μπορεί να έχει διαγραφεί ή τα δεδομένα δεν είναι ακόμα διαθέσιμα στην βάση δεδομένων των Εργαστηρίων.",
 	"record-ores": "Σκορ ORES: $1",
@@ -72,6 +74,7 @@
 	"footer-broughtby": "Σας παρέχεται από τον $1",
 	"footer-poweredby": "Τροφοδοτείται από το $1 και το $2",
 	"filter-page": "Αναζήτηση για τον τίτλο σελίδας:",
+	"filter-user": "Αναζήτηση αναθεωρήσεων από χρήστη:",
 	"source": "Πηγή",
 	"footer-imageattr": "Απόδοση εικόνας",
 	"lboard-title": "Λίστα κατάταξης",
@@ -79,6 +82,7 @@
 	"lboard-month": "Περιπτώσεις που έκλεισαν στις τελευταίες 30 ημέρες",
 	"lboard-alltime": "Όλες οι κλεισμένες περιπτώσεις",
 	"lboard-back": "Πίσω στο CopyPatrol",
+	"lboard-count-title": "Δείτε $1 περιπτώσεις που εξετάστηκαν από αυτόν τον χρήστη",
 	"close": "Κλείσιμο",
 	"imageattr-title": "Απόδοση εικόνας",
 	"imageattr-logo": "Λογότυπο του CopyPatrol",

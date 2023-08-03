@@ -67,7 +67,7 @@
 	"record-editcount": "Счётчик правок",
 	"compare": "Сравнить",
 	"record-ithenticate": "отчет iThenticate",
-	"record-url-text": "$1 правки (число слов: $2)",
+	"record-url-text": "$1 правки",
 	"record-noeditor": "Редактор не найден",
 	"record-noeditor-tooltip": "Версия статьи может быть удалена или данные ещё не доступны в базе данных Лаборатории.",
 	"record-ores": "Рейтинг ORES: $1",
