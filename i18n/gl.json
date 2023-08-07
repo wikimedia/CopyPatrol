@@ -61,7 +61,7 @@
 	"record-editcount": "Contador de ediciónsː",
 	"compare": "Comparar",
 	"record-ithenticate": "Informe de iThenticate",
-	"record-url-text": "$1 da edición ($2 palabras)",
+	"record-url-text": "$1 da edición",
 	"record-noeditor": "Non se atopou ningún editor",
 	"record-noeditor-tooltip": "A revisión puido ser borrada ou os datos non están aínda dispoñibles na base de datos de Labs.",
 	"record-ores": "Puntuación ORES : $1",
