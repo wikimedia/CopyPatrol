@@ -117,7 +117,7 @@ class CopyPatrolRepository {
 			$diffsQb->andWhere( "rev_timestamp > 20160620000000" );
 		}
 
-		return $outerQuery->select( '*', 'source_id', 'url', 'percent' )
+		return $outerQuery->select( '*', 'source_id', 'url', 'percent', 'description' )
 			->from( '(' . $diffsQb->getSQL() . ')', 'a' )
 			->join( 'a', 'report_sources', 's', 'a.submission_id = s.submission_id' )
 			->executeQuery()

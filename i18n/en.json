@@ -100,5 +100,6 @@
   "permalink": "Permalink",
   "show-all-records": "Show all records",
   "access-blocked": "You are currently $1 on $2 and are unable to use CopyPatrol.",
-  "blocked": "blocked"
+  "blocked": "blocked",
+  "non-internet-source": "(non-internet source)"
 }

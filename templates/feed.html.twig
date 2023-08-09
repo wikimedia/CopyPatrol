@@ -104,14 +104,20 @@
 					{% if row.sources is not empty %}
 						{% for source in row.sources %}
 							<div class="compare-div ellipsis">
-								<button class="btn btn-xs btn-primary dropdown-toggle compare-button"
+								{% set isNonUrlSource = source.url is empty %}
+								<button class="btn btn-xs btn-primary dropdown-toggle compare-button {% if isNonUrlSource %}disabled{% endif %}"
 										data-id="{{ row.submissionId }}" data-index="{{ loop.index }}"
 										data-url="{{ source.url }}" data-oldid="{{ row.revId }}">
 									<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
 									{{ msg('compare') }}
 								</button>
-								{{ msg('record-url-text', [source.percent ~ '%']) }}
-								<a href="{{ source.url }}" target="_blank">{{ source.url }}</a><br/>
+								{{ msg('record-url-text', [source.percent|round(2) ~ '%']) }}
+								{% if isNonUrlSource %}
+									<em class="text-muted">{{ msg('non-internet-source') }}</em>
+									{{ source.description }}
+								{% else %}
+									<a href="{{ source.url }}" target="_blank">{{ source.url }}</a><br/>
+								{% endif %}
 								<div class="compare-pane" id="{{ 'comp' ~ row.submissionId ~ '-' ~ loop.index }}">
 									<div class="compare-pane-left">
 										<h4 class="compare-pane-title">{{ msg('article') }}</h4>

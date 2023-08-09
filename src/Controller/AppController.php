@@ -140,6 +140,7 @@ class AppController extends AbstractController {
 				'source_id' => $row['source_id'],
 				'url' => $row['url'],
 				'percent' => $row['percent'],
+				'description' => $row['description'],
 			];
 			unset( $newRows[$row['diff_id']]['url'] );
 			unset( $newRows[$row['diff_id']]['source_id'] );
