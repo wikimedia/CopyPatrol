@@ -197,10 +197,10 @@ class CopyPatrolRepository {
 	/**
 	 * Get a particular record by submission ID.
 	 *
-	 * @param int $submissionId ID of record.
+	 * @param string $submissionId ID of record.
 	 * @return array Query result.
 	 */
-	public function getRecordById( int $submissionId ) {
+	public function getRecordById( string $submissionId ) {
 		$sql = "SELECT * FROM diffs WHERE submission_id = :id";
 		return $this->client->fetchAssociative( $sql, [
 			'id' => $submissionId

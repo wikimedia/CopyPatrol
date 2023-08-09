@@ -8,6 +8,7 @@ use App\Repository\WikiRepository;
 use DateTime;
 use Doctrine\DBAL\Exception\DriverException;
 use Exception;
+use Krinkle\Intuition\Intuition;
 use PhpXmlRpc\Client;
 use PhpXmlRpc\Value;
 use stdClass;
@@ -18,8 +19,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 // phpcs:ignore MediaWiki.Classes.UnusedUseStatement.UnusedUse
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AppController extends AbstractController {
 
@@ -278,26 +281,39 @@ class AppController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/ithenticate/{id}", name="ithenticate", requirements={"id"="\d+|[a-z\d+\-]"})
+	 * @Route("/ithenticate/{id}", name="ithenticate", requirements={"id"="\d+|[a-z\d+\-]+"})
+	 * @param HttpClientInterface $httpClient
+	 * @param RequestStack $requestStack
 	 * @param CopyPatrolRepository $copyPatrolRepo
+	 * @param Intuition $intuition
 	 * @param string $iThenticateUser
 	 * @param string $iThenticatePassword
-	 * @param int $id
+	 * @param string $id
 	 * @return RedirectResponse
 	 * @throws Exception
 	 */
 	public function iThenticateAction(
+		HttpClientInterface $httpClient,
+		RequestStack $requestStack,
 		CopyPatrolRepository $copyPatrolRepo,
+		Intuition $intuition,
 		string $iThenticateUser,
 		string $iThenticatePassword,
-		int $id
+		string $id
 	): RedirectResponse {
 		$record = $copyPatrolRepo->getRecordById( $id );
 		$v2DateTime = new DateTime( self::ITHENTICATE_V2_TIMESTAMP );
 		if ( new DateTime( $record['rev_timestamp'] ) > $v2DateTime ) {
-			// New system
-			// TODO: make this work
-			return new RedirectResponse( '' );
+			// New system.
+			$loggedInUser = $requestStack->getSession()->get( 'logged_in_user' )->username;
+			if ( $loggedInUser === null ) {
+				return $this->redirectToRoute( 'toolforge_login', [
+					'callback' => $this->generateUrl( 'toolforge_oauth_callback', [
+						'redirect' => $requestStack->getCurrentRequest()->getUri(),
+					] )
+				] );
+			}
+			return $this->redirectToTcaViewer( $httpClient, $loggedInUser, $intuition->getLang(), $id );
 		}
 
 		$client = new Client( 'https://api.ithenticate.com/rpc' );
@@ -313,6 +329,63 @@ class AppController extends AbstractController {
 		}
 
 		return $this->redirect( $response['view_only_url']->scalarval() );
+	}
+
+	/**
+	 * @param HttpClientInterface $client
+	 * @param string $loggedInUser
+	 * @param string $locale
+	 * @param string $id
+	 * @param int $retries
+	 * @return RedirectResponse
+	 */
+	private function redirectToTcaViewer(
+		HttpClientInterface $client,
+		string $loggedInUser,
+		string $locale,
+		string $id,
+		int $retries = 0
+	): RedirectResponse {
+		// Load config settings. This lives in .copypatrol.ini and is shared with the bot.
+		$projectDir = $this->getParameter( 'kernel.project_dir' );
+		$config = parse_ini_file( "$projectDir/.copypatrol.ini" );
+		// Request the viewer URL from Turnitin.
+		$response = $client->request(
+			'POST',
+			"https://{$config['domain']}/api/v1/submissions/$id/viewer-url",
+			[
+				'json' => [
+					'viewer_user_id' => $loggedInUser,
+					'locale' => $locale,
+					'viewer_permissions' => [
+						'may_view_submission_full_source' => true,
+						'may_view_match_submission_info' => true,
+						'may_view_document_details_panel' => true,
+						'may_view_sections_exclusion_panel' => true,
+					],
+				],
+				'headers' => [
+					'Authorization' => "Bearer {$config['key']}",
+					'From' => 'copypatrol@toolforge.org',
+					'User-Agent' => "copypatrol/{$config['version']}",
+					'X-Turnitin-Integration-Name' => 'CopyPatrol',
+					'X-Turnitin-Integration-Version' => $config['version'],
+				],
+			]
+		);
+
+		if ( $response->getStatusCode() !== Response::HTTP_OK ) {
+			if ( $retries > 5 ) {
+				throw new HttpException(
+					Response::HTTP_BAD_GATEWAY,
+					'Failed to fetch URL from the Turnitin Core API'
+				);
+			}
+			sleep( $retries + 1 );
+			return $this->redirectToTcaViewer( $client, $loggedInUser, $locale, $id, $retries + 1 );
+		}
+
+		return $this->redirect( json_decode( $response->getContent() )->viewer_url );
 	}
 
 	/**
