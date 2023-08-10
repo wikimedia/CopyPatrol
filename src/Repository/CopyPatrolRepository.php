@@ -82,6 +82,9 @@ class CopyPatrolRepository {
 		} else {
 			// Ensures only valid filters are used
 			switch ( $options['filter'] ) {
+				case self::FILTER_ALL:
+					$diffsQb->andWhere( "status >= " . self::STATUS_READY );
+					break;
 				case self::FILTER_REVIEWED:
 					$diffsQb->andWhere( "status > " . self::STATUS_READY );
 					break;
