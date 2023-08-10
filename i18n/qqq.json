@@ -112,5 +112,5 @@
 	"show-all-records": "Label for the button to show all records. This button is shown when the user went to a permalink that shows a single record.",
 	"access-blocked": "Message shown when a user is blocked on the wiki they are trying to view in CopyPatrol. \n\nParameters:\n* $1 — link to the block entry on the wiki, with the message 'blocked' as the link text. \n* $2 — domain of the wiki.",
 	"blocked": "The MediaWiki term for when a user is unable to edit a wiki.\n{{Identical|Blocked}}",
-    "non-internet-source": "Indicator that a source of a potential copyright violation is not from the internet. This is shown where the URL for the source would normally would go."
+	"non-internet-source": "Indicator that a source of a potential copyright violation is not from the internet. This is shown where the URL for the source would normally would go."
 }

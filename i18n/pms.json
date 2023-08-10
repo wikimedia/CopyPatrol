@@ -61,7 +61,7 @@
 	"record-editcount": "Conteur ëd modìfiche:",
 	"compare": "Confronté",
 	"record-ithenticate": "Rapòrt d'iThenticate",
-	"record-url-text": "$1 ëd la modìfica ($2 paròle)",
+	"record-url-text": "$1 ëd la modìfica",
 	"record-noeditor": "Gnun editor trovà",
 	"record-noeditor-tooltip": "Sa modìfica a podrìa esse stàita eliminà o ël dàit a l'é ancor nen disponìbile ant la base ëd dàit Labs.",
 	"record-ores": "Pontegg ORES: $1",
@@ -96,5 +96,6 @@
 	"permalink": "Liura permanenta",
 	"show-all-records": "Smon-e tuti ij dàit argistrà",
 	"access-blocked": "Chiel a l'é al moment $1 su $2 e a peul nen dovré CopyPatrol.",
-	"blocked": "blocà"
+	"blocked": "blocà",
+	"non-internet-source": "(sorgiss nen an sl'aragnà)"
 }

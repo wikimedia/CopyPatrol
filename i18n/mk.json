@@ -62,7 +62,7 @@
 	"record-editcount": "Бројач на уредувања",
 	"compare": "Спореди",
 	"record-ithenticate": "iThenticate-извештај",
-	"record-url-text": "$1 од уредувањето ($2 зборови)",
+	"record-url-text": "$1 од уредувањето",
 	"record-noeditor": "Не пронајдов ниеден уредник",
 	"record-noeditor-tooltip": "Преработката може да е избришата или пак податоците да не се достапни на базата на Лабораторијата.",
 	"record-ores": "ORES-оценка: $1",
@@ -99,5 +99,6 @@
 	"permalink": "Постојана врска",
 	"show-all-records": "Прикажи ги сите записи",
 	"access-blocked": "Моментално сте $1 на $2 и не можете да го користите CopyPatrol.",
-	"blocked": "блокирани"
+	"blocked": "блокирани",
+	"non-internet-source": "(несемрежен извор)"
 }

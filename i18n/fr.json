@@ -66,7 +66,7 @@
 	"record-editcount": "Compteur de modifications :",
 	"compare": "Comparer",
 	"record-ithenticate": "Rapport d’iThenticate",
-	"record-url-text": "$1 de ressemblance ($2 mots)",
+	"record-url-text": "$1 de la modification",
 	"record-noeditor": "Aucun rédacteur trouvé",
 	"record-noeditor-tooltip": "Cette version a probablement été supprimée ou bien l’information n’est pas encore disponible dans la base de données Labs.",
 	"record-ores": "Score ORES : $1",
@@ -101,5 +101,6 @@
 	"permalink": "Permalien",
 	"show-all-records": "Afficher tous les enregistrements",
 	"access-blocked": "Vous êtes actuellement $1 sur $2 et incapable d’utiliser CopyPatrol.",
-	"blocked": "bloqué{{GENDER:||e}}"
+	"blocked": "bloqué{{GENDER:||e}}",
+	"non-internet-source": "(source non internet)"
 }
