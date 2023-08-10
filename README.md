@@ -6,7 +6,8 @@ A tool that allows you to see recent Wikipedia edits that are flagged as possibl
 
 * User documentation: https://meta.wikimedia.org/wiki/Special:MyLanguage/CopyPatrol
 * Issue tracker: https://phabricator.wikimedia.org/tag/copypatrol/
-* Source code: https://gitlab.wikimedia.org/repos/commtech/copypatrol
+* Frontend source code (this repo): https://github.com/wikimedia/CopyPatrol
+* Bot source code: https://github.com/JJMC89/copypatrol-backend
 
 ## Installing manually
 
@@ -18,7 +19,11 @@ A tool that allows you to see recent Wikipedia edits that are flagged as possibl
 * [Toolforge access](https://wikitech.wikimedia.org/wiki/Help:Toolforge/Quickstart)
 
 This application makes use of the [Symfony framework](https://symfony.com/) and
-the [ToolforgeBundle](https://github.com/wikimedia/ToolforgeBundle).
+the [ToolforgeBundle](https://github.com/wikimedia/ToolforgeBundle). A [bot](https://meta.wikimedia.org/wiki/User:CopyPatrolBot) is used
+to continually query recent changes against the Turnitin Core API (TCA), record possible copyright
+violations in a user database, and CopyPatrol then reads from that database. Unless you need to work
+on the [bot code](https://github.com/JJMC89/copypatrol-backend), there's no reason to bother with bot
+integration, and instead connect to the existing user database on Toolforge (more on this below).
 
 ### Instructions
 
@@ -123,10 +128,11 @@ docker run -ti -p 80:80 -v $(pwd)/.env.local:/app/.env.local wikimedia/copypatro
    Any languages that are not regularly being used should be removed.
 3. Make sure the corresponding `-wikipedia` message in [i18n/en.json](i18n/en.json) (and [qqq.json](i18n/qqq.json)
    exists and is translated in the desired language.
-4. Add the language code to `APP_ENABLED_LANGS` in the [.env](.env) files.
-5. _We now use https://github.com/JJMC89/copypatrol-backend as the bot backend; technical instructions TBD_
+4. Update the `.copypatrol.ini` file accordingly (which is used by the bot),
+   and add the new languages to the `APP_ENABLED_LANGS` variable in [.env](.env).
 
 ## Removing a language
 
-1. Remove the language from `APP_ENABLED_LANGS`.
-2. _TBD_: Remove the job from CopyPatrolBot.
+1. In `.copypatrol.ini`, set the `enabled` key for the desired language to `false`,
+   or remove the definition entirely.
+2. Remove the language from the `APP_ENABLED_LANGS` variable in [.env](.env).

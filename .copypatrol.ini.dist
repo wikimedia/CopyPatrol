@@ -1,0 +1,30 @@
+; Used by CopyPatrolBot, which populates the database that gets feed into the frontend.
+; For more information, see https://github.com/JJMC89/copypatrol-backend#configuration
+[copypatrol]
+version = 2023.08.10
+url-ignore-list-title = example-url-title
+user-ignore-list-title = example-user-title
+
+[copypatrol:en.wikipedia.org]
+enabled = true
+namespaces = 0,2,118
+pagetriage-namespaces = 0,118
+
+[copypatrol:es.wikipedia.org]
+enabled = true
+namespaces = 0,2
+
+[copypatrol:fr.wikipedia.org]
+enabled = false
+
+[client]
+drivername = mysql+pymysql
+username = example-db-user
+password = example-db-password
+database = example-db-name
+host = localhost
+port = 3306
+
+[tca]
+domain = example-tca-domain.com
+key = example-tca-key

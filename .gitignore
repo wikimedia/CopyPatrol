@@ -1,4 +1,5 @@
 .idea/
+.copypatrol.ini
 
 ###> symfony/framework-bundle ###
 /.env.local
