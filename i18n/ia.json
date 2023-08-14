@@ -60,7 +60,7 @@
 	"record-editcount": "Numero de modificationes:",
 	"compare": "Comparar",
 	"record-ithenticate": "Reporto de iThenticate",
-	"record-url-text": "$1 del modification ($2 parolas)",
+	"record-url-text": "$1 del modification",
 	"record-noeditor": "Necun redactor trovate",
 	"record-noeditor-tooltip": "Le version pote haber essite delite o le datos non es ancora disponibile in le base de datos Labs.",
 	"record-ores": "Score ORES: $1",
@@ -96,5 +96,6 @@
 	"permalink": "Permaligamine",
 	"show-all-records": "Monstrar tote le registros",
 	"access-blocked": "Tu es actualmente $1 sur $2 e non pote usar CopyPatrol.",
-	"blocked": "blocate"
+	"blocked": "blocate",
+	"non-internet-source": "(fonte non internet)"
 }

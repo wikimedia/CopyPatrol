@@ -98,5 +98,6 @@
 	"permalink": "Trajna povezava",
 	"show-all-records": "Prikaži vse zapise",
 	"access-blocked": "Trenutno ste v $2 $1 in orodja CopyPatrol ne morete uporabljati.",
-	"blocked": "blokirano"
+	"blocked": "blokirano",
+	"non-internet-source": "(nespletni vir)"
 }

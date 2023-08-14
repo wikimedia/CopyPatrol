@@ -96,5 +96,6 @@
 	"permalink": "Ligazón permanente",
 	"show-all-records": "Amosar tódolos rexistros",
 	"access-blocked": "Actualmente estás $1 en $2 e non podes usar CopyPatrol.",
-	"blocked": "bloqueado"
+	"blocked": "bloqueado",
+	"non-internet-source": "(non procede de internet)"
 }

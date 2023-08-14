@@ -65,7 +65,7 @@
 	"record-editcount": "Aantal bewerkingen:",
 	"compare": "Vergelijken",
 	"record-ithenticate": "iThenticaterapport",
-	"record-url-text": "$1 van bewerking ($2 woorden)",
+	"record-url-text": "$1 van de bewerking",
 	"record-noeditor": "Geen bewerker gevonden",
 	"record-noeditor-tooltip": "De versie is mogelijk verwijderd of de gegevens zijn nog niet beschikbaar in de Labsdatabase.",
 	"record-ores": "ORES-score: $1",
@@ -100,5 +100,6 @@
 	"permalink": "Permanente koppeling",
 	"show-all-records": "Alle records weergeven",
 	"access-blocked": "U bent nu $1 op $2 en niet in staat om CopyPatrol te gebruiken.",
-	"blocked": "geblokkeerd"
+	"blocked": "geblokkeerd",
+	"non-internet-source": "(niet-internetbron)"
 }

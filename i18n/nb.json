@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Event",
 			"Kingu",
 			"SuperPotato"
 		]
@@ -57,5 +58,6 @@
 	"source": "Kilde",
 	"close": "Lukk",
 	"open-font-license": "Open Font-lisens",
-	"permalink": "Permanent lenke"
+	"permalink": "Permanent lenke",
+	"non-internet-source": "(kilde utenfor internett)"
 }
