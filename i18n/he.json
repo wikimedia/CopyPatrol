@@ -101,5 +101,6 @@
 	"permalink": "קישור קבוע",
 	"show-all-records": "הצגת כל הרשומות",
 	"access-blocked": "נכון לעכשיו $1 לגישה אל $2 ואין לך אפשרות להשתמש ב־CopyPatrol.",
-	"blocked": "נחסמת"
+	"blocked": "נחסמת",
+	"non-internet-source": "(מקור שאינו באינטרנט)"
 }

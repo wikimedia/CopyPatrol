@@ -64,7 +64,7 @@
 	"record-editcount": "Брояч на редакции",
 	"compare": "Сравняване",
 	"record-ithenticate": "iThenticate-доклад",
-	"record-url-text": "$1 от редакцията ($2 думи)",
+	"record-url-text": "$1 от редакцията",
 	"record-noeditor": "Не беше открит ниедин редактор",
 	"record-noeditor-tooltip": "Версията може да е изтрита или данните не са достапни на базата на Лабораторията.",
 	"record-ores": "ORES-оценка: $1",
