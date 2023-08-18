@@ -178,14 +178,14 @@ class CopyPatrolRepository {
 	/**
 	 * Update a record in the CopyPatrol database.
 	 *
-	 * @param int $submissionId Submission ID of the report
+	 * @param string $submissionId Submission ID of the report
 	 * @param string|null $value Value of the state saved by user
 	 * @param string|null $user The reviewer's username
 	 * @param string|null $timestamp Timestamp of when the review took place
 	 * @return int|string Number of effected rows.
 	 */
 	public function updateCopyvioAssessment(
-		int $submissionId,
+		string $submissionId,
 		?string $value,
 		?string $user,
 		?string $timestamp
@@ -203,7 +203,7 @@ class CopyPatrolRepository {
 	 * @param string $submissionId ID of record.
 	 * @return array Query result.
 	 */
-	public function getRecordById( string $submissionId ) {
+	public function getRecordBySubmissionId( string $submissionId ) {
 		$sql = "SELECT * FROM diffs WHERE submission_id = :id";
 		return $this->client->fetchAssociative( $sql, [
 			'id' => $submissionId

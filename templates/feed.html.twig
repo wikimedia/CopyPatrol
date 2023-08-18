@@ -15,7 +15,7 @@
 {% block records %}
 	{% if records is not empty %}
 		{% for row in records %}
-			<article class="record record-status-{{ row.status }} data-status="{{ row.status }}" data-diff-id="{{ row.diffId }}">
+			<article class="record record-{{ row.submissionId }} record-status-{{ row.status }}" data-status="{{ row.status }}" data-diff-id="{{ row.diffId }}" data-submission-id="{{ row.submissionId }}">
 				<div class="row-container clearfix">
 					{# Div for page title #}
 					<div class="row-div {% if has_wikiprojects %}col-sm-3{% else %}col-sm-4{% endif %} page-div">
@@ -80,15 +80,15 @@
 					{% endif %}
 					<div class="row-div {% if has_wikiprojects %}col-sm-2{% else %}col-sm-3{% endif %} text-center status-div">
 						<div class="status-buttons">
-							<button data-id="{{ row.submissionId }}"
+							<button data-submission-id="{{ row.submissionId }}"
 									data-status="1"
-									class="btn btn-success btn-block btn-fixed save-state {{ logged_in_user() ? 'clickable' : '' }}"
+									class="btn btn-success btn-block btn-fixed save-status {{ logged_in_user() ? 'clickable' : '' }}"
 									title="{{ msg('review-fixed-tooltip') }}">
 								{{ msg('review-fixed') }}
 							</button>
-							<button data-id="{{ row.submissionId }}"
+							<button data-submission-id="{{ row.submissionId }}"
 									data-status="2"
-									class="btn btn-danger btn-block btn-no-action save-state {{ logged_in_user() ? 'clickable' : '' }}"
+									class="btn btn-danger btn-block btn-no-action save-status {{ logged_in_user() ? 'clickable' : '' }}"
 									title="{{ msg('review-false-tooltip') }}">
 								{{ msg('review-false') }}
 							</button>
@@ -106,7 +106,7 @@
 							<div class="compare-div ellipsis">
 								{% set isNonUrlSource = source.url is empty %}
 								<button class="btn btn-xs btn-primary dropdown-toggle compare-button {% if isNonUrlSource %}disabled{% endif %}"
-										data-id="{{ row.submissionId }}" data-index="{{ loop.index }}"
+										data-submission-id="{{ row.submissionId }}" data-index="{{ loop.index }}"
 										data-url="{{ source.url }}" data-oldid="{{ row.revId }}">
 									<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
 									{{ msg('compare') }}

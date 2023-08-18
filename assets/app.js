@@ -15,10 +15,15 @@ class CopyPatrol {
 
 		// Cached jQuery selectors.
 		this.$records = $( '.records' );
+
+		// Constants
+		this.STATUS_READY = 0;
+		this.STATUS_FIXED = 1;
+		this.STATUS_NO_ACTION = 2;
 	}
 
 	addListeners() {
-		this.$records.on( 'click', '.save-state', this.saveState.bind( this ) );
+		this.$records.on( 'click', '.save-status', this.saveStatus.bind( this ) );
 		this.$records.on( 'click', '.compare-button', this.toggleComparePane.bind( this ) );
 		$( '.btn-load-more' ).on( 'click', this.loadMoreResults );
 
@@ -93,10 +98,10 @@ class CopyPatrol {
 		}
 	}
 
-	saveState( e ) {
+	saveStatus( e ) {
 		const status = parseInt( e.target.dataset.status, 10 ),
-			id = parseInt( e.target.dataset.id, 10 ),
-			currentStatus = parseInt( $( `.record-${id}` ).data( 'status' ), 10 );
+			submissionId = e.target.dataset.submissionId,
+			currentStatus = parseInt( $( `.record-${submissionId}` ).data( 'status' ), 10 );
 		let reviewFn;
 
 		$( e.target ).addClass( 'loading' );
@@ -109,7 +114,7 @@ class CopyPatrol {
 		}
 
 		// perform review action then cleanup
-		reviewFn.call( this, id, status ).done( () => {
+		reviewFn.call( this, submissionId, status ).done( () => {
 			// Close compare areas.
 			$( e.target ).parents( 'article.record' ).find( '.compare-pane' ).slideUp();
 		} ).fail( ( ret ) => {
@@ -128,8 +133,8 @@ class CopyPatrol {
 				window.alert( 'Something went wrong. Please try again.' );
 			}
 
-			// go back to initial state
-			this.setReviewState( id, currentStatus );
+			// go back to initial status
+			this.setReviewStatus( submissionId, currentStatus );
 		} ).always( () => {
 			// remove focus from button
 			document.activeElement.blur();
@@ -140,20 +145,20 @@ class CopyPatrol {
 	/**
 	 * Save a review
 	 *
-	 * @param {number} id ID of the record
-	 * @param {string} val string Save value 'fixed' or 'false'
+	 * @param {string|number} submissionId Submission ID of the record
+	 * @param {number} status
 	 * @return {jQuery<Promise>}
 	 */
-	saveReview( id, val ) {
+	saveReview( submissionId, status ) {
 		// update styles before AJAX to make it seem more responsive
-		this.setReviewState( id, val );
+		this.setReviewStatus( submissionId, status );
 
 		return $.ajax( {
 			method: 'PUT',
-			url: `/${wikiLang}/review_add/${id}/${val}`,
+			url: `/${wikiLang}/review_add/${submissionId}/${status}`,
 			dataType: 'json'
 		} ).done( ( ret ) => {
-			const $reviewerNode = $( '.status-div-reviewer-' + id );
+			const $reviewerNode = $( '.status-div-reviewer-' + submissionId );
 			$reviewerNode.find( '.reviewer-link' )
 				.prop( 'href', ret.userpage )
 				.text( ret.user );
@@ -166,34 +171,34 @@ class CopyPatrol {
 	/**
 	 * Undo a review
 	 *
-	 * @param {number} id ID of the record
+	 * @param {string|number} submissionId Submission ID of the record
 	 * @return {jQuery<Promise>}
 	 */
-	undoReview( id ) {
+	undoReview( submissionId ) {
 		return $.ajax( {
 			method: 'PUT',
-			url: `/${wikiLang}/review_undo/${id}`,
+			url: `/${wikiLang}/review_undo/${submissionId}`,
 			dataType: 'json'
 		} ).done( () => {
-			const $reviewerNode = $( `.status-div-reviewer-${id}` );
+			const $reviewerNode = $( `.status-div-reviewer-${submissionId}` );
 			$reviewerNode.fadeOut( 'slow' );
-			this.setReviewState( id, 'open' );
+			this.setReviewStatus( submissionId, this.STATUS_READY );
 		} );
 	}
 
 	/**
 	 * Set the CSS class of the record in view, which updates the appearance of the review buttons.
 	 *
-	 * @param {number} id ID of the record
-	 * @param {string} state Record state, must be 'open', 'fixed' or 'false'
+	 * @param {string|number} submissionId Submission ID of the record
+	 * @param {string|number} status One of the this.STATUS_ constants.
 	 */
-	setReviewState( id, state ) {
-		$( '.record-' + id )
+	setReviewStatus( submissionId, status ) {
+		$( '.record-' + submissionId )
 			.removeClass( 'record-status-0' )
 			.removeClass( 'record-status-1' )
 			.removeClass( 'record-status-2' )
-			.addClass( `record-status-${state}` )
-			.data( 'status', state );
+			.addClass( `record-status-${status}` )
+			.data( 'status', status );
 	}
 
 	/**

@@ -187,7 +187,7 @@ class AppController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/{lang}/review_add/{id}/{status}",
+	 * @Route("/{lang}/review_add/{submissionId}/{status}",
 	 *     name="add_review",
 	 *     requirements={"lang"="simple|\w{2}", "id"="\d+", "status"="\d"},
 	 *     methods={"PUT"}
@@ -196,7 +196,7 @@ class AppController extends AbstractController {
 	 * @param CopyPatrolRepository $copyPatrolRepo
 	 * @param WikiRepository $wikiRepo
 	 * @param string $lang
-	 * @param int $id
+	 * @param string $submissionId
 	 * @param int $status
 	 * @return JsonResponse
 	 */
@@ -205,7 +205,7 @@ class AppController extends AbstractController {
 		CopyPatrolRepository $copyPatrolRepo,
 		WikiRepository $wikiRepo,
 		string $lang,
-		int $id,
+		string $submissionId,
 		int $status
 	): JsonResponse {
 		$wikiRepo->setLang( $lang );
@@ -220,11 +220,11 @@ class AppController extends AbstractController {
 			return $this->getErrorResponse( self::ERROR_BLOCKED );
 		}
 
-		$existingRecord = $copyPatrolRepo->getRecordById( $id );
+		$existingRecord = $copyPatrolRepo->getRecordBySubmissionId( $submissionId );
 		$timestamp = date( 'YmdHis' );
 
 		try {
-			$copyPatrolRepo->updateCopyvioAssessment( $id, $status, $currentUser->username, $timestamp );
+			$copyPatrolRepo->updateCopyvioAssessment( $submissionId, $status, $currentUser->username, $timestamp );
 			$record = new Record( array_merge( $existingRecord, [
 				'status' => $status,
 				'status_user_text' => $currentUser->username,
@@ -238,16 +238,16 @@ class AppController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/{lang}/review_undo/{id}",
+	 * @Route("/{lang}/review_undo/{submissionId}",
 	 *     name="undo_review",
-	 *     requirements={"lang"="simple|\w{2}", "id"="\d+"},
+	 *     requirements={"lang"="simple|\w{2}", "submissionId"="\d+|[a-z\d+\-]+"},
 	 *     methods={"PUT"}
 	 * )
 	 * @param RequestStack $requestStack
 	 * @param CopyPatrolRepository $copyPatrolRepo
 	 * @param WikiRepository $wikiRepo
 	 * @param string $lang
-	 * @param int $id
+	 * @param string $submissionId
 	 * @return JsonResponse
 	 */
 	public function undoReviewAction(
@@ -255,7 +255,7 @@ class AppController extends AbstractController {
 		CopyPatrolRepository $copyPatrolRepo,
 		WikiRepository $wikiRepo,
 		string $lang,
-		int $id
+		string $submissionId
 	): JsonResponse {
 		$wikiRepo->setLang( $lang );
 
@@ -268,13 +268,13 @@ class AppController extends AbstractController {
 			return $this->getErrorResponse( self::ERROR_BLOCKED );
 		}
 
-		$existingRecord = $copyPatrolRepo->getRecordById( $id );
+		$existingRecord = $copyPatrolRepo->getRecordBySubmissionId( $submissionId );
 		if ( $currentUser->username !== ( $existingRecord['status_user_text'] ?? null ) ) {
 			return $this->getErrorResponse( self::ERROR_WRONG_USER );
 		}
 
 		try {
-			$copyPatrolRepo->updateCopyvioAssessment( $id, CopyPatrolRepository::STATUS_READY, null, null );
+			$copyPatrolRepo->updateCopyvioAssessment( $submissionId, CopyPatrolRepository::STATUS_READY, null, null );
 			return new JsonResponse( [], Response::HTTP_OK );
 		} catch ( DriverException $e ) {
 			return $this->getErrorResponse( self::ERROR_DATABASE );
@@ -282,14 +282,14 @@ class AppController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/ithenticate/{id}", name="ithenticate", requirements={"id"="\d+|[a-z\d+\-]+"})
+	 * @Route("/ithenticate/{$submissionId}", name="ithenticate", requirements={"$submissionId"="\d+|[a-z\d+\-]+"})
 	 * @param HttpClientInterface $httpClient
 	 * @param RequestStack $requestStack
 	 * @param CopyPatrolRepository $copyPatrolRepo
 	 * @param Intuition $intuition
 	 * @param string $iThenticateUser
 	 * @param string $iThenticatePassword
-	 * @param string $id
+	 * @param string $submissionId
 	 * @return RedirectResponse
 	 * @throws Exception
 	 */
@@ -300,9 +300,9 @@ class AppController extends AbstractController {
 		Intuition $intuition,
 		string $iThenticateUser,
 		string $iThenticatePassword,
-		string $id
+		string $submissionId
 	): RedirectResponse {
-		$record = $copyPatrolRepo->getRecordById( $id );
+		$record = $copyPatrolRepo->getRecordBySubmissionId( $submissionId );
 		$v2DateTime = new DateTime( self::ITHENTICATE_V2_TIMESTAMP );
 		if ( new DateTime( $record['rev_timestamp'] ) > $v2DateTime ) {
 			// New system.
@@ -314,11 +314,11 @@ class AppController extends AbstractController {
 					] )
 				] );
 			}
-			return $this->redirectToTcaViewer( $httpClient, $loggedInUser, $intuition->getLang(), $id );
+			return $this->redirectToTcaViewer( $httpClient, $loggedInUser, $intuition->getLang(), $submissionId );
 		}
 
 		$client = new Client( 'https://api.ithenticate.com/rpc' );
-		$rid = new Value( $id );
+		$rid = new Value( $submissionId );
 		$sid = new Value( $this->getSid( $client, $iThenticateUser, $iThenticatePassword ) );
 		$response = $this->makeRpcRequest( $client, 'report.get', [
 			'id' => $rid,
