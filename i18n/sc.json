@@ -60,7 +60,7 @@
 	"record-editcount": "Contègiu de sas modìficas:",
 	"compare": "Cunfronta",
 	"record-ithenticate": "Raportu de iThenticate",
-	"record-url-text": "$1 de sa modìfica ($2 paràulas)",
+	"record-url-text": "$1 de sa modìfica",
 	"record-noeditor": "Perunu editore agatadu",
 	"record-noeditor-tooltip": "Custa editzione diat pòdere dare chi siat istada iscantzellada, o s'informatzione galu no est a disponimentu in sa base de datos de Labs.",
 	"record-ores": "Puntègiu ORES: $1",
@@ -96,5 +96,6 @@
 	"permalink": "Ligàmene permanente",
 	"show-all-records": "Amustra totu sos registros",
 	"access-blocked": "In custu momentu ses $1 in $2 e non podes impreare CopyPatrol.",
-	"blocked": "blocadu"
+	"blocked": "blocadu",
+	"non-internet-source": "(fonte non de ìnternet)"
 }

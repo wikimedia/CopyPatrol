@@ -62,11 +62,13 @@
 	"record-editcount": "Pakeitimų skaičius:",
 	"compare": "Palyginti",
 	"record-ithenticate": "iThenticate ataskaita",
-	"record-url-text": "$1 pakeitimo ($2 žodžių)",
+	"record-url-text": "$1 pakeitimo",
 	"record-noeditor": "Nerastas joks redaktorius",
+	"record-noeditor-tooltip": "Taisymas gali būti ištrintas arba duomenų dar nėra laboratorijų duomenų bazėje.",
 	"record-ores": "ORES balas: $1",
 	"article": "Straipsnis",
 	"compare-article-loading": "Įkeliama straipsnio apžvalga...",
+	"compare-source-loading": "Įkeliamas galimas kopijavimo šaltinis...",
 	"footer-loadmore": "Įkelti Daugiau",
 	"footer-nomore": "Daugiau įrašų nėra!",
 	"footer-broughtby": "Sukūrė $1",
@@ -96,5 +98,6 @@
 	"permalink": "Nuoroda į šią vietą",
 	"show-all-records": "Rodyti visus įrašus",
 	"access-blocked": "Šiuo metu esate $1 $2 ir negalite naudoti CopyPatrol.",
-	"blocked": "užblokuotas"
+	"blocked": "užblokuotas",
+	"non-internet-source": "(ne interneto šaltinis)"
 }
