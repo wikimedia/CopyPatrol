@@ -135,7 +135,7 @@
 							</div>
 						{% endfor %}
 					{% endif %}
-					<a class="btn btn-xs btn-primary" href='{{ path('ithenticate', {id: row.submissionId}) }}' rel='nofollow noreferrer noopener' target="_blank">
+					<a class="btn btn-xs btn-primary" href='{{ path('ithenticate', {submissionId: row.submissionId}) }}' rel='nofollow noreferrer noopener' target="_blank">
 						<span class="glyphicon glyphicon-new-window"></span>
 						{{ msg('record-ithenticate') }}
 					</a>

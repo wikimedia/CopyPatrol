@@ -282,7 +282,7 @@ class AppController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/ithenticate/{$submissionId}", name="ithenticate", requirements={"$submissionId"="\d+|[a-z\d+\-]+"})
+	 * @Route("/ithenticate/{submissionId}", name="ithenticate", requirements={"submissionId"="\d+|[a-z\d+\-]+"})
 	 * @param HttpClientInterface $httpClient
 	 * @param RequestStack $requestStack
 	 * @param CopyPatrolRepository $copyPatrolRepo
