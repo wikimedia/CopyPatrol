@@ -4,7 +4,8 @@
 			"A Chinese Wikipedian",
 			"GuoPC",
 			"Liuxinyu970226",
-			"Shizhao"
+			"Shizhao",
+			"沈澄心"
 		]
 	},
 	"name": "版权巡查",
@@ -77,6 +78,7 @@
 	"footer-commtech": "社群技术",
 	"footer-poweredby": "由$1和$2提供支持",
 	"filter-page": "搜索页面标题：",
+	"filter-user": "按用户搜索巡查：",
 	"source": "源代码",
 	"footer-imageattr": "图片署名",
 	"lboard-title": "排行榜",
@@ -84,6 +86,7 @@
 	"lboard-month": "过去30天的结案情况",
 	"lboard-alltime": "所有时间的结案情况",
 	"lboard-back": "返回CopyPatrol",
+	"lboard-count-title": "查看该用户的$1个巡查案例",
 	"close": "关闭",
 	"imageattr-title": "图片署名",
 	"imageattr-logo": "CopyPatrol标志",
@@ -98,5 +101,6 @@
 	"permalink": "固定链接",
 	"show-all-records": "显示所有记录",
 	"access-blocked": "您目前在$2上已被$1，并因此无法使用CopyPatrol。",
-	"blocked": "被封禁"
+	"blocked": "被封禁",
+	"non-internet-source": "（非互联网来源）"
 }
