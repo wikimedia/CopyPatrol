@@ -104,6 +104,15 @@ class Record {
 	}
 
 	/**
+	 * Is this edit a page creation?
+	 *
+	 * @return bool
+	 */
+	public function isNewPage(): bool {
+		return $this->getRevParentId() === 0;
+	}
+
+	/**
 	 * Get the URL to the revision history of the page.
 	 *
 	 * @return string
@@ -137,6 +146,88 @@ class Record {
 	 */
 	public function getDiffTimestamp(): string {
 		return $this->formatTimestamp( $this->data['rev_timestamp'] );
+	}
+
+	/**
+	 * Get the size of the diff.
+	 *
+	 * @return int|null
+	 */
+	public function getDiffSize(): ?int {
+		if ( isset( $this->data['length_change'] ) ) {
+			return (int)$this->data['length_change'];
+		}
+		return null;
+	}
+
+	/**
+	 * Get the edit summary, parsed as HTML.
+	 *
+	 * @return string
+	 */
+	public function getSummary(): string {
+		return $this->parseWikitext( $this->data['comment'] ?? '' );
+	}
+
+	/**
+	 * Get change tags associated with this edit.
+	 *
+	 * @return string[]
+	 */
+	public function getTags(): array {
+		return array_map( function ( $tag ) {
+			return $this->parseWikitext( $tag );
+		}, $this->data['tags'] ?? [] );
+	}
+
+	/**
+	 * Parse a wikitext string into safe HTML.
+	 * Borrowed from XTools; License: GPL 3.0 or later
+	 *
+	 * @see https://github.com/x-tools/xtools/blob/4795fb88dd392bb0474219be3ef9a1fc019a228b/src/Model/Edit.php#L336
+	 * @param string $wikitext
+	 * @return string
+	 */
+	public function parseWikitext( string $wikitext ): string {
+		$wikitext = htmlspecialchars( html_entity_decode( $wikitext ), ENT_NOQUOTES );
+
+		// First link raw URLs. Courtesy of https://stackoverflow.com/a/11641499/604142
+		$wikitext = preg_replace(
+			'%\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))%s',
+			'<a target="_blank" href="$1">$1</a>',
+			$wikitext
+		);
+
+		$sectionMatch = null;
+		$isSection = preg_match_all( "/^\/\* (.*?) \*\//", $wikitext, $sectionMatch );
+		$pageUrl = $this->getPageUrl();
+
+		if ( $isSection ) {
+			$sectionTitle = $sectionMatch[1][0];
+			// Must have underscores for the link to properly go to the section.
+			$sectionTitleLink = htmlspecialchars( str_replace( ' ', '_', $sectionTitle ) );
+			$sectionWikitext = "<a target='_blank' href='$pageUrl#$sectionTitleLink'>" .
+				"<em class='text-muted'>&rarr;" . htmlspecialchars( $sectionTitle ) . ":</em></a> ";
+			$wikitext = str_replace( $sectionMatch[0][0], $sectionWikitext, $wikitext );
+		}
+
+		$linkMatch = null;
+
+		while ( preg_match_all( "/\[\[:?(.*?)]]/", $wikitext, $linkMatch ) ) {
+			$wikiLinkParts = explode( '|', $linkMatch[1][0] );
+			$wikiLinkPath = htmlspecialchars( $wikiLinkParts[0] );
+			$wikiLinkText = htmlspecialchars(
+				$wikiLinkParts[1] ?? $wikiLinkPath
+			);
+
+			// Use normalized page title (underscored, capitalized).
+			$pageUrl = $this->getUrl( ucfirst( str_replace( ' ', '_', $wikiLinkPath ) ) );
+
+			$link = "<a target='_blank' href='$pageUrl'>$wikiLinkText</a>";
+			$wikitext = str_replace( $linkMatch[0][0], $link, $wikitext );
+		}
+
+		return $wikitext;
 	}
 
 	/**

@@ -8,6 +8,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
+        "ext-intl": "*",
         "doctrine/annotations": "^2.0",
         "doctrine/doctrine-bundle": "^2.2",
         "phpxmlrpc/phpxmlrpc": "^4.10",

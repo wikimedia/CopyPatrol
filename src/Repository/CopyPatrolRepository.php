@@ -9,6 +9,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 /**
  * A CopyPatrolRepository is responsible for all database interaction with the CopyPatrol database.
@@ -217,8 +218,11 @@ class CopyPatrolRepository {
 	 * @return bool
 	 */
 	public function draftsExist( string $lang = 'en' ) {
-		$sql = 'SELECT 1 FROM diffs WHERE page_namespace = :ns AND lang = :lang';
-		return (bool)$this->client->fetchOne( $sql, [ 'ns' => WikiRepository::NS_ID_DRAFTS, 'lang' => $lang ] );
+		return $this->cache->get( "$lang-drafts", function ( ItemInterface $item ) use ( $lang ) {
+			$item->expiresAfter( new \DateInterval( 'P7D' ) );
+			$sql = 'SELECT 1 FROM diffs WHERE page_namespace = :ns AND lang = :lang';
+			return (bool)$this->client->fetchOne( $sql, [ 'ns' => WikiRepository::NS_ID_DRAFTS, 'lang' => $lang ] );
+		} );
 	}
 
 	/**

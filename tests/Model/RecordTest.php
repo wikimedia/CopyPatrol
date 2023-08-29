@@ -31,6 +31,7 @@ class RecordTest extends TestCase {
 			'status' => 1,
 			'status_timestamp' => '20230704164250',
 			'status_user_text' => 'MusikAnimal',
+			'length_change' => 500,
 			'sources' => [
 				[
 					'source_id' => 28671,
@@ -42,6 +43,9 @@ class RecordTest extends TestCase {
 					'url' => 'http://www.readbag.com/brooklyn-cuny-bc-pubs-bulletin-2010-ug-bulletin2010',
 					'percent' => 53.0,
 				],
+			],
+			'tags' => [
+				'Reverted',
 			]
 		];
 
@@ -121,6 +125,9 @@ class RecordTest extends TestCase {
 			'https://en.wikipedia.org/wiki/User:MusikAnimal',
 			$this->record->getReviewedByUrl()
 		);
+		static::assertTrue( $this->record->isNewPage() );
+		static::assertSame( 500, $this->record->getDiffSize() );
+		static::assertSame( [ 'Reverted' ], $this->record->getTags() );
 	}
 
 	public function testFormatTimestamp(): void {
@@ -135,5 +142,18 @@ class RecordTest extends TestCase {
 			'timestamp' => '2023-07-04 16:42',
 			'status' => CopyPatrolRepository::STATUS_FIXED,
 		], $this->record->getStatusJson() );
+	}
+
+	public function testParseWikitext(): void {
+		static::assertEquals(
+			"&lt;script&gt;alert(\"XSS baby\")&lt;/script&gt; " .
+			"<a target='_blank' href='https://en.wikipedia.org/wiki/Test_page'>test page</a>",
+			$this->record->parseWikitext( '<script>alert("XSS baby")</script> [[test page]]' )
+		);
+
+		static::assertEquals(
+			'<a target="_blank" href="https://example.org">https://example.org</a>',
+			$this->record->parseWikitext( 'https://example.org' )
+		);
 	}
 }

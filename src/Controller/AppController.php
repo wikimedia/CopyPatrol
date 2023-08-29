@@ -158,9 +158,21 @@ class AppController extends AbstractController {
 		$editCounts = $wikiRepo->getEditCounts( array_unique( $usernames ) );
 		$livePages = $wikiRepo->getLivePagesWithWikiProjects( $titlesByNs );
 		$oresScores = $wikiRepo->getOresScores( array_unique( $revIds ) );
+		$tagsAndComments = $wikiRepo->getRevisionMetadata( $revIds );
 
 		// Create a Record object for each row.
-		return array_map( static function ( $row ) use ( $editCounts, $livePages, $oresScores ) {
+		return array_map( static function ( $row ) use ( $editCounts, $livePages, $oresScores, $tagsAndComments ) {
+			// $tagsAndComments aren't indexed by rev_id, so we need to locate the row first.
+			$extraData = array_filter( $tagsAndComments, static function ( $data ) use ( $row ) {
+				return $data['rev_id'] === $row['rev_id'];
+			}, ARRAY_FILTER_USE_BOTH );
+
+			if ( $extraData ) {
+				$extraData = array_values( $extraData )[0];
+				// Basic revision info all goes in the $row data.
+				$row = array_merge( $row, $extraData );
+			}
+
 			return new Record(
 				$row,
 				$editCounts[$row['rev_user_text']] ?? null,

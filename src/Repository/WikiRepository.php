@@ -152,6 +152,125 @@ class WikiRepository {
 	}
 
 	/**
+	 * Get edit summaries, tags, and edit sizes for the given revisions.
+	 *
+	 * @param int[] $revIds
+	 * @return array Each with keys 'rev_id', 'rev_deleted', 'length_change', 'comment' and 'tags'
+	 */
+	public function getRevisionMetadata( array $revIds ): array {
+		if ( !$revIds ) {
+			return [];
+		}
+		$qb = $this->getConnection()->createQueryBuilder()
+			->select( [
+				'revs.rev_id',
+				'revs.rev_deleted',
+				'(CAST(revs.rev_len AS SIGNED) - IFNULL(parentrevs.rev_len, 0)) AS `length_change`',
+				'comment_text AS `comment`',
+				"(
+					SELECT GROUP_CONCAT(ctd_name, ',')
+					FROM {$this->getDb()}.change_tag
+					JOIN {$this->getDb()}.change_tag_def ON ct_tag_id = ctd_id
+					WHERE ct_rev_id = revs.rev_id
+				 ) AS `tags`",
+			] )
+			->from( "{$this->getDb()}.revision", 'revs' )
+			->leftJoin( 'revs', "{$this->getDb()}.revision", 'parentrevs', 'revs.rev_parent_id = parentrevs.rev_id' )
+			->leftJoin( 'revs', "{$this->getDb()}.comment", 'comment', 'revs.rev_comment_id = comment.comment_id' )
+			->where( 'revs.rev_id IN (:revIds)' )
+			->setParameter( 'revIds', $revIds, ArrayParameterType::INTEGER );
+
+		$results = $qb->executeQuery()->fetchAllAssociative();
+
+		// Fetch localized tag labels.
+		$tagNames = [];
+		foreach ( $results as $result ) {
+			if ( isset( $result['tags'] ) ) {
+				$tagNames = array_merge( $tagNames, array_filter( explode( ',', $result['tags'] ) ) );
+			}
+		}
+		$tagLabels = $this->getTagsLabels( array_unique( $tagNames ) );
+
+		// Loop through again, adding in the tag labels.
+		foreach ( $results as $index => $result ) {
+			if ( isset( $result['tags'] ) ) {
+				$tagNames = array_filter( explode( ',', $result['tags'] ) );
+				$results[$index]['tags'] = array_filter( array_map( static function ( $tagName ) use ( $tagLabels ) {
+					return $tagLabels[$tagName];
+				}, $tagNames ) );
+			}
+		}
+
+		return $results;
+	}
+
+	/**
+	 * Get the labels for the given tags, as defined by their on-wiki interface messages.
+	 *
+	 * @param array $tagNames
+	 * @return array
+	 */
+	private function getTagsLabels( array $tagNames ): array {
+		$cacheKey = $this->getLang() . '-tags';
+
+		// Loop through to determine which messages we don't already have in cache.
+		$messages = [];
+		if ( $this->cache->hasItem( $cacheKey ) ) {
+			$messages = $this->cache->getItem( $cacheKey )->get();
+			foreach ( $tagNames as $index => $tagName ) {
+				if ( isset( $messages[$tagName] ) ) {
+					unset( $tagNames[$index] );
+				}
+			}
+		}
+
+		if ( !$tagNames ) {
+			return $messages;
+		}
+
+		$lang = $this->getLang();
+		$tagsToQuery = array_map( static function ( $tagName ) {
+			return "Tag-$tagName";
+		}, array_splice( $tagNames, 0, 50 ) );
+		$response = $this->httpClient->request(
+			'GET',
+			"https://$lang.wikipedia.org/w/api.php",
+			[
+				'query' => [
+					'action' => 'query',
+					'meta' => 'allmessages',
+					'ammessages' => implode( '|', $tagsToQuery ),
+					'amenableparser' => 1,
+					'amincludelocal' => 1,
+					'formatversion' => 2,
+					'format' => 'json',
+				]
+			]
+		)->toArray( false );
+
+		if ( $response ) {
+			foreach ( $response['query']['allmessages'] as $message ) {
+				$tagName = preg_replace( '/^Tag\-/', '', $message['name'] );
+				$messages[$tagName] = $message['content'] ?? $tagName;
+				// Fill in blank values for hidden tags.
+				$messages[$tagName] = $messages[$tagName] === '-' ? '' : $messages[$tagName];
+			}
+			// Cache for a week.
+			$cacheItem = $this->cache
+				->getItem( $cacheKey )
+				->set( $messages )
+				->expiresAfter( new DateInterval( 'P7D' ) );
+			$this->cache->save( $cacheItem );
+		}
+
+		if ( $tagNames ) {
+			return $this->getTagsLabels( $tagNames );
+		}
+
+		return $messages;
+	}
+
+	/**
 	 * Get the ORES damage scores for the given revision IDs.
 	 *
 	 * @param array $revIds
