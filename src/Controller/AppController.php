@@ -358,12 +358,6 @@ class AppController extends AbstractController {
 				'json' => [
 					'viewer_user_id' => $loggedInUser,
 					'locale' => $locale,
-					'viewer_permissions' => [
-						'may_view_submission_full_source' => true,
-						'may_view_match_submission_info' => true,
-						'may_view_document_details_panel' => true,
-						'may_view_sections_exclusion_panel' => true,
-					],
 				],
 				'headers' => [
 					'Authorization' => "Bearer {$config['key']}",
