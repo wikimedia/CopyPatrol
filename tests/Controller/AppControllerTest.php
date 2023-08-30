@@ -69,6 +69,7 @@ class AppControllerTest extends WebTestCase {
 			'status' => CopyPatrolRepository::STATUS_READY,
 			'status_timestamp' => null,
 			'status_user_text' => null,
+			'description' => 'foobar',
 		];
 		$expectedRecord = new Record( array_merge( $data, [
 			'sources' => [
@@ -76,6 +77,7 @@ class AppControllerTest extends WebTestCase {
 					'source_id' => 28691,
 					'url' => 'http://www.bceq.org/wp-content/uploads/2012/02/WCS_NOAA_dl_110811.pdf',
 					'percent' => 51.0,
+					'description' => 'foobar',
 				]
 			]
 		] ), 11, false, false, true );
@@ -83,6 +85,7 @@ class AppControllerTest extends WebTestCase {
 			'source_id' => 28691,
 			'url' => 'http://www.bceq.org/wp-content/uploads/2012/02/WCS_NOAA_dl_110811.pdf',
 			'percent' => 51.0,
+			'description' => 'foobar',
 		] );
 		$records = $this->controller->decorateRecords( [ $data ], $this->wikiRepo );
 		static::assertEquals( $expectedRecord, $records[14177] );

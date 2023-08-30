@@ -216,6 +216,10 @@ body {
 	clear: both;
 }
 
+.summary-container {
+	padding: 5px 15px 0;
+}
+
 .compare-button {
 	margin-right: 10px;
 }
@@ -476,5 +480,34 @@ a[ href='' ] {
 	.btn-submit-filters {
 		grid-row: ~'2/3';
 		grid-column: 7;
+	}
+}
+
+.diff-pos {
+	color: #006400;
+
+	&::before {
+		color: #006400;
+		content: '+';
+	}
+}
+.diff-neg {
+	color: #8B0000;
+}
+.diff-zero {
+	color: #A2A9B1;
+}
+
+.edit-tag {
+	border: 1px solid #a2a9b1;
+	border-radius: 10px;
+	display: inline-block;
+	font-size: 85%;
+	padding: 2px 6px;
+	vertical-align: middle;
+
+	div {
+		position: relative;
+		top: 1px;
 	}
 }

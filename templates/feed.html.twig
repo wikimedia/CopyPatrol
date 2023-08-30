@@ -37,6 +37,9 @@
 						<small class="diff-div-timestamp">
 							<time datetime="{{ row.diffTimestamp }}">{{ row.diffTimestamp }}</time>
 						</small>
+						{% if row.diffSize is defined %}
+							<small>{{ row.diffSize|diff_format }}</small>
+						{% endif %}
 						{% if row.oresScore is not empty %}
 							<br/>
 							<small class="diff-div-ores">
@@ -99,6 +102,19 @@
 							{{ msg('permalink') }}
 						</a>
 					</div>
+				</div>
+				<div class="summary-container">
+					{% if row.summary is not empty %}
+						<div>{{ msg('edit-summary') }}: <i class="text-muted">{{ row.summary|raw }}</i></div>
+					{% endif %}
+					{% if row.tags %}
+						<div>
+							{{ msg('tags') }}:
+							{% for tag in row.tags %}
+								<span class="edit-tag"><div>{{ tag|raw }}</div></span>
+							{% endfor %}
+						</div>
+					{% endif %}
 				</div>
 				<div class="compare-links-container">
 					{% if row.sources is not empty %}
