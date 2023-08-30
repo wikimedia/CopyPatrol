@@ -118,7 +118,7 @@
 								{% else %}
 									<a href="{{ source.url }}" target="_blank">{{ source.url }}</a><br/>
 								{% endif %}
-								<div class="compare-pane" id="{{ 'comp' ~ row.submissionId ~ '-' ~ loop.index }}">
+								<div class="compare-pane" id="{{ 'comp-' ~ row.submissionId ~ '-' ~ loop.index }}">
 									<div class="compare-pane-left">
 										<h4 class="compare-pane-title">{{ msg('article') }}</h4>
 										<div class="compare-pane-left-body compare-pane-body">

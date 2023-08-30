@@ -43,7 +43,7 @@ class CopyPatrol {
 	 */
 	toggleComparePane( e ) {
 		const params = e.target.dataset,
-			$compareDiv = $( '#comp' + params.id + '-' + params.index );
+			$compareDiv = $( '#comp-' + params.submissionId + '-' + params.index );
 
 		$compareDiv.slideToggle( 500 );
 		if ( !$compareDiv.hasClass( 'copyvios-fetched' ) ) {
