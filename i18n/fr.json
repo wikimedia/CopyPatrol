@@ -102,5 +102,7 @@
 	"show-all-records": "Afficher tous les enregistrements",
 	"access-blocked": "Vous êtes actuellement $1 sur $2 et incapable d’utiliser CopyPatrol.",
 	"blocked": "bloqué{{GENDER:||e}}",
-	"non-internet-source": "(source non internet)"
+	"non-internet-source": "(source non internet)",
+	"tags": "Balises",
+	"edit-summary": "Modifier le résumé"
 }

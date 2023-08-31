@@ -101,5 +101,7 @@
 	"show-all-records": "顯示所有記錄",
 	"access-blocked": "您目前在 $2 上已被$1因此不能使用 CopyPatrol。",
 	"blocked": "已封禁",
-	"non-internet-source": "（非網際網路來源）"
+	"non-internet-source": "（非網際網路來源）",
+	"tags": "標籤",
+	"edit-summary": "編輯摘要"
 }

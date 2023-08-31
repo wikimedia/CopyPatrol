@@ -97,5 +97,7 @@
 	"show-all-records": "Smon-e tuti ij dàit argistrà",
 	"access-blocked": "Chiel a l'é al moment $1 su $2 e a peul nen dovré CopyPatrol.",
 	"blocked": "blocà",
-	"non-internet-source": "(sorgiss nen an sl'aragnà)"
+	"non-internet-source": "(sorgiss nen an sl'aragnà)",
+	"tags": "Tichëtte",
+	"edit-summary": "Modifiché ël resumé"
 }

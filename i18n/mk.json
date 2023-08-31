@@ -100,5 +100,7 @@
 	"show-all-records": "Прикажи ги сите записи",
 	"access-blocked": "Моментално сте $1 на $2 и не можете да го користите CopyPatrol.",
 	"blocked": "блокирани",
-	"non-internet-source": "(несемрежен извор)"
+	"non-internet-source": "(несемрежен извор)",
+	"tags": "Ознаки",
+	"edit-summary": "Опис на уредувањето"
 }
