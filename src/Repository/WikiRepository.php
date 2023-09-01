@@ -10,6 +10,7 @@ use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Result;
 use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Throwable;
 use Wikimedia\ToolforgeBundle\Service\ReplicasClient;
@@ -195,9 +196,12 @@ class WikiRepository {
 		foreach ( $results as $index => $result ) {
 			if ( isset( $result['tags'] ) ) {
 				$tagNames = array_filter( explode( ',', $result['tags'] ) );
-				$results[$index]['tags'] = array_filter( array_map( static function ( $tagName ) use ( $tagLabels ) {
-					return $tagLabels[$tagName];
-				}, $tagNames ) );
+				$results[$index]['tags'] = $tagNames;
+				$results[$index]['tags_labels'] = array_filter(
+					array_map( static function ( $tagName ) use ( $tagLabels ) {
+						return $tagLabels[$tagName];
+					}, $tagNames )
+				);
 			}
 		}
 
@@ -318,6 +322,35 @@ class WikiRepository {
 	 */
 	public function hasWikiProjects(): bool {
 		return in_array( $this->getLang(), $this->fetchProjectsWithPageAssessments() );
+	}
+
+	/**
+	 * Get the rights (aka permissions, NOT user groups) for the given user.
+	 *
+	 * @param string $username
+	 * @return array
+	 */
+	public function getUserRights( string $username ): array {
+		$cacheKey = "user-rights-" . sha1( $username );
+		return $this->cache->get( $cacheKey, function ( ItemInterface $item ) use ( $username ) {
+			$item->expiresAfter( new DateInterval( 'P1D' ) );
+			$lang = $this->getLang();
+			$response = $this->httpClient->request(
+				'GET',
+				"https://$lang.wikipedia.org/w/api.php",
+				[
+					'query' => [
+						'action' => 'query',
+						'list' => 'users',
+						'usprop' => 'rights',
+						'ususers' => $username,
+						'formatversion' => 2,
+						'format' => 'json',
+					]
+				]
+			)->toArray( false );
+			return $response['query']['users'][0]['rights'] ?? [];
+		} );
 	}
 
 	/**

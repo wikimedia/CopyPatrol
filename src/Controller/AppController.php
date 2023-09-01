@@ -116,6 +116,9 @@ class AppController extends AbstractController {
 		// Transform to Record objects, so we can easily call methods in the view.
 		$ret['records'] = $this->decorateRecords( $ret['records'], $wikiRepo );
 
+		// Add the logged in user's rights to the response, so we can conditionally show links for sysops.
+		$ret['user_rights'] = $currentUser ? $wikiRepo->getUserRights( $currentUser->username ) : [];
+
 		return $this->render( 'feed.html.twig', $ret );
 	}
 

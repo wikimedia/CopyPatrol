@@ -28,11 +28,25 @@
 							<a href='{{ row.pageHistoryUrl }}' target="_blank" class="{{ row.pageDead ? 'text-danger' : '' }}">
 								{{ msg('history') }}
 							</a>
+							{% if row.isNewPage and not(row.isPageDead) and 'delete' in user_rights %}
+								&nbsp;
+								(<a href="{{ row.deleteUrl }}" target="_blank">{{ msg('delete')|lower }}</a>)
+							{% endif %}
 						</div>
 					</div>
 					{# Div for diff information and link #}
 					<div class="row-div col-sm-2 text-center diff-div">
 						<a href='{{ row.diffUrl }}' target="_blank" class="{{ row.pageDead ? 'text-danger' : '' }}">{{ msg('diff') }}</a>
+						{% if logged_in_user() and not(row.isPageDead) %}
+							&nbsp;
+							<small>
+								(<a href="{{ row.undoUrl }}" target="_blank">{{ msg('undo')|lower }}</a>
+								{%- if 'deleterevision' in user_rights -%}
+									&middot; <a href="{{ row.revdelUrl }}" target="_blank">{{ msg('revdel')|lower }}</a>
+								{%- endif -%}
+								)
+							</small>
+						{% endif %}
 						<br/>
 						<small class="diff-div-timestamp">
 							<time datetime="{{ row.diffTimestamp }}">{{ row.diffTimestamp }}</time>
@@ -41,12 +55,11 @@
 							<small>{{ row.diffSize|diff_format }}</small>
 						{% endif %}
 						{% if row.oresScore is not empty %}
-							<br/>
-							<small class="diff-div-ores">
+							<div class="small diff-div-ores">
 								<a href="https://www.mediawiki.org/wiki/Special:MyLanguage/ORES" target="_blank">
 									{{ msg('record-ores', [row.oresScore]) }}%
 								</a>
-							</small>
+							</div>
 						{% endif %}
 					</div>
 					{# Div for editor information #}
@@ -110,8 +123,8 @@
 					{% if row.tags %}
 						<div>
 							{{ msg('tags') }}:
-							{% for tag in row.tags %}
-								<span class="edit-tag"><div>{{ tag|raw }}</div></span>
+							{% for tagLabel in row.tagLabels %}
+								<span class="edit-tag"><span>{{ tagLabel|raw }}</span></span>
 							{% endfor %}
 						</div>
 					{% endif %}
