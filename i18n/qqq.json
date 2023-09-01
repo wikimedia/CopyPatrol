@@ -114,5 +114,8 @@
 	"blocked": "The MediaWiki term for when a user is unable to edit a wiki.\n{{Identical|Blocked}}",
 	"non-internet-source": "Indicator that a source of a potential copyright violation is not from the internet. This is shown where the URL for the source would normally would go.",
 	"tags": "Label for list of change tags that are associated with an edit.",
-	"edit-summary": "Label for the edit summary."
+	"edit-summary": "Label for the edit summary.",
+	"revdel": "Text for link to delete a revision. See [[mw:Manual:RevisionDelete]]. This message should be as short as possible.",
+	"undo": "Text for link to undo a revision.\n{{Identical|Undo}}",
+	"delete": "Text for link to delete a page.\n{{Identical|Delete}}"
 }

@@ -45,6 +45,9 @@ class RecordTest extends TestCase {
 				],
 			],
 			'tags' => [
+				'mw-reverted',
+			],
+			'tags_labels' => [
 				'Reverted',
 			]
 		];
@@ -127,7 +130,27 @@ class RecordTest extends TestCase {
 		);
 		static::assertTrue( $this->record->isNewPage() );
 		static::assertSame( 500, $this->record->getDiffSize() );
-		static::assertSame( [ 'Reverted' ], $this->record->getTags() );
+		static::assertSame( [ 'mw-reverted' ], $this->record->getTags() );
+		static::assertSame( [ 'Reverted' ], $this->record->getTagLabels() );
+		static::assertSame(
+			'https://en.wikipedia.org/wiki/Draft:STAR_Early_College_High_School_@_Erasmus_Hall' .
+				'?action=edit&undoafter=0&undo=726095124',
+			$this->record->getUndoUrl()
+		);
+		static::assertSame(
+			'https://en.wikipedia.org/wiki/Special:RevisionDelete?type=revision' .
+				'&ids=726095124&wpHidePrimary=1&wpReason=http%3A%2F%2Fwww.brooklyn.cuny.edu%2Fbc%2Fpubs%2Fbulletin' .
+				'%2F2010%2Fug_bulletin2010.pdf&wpRevDeleteReasonList=%5B%5BWP%3ARD1%7CRD1%5D%5D%3A+Violations+of+' .
+				'%5B%5BWikipedia%3ACopyright+violations%7Ccopyright+policy%5D%5D',
+			$this->record->getRevdelUrl()
+		);
+		static::assertSame(
+			'https://en.wikipedia.org/wiki/Draft:STAR_Early_College_High_School_@_Erasmus_Hall?action=delete' .
+				'&wpDeleteReasonList=%5B%5BWP%3ACSD%23G12%7CG12%5D%5D%3A+Unambiguous+%5B%5BWP%3ACV%7Ccopyright+' .
+				'infringement%5D%5D&wpReason=http%3A%2F%2Fwww.brooklyn.cuny.edu%2Fbc%2Fpubs%2Fbulletin' .
+				'%2F2010%2Fug_bulletin2010.pdf&wpDeleteTalk=1',
+			$this->record->getDeleteUrl()
+		);
 	}
 
 	public function testFormatTimestamp(): void {

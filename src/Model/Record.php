@@ -170,14 +170,23 @@ class Record {
 	}
 
 	/**
-	 * Get change tags associated with this edit.
+	 * Get the tags associated with this edit.
 	 *
 	 * @return string[]
 	 */
 	public function getTags(): array {
+		return $this->data['tags'] ?? [];
+	}
+
+	/**
+	 * Get the labels for the change tags associated with this edit.
+	 *
+	 * @return string[]
+	 */
+	public function getTagLabels(): array {
 		return array_map( function ( $tag ) {
 			return $this->parseWikitext( $tag );
-		}, $this->data['tags'] ?? [] );
+		}, $this->data['tags_labels'] ?? [] );
 	}
 
 	/**
@@ -332,6 +341,51 @@ class Record {
 	 */
 	public function getUserContribsUrl(): string {
 		return $this->getUrl( 'Special:Contribs/' . $this->data['rev_user_text'] );
+	}
+
+	/**
+	 * Get the URL to undo the edit.
+	 *
+	 * @return string
+	 */
+	public function getUndoUrl(): string {
+		return $this->getUrl( $this->getPageTitle( true ) . '?' . http_build_query( [
+			'action' => 'edit',
+			'undoafter' => $this->getRevParentId(),
+			'undo' => $this->getRevId(),
+		] ) );
+	}
+
+	/**
+	 * Get a URL to Special:RevisionDelete for this revision, and with the top source URL pre-filled in.
+	 *
+	 * @return string
+	 */
+	public function getRevdelUrl(): string {
+		return $this->getUrl( 'Special:RevisionDelete?' . http_build_query( [
+			'type' => 'revision',
+			'ids' => $this->getRevId(),
+			'wpHidePrimary' => '1',
+			'wpReason' => $this->getSources()[0]['url'] ?? '',
+			// FIXME: hard-coded for enwiki; for other wikis, it will fallback to 'Other reason'
+			'wpRevDeleteReasonList' => '[[WP:RD1|RD1]]: Violations of ' .
+				'[[Wikipedia:Copyright violations|copyright policy]]'
+		] ) );
+	}
+
+	/**
+	 * Get a URL to delete the page, with the top source URL pre-filled in.
+	 *
+	 * @return string
+	 */
+	public function getDeleteUrl(): string {
+		return $this->getPageUrl() . '?' . http_build_query( [
+			'action' => 'delete',
+			// FIXME: hard-coded for enwiki; for other wikis, it will fallback to 'Other reason'
+			'wpDeleteReasonList' => '[[WP:CSD#G12|G12]]: Unambiguous [[WP:CV|copyright infringement]]',
+			'wpReason' => $this->getSources()[0]['url'] ?? '',
+			'wpDeleteTalk' => '1',
+		] );
 	}
 
 	/** REVIEW ATTRIBUTES */
