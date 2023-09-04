@@ -103,5 +103,7 @@
 	"permalink": "স্থায়ী সংযোগ",
 	"show-all-records": "সকল রেকর্ড দেখাও",
 	"access-blocked": "আপনি এখন $2 এর $1 এ এবং CopyPatrol ব্যবহারে অসমর্থ।",
-	"blocked": "অবরুদ্ধ"
+	"blocked": "অবরুদ্ধ",
+	"tags": "ট্যাগ",
+	"edit-summary": "সম্পাদনা সারাংশ"
 }

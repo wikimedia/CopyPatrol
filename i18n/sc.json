@@ -97,5 +97,10 @@
 	"show-all-records": "Amustra totu sos registros",
 	"access-blocked": "In custu momentu ses $1 in $2 e non podes impreare CopyPatrol.",
 	"blocked": "blocadu",
-	"non-internet-source": "(fonte non de ìnternet)"
+	"non-internet-source": "(fonte non de ìnternet)",
+	"tags": "Etichetas",
+	"edit-summary": "Resumu de sa modìfica",
+	"revdel": "cantzella revisione",
+	"undo": "annulla",
+	"delete": "iscantzella"
 }

@@ -99,5 +99,7 @@
 	"access-blocked": "Attualmente sei $1 su $2 e non puoi utilizzare CopyPatrol.",
 	"blocked": "bloccato",
 	"tags": "Etichette",
-	"edit-summary": "Oggetto della modifica"
+	"edit-summary": "Oggetto della modifica",
+	"undo": "annulla",
+	"delete": "cancella"
 }

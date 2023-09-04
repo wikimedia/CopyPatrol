@@ -102,5 +102,8 @@
 	"permalink": "固定リンク",
 	"show-all-records": "全記録を表示",
 	"access-blocked": "現在、$2の$1状態のため、CopyPatrolは利用できません。",
-	"blocked": "ブロック済み"
+	"blocked": "ブロック済み",
+	"tags": "タグ",
+	"undo": "取り消し",
+	"delete": "削除"
 }

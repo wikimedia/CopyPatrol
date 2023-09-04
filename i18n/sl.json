@@ -99,5 +99,10 @@
 	"show-all-records": "Prikaži vse zapise",
 	"access-blocked": "Trenutno ste v $2 $1 in orodja CopyPatrol ne morete uporabljati.",
 	"blocked": "blokirano",
-	"non-internet-source": "(nespletni vir)"
+	"non-internet-source": "(nespletni vir)",
+	"tags": "Oznake",
+	"edit-summary": "Povzetek urejanja",
+	"revdel": "revdel",
+	"undo": "razveljavi",
+	"delete": "izbriši"
 }

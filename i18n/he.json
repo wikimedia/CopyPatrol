@@ -102,5 +102,10 @@
 	"show-all-records": "הצגת כל הרשומות",
 	"access-blocked": "נכון לעכשיו $1 לגישה אל $2 ואין לך אפשרות להשתמש ב־CopyPatrol.",
 	"blocked": "נחסמת",
-	"non-internet-source": "(מקור שאינו באינטרנט)"
+	"non-internet-source": "(מקור שאינו באינטרנט)",
+	"tags": "תגים",
+	"edit-summary": "תקציר העריכה",
+	"revdel": "מחגר",
+	"undo": "שחזור",
+	"delete": "מחיקה"
 }

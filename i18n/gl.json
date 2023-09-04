@@ -97,5 +97,10 @@
 	"show-all-records": "Amosar tódolos rexistros",
 	"access-blocked": "Actualmente estás $1 en $2 e non podes usar CopyPatrol.",
 	"blocked": "bloqueado",
-	"non-internet-source": "(non procede de internet)"
+	"non-internet-source": "(non procede de internet)",
+	"tags": "Etiquetas",
+	"edit-summary": "Resumo de edición",
+	"revdel": "borrar revisión",
+	"undo": "desfacer",
+	"delete": "borrar"
 }

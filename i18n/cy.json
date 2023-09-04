@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Afalau",
 			"JonesT143"
 		]
 	},
@@ -46,5 +47,10 @@
 	"article": "Erthygl",
 	"close": "Cau",
 	"js-unauthorized": "Er mwyn adolygu, mewngofnodwch!",
-	"js-undo-own-only": "Gallwch dadwneud eich adolygiadau eich hun yn unig."
+	"js-undo-own-only": "Gallwch dadwneud eich adolygiadau eich hun yn unig.",
+	"tags": "Tagiau",
+	"edit-summary": "Crynodeb golygu",
+	"revdel": "revdileu",
+	"undo": "dadwneud",
+	"delete": "dileu"
 }

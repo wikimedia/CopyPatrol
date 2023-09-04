@@ -3,6 +3,7 @@
 		"authors": [
 			"BanKris",
 			"Bencemac",
+			"Hanna Tardos",
 			"Máté",
 			"Notramo",
 			"R-Joe",
@@ -98,5 +99,9 @@
 	"permalink": "Állandó hivatkozás",
 	"show-all-records": "Összes bejegyzés megjelenítése",
 	"access-blocked": "Jelenleg $1 és a $2 és nem tudja használni a CopyPatrol szolgáltatást.",
-	"blocked": "blokkolva"
+	"blocked": "blokkolva",
+	"tags": "Címkék",
+	"revdel": "revdel",
+	"undo": "visszavonás",
+	"delete": "törlés"
 }

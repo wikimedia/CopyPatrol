@@ -97,5 +97,10 @@
 	"show-all-records": "Monstrar tote le registros",
 	"access-blocked": "Tu es actualmente $1 sur $2 e non pote usar CopyPatrol.",
 	"blocked": "blocate",
-	"non-internet-source": "(fonte non internet)"
+	"non-internet-source": "(fonte non internet)",
+	"tags": "Etiquettas",
+	"edit-summary": "Summario del modification",
+	"revdel": "delver",
+	"undo": "disfacer",
+	"delete": "deler"
 }

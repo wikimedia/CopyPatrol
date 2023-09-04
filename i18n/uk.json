@@ -5,6 +5,7 @@
 			"Ice bulldog",
 			"Movses",
 			"Piramidion",
+			"Ата",
 			"Пан Хаунд"
 		]
 	},
@@ -98,5 +99,7 @@
 	"permalink": "Постійне посилання",
 	"show-all-records": "Показати всі записи",
 	"access-blocked": "Зараз вас $1 у $2 і ви не можете використовувати CopyPatrol.",
-	"blocked": "заблоковано"
+	"blocked": "заблоковано",
+	"undo": "скасувати",
+	"delete": "вилучити"
 }

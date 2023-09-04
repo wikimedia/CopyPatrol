@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Angoca",
 			"Fitoschido",
 			"Kaldari",
 			"Macofe",
@@ -99,5 +100,6 @@
 	"permalink": "Enlace permanente",
 	"show-all-records": "Mostrar todos los registros",
 	"access-blocked": "Actualmente estás $1 en $2 y no puedes usar CopyPatrol.",
-	"blocked": "bloqueado"
+	"blocked": "bloqueado",
+	"delete": "eliminar"
 }

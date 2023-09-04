@@ -103,5 +103,8 @@
 	"blocked": "已封禁",
 	"non-internet-source": "（非網際網路來源）",
 	"tags": "標籤",
-	"edit-summary": "編輯摘要"
+	"edit-summary": "編輯摘要",
+	"revdel": "修訂刪除",
+	"undo": "撤銷",
+	"delete": "刪除"
 }

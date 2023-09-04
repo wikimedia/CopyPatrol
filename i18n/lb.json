@@ -93,5 +93,7 @@
 	"js-unknown-error": "Beim Luede vun de Resultater ass en onbekannte Feeler geschitt. Probéiert wgl. nach eng Kéier.",
 	"permalink": "Permanentlink",
 	"blocked": "gespaart",
-	"edit-summary": "Resumé vun der Ännerung"
+	"edit-summary": "Resumé vun der Ännerung",
+	"undo": "réckgängeg maachen",
+	"delete": "läschen"
 }

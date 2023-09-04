@@ -104,5 +104,8 @@
 	"blocked": "bloqué{{GENDER:||e}}",
 	"non-internet-source": "(source non internet)",
 	"tags": "Balises",
-	"edit-summary": "Modifier le résumé"
+	"edit-summary": "Modifier le résumé",
+	"revdel": "supprimer une révision",
+	"undo": "annuler",
+	"delete": "supprimer"
 }
