@@ -60,7 +60,7 @@
 	"record-editcount": "Brojač izmjena:",
 	"compare": "Usporedi",
 	"record-ithenticate": "Izvještaj iThenticatea",
-	"record-url-text": "$1 od izmjene ($2 riječi)",
+	"record-url-text": "$1 od izmjene",
 	"record-noeditor": "Nisam pronašao nijednog urednika",
 	"record-noeditor-tooltip": "Moguće je da je ova izmjena obrisana ili podaci nisu dostupni u Labsovoj bazi podataka.",
 	"record-ores": "ORES-ova ocjena: $1",
@@ -73,6 +73,7 @@
 	"footer-commtech": "Tehnička zajednica",
 	"footer-poweredby": "Pogon: $1 i $2",
 	"filter-page": "Pretraži po nazivu stranice:",
+	"filter-user": "Pretraži preglede po korisniku:",
 	"source": "Izvor",
 	"footer-imageattr": "Autorstvo slike",
 	"lboard-title": "Rang lista",
@@ -94,5 +95,10 @@
 	"permalink": "Trajni link",
 	"show-all-records": "Prikaži sve zapise",
 	"access-blocked": "Trenutačno ste $1 na $2 i ne možete koristiti CopyPatrol.",
-	"blocked": "blokirani"
+	"blocked": "blokirani",
+	"tags": "Oznake",
+	"edit-summary": "Opis izmjene",
+	"revdel": "revdel",
+	"undo": "poništi",
+	"delete": "izbriši"
 }
