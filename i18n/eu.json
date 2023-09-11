@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"An13sa",
+			"Atzerritik",
 			"Mikel Ibaiba",
 			"Subi",
 			"Xabier Armendaritz"
@@ -9,7 +10,7 @@
 	},
 	"name": "Patruiloa kopiatu",
 	"documentation": "Dokumentazioa",
-	"feedback": "Atzeraelikadura",
+	"feedback": "Feedback",
 	"leaderboard": "Lider-arbela",
 	"zh-wikipedia": "Txinerazko Wikipedia",
 	"ja-wikipedia": "Japonierazko Wikipedia",
@@ -42,6 +43,7 @@
 	"fa-wikipedia": "Persierazko Wikipedia",
 	"ru-wikipedia": "Errusierazko Wikipedia",
 	"tr-wikipedia": "Turkierazko Wikipedia",
+	"simple-wikipedia": "Ingeles Wikipedia sinplea",
 	"form-all": "Kasu guztiak",
 	"form-open": "Ireki kasuak",
 	"form-reviewed": "Berrikusitako kasuak",
@@ -63,7 +65,7 @@
 	"record-editcount": "Edizio kontagailua",
 	"compare": "Alderatu",
 	"record-ithenticate": "iThenticate txostena",
-	"record-url-text": "Edizioaren $1a ($2 hitz)",
+	"record-url-text": "Edizioaren $1",
 	"record-noeditor": "Ez da editorerik aurkitu",
 	"record-noeditor-tooltip": "Berrikusketa beharbada ezabatua izan da edo datuak ez daude oraindik eskuragarri Labs datubasean.",
 	"record-ores": "ORES puntuazioa: $1",
@@ -76,6 +78,7 @@
 	"footer-commtech": "Komunitatearen teknologia",
 	"footer-poweredby": "$1 eta $2-ren bidez bultzatua",
 	"filter-page": "Bilatu orrialde izenburua:",
+	"filter-user": "Bilatu iruzkinak erabiltzaileka:",
 	"source": "Iturria",
 	"footer-imageattr": "Irudi eskuduntza",
 	"lboard-title": "Lider-arbela",
@@ -83,6 +86,7 @@
 	"lboard-month": "Azken 30 egunetan itxitako kasuak",
 	"lboard-alltime": "Edonoiz itxitako kasuak",
 	"lboard-back": "Patroi-kopiara bueltatu",
+	"lboard-count-title": "Ikusi erabiltzaile honek berrikusitako $1 kasu",
 	"close": "Itxi",
 	"imageattr-title": "Irudi eskuduntza",
 	"imageattr-logo": "Patroi-kopia logoa",
@@ -97,5 +101,11 @@
 	"permalink": "Esteka iraunkorra",
 	"show-all-records": "Grabaketa guztiak erakutsi",
 	"access-blocked": "$2 domainuan $1-rekin zaude eta ezin duzu CopyPatrol erabili.",
-	"blocked": "blokeatua"
+	"blocked": "blokeatua",
+	"non-internet-source": "(Internet ez den iturria)",
+	"tags": "Etiketak",
+	"edit-summary": "Laburpena aldatu",
+	"revdel": "revdel",
+	"undo": "desegin",
+	"delete": "ezabatu"
 }
