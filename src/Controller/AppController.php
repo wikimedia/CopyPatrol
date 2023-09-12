@@ -123,7 +123,7 @@ class AppController extends AbstractController {
 	}
 
 	/**
-	 * Returns a Record object, with additional data such as user edit counts, which pages are dead, and ORES scores.
+	 * Returns a Record object, with additional data such as user edit counts, which pages are dead, and damage scores.
 	 *
 	 * @param array $rows
 	 * @param WikiRepository $wikiRepo
@@ -160,11 +160,11 @@ class AppController extends AbstractController {
 
 		$editCounts = $wikiRepo->getEditCounts( array_unique( $usernames ) );
 		$livePages = $wikiRepo->getLivePagesWithWikiProjects( $titlesByNs );
-		$oresScores = $wikiRepo->getOresScores( array_unique( $revIds ) );
+		$damageScores = $wikiRepo->getDamageScores( array_unique( $revIds ) );
 		$tagsAndComments = $wikiRepo->getRevisionMetadata( $revIds );
 
 		// Create a Record object for each row.
-		return array_map( static function ( $row ) use ( $editCounts, $livePages, $oresScores, $tagsAndComments ) {
+		return array_map( static function ( $row ) use ( $editCounts, $livePages, $damageScores, $tagsAndComments ) {
 			// $tagsAndComments aren't indexed by rev_id, so we need to locate the row first.
 			$extraData = array_filter( $tagsAndComments, static function ( $data ) use ( $row ) {
 				return $data['rev_id'] === $row['rev_id'];
@@ -183,7 +183,7 @@ class AppController extends AbstractController {
 				isset( $livePages['2'][$row['rev_user_text']] ),
 				isset( $livePages['3'][$row['rev_user_text']] ),
 				$livePages[$row['page_namespace']][$row['page_title']] ?? [],
-				$oresScores[$row['rev_id']]
+				$damageScores[$row['rev_id']] ?? null
 			);
 		}, $newRows );
 	}

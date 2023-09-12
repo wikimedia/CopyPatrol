@@ -275,42 +275,45 @@ class WikiRepository {
 	}
 
 	/**
-	 * Get the ORES damage scores for the given revision IDs.
+	 * Get the damage scores for the given revision IDs.
 	 *
 	 * @param array $revIds
 	 * @return array
 	 */
-	public function getOresScores( array $revIds ): array {
+	public function getDamageScores( array $revIds ): array {
 		if ( !$revIds ) {
 			return [];
 		}
-		$cacheKey = sha1( $this->getLang() . serialize( $revIds ) );
-		if ( $this->cache->hasItem( $cacheKey ) ) {
-			return $this->cache->getItem( $cacheKey )->get();
-		}
 
 		$dbName = "{$this->getLang()}wiki";
-		$scores = $this->httpClient->request(
-			'GET',
-			"https://ores.wikimedia.org/v2/scores/$dbName/damaging/",
-			[ 'query' => [ 'revids' => implode( '|', $revIds ) ] ]
-		)->toArray( false );
-
-		if ( !$scores ) {
-			return [];
-		}
 
 		$ret = [];
-		foreach ( $scores['scores'][$dbName]['damaging']['scores'] as $revId => $data ) {
-			$ret[$revId] = $data['probability']['true'] ?? null;
+		$responses = [];
+		foreach ( $revIds as $revId ) {
+			if ( $this->cache->hasItem( "$dbName-damage-score-$revId" ) ) {
+				$ret[$revId] = $this->cache->getItem( "$dbName-damage-score-$revId" )->get();
+			} else {
+				$responses[] = $this->httpClient->request(
+					'POST',
+					"https://api.wikimedia.org/service/lw/inference/v1/models/$dbName-damaging:predict",
+					[ 'json' => [ 'rev_id' => $revId ] ]
+				);
+			}
 		}
 
-		// Cache for 10 minutes.
-		$cacheItem = $this->cache
-			->getItem( $cacheKey )
-			->set( $ret )
-			->expiresAfter( new DateInterval( 'PT10M' ) );
-		$this->cache->save( $cacheItem );
+		foreach ( $responses as $response ) {
+			$data = $response->toArray( false );
+			$revId = array_keys( $data[$dbName]['scores'] ?? [] )[0] ?? null;
+			if ( $revId ) {
+				$ret[$revId] = $data[$dbName]['scores'][$revId]['damaging']['score']['probability']['true'] ?? null;
+				$cacheItem = $this->cache->getItem( "$dbName-damage-score-$revId" )
+					->set( $ret[$revId] )
+					->expiresAfter( new DateInterval( 'PT10M' ) );
+				$this->cache->saveDeferred( $cacheItem );
+			}
+		}
+		$this->cache->commit();
+
 		return $ret;
 	}
 

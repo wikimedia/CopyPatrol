@@ -77,7 +77,7 @@
 	"record-url-text": "Label text to show amount of plagiarism. Parameters:\n* $1 - Percentage of edit that was plagiarized.",
 	"record-noeditor": "Column text shown to user when no editor was found in database for an edit",
 	"record-noeditor-tooltip": "Tooltip for a text label, shown to editor to explain why no editor could be found",
-	"record-ores": "Ores score for a record. \n Parameters: $1 - Decimal number indicating percentage score.",
+	"record-damage": "The damage score for a record.\nParameters: \n* $1 - Decimal number indicating percentage score.",
 	"article": "Label shown for a text box, showing an article text. \n{{Identical|Article}}",
 	"compare-article-loading": "Temporary text shown to user while article text loads",
 	"compare-source-loading": "Temporary text shown to user while copyvio text source loads",
