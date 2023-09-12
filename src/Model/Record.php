@@ -7,8 +7,8 @@ use DateTime;
 
 class Record {
 
-	/** @var float Only surface ORES scores above this threshold. */
-	public const ORES_THRESHOLD = 0.427;
+	/** @var float Only surface damage scores above this threshold. */
+	public const DAMAGE_SCORE_THRESHOLD = 0.427;
 
 	protected array $data;
 	protected string $username;
@@ -17,7 +17,7 @@ class Record {
 	protected bool $userPageExists;
 	protected bool $userTalkExists;
 	protected array $wikiProjects;
-	protected ?float $oresScore;
+	protected ?float $damageScore;
 
 	/**
 	 * @param array $row From the CopyPatrol database.
@@ -26,7 +26,7 @@ class Record {
 	 * @param bool $userPageExists
 	 * @param bool $userTalkExists
 	 * @param array $wikiProjects
-	 * @param float|null $oresScore
+	 * @param float|null $damageScore
 	 */
 	public function __construct(
 		array $row,
@@ -35,7 +35,7 @@ class Record {
 		bool $userPageExists = false,
 		bool $userTalkExists = false,
 		array $wikiProjects = [],
-		float $oresScore = null
+		float $damageScore = null
 	) {
 		$this->data = $row;
 		$this->editCount = $editCount;
@@ -44,7 +44,7 @@ class Record {
 		$this->userTalkExists = $userTalkExists;
 		// Remove any null values.
 		$this->wikiProjects = array_filter( $wikiProjects );
-		$this->oresScore = $oresScore;
+		$this->damageScore = $damageScore;
 	}
 
 	/** REPORT ATTRIBUTES */
@@ -249,15 +249,15 @@ class Record {
 	}
 
 	/**
-	 * Get the ORES score associated with the edit, if applicable.
+	 * Get the damage score associated with the edit, if applicable.
 	 *
 	 * @return float|null
 	 */
-	public function getOresScore(): ?float {
-		if ( $this->oresScore < self::ORES_THRESHOLD ) {
+	public function getDamageScore(): ?float {
+		if ( $this->damageScore < self::DAMAGE_SCORE_THRESHOLD ) {
 			return null;
 		}
-		return round( $this->oresScore * 100, 2 );
+		return round( $this->damageScore * 100, 2 );
 	}
 
 	/**

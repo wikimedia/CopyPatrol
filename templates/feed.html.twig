@@ -54,13 +54,6 @@
 						{% if row.diffSize is defined %}
 							<small>{{ row.diffSize|diff_format }}</small>
 						{% endif %}
-						{% if row.oresScore is not empty %}
-							<div class="small diff-div-ores">
-								<a href="https://www.mediawiki.org/wiki/Special:MyLanguage/ORES" target="_blank">
-									{{ msg('record-ores', [row.oresScore]) }}%
-								</a>
-							</div>
-						{% endif %}
 					</div>
 					{# Div for editor information #}
 					<div class="row-div {% if has_wikiprojects %}col-sm-2{% else %}col-sm-3{% endif %} text-center report-div">
@@ -117,6 +110,11 @@
 					</div>
 				</div>
 				<div class="summary-container">
+					{% if row.damageScore is not empty %}
+						<div>
+							{{ msg('record-damage', [row.damageScore]) }}%
+						</div>
+					{% endif %}
 					{% if row.summary is not empty %}
 						<div>{{ msg('edit-summary') }}: <i class="text-muted">{{ row.summary|raw }}</i></div>
 					{% endif %}
