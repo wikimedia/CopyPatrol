@@ -118,7 +118,7 @@
 					{% if row.summary is not empty %}
 						<div>{{ msg('edit-summary') }}: <i class="text-muted">{{ row.summary|raw }}</i></div>
 					{% endif %}
-					{% if row.tags %}
+					{% if row.tagLabels is not empty %}
 						<div>
 							{{ msg('tags') }}:
 							{% for tagLabel in row.tagLabels %}
