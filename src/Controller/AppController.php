@@ -151,7 +151,7 @@ class AppController extends AbstractController {
 			unset( $newRows[$row['diff_id']]['url'] );
 			unset( $newRows[$row['diff_id']]['source_id'] );
 			unset( $newRows[$row['diff_id']]['percent'] );
-			$revIds[] = $row['rev_id'];
+			$revIds[] = (int)$row['rev_id'];
 			$usernames[] = $row['rev_user_text'];
 			$titlesByNs[$row['page_namespace']][] = $row['page_title'];
 			$titlesByNs['2'][] = $row['rev_user_text'];

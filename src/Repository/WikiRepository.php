@@ -277,7 +277,7 @@ class WikiRepository {
 	/**
 	 * Get the damage scores for the given revision IDs.
 	 *
-	 * @param array $revIds
+	 * @param int[] $revIds
 	 * @return array
 	 */
 	public function getDamageScores( array $revIds ): array {
