@@ -62,7 +62,6 @@
 	"record-url-text": "$1 redigeringer ($2 ord)",
 	"record-noeditor": "Der blev ikke fundet et redigeringsprogram",
 	"record-noeditor-tooltip": "Revisionen er måske slettet eller dataene er endnu ikke tilgængelige i Labs-databasen.",
-	"record-ores": "ORES-bedømmelse: $1",
 	"article": "Artikel",
 	"compare-article-loading": "Indlæser artikelrevision ...",
 	"compare-source-loading": "Indlæser mulig copyvio-kilde ...",

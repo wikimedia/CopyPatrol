@@ -64,7 +64,6 @@
 	"record-url-text": "$1 de la redakto ($2 vortoj)",
 	"record-noeditor": "Malsukcesis trovi redaktinton",
 	"record-noeditor-tooltip": "La revizio eble foriĝis, aŭ la dateno ne jam estas havebla en la Laboratoria datenbanko.",
-	"record-ores": "ORES-poentaro: $1",
 	"article": "Artikolo",
 	"compare-article-loading": "Ŝarĝante revizion de artikolon...",
 	"compare-source-loading": "Ŝarĝante eblan fonton de aŭtorrajta malobservo...",

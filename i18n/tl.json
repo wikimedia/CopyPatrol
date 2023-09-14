@@ -64,7 +64,6 @@
 	"record-url-text": "$1 ng binago ($2 (na) salita)",
 	"record-noeditor": "Walang nakitang editor",
 	"record-noeditor-tooltip": "Baka nabura na ang pagbabago o hindi pa available ang data sa Labs database.",
-	"record-ores": "ORES score: $1",
 	"article": "Artikulo",
 	"compare-article-loading": "Nilo-load ang pagbabago sa artikulo...",
 	"compare-source-loading": "Kinakarga ang posibleng paglabag sa karapatang-ari ng pinagmulan...",

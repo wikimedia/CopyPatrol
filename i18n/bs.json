@@ -63,7 +63,6 @@
 	"record-url-text": "$1 od izmjena ($2 riječi)",
 	"record-noeditor": "Nije pronađen nijedan urednik",
 	"record-noeditor-tooltip": "Moguće je da je ova izmjena obrisana ili podaci još uvijek nisu dostupni u Labsovoj bazi podataka.",
-	"record-ores": "ORES-ova ocjena: $1",
 	"article": "Članak",
 	"compare-article-loading": "Učitavam verziju članka...",
 	"compare-source-loading": "Učitavam mogući izvor s kojeg je prekopirano...",

@@ -61,7 +61,6 @@
 	"record-url-text": "$1 засвар ($2 үг)",
 	"record-noeditor": "Зохиогч олдсонгүй",
 	"record-noeditor-tooltip": "Энэ хувилбар нь устгагдсан байж магадгүй эсвэл өгөгдөл Labs мэдээллийн санд хараахан байхгүй байна.",
-	"record-ores": "ORES score: $1",
 	"article": "Гарчиг",
 	"compare-article-loading": "Гарчгийн хувилбарыг ачаал...",
 	"compare-source-loading": "Магадлалтай URV эх үүсвэрийг ачаал...",

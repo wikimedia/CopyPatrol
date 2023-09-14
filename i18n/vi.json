@@ -66,7 +66,6 @@
 	"record-url-text": "$1 của sửa đổi ($2 từ)",
 	"record-noeditor": "Không tìm thấy người sửa đổi",
 	"record-noeditor-tooltip": "Bản sửa đổi có thể đã bị xóa hoặc dữ liệu chưa có sẵn trong cơ sở dữ liệu Labs.",
-	"record-ores": "Điểm ORES: $1",
 	"article": "Bài viết",
 	"compare-article-loading": "Đang tải phiên bản bài viết…",
 	"compare-source-loading": "Đang tải nguồn có thể bị vi phạm bản quyền…",

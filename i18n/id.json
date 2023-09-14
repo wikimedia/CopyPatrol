@@ -66,7 +66,6 @@
 	"record-url-text": "$1 suntingan ($2 kata)",
 	"record-noeditor": "Tidak ada penyunting yang ditemukan.",
 	"record-noeditor-tooltip": "Revisi mungkin telah dihapus atau data belum tersedia di basis data Labs.",
-	"record-ores": "Skor ORES: $1",
 	"article": "Artikel",
 	"compare-article-loading": "Memuat revisi artikel...",
 	"footer-loadmore": "Muat lebih banyak",

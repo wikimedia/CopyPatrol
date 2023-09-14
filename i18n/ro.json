@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Alesaru",
 			"GabiBil",
 			"WebSourceContentRO"
 		]
@@ -63,7 +64,7 @@
 	"record-url-text": "$1 din modificare ($2 cuvinte)",
 	"record-noeditor": "Nu a fost găsit niciun editor",
 	"record-noeditor-tooltip": "Este posibil ca revizuirea să fi fost ștearsă sau datele nu sunt încă disponibile în baza de date Labs.",
-	"record-ores": "Scorul ORES: $1",
+	"record-damage": "Scorul daunelor: $1",
 	"article": "Articol",
 	"compare-article-loading": "Se încarcă revizia articolului...",
 	"compare-source-loading": "Se încarcă o posibilă sursă copyvio ...",

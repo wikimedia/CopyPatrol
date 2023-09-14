@@ -69,7 +69,7 @@
 	"record-url-text": "$1 de la modification",
 	"record-noeditor": "Aucun rédacteur trouvé",
 	"record-noeditor-tooltip": "Cette version a probablement été supprimée ou bien l’information n’est pas encore disponible dans la base de données Labs.",
-	"record-ores": "Score ORES : $1",
+	"record-damage": "Score de dégâts : $1",
 	"article": "Article",
 	"compare-article-loading": "Chargement de la modification de l’article...",
 	"compare-source-loading": "Chargement de la source potentielle de violation des droits d’auteur...",

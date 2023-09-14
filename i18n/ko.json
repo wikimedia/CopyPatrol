@@ -67,7 +67,6 @@
 	"record-url-text": "편집 중 $1 ($2개 단어)",
 	"record-noeditor": "편집자가 없습니다",
 	"record-noeditor-tooltip": "이 판이 이미 삭제되었거나 아직 랩스 데이터베이스에 제공되지 않았습니다.",
-	"record-ores": "ORES 점수: $1",
 	"article": "문서",
 	"compare-article-loading": "문서 판을 불러오는 중...",
 	"compare-source-loading": "가능한 copyvio 소스를 불러오는 중...",

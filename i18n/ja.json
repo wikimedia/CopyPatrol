@@ -70,7 +70,6 @@
 	"record-url-text": "編集の$1 ($2 語)",
 	"record-noeditor": "編集者が見つかりません",
 	"record-noeditor-tooltip": "版が削除されているか、データが Labs データベースで利用できません。",
-	"record-ores": "ORES スコア: $1",
 	"article": "記事",
 	"compare-article-loading": "記事の版を読み込み中...",
 	"compare-source-loading": "著作権違反の疑いがあるソースを読み込もうとしています……",

@@ -64,7 +64,6 @@
 	"record-url-text": "$1 ຂອງການແກ້ໄຂ ($2 ຄໍາ)",
 	"record-noeditor": "ບໍ່ພົບຜູ້ແກ້ໄຂ",
 	"record-noeditor-tooltip": "ການແກ້ໄຂອາດຈະຖືກລຶບໄປແລ້ວ ຫຼື ຂໍ້ມູນຍັງບໍ່ປາກົດໃນຖານຂໍ້ມູນ Labs",
-	"record-ores": "ຄະແນນORES: $1",
 	"article": "ບົດຄວາມ",
 	"compare-article-loading": "ກຳລັງໂຫຼດການແກ້ໄຂບົດຄວາມ...",
 	"compare-source-loading": "ກຳລັງໂຫຼດແຫຼ່ງ copyvio ທີ່ເປັນໄປໄດ້...",

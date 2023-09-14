@@ -69,7 +69,6 @@
 	"record-url-text": "$1 التحرير ($2 كلمات)",
 	"record-noeditor": "لم يتم العثور على محرر",
 	"record-noeditor-tooltip": "ربما تم حذف النسخة السابقة أو أن البيانات غير متوفرة بعد في قاعدة بيانات المختبرات.",
-	"record-ores": "نتيجة ORES: $1",
 	"article": "مقالة",
 	"compare-article-loading": "جارٍ تحميل مراجعة المقالة...",
 	"compare-source-loading": "جارٍ تحميل مصدر انتهاك حقوق الطبع والنشر المحتمل...",

@@ -70,7 +70,6 @@
 	"record-url-text": "$1 измене",
 	"record-noeditor": "Уређивач није пронађен",
 	"record-noeditor-tooltip": "Измена је можда обрисана или подаци још увек нису доступни у бази података Labs-а.",
-	"record-ores": "ORES оцена: $1",
 	"article": "Чланак",
 	"compare-article-loading": "Учитавам измену чланка…",
 	"compare-source-loading": "Учитавам могући извор кршења ауторских права…",

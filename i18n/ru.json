@@ -70,7 +70,6 @@
 	"record-url-text": "$1 правки",
 	"record-noeditor": "Редактор не найден",
 	"record-noeditor-tooltip": "Версия статьи может быть удалена или данные ещё не доступны в базе данных Лаборатории.",
-	"record-ores": "Рейтинг ORES: $1",
 	"article": "Статья",
 	"compare-article-loading": "Загрузка версии статьи...",
 	"compare-source-loading": "Загрузка возможного источника плагиата...",
@@ -105,5 +104,8 @@
 	"show-all-records": "Отобразить все записи",
 	"access-blocked": "В настоящий момент вы $1 в $2 и не можете использовать CopyPatrol.",
 	"blocked": "заблокированы",
-	"non-internet-source": "(источник не из интернета)"
+	"non-internet-source": "(источник не из интернета)",
+	"tags": "Метки",
+	"undo": "отменить",
+	"delete": "удалить"
 }

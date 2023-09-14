@@ -68,7 +68,6 @@
 	"record-url-text": "$1 із редагування ({{PLURAL:$2|$2 слово|$2 слова|$2 слів}})",
 	"record-noeditor": "Редактора не знайдено",
 	"record-noeditor-tooltip": "Цю версію могли вже вилучити або дані ще недоступні в базі даних Labs.",
-	"record-ores": "Оцінка ORES: $1",
 	"article": "Стаття",
 	"compare-article-loading": "Завантаження версії статті…",
 	"compare-source-loading": "Завантаження ймовірного джерела копівіо…",

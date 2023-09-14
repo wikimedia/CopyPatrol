@@ -70,7 +70,6 @@
 	"record-url-text": "İntihal edilen düzenleme yüzdesi: $1 ($2 kelime)",
 	"record-noeditor": "Düzenleyici bulunamadı",
 	"record-noeditor-tooltip": "Revizyon silindi veya veriler Labs veritabanında henüz mevcut değil.",
-	"record-ores": "ORES puanı: $1",
 	"article": "Madde",
 	"compare-article-loading": "Madde revizyonu yükleniyor...",
 	"compare-source-loading": "Muhtemel telif hakları ihlali kaynağı yükleniyor...",

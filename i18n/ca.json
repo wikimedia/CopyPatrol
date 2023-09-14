@@ -65,7 +65,6 @@
 	"record-url-text": "$1 de l'edició ($2 paraules)",
 	"record-noeditor": "Cap editor trobat",
 	"record-noeditor-tooltip": "Probablement s'ha esborrat aquesta edició o la informació encara no està disponible a la base de dades de Labs.",
-	"record-ores": "Puntuació de ORES: $1",
 	"article": "Article",
 	"compare-article-loading": "Carregant l'edició de l'article ...",
 	"compare-source-loading": "Carregant la possible font de la violació de drets ...",

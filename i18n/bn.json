@@ -69,7 +69,6 @@
 	"record-url-text": "সম্পাদনার $1",
 	"record-noeditor": "কোন সম্পাদক পাওয়া যায়নি",
 	"record-noeditor-tooltip": "সংস্করণটি মুছে ফেলা হয়েছে বা তথ্য ল্যাবস ডাটাবেসে এখনও উপলব্ধ নয়।",
-	"record-ores": "ORES স্কোর: $1",
 	"article": "নিবন্ধ",
 	"compare-article-loading": "নিবন্ধের সংশোধন লোড কর হচ্ছে...",
 	"compare-source-loading": "সম্ভাব্য অনুলিপি লঙ্ঘনের উৎস লোড করা হচ্ছে...",

@@ -64,7 +64,6 @@
 	"record-url-text": "$1 % av redigeringen ($2 ord)",
 	"record-noeditor": "Ingen redigerare hittades",
 	"record-noeditor-tooltip": "Ändringen kan ha rullats tillbaka, eller har uppdateringen inte registrerats än i Labs databas.",
-	"record-ores": "ORES-poäng: $1",
 	"article": "Artikel",
 	"compare-article-loading": "Läser in artikelversion …",
 	"compare-source-loading": "Hämtar möjlig källa till upphovsrättsöverträdelsen...",

@@ -64,7 +64,6 @@
 	"record-url-text": "$1 úprav ($2 slov)",
 	"record-noeditor": "Editor nebol nájdený",
 	"record-noeditor-tooltip": "Revízia mohla byť vymazaná alebo dáta ešte nie sú dostupné v databáze Labs.",
-	"record-ores": "ORES skóre: $1",
 	"article": "Článok",
 	"compare-article-loading": "Načítanie článku...",
 	"compare-source-loading": "Načítanie možného zdroja porušenia autorských práv...",

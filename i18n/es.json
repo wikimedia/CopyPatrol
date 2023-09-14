@@ -67,7 +67,6 @@
 	"record-url-text": "$1 de la edición ($2 palabras)",
 	"record-noeditor": "No se encontró ningún editor",
 	"record-noeditor-tooltip": "Es posible que la edición se haya borrado o que los datos no estén disponibles aún en la base de datos de Labs.",
-	"record-ores": "Puntuación de ORES: $1",
 	"article": "Artículo",
 	"compare-article-loading": "Cargando la edición del artículo…",
 	"compare-source-loading": "Cargando la posible fuente de la violación de derechos…",

@@ -64,7 +64,6 @@
 	"record-url-text": "$1 der Bearbeitung ($2 Wörter)",
 	"record-noeditor": "Keinen Autor gefunden",
 	"record-noeditor-tooltip": "Die Version könnte gelöscht worden sein oder die Daten sind in der Labs-Datenbank noch nicht verfügbar.",
-	"record-ores": "ORES-Score: $1",
 	"article": "Artikel",
 	"compare-article-loading": "Lade Artikelversion …",
 	"compare-source-loading": "Lade vermutete URV-Quelle …",

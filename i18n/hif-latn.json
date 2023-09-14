@@ -64,7 +64,6 @@
 	"record-url-text": "$1 of edit ($2 words)",
 	"record-noeditor": "Koi sampaadak nai milaa",
 	"record-noeditor-tooltip": "Ii badlao ke saait mitae dewa gais hai, nai to, Labs database me abhi data vailable nai hai.",
-	"record-ores": "ORES score: $1",
 	"article": "Article",
 	"compare-article-loading": "Article revision ke load karaa jaawe hai ...",
 	"compare-source-loading": "Loading possible copyvio source...",

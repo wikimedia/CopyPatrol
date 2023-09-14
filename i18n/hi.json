@@ -69,7 +69,6 @@
 	"record-url-text": "सम्पादन का $1 ($2 शब्द)",
 	"record-noeditor": "कोई संपादक नहीं मिला",
 	"record-noeditor-tooltip": "शायद अवतरण हट चुका है या यह डेटा Labs के डाटाबेस में उपलब्ध नहीं है।",
-	"record-ores": "ORES स्कोर: $1",
 	"article": "लेख",
 	"compare-article-loading": "लेख का अवतरण लोड हो रहा...",
 	"compare-source-loading": "संभावित कॉपी वाले स्रोत लोड हो रहे...",

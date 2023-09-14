@@ -68,7 +68,6 @@
 	"record-url-text": "占编辑的$1",
 	"record-noeditor": "找不到编者",
 	"record-noeditor-tooltip": "修订版本可能已被删除，或者数据在labs数据库中尚不可用。",
-	"record-ores": "ORES分数：$1",
 	"article": "条目",
 	"compare-article-loading": "正在加载条目修订版本...",
 	"compare-source-loading": "正在加载疑似侵权来源...",

@@ -62,7 +62,6 @@
 	"record-url-text": "$1 de la edición ($2 palabres)",
 	"record-noeditor": "Nun s'atopó nengún editor",
 	"record-noeditor-tooltip": "Seique se desaniciara la edición o que los datos inda nun tean disponibles na base de datos de Labs.",
-	"record-ores": "Puntuación ORES: $1",
 	"article": "Artículu",
 	"compare-article-loading": "Cargando la revisión del artículu...",
 	"compare-source-loading": "Cargando la posible fonte de la violación de derechos...",
