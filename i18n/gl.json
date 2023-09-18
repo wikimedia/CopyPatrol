@@ -64,6 +64,7 @@
 	"record-url-text": "$1 da edición",
 	"record-noeditor": "Non se atopou ningún editor",
 	"record-noeditor-tooltip": "A revisión puido ser borrada ou os datos non están aínda dispoñibles na base de datos de Labs.",
+	"record-damage": "Puntuación de danos: $1",
 	"article": "Artigo",
 	"compare-article-loading": "Cargando a revisión do artigo...",
 	"compare-source-loading": "Cargando a fonte da posible violación dos dereitos de autoría...",

@@ -3,6 +3,7 @@
 		"authors": [
 			"Eduardo Addad de Oliveira",
 			"Eduardoaddad",
+			"Felipe L. Ewald",
 			"Juan90264",
 			"Mello25",
 			"Re demz",
@@ -65,9 +66,10 @@
 	"record-editcount": "Contagem de edições",
 	"compare": "Comparar",
 	"record-ithenticate": "Informe de iThenticate",
-	"record-url-text": "$1 de edição ($2 palavras)",
+	"record-url-text": "$1 da edição",
 	"record-noeditor": "Não encontrou o editor",
 	"record-noeditor-tooltip": "Esta avaliação pode ter sido deletada por que os dados não estão disponíveis na base de dados de Labs.",
+	"record-damage": "Pontuação do dano: $1",
 	"article": "Artigo",
 	"compare-article-loading": "Carregando o historico de artigos...",
 	"compare-source-loading": "Carregando possível fonte de violação dos direitos...",
@@ -100,5 +102,11 @@
 	"permalink": "Link Permanente",
 	"show-all-records": "Mostrar todos os registros",
 	"access-blocked": "Você está atualmente $1 no $2 e não conseguem usar o CopyPatrol.",
-	"blocked": "bloqueado"
+	"blocked": "bloqueado",
+	"non-internet-source": "(não vem da internet)",
+	"tags": "Etiquetas",
+	"edit-summary": "Resumo da edição",
+	"revdel": "revdel",
+	"undo": "desfazer",
+	"delete": "excluir"
 }

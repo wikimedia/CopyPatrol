@@ -68,6 +68,7 @@
 	"record-url-text": "A szerkesztés $1-a ($2 szó)",
 	"record-noeditor": "Nem található szerkesztő",
 	"record-noeditor-tooltip": "A vizsgálat lehet, hogy törölve lett, vagy az adat még nem érhető el a Labs adatbázisban.",
+	"record-damage": "Kárérték: $1",
 	"article": "Szócikk",
 	"compare-article-loading": "Szócikk változatának betöltése…",
 	"compare-source-loading": "Lehetséges másolás forrásának betöltése…",
