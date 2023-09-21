@@ -68,6 +68,7 @@
 	"record-url-text": "$1 van de bewerking",
 	"record-noeditor": "Geen redacteur gevonden",
 	"record-noeditor-tooltip": "Mogelijk is de versie verwijderd of zijn de gegevens nog niet beschikbaar in de Labs-database.",
+	"record-damage": "Schadescore: $1",
 	"article": "Pagina",
 	"compare-article-loading": "Paginaversie laden...",
 	"compare-source-loading": "Mogelijk bron van auteursrechtenschending laden...",
