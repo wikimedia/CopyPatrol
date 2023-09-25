@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Decamexd",
 			"Martin Urbanec",
 			"Matěj Suchánek",
 			"MrJaroslavik",
@@ -70,6 +71,7 @@
 	"record-url-text": "$1 editace",
 	"record-noeditor": "Editor nebyl nalezen",
 	"record-noeditor-tooltip": "Tato editace mohla být smazána anebo data k ní ještě nejsou k dispozici v databázi.",
+	"record-damage": "Skóre poškození: $1",
 	"article": "Článek",
 	"compare-article-loading": "Načítání článku…",
 	"compare-source-loading": "Načítání možného zdroje porušení autorských práv…",
@@ -78,6 +80,7 @@
 	"footer-broughtby": "Připraveno pro vás týmem $1",
 	"footer-poweredby": "Poskytují $1 a $2",
 	"filter-page": "Hledat název stránky:",
+	"filter-user": "Hledat recenze podle uživatele:",
 	"source": "Zdroj",
 	"footer-imageattr": "Uvedení autorství",
 	"lboard-title": "Výsledky",
@@ -99,5 +102,10 @@
 	"permalink": "Trvalý odkaz",
 	"show-all-records": "Zobrazit všechny nahrávky",
 	"access-blocked": "V současné době jste na $2 $1 a nemůžete používat CopyPatrol.",
-	"blocked": "zablokován(a)"
+	"blocked": "zablokován(a)",
+	"tags": "Štítky",
+	"edit-summary": "Upravit shrnutí",
+	"revdel": "revdel",
+	"undo": "zrušit",
+	"delete": "smazat"
 }
