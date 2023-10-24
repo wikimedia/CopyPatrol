@@ -17,7 +17,6 @@ class Record {
 	protected bool $userPageExists;
 	protected bool $userTalkExists;
 	protected array $wikiProjects;
-	protected ?float $damageScore;
 
 	/**
 	 * @param array $row From the CopyPatrol database.
@@ -26,7 +25,6 @@ class Record {
 	 * @param bool $userPageExists
 	 * @param bool $userTalkExists
 	 * @param array $wikiProjects
-	 * @param float|null $damageScore
 	 */
 	public function __construct(
 		array $row,
@@ -34,8 +32,7 @@ class Record {
 		bool $pageExists = false,
 		bool $userPageExists = false,
 		bool $userTalkExists = false,
-		array $wikiProjects = [],
-		float $damageScore = null
+		array $wikiProjects = []
 	) {
 		$this->data = $row;
 		$this->editCount = $editCount;
@@ -44,7 +41,6 @@ class Record {
 		$this->userTalkExists = $userTalkExists;
 		// Remove any null values.
 		$this->wikiProjects = array_filter( $wikiProjects );
-		$this->damageScore = $damageScore;
 	}
 
 	/** REPORT ATTRIBUTES */

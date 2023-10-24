@@ -275,49 +275,6 @@ class WikiRepository {
 	}
 
 	/**
-	 * Get the damage scores for the given revision IDs.
-	 *
-	 * @param int[] $revIds
-	 * @return array
-	 */
-	public function getDamageScores( array $revIds ): array {
-		if ( !$revIds ) {
-			return [];
-		}
-
-		$dbName = "{$this->getLang()}wiki";
-
-		$ret = [];
-		$responses = [];
-		foreach ( $revIds as $revId ) {
-			if ( $this->cache->hasItem( "$dbName-damage-score-$revId" ) ) {
-				$ret[$revId] = $this->cache->getItem( "$dbName-damage-score-$revId" )->get();
-			} else {
-				$responses[] = $this->httpClient->request(
-					'POST',
-					"https://api.wikimedia.org/service/lw/inference/v1/models/$dbName-damaging:predict",
-					[ 'json' => [ 'rev_id' => $revId ] ]
-				);
-			}
-		}
-
-		foreach ( $responses as $response ) {
-			$data = $response->toArray( false );
-			$revId = array_keys( $data[$dbName]['scores'] ?? [] )[0] ?? null;
-			if ( $revId ) {
-				$ret[$revId] = $data[$dbName]['scores'][$revId]['damaging']['score']['probability']['true'] ?? null;
-				$cacheItem = $this->cache->getItem( "$dbName-damage-score-$revId" )
-					->set( $ret[$revId] )
-					->expiresAfter( new DateInterval( 'PT10M' ) );
-				$this->cache->saveDeferred( $cacheItem );
-			}
-		}
-		$this->cache->commit();
-
-		return $ret;
-	}
-
-	/**
 	 * Return whether the language associated with this WikiRepository instance support PageAssessments.
 	 *
 	 * @see https://www.mediawiki.org/wiki/Extension:PageAssessments

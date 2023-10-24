@@ -58,8 +58,7 @@ class RecordTest extends TestCase {
 			false,
 			true,
 			true,
-			[ 'New York City', null ],
-			0.15
+			[ 'New York City', null ]
 		);
 
 		parent::setUp();
@@ -102,7 +101,6 @@ class RecordTest extends TestCase {
 		);
 		static::assertSame( '2016-06-20 00:33', $this->record->getDiffTimestamp() );
 		static::assertSame( [ 'New York City' ], $this->record->getWikiProjects() );
-		static::assertNull( $this->record->getDamageScore() );
 		static::assertSame( 726095124, $this->record->getRevId() );
 		static::assertSame( 0, $this->record->getRevParentId() );
 		static::assertSame( 'Starec2016', $this->record->getEditor() );

@@ -9,6 +9,7 @@
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-intl": "*",
+        "ext-apcu": "*",
         "doctrine/annotations": "^2.0",
         "doctrine/doctrine-bundle": "^2.2",
         "phpxmlrpc/phpxmlrpc": "^4.10",
