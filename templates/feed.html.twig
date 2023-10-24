@@ -110,11 +110,6 @@
 					</div>
 				</div>
 				<div class="summary-container">
-					{% if row.damageScore is not empty %}
-						<div>
-							{{ msg('record-damage', [row.damageScore]) }}%
-						</div>
-					{% endif %}
 					{% if row.summary is not empty %}
 						<div>{{ msg('edit-summary') }}: <i class="text-muted">{{ row.summary|raw }}</i></div>
 					{% endif %}
