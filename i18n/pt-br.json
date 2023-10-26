@@ -69,7 +69,6 @@
 	"record-url-text": "$1 da edição",
 	"record-noeditor": "Não encontrou o editor",
 	"record-noeditor-tooltip": "Esta avaliação pode ter sido deletada por que os dados não estão disponíveis na base de dados de Labs.",
-	"record-damage": "Pontuação do dano: $1",
 	"article": "Artigo",
 	"compare-article-loading": "Carregando o historico de artigos...",
 	"compare-source-loading": "Carregando possível fonte de violação dos direitos...",

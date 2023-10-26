@@ -65,7 +65,6 @@
 	"record-url-text": "$1 urejanja",
 	"record-noeditor": "Najden ni bil noben urejevalec",
 	"record-noeditor-tooltip": "Redakcija je bila mogoče izbrisana ali pa podatki v podatkovni zbirki Labs še niso na voljo.",
-	"record-damage": "Ocena škode: $1",
 	"article": "Članek",
 	"compare-article-loading": "Nalagam redakcijo članka ...",
 	"compare-source-loading": "Nalagam možni vir kršitve avtorskih pravic ...",

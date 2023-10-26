@@ -71,7 +71,6 @@
 	"record-url-text": "$1 editace",
 	"record-noeditor": "Editor nebyl nalezen",
 	"record-noeditor-tooltip": "Tato editace mohla být smazána anebo data k ní ještě nejsou k dispozici v databázi.",
-	"record-damage": "Skóre poškození: $1",
 	"article": "Článek",
 	"compare-article-loading": "Načítání článku…",
 	"compare-source-loading": "Načítání možného zdroje porušení autorských práv…",
