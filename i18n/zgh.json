@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"AguzulH",
 			"Brahim-essaidi",
 			"Ya2sine"
 		]
@@ -42,7 +43,7 @@
 	"page": "ⵜⴰⵙⵏⴰ",
 	"editor": "ⴰⵎⵙⵙⵏⴼⵍ",
 	"review-false": "ⵡⴰⵍⵓ ⵜⵉⴳⴰⵡⵜ ⵉⵅⵚⵚⴰⵏ",
-	"history": "ⴰⵎⵣⵔⴰⵢ",
+	"history": "ⴰⵎⵣⵔⵓⵢ",
 	"talk": "ⵎⵙⴰⵡⴰⵍ",
 	"contribs": "ⵜⵓⵎⵓⵜⵉⵏ",
 	"record-url-text": "$1 ⵏ ⵓⵙⵏⴼⵍ ($2 ⵜⴳⵓⵔⵉⵡⵉⵏ)",
