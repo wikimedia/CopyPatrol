@@ -60,7 +60,7 @@
 	"record-editcount": "Тюзетиулени саны:",
 	"compare": "Тенглешдир",
 	"record-ithenticate": "iThenticate рапорт",
-	"record-url-text": "$1 тюзетилгенден ($2 сёз)",
+	"record-url-text": "$1 тюзетилгенден",
 	"record-noeditor": "Редактор табылмагъанды",
 	"record-noeditor-tooltip": "Версия кетерилгенди неда билгиле Labs билги базада алкъын хазыр халгъа келмегендиле.",
 	"article": "Статья",
@@ -72,6 +72,7 @@
 	"footer-commtech": "Технология Джыйым",
 	"footer-poweredby": "$1 бла $2 дагъанларыны кючю бла",
 	"filter-page": "Бет башлыгъына кёре изле:",
+	"filter-user": "Хайырланыучуну багъа бичимине кёре изле:",
 	"source": "Къайнакъ",
 	"phabricator": "Фабрикатор",
 	"footer-imageattr": "Суратны аттрибуциясы",
@@ -80,6 +81,7 @@
 	"lboard-month": "Ахыр 30 кюн ичинде джабылгъан ишле",
 	"lboard-alltime": "Бютеу заманнга джабылгъан ишле",
 	"lboard-back": "CopyPatrol-гъа кери къайт",
+	"lboard-count-title": "Бу хайырланыучу тинтген $1 ишге къара",
 	"close": "Джаб",
 	"imageattr-title": "Суратны аттрибуциясы",
 	"imageattr-logo": "CopyPatrol логотип",
@@ -94,5 +96,11 @@
 	"permalink": "Дайым джибериу",
 	"show-all-records": "Бютеу джаздырылыуланы кёргюз",
 	"access-blocked": "Бусагъатда $2-ден $1 эмда CopyPatrol бла хайырланаллыкъ тюлсюз.",
-	"blocked": "блокга салыныбды"
+	"blocked": "блокга салыныбды",
+	"non-internet-source": "(къайнакъ интернетден тюлдю)",
+	"tags": "Тегле",
+	"edit-summary": "Тюрлениулени ачыкълау",
+	"revdel": "ревдел",
+	"undo": "ызына ал",
+	"delete": "кетер"
 }
