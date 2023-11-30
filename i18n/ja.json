@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Aefgh39622",
+			"Chqaz",
 			"LaMagiaaa",
 			"MathXplore",
 			"Omotecho",
@@ -19,7 +20,7 @@
 	"th-wikipedia": "タイ語版ウィキペディア",
 	"en-wikipedia": "英語版ウィキペディア",
 	"ko-wikipedia": "韓国語版ウィキペディア",
-	"ca-wikipedia": "カタロニア語版ウィキペディア",
+	"ca-wikipedia": "カタルーニャ語版ウィキペディア",
 	"hr-wikipedia": "クロアチア語版ウィキペディア",
 	"cs-wikipedia": "チェコ語版ウィキペディア",
 	"da-wikipedia": "デンマーク語版ウィキペディア",
@@ -67,12 +68,12 @@
 	"record-editcount": "編集回数:",
 	"compare": "比較",
 	"record-ithenticate": "iThenticate 報告",
-	"record-url-text": "編集の$1 ($2 語)",
+	"record-url-text": "編集の$1",
 	"record-noeditor": "編集者が見つかりません",
 	"record-noeditor-tooltip": "版が削除されているか、データが Labs データベースで利用できません。",
 	"article": "記事",
 	"compare-article-loading": "記事の版を読み込み中...",
-	"compare-source-loading": "著作権違反の疑いがあるソースを読み込もうとしています……",
+	"compare-source-loading": "著作権違反の疑いがあるソースを読み込もうとしています…",
 	"footer-loadmore": "さらに読み込む",
 	"footer-nomore": "レコードはこれでおしまいです",
 	"footer-broughtby": "$1の提供です",
@@ -102,7 +103,9 @@
 	"show-all-records": "全記録を表示",
 	"access-blocked": "現在、$2の$1状態のため、CopyPatrolは利用できません。",
 	"blocked": "ブロック済み",
+	"non-internet-source": "(インターネット以外の情報源)",
 	"tags": "タグ",
+	"edit-summary": "編集の要約",
 	"undo": "取り消し",
 	"delete": "削除"
 }
