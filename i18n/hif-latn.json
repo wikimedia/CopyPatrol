@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Abdul Kadir",
+			"Girmitya",
 			"Smobile",
 			"Thakurji"
 		]
@@ -101,6 +102,6 @@
 	"tags": "Tags",
 	"edit-summary": "Summary ke badlo",
 	"revdel": "revdel",
-	"undo": "Pahile jaise kar do",
+	"undo": "pahile jaise karo",
 	"delete": "mitao"
 }
