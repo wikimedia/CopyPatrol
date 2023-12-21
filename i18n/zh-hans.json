@@ -102,5 +102,10 @@
 	"show-all-records": "显示所有记录",
 	"access-blocked": "您目前在$2上是$1，因此无法使用CopyPatrol。",
 	"blocked": "被封禁",
-	"non-internet-source": "（非互联网来源）"
+	"non-internet-source": "（非互联网来源）",
+	"tags": "标签",
+	"edit-summary": "编辑摘要",
+	"revdel": "修订版本删除",
+	"undo": "撤销",
+	"delete": "删除"
 }
