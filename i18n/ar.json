@@ -6,6 +6,7 @@
 			"Ideophagous",
 			"MRidhaAJ",
 			"Mohanad Kh",
+			"Sandra Hanbo",
 			"ديفيد",
 			"محمد أحمد عبد الفتاح"
 		]
@@ -66,7 +67,7 @@
 	"record-editcount": "عدد التعديلات:",
 	"compare": "قارن",
 	"record-ithenticate": "تقرير إثنسيكيت",
-	"record-url-text": "$1 التحرير ($2 كلمات)",
+	"record-url-text": "$1 من التحرير",
 	"record-noeditor": "لم يتم العثور على محرر",
 	"record-noeditor-tooltip": "ربما تم حذف النسخة السابقة أو أن البيانات غير متوفرة بعد في قاعدة بيانات المختبرات.",
 	"article": "مقالة",
@@ -102,5 +103,10 @@
 	"permalink": "وصلة دائمة",
 	"show-all-records": "عرض كل السجلات",
 	"access-blocked": "أنت حاليا $1 في $2 ولا يمكنك استخدام CopyPatrol.",
-	"blocked": "ممنوع"
+	"blocked": "ممنوع",
+	"non-internet-source": "(مصدر غير من الإنترنت)",
+	"tags": "الوسوم",
+	"edit-summary": "ملخص التعديل",
+	"undo": "رجوع",
+	"delete": "حذف"
 }
