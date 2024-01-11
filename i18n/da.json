@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Joedalton"
+			"Joedalton",
+			"Peterleth"
 		]
 	},
 	"documentation": "Dokumentation",
@@ -38,6 +39,7 @@
 	"fa-wikipedia": "Persisk Wikipedia",
 	"ru-wikipedia": "Russisk Wikipedia",
 	"tr-wikipedia": "Tyrkisk Wikipedia",
+	"simple-wikipedia": "Simpel engelsk Wikipedia",
 	"form-all": "Alle tilfælde",
 	"form-open": "Åbne tilfælde",
 	"form-reviewed": "Korrekturlæste tilfælde",
@@ -59,7 +61,7 @@
 	"record-editcount": "Antal redigeringer:",
 	"compare": "Sammenlign",
 	"record-ithenticate": "iThenticate-rapport",
-	"record-url-text": "$1 redigeringer ($2 ord)",
+	"record-url-text": "$1 af redigering",
 	"record-noeditor": "Der blev ikke fundet et redigeringsprogram",
 	"record-noeditor-tooltip": "Revisionen er måske slettet eller dataene er endnu ikke tilgængelige i Labs-databasen.",
 	"article": "Artikel",
@@ -70,6 +72,7 @@
 	"footer-broughtby": "Bragt til dig af $1",
 	"footer-poweredby": "Drevet af $1 og $2",
 	"filter-page": "Søg efter sidetitel:",
+	"filter-user": "Søg gennemsyn efter bruger:",
 	"source": "Kilde",
 	"footer-imageattr": "Billedtilskrivning",
 	"lboard-title": "Topliste",
@@ -77,6 +80,7 @@
 	"lboard-month": "Sager lukket i de seneste 30 dage",
 	"lboard-alltime": "Antal lukkede sager i alt",
 	"lboard-back": "Tilbage til CopyPatrol",
+	"lboard-count-title": "Se $1 sager gennemgået af denne bruger",
 	"close": "Luk",
 	"imageattr-title": "Billedtilskrivning",
 	"imageattr-logo": "CopyPatrol-logo",
@@ -91,5 +95,11 @@
 	"permalink": "Permalink",
 	"show-all-records": "Vis alle poster",
 	"access-blocked": "Du er i øjeblikket på $1 på domænet $2 og kan ikke bruge CopyPatrol.",
-	"blocked": "Blokeret"
+	"blocked": "Blokeret",
+	"non-internet-source": "(kilde udenfor internet)",
+	"tags": "Tags",
+	"edit-summary": "Rediger sammendrag",
+	"revdel": "revdel",
+	"undo": "fortryd",
+	"delete": "slet"
 }
