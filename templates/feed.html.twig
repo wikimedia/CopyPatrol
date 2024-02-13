@@ -157,10 +157,12 @@
 							</div>
 						{% endfor %}
 					{% endif %}
-					<a class="btn btn-xs btn-primary" href='{{ path('ithenticate', {submissionId: row.submissionId}) }}' rel='nofollow noreferrer noopener' target="_blank">
-						<span class="glyphicon glyphicon-new-window"></span>
-						{{ msg('record-ithenticate') }}
-					</a>
+					{% if logged_in_user() %}
+						<a class="btn btn-xs btn-primary" href='{{ path('ithenticate', {submissionId: row.submissionId}) }}' rel='nofollow noreferrer noopener' target="_blank">
+							<span class="glyphicon glyphicon-new-window"></span>
+							{{ msg('record-ithenticate') }}
+						</a>
+					{% endif %}
 				</div>
 			</article>
 		{% endfor %}
