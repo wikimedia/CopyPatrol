@@ -47,3 +47,9 @@ doctrine:
         user: '%env(TOOLSDB_USERNAME)%'
         password: '%env(TOOLSDB_PASSWORD)%'
         dbname: '%env(COPYPATROL_DB_NAME)%'
+      toolforge_trove:
+        host: '%env(TROVE_HOST)%'
+        port: '%env(TROVE_PORT)%'
+        user: '%env(TROVE_USERNAME)%'
+        password: '%env(TROVE_PASSWORD)%'
+        dbname: '%env(COPYPATROL_DB_NAME)%'
