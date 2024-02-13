@@ -42,7 +42,7 @@ class CopyPatrolRepository {
 	 */
 	public function __construct( CacheItemPoolInterface $cache, ManagerRegistry $managerRegistry ) {
 		$this->cache = $cache;
-		$this->client = $managerRegistry->getConnection( 'toolforge_toolsdb' );
+		$this->client = $managerRegistry->getConnection( 'toolforge_trove' );
 	}
 
 	/**

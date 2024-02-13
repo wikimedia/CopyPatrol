@@ -7,6 +7,6 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 # tab indentation
-[*.{php,js,less,twig}]
+[*.{php,js,less,twig,json}]
 indent_style = tab
 indent_size = 4

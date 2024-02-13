@@ -16,6 +16,7 @@
   },
   "scripts": {
     "build": "encore production",
+    "dev": "encore dev --watch",
     "test": "lessc --lint assets/*.less && stylelint assets/*.less && eslint assets/"
   }
 }
