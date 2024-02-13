@@ -203,6 +203,7 @@ class CopyPatrolRepository {
 	 *
 	 * @param string $submissionId ID of record.
 	 * @return array Query result.
+	 * @todo Return a Record object instead of an array.
 	 */
 	public function getRecordBySubmissionId( string $submissionId ) {
 		$sql = "SELECT * FROM diffs WHERE submission_id = :id";

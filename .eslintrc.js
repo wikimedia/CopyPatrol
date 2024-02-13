@@ -19,6 +19,7 @@ module.exports = {
 		jsUnauthorized: true,
 		jsDbError: true,
 		jsUndoOwnOnly: true,
+		jsSelfReviewError: true,
 		jsUnknownError: true,
 		jsLoadMore: true,
 		jsNoMore: true,
