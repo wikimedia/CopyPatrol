@@ -129,6 +129,8 @@ class CopyPatrol {
 				window.alert( jsDbError );
 			} else if ( error === 'wrong_user' ) {
 				window.alert( jsUndoOwnOnly );
+			} else if ( error === 'self_review' ) {
+				window.alert( jsSelfReviewError );
 			} else {
 				window.alert( 'Something went wrong. Please try again.' );
 			}

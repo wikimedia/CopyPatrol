@@ -31,11 +31,13 @@ class AppController extends AbstractController {
 	public const ERROR_NOT_LOGGED_IN = 'unauthorized';
 	public const ERROR_DATABASE = 'database';
 	public const ERROR_BLOCKED = 'blocked';
+	public const ERROR_SELF_REVIEW = 'self_review';
 	public const ERROR_CODES = [
 		self::ERROR_WRONG_USER => Response::HTTP_UNAUTHORIZED,
 		self::ERROR_NOT_LOGGED_IN => Response::HTTP_UNAUTHORIZED,
 		self::ERROR_DATABASE => Response::HTTP_INTERNAL_SERVER_ERROR,
-		self::ERROR_BLOCKED => Response::HTTP_FORBIDDEN
+		self::ERROR_BLOCKED => Response::HTTP_FORBIDDEN,
+		self::ERROR_SELF_REVIEW => Response::HTTP_FORBIDDEN
 	];
 
 	/**
@@ -234,6 +236,10 @@ class AppController extends AbstractController {
 		}
 
 		$existingRecord = $copyPatrolRepo->getRecordBySubmissionId( $submissionId );
+		if ( $currentUser->username === $existingRecord['rev_user_text'] ) {
+			return $this->getErrorResponse( self::ERROR_SELF_REVIEW );
+		}
+
 		$timestamp = date( 'YmdHis' );
 
 		try {
@@ -287,7 +293,12 @@ class AppController extends AbstractController {
 		}
 
 		try {
-			$copyPatrolRepo->updateCopyvioAssessment( $submissionId, CopyPatrolRepository::STATUS_READY, null, null );
+			$copyPatrolRepo->updateCopyvioAssessment(
+				$submissionId,
+				CopyPatrolRepository::STATUS_READY,
+				null,
+				date( 'YmdHis' )
+			);
 			return new JsonResponse( [], Response::HTTP_OK );
 		} catch ( DriverException $e ) {
 			return $this->getErrorResponse( self::ERROR_DATABASE );

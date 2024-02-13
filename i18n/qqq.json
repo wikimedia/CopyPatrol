@@ -107,6 +107,7 @@
 	"js-dberror": "Alert shown to user when a database connection could not be made",
 	"js-undo-own-only": "Alert shown to user when they try to undo other people's reviews",
 	"js-unknown-error": "Alert shown to user when results could not be loaded, possibly due to connection issues, asking them to try again",
+	"js-self-review": "Alert shown to user when they attempt to review their own edits.",
 	"permalink": "Text for a permanent link to a particular record.\n{{Identical|Permalink}}",
 	"show-all-records": "Label for the button to show all records. This button is shown when the user went to a permalink that shows a single record.",
 	"access-blocked": "Message shown when a user is blocked on the wiki they are trying to view in CopyPatrol. \n\nParameters:\n* $1 — link to the block entry on the wiki, with the message 'blocked' as the link text. \n* $2 — domain of the wiki.",
