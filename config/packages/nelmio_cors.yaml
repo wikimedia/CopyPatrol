@@ -1,0 +1,6 @@
+nelmio_cors:
+    paths:
+        '^/api/':
+            allow_origin: ['*']
+            allow_methods: ['GET', 'PUT']
+            max_age: 3600

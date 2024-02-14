@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="./tests/bootstrap.php"
-         backupGlobals="false"
-         backupStaticAttributes="false"
-         colors="true"
-         beStrictAboutTestsThatDoNotTestAnything="true"
-         beStrictAboutOutputDuringTests="true"
-         verbose="true">
-    <testsuites>
-        <testsuite name="Copypatrol">
-            <directory>./tests</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
-    <php>
-        <server name="KERNEL_CLASS" value="App\Kernel" />
-    </php>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="./tests/bootstrap.php" backupGlobals="false" backupStaticAttributes="false" colors="true" beStrictAboutTestsThatDoNotTestAnything="true" beStrictAboutOutputDuringTests="true" verbose="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </coverage>
+  <testsuites>
+    <testsuite name="Copypatrol">
+      <directory>./tests</directory>
+    </testsuite>
+  </testsuites>
+  <php>
+    <server name="KERNEL_CLASS" value="App\Kernel"/>
+  </php>
 </phpunit>

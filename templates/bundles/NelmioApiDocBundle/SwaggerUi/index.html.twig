@@ -1,0 +1,12 @@
+{% extends '@!NelmioApiDoc/SwaggerUi/index.html.twig' %}
+
+{% block swagger_initialization %}
+	<script type="text/javascript">
+		window.onload = loadSwaggerUI({
+			deepLinking: true,
+		});
+	</script>
+{% endblock %}
+
+{% block header %}
+{% endblock %}
