@@ -73,22 +73,7 @@ class AppController extends AbstractController {
 		}
 
 		// Filtering options that we pass to the repository.
-		$options = [
-			'lang' => $lang,
-			'filter' => $request->query->get( 'filter', CopyPatrolRepository::FILTER_OPEN ),
-			'filter_user' => $request->query->get( 'filter' ) === CopyPatrolRepository::FILTER_REVIEWED
-				// You can only filter by user for 'reviewed' cases.
-				? $request->query->get( 'filterUser' )
-				: null,
-			'filter_page' => $request->query->get( 'filterPage' ) ?: null,
-			'drafts' => $request->query->get( 'drafts' ) ?: false,
-			// This refers to the revision ID.
-			'revision' => $request->query->get( 'revision' ) ?: null,
-			// This refers to the submission ID (aka iThenticate ID).
-			'id' => $request->query->get( 'id' ) ?: null,
-			// Refers to submission ID, used for OFFSET.
-			'last_id' => $request->get( 'lastid', 0 ),
-		];
+		$options = $this->getFeedActionOptions( $request, $lang );
 
 		// Everything we need for the view, including the filtering options.
 		$ret = array_merge( $options, [
@@ -122,6 +107,30 @@ class AppController extends AbstractController {
 		$ret['user_rights'] = $currentUser ? $wikiRepo->getUserRights( $currentUser->username ) : [];
 
 		return $this->render( 'feed.html.twig', $ret );
+	}
+
+	/**
+	 * @param Request $request
+	 * @param string $lang
+	 * @return array
+	 */
+	protected function getFeedActionOptions( Request $request, string $lang ): array {
+		return [
+			'lang' => $lang,
+			'filter' => $request->query->get( 'filter', CopyPatrolRepository::FILTER_OPEN ),
+			'filter_user' => $request->query->get( 'filter' ) === CopyPatrolRepository::FILTER_REVIEWED
+				// You can only filter by user for 'reviewed' cases.
+				? $request->query->get( 'filterUser' )
+				: null,
+			'filter_page' => $request->query->get( 'filterPage' ) ?: null,
+			'drafts' => $request->query->get( 'drafts' ) ?: false,
+			// This refers to the revision ID.
+			'revision' => $request->query->get( 'revision' ) ?: null,
+			// This refers to the submission ID (aka iThenticate ID).
+			'id' => $request->query->get( 'id' ) ?: null,
+			// Refers to diff ID, used for OFFSET.
+			'last_id' => $request->get( 'lastid', 0 ),
+		];
 	}
 
 	/**
@@ -204,7 +213,7 @@ class AppController extends AbstractController {
 	/**
 	 * @Route("/{lang}/review_add/{submissionId}/{status}",
 	 *     name="add_review",
-	 *     requirements={"lang"="simple|\w{2}", "id"="\d+", "status"="\d"},
+	 *     requirements={"lang"="simple|\w{2}", "submissionId"="\d+|[a-z\d+\-]+", "status"="\d"},
 	 *     methods={"PUT"}
 	 * )
 	 * @param RequestStack $requestStack

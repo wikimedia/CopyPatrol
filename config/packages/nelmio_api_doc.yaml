@@ -1,0 +1,100 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: CopyPatrol
+            description: A tool that allows you to see recent Wikipedia edits that are flagged as possible copyright violations.
+            version: 1.0.0
+        components:
+            parameters:
+                lang:
+                    name: lang
+                    in: path
+                    required: true
+                    description: The language of the project
+                    schema:
+                        type: string
+                        example: en
+            schemas:
+                Case:
+                    type: object
+                    description: A case of a possible copyright violation
+                    properties:
+                        diff_id:
+                            type: integer
+                            description: The ID of the record in the CopyPatrol database
+                            example: 123456
+                        project:
+                            type: string
+                            description: The name of the project
+                            example: Wikipedia
+                        lang:
+                            type: string
+                            description: The language of the project
+                            example: en
+                        page_namespace:
+                            type: integer
+                            description: The namespace ID of the page
+                            example: 0
+                        page_title:
+                            type: string
+                            description: The title of the page
+                            example: Foo_bar
+                        rev_id:
+                            type: integer
+                            description: The revision ID of the edit
+                            example: 123456789
+                        rev_parent_id:
+                            type: integer
+                            description: The parent revision ID of the edit. `0` for new pages
+                            example: 0
+                        rev_user_text:
+                            type: string
+                            description: The username of the editor
+                            example: Example User
+                        submission_id:
+                            type: integer
+                            description: The UUID of the submission in the iThenticate database
+                            example: 123e4567-e89b-12d3-a456-426614174000
+                        status:
+                            type: integer
+                            description:
+                                The status of the case.
+                                - `0` for unreviewed
+                                - `1` for fixed
+                                - `2` for no action needed
+                        status_timestamp:
+                            type: string
+                            format: date-time
+                            description: The timestamp of the last status change
+                            example: 20210123125959
+                        status_user_text:
+                            type: string|null
+                            description: The username of the user who last changed the status
+                            example: Example User
+                        source_id:
+                            type: integer
+                            description: The ID of the source in the CopyPatrol database
+                            example: 123456
+                        description:
+                            type: string
+                            description: The description of the URL (FIXME)
+                            # example: "This is a possible copyright violation"
+                        url:
+                            type: string
+                            description: The URL of the source
+                            example: https://example.org
+                        percent:
+                            type: number
+                            format: float
+                            description: The similarity percentage of the diff against the source
+                            example: 99.99
+
+            responses:
+                404:
+                    description: Not found
+                500:
+                    description: Internal server error
+
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/api(\.json$|\/)
