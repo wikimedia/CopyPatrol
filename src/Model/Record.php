@@ -4,11 +4,13 @@ namespace App\Model;
 
 use App\Repository\WikiRepository;
 use DateTime;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class Record {
-
-	/** @var float Only surface damage scores above this threshold. */
-	public const DAMAGE_SCORE_THRESHOLD = 0.427;
 
 	protected array $data;
 	protected string $username;
@@ -162,7 +164,16 @@ class Record {
 	 * @return string
 	 */
 	public function getSummary(): string {
-		return $this->parseWikitext( $this->data['comment'] ?? '' );
+		return $this->parseWikitext( $this->getRawSummary() );
+	}
+
+	/**
+	 * Get the raw edit summary as wikitext.
+	 *
+	 * @return string
+	 */
+	public function getRawSummary(): string {
+		return $this->data['comment'] ?? '';
 	}
 
 	/**
@@ -242,18 +253,6 @@ class Record {
 	 */
 	public function getWikiProjects(): array {
 		return $this->wikiProjects;
-	}
-
-	/**
-	 * Get the damage score associated with the edit, if applicable.
-	 *
-	 * @return float|null
-	 */
-	public function getDamageScore(): ?float {
-		if ( $this->damageScore < self::DAMAGE_SCORE_THRESHOLD ) {
-			return null;
-		}
-		return round( $this->damageScore * 100, 2 );
 	}
 
 	/**
@@ -431,7 +430,16 @@ class Record {
 	 * @return string
 	 */
 	private function getUrl( string $target ): string {
-		return "https://{$this->data['lang']}.{$this->data['project']}.org/wiki/$target";
+		return "https://{$this->getProject()}/wiki/$target";
+	}
+
+	/**
+	 * Get the project domain,
+	 *
+	 * @return string
+	 */
+	public function getProject(): string {
+		return "{$this->data['lang']}.{$this->data['project']}.org";
 	}
 
 	/**
@@ -459,5 +467,42 @@ class Record {
 			'timestamp' => $this->getStatusTimestamp(),
 			'status' => $this->getStatus(),
 		];
+	}
+
+	public function toArray(): array {
+		static $serializer;
+		if ( !$serializer ) {
+			$serializer = new Serializer(
+				[ new ObjectNormalizer( null, new CamelCaseToSnakeCaseNameConverter() ) ],
+				[ new JsonEncoder() ]
+			);
+		}
+		return $serializer->normalize(
+			$this,
+			'json',
+			[
+				AbstractNormalizer::ATTRIBUTES => [
+					'submissionId',
+					'sources',
+					'pageTitle',
+					'pageDead',
+					'newPage',
+					'diffId',
+					'diffTimestamp',
+					'diffSize',
+					'summary',
+					'tags',
+					'wikiProjects',
+					'revId',
+					'revParentId',
+					'editor',
+					'editCount',
+					'status',
+					'statusUser',
+					'statusTimestamp',
+					'project'
+				]
+			]
+		);
 	}
 }

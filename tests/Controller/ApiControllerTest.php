@@ -6,6 +6,7 @@ namespace App\Tests\Controller;
 
 use App\Controller\ApiController;
 use App\Repository\CopyPatrolRepository;
+use App\Repository\WikiRepository;
 use App\Tests\SessionHelper;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -22,6 +23,7 @@ class ApiControllerTest extends WebTestCase {
 
 	protected ApiController $controller;
 	protected CopyPatrolRepository $copyPatrolRepo;
+	protected WikiRepository $wikiRepo;
 	protected KernelBrowser $client;
 	protected Request $request;
 
@@ -34,17 +36,27 @@ class ApiControllerTest extends WebTestCase {
 			static::getContainer()->get( 'cache.app' ),
 			static::getContainer()->get( 'doctrine' )
 		);
+		$this->wikiRepo = new WikiRepository(
+			static::getContainer()->get( 'Wikimedia\ToolforgeBundle\Service\ReplicasClient' ),
+			static::getContainer()->get( 'http_client' ),
+			static::getContainer()->get( 'cache.app' ),
+			''
+		);
 		$this->request = new Request( [] );
 	}
 
 	public function testFeedApiAction(): void {
-		$response = $this->controller->feedApiAction( $this->request, $this->copyPatrolRepo, 'fr' );
+		$response = $this->controller->feedApiAction( $this->request, $this->copyPatrolRepo, $this->wikiRepo, 'fr' );
 		static::assertSame( JsonResponse::class, get_class( $response ) );
 		static::assertSame( 200, $response->getStatusCode() );
 	}
 
 	public function testCaseApiAction(): void {
-		$response = $this->controller->caseApiAction( $this->copyPatrolRepo, '9f1acf0a-808a-457d-bf4b-800ba86d1309' );
+		$response = $this->controller->caseApiAction(
+			$this->copyPatrolRepo,
+			$this->wikiRepo,
+			'9f1acf0a-808a-457d-bf4b-800ba86d1309'
+		);
 		static::assertSame( JsonResponse::class, get_class( $response ) );
 		static::assertSame( 200, $response->getStatusCode() );
 	}

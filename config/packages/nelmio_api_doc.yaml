@@ -19,26 +19,57 @@ nelmio_api_doc:
                     type: object
                     description: A case of a possible copyright violation
                     properties:
+                        submission_id:
+                            type: integer
+                            description: The UUID of the submission in the iThenticate database
+                            example: 123e4567-e89b-12d3-a456-426614174000
+                        sources:
+                            type: array
+                            description: The sources associated with the case
+                            items:
+                                type: object
+                                $ref: '#/components/schemas/Source'
+                        page_title:
+                            type: string
+                            description: The full title of the page
+                            example: Draft:Foo bar
+                        page_dead:
+                            type: boolean
+                            description: Whether the page has been deleted
+                            example: false
+                        new_page:
+                            type: boolean
+                            description: Whether the page is new as of this edit
+                            example: false
                         diff_id:
                             type: integer
                             description: The ID of the record in the CopyPatrol database
                             example: 123456
-                        project:
+                        diff_timestamp:
                             type: string
-                            description: The name of the project
-                            example: Wikipedia
-                        lang:
-                            type: string
-                            description: The language of the project
-                            example: en
-                        page_namespace:
+                            format: date-time
+                            description: The timestamp of the edit
+                            example: 2021-01-23 12:59
+                        diff_size:
                             type: integer
-                            description: The namespace ID of the page
-                            example: 0
-                        page_title:
+                            description: The size of the edit
+                            example: -250
+                        summary:
                             type: string
-                            description: The title of the page
-                            example: Foo_bar
+                            description: The edit summary
+                            example: /* Example summary */
+                        tags:
+                            type: array
+                            description: The tags associated with the edit
+                            items:
+                                type: string
+                                example: [ "mobile edit", "mobile app" ]
+                        wiki_projects:
+                            type: array
+                            description: The WikiProjects associated with the page
+                            items:
+                                type: string
+                                example: [ "Philosophy", "Science" ]
                         rev_id:
                             type: integer
                             description: The revision ID of the edit
@@ -47,14 +78,14 @@ nelmio_api_doc:
                             type: integer
                             description: The parent revision ID of the edit. `0` for new pages
                             example: 0
-                        rev_user_text:
+                        editor:
                             type: string
                             description: The username of the editor
-                            example: Example User
-                        submission_id:
+                            example: Example user
+                        edit_count:
                             type: integer
-                            description: The UUID of the submission in the iThenticate database
-                            example: 123e4567-e89b-12d3-a456-426614174000
+                            description: The edit count of the editor
+                            example: 123
                         status:
                             type: integer
                             description:
@@ -62,15 +93,23 @@ nelmio_api_doc:
                                 - `0` for unreviewed
                                 - `1` for fixed
                                 - `2` for no action needed
+                        status_user:
+                            type: string|null
+                            description: The username of the user who last changed the status
+                            example: Example User
                         status_timestamp:
                             type: string
                             format: date-time
                             description: The timestamp of the last status change
-                            example: 20210123125959
-                        status_user_text:
-                            type: string|null
-                            description: The username of the user who last changed the status
-                            example: Example User
+                            example: 2021-01-23 12:59
+                        project:
+                            type: string
+                            description: The domain of the project
+                            example: en.wikipedia.org
+                Source:
+                    type: object
+                    description: A source of a possible copyright violation
+                    properties:
                         source_id:
                             type: integer
                             description: The ID of the source in the CopyPatrol database
@@ -78,7 +117,6 @@ nelmio_api_doc:
                         description:
                             type: string
                             description: The description of the URL (FIXME)
-                            # example: "This is a possible copyright violation"
                         url:
                             type: string
                             description: The URL of the source

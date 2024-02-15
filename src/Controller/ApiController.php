@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Model\Record;
 use App\Repository\CopyPatrolRepository;
+use App\Repository\WikiRepository;
 //phpcs:ignore MediaWiki.Classes.UnusedUseStatement.UnusedUse
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 //phpcs:ignore MediaWiki.Classes.UnusedUseStatement.UnusedUse
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -65,16 +68,23 @@ class ApiController extends AppController {
 	 * @OA\Response(response=500, ref="#/components/responses/500")
 	 * @param Request $request
 	 * @param CopyPatrolRepository $copyPatrolRepo
+	 * @param WikiRepository $wikiRepo
 	 * @param string $lang
 	 * @return JsonResponse
 	 */
 	public function feedApiAction(
 		Request $request,
 		CopyPatrolRepository $copyPatrolRepo,
+		WikiRepository $wikiRepo,
 		string $lang
 	): JsonResponse {
+		$wikiRepo->setLang( $lang );
 		$options = $this->getFeedActionOptions( $request, $lang );
-		return new JsonResponse( $copyPatrolRepo->getPlagiarismRecords( $options ) );
+		$rows = $copyPatrolRepo->getPlagiarismRecords( $options );
+		$records = array_values( array_map( static function ( Record $record ) {
+			return $record->toArray();
+		}, $this->decorateRecords( $rows, $wikiRepo ) ) );
+		return new JsonResponse( $records );
 	}
 
 	/**
@@ -101,11 +111,27 @@ class ApiController extends AppController {
 	 * @OA\Response(response=404, description="The requested case does not exist")
 	 * @OA\Response(response=500, ref="#/components/responses/500")
 	 * @param CopyPatrolRepository $copyPatrolRepo
+	 * @param WikiRepository $wikiRepo
 	 * @param string $submissionId
 	 * @return JsonResponse
 	 */
-	public function caseApiAction( CopyPatrolRepository $copyPatrolRepo, string $submissionId ): JsonResponse {
+	public function caseApiAction(
+		CopyPatrolRepository $copyPatrolRepo,
+		WikiRepository $wikiRepo,
+		string $submissionId
+	): JsonResponse {
 		// FIXME: make this work with the older integer submission IDs
-		return new JsonResponse( $copyPatrolRepo->getRecordBySubmissionId( $submissionId ) );
+		$row = $copyPatrolRepo->getPlagiarismRecords( [
+			'id' => $submissionId,
+		] );
+		if ( !$row ) {
+			return new JsonResponse(
+				[ 'error' => 'The requested case does not exist' ],
+				Response::HTTP_NOT_FOUND
+			);
+		}
+		$wikiRepo->setLang( $row[0]['lang'] );
+		$record = array_values( $this->decorateRecords( [ $row[0] ], $wikiRepo ) )[ 0 ];
+		return new JsonResponse( $record->toArray() );
 	}
 }

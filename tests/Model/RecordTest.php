@@ -32,6 +32,7 @@ class RecordTest extends TestCase {
 			'status_timestamp' => '20230704164250',
 			'status_user_text' => 'MusikAnimal',
 			'length_change' => 500,
+			'comment' => 'Test [[foobar]]',
 			'sources' => [
 				[
 					'source_id' => 28671,
@@ -149,6 +150,12 @@ class RecordTest extends TestCase {
 				'%2F2010%2Fug_bulletin2010.pdf&wpDeleteTalk=1',
 			$this->record->getDeleteUrl()
 		);
+		static::assertSame( 'en.wikipedia.org', $this->record->getProject() );
+		static::assertSame( 'Test [[foobar]]', $this->record->getRawSummary() );
+		static::assertSame(
+			"Test <a target='_blank' href='https://en.wikipedia.org/wiki/Foobar'>foobar</a>",
+			$this->record->getSummary()
+		);
 	}
 
 	public function testFormatTimestamp(): void {
@@ -175,6 +182,43 @@ class RecordTest extends TestCase {
 		static::assertEquals(
 			'<a target="_blank" href="https://example.org">https://example.org</a>',
 			$this->record->parseWikitext( 'https://example.org' )
+		);
+	}
+
+	public function testToArray(): void {
+		static::assertSame(
+			[
+				'submission_id' => '23323186',
+				'sources' => [
+					[
+						'source_id' => 28671,
+						'url' => 'http://www.brooklyn.cuny.edu/bc/pubs/bulletin/2010/ug_bulletin2010.pdf',
+						'percent' => 53.0,
+					], [
+						'source_id' => 28672,
+						'url' => 'http://www.readbag.com/brooklyn-cuny-bc-pubs-bulletin-2010-ug-bulletin2010',
+						'percent' => 53.0,
+					],
+				],
+				'page_title' => 'Draft:STAR Early College High School @ Erasmus Hall',
+				'page_dead' => true,
+				'new_page' => true,
+				'diff_id' => 14168,
+				'diff_timestamp' => '2016-06-20 00:33',
+				'diff_size' => 500,
+				'summary' => 'Test <a target=\'_blank\' href=\'https://en.wikipedia.org/wiki/Foobar\'>foobar</a>',
+				'tags' => [ 'mw-reverted' ],
+				'wiki_projects' => [ 'New York City' ],
+				'rev_id' => 726095124,
+				'rev_parent_id' => 0,
+				'editor' => 'Starec2016',
+				'edit_count' => 50000,
+				'status' => 1,
+				'status_user' => 'MusikAnimal',
+				'status_timestamp' => '2023-07-04 16:42',
+				'project' => 'en.wikipedia.org'
+			],
+			$this->record->toArray()
 		);
 	}
 }
