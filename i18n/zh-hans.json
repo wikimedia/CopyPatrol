@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"A Chinese Wikipedian",
+			"Anterdc99",
 			"GuoPC",
 			"HellojoeAoPS",
 			"Liuxinyu970226",
@@ -98,6 +99,7 @@
 	"js-dberror": "连接数据库时出错。",
 	"js-undo-own-only": "您只可以撤销您自己的审核。",
 	"js-unknown-error": "加载结果时发生未知错误。请重试。",
+	"js-self-review": "您不能审查自己的编辑。",
 	"permalink": "固定链接",
 	"show-all-records": "显示所有记录",
 	"access-blocked": "您目前在$2上是$1，因此无法使用CopyPatrol。",

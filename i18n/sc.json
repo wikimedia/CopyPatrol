@@ -92,6 +92,7 @@
 	"js-dberror": "B'at àpidu una faddina cun sa connessione a sa base de datos.",
 	"js-undo-own-only": "Podes petzi iscontzare sas revisiones tuas.",
 	"js-unknown-error": "B'at àpidu un'errore disconnotu in su carrigamentu de sos resurtados. Torra a proare.",
+	"js-self-review": "Non podes revisionare sas modìficas tuas.",
 	"permalink": "Ligàmene permanente",
 	"show-all-records": "Amustra totu sos registros",
 	"access-blocked": "In custu momentu ses $1 in $2 e non podes impreare CopyPatrol.",

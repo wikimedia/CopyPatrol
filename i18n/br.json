@@ -62,7 +62,7 @@
 	"record-editcount": "Konter embann",
 	"compare": "Keñveriañ",
 	"record-ithenticate": "Danevell iThenticate",
-	"record-url-text": "$1 heñvelded ($2 ger)",
+	"record-url-text": "$1 heñvelded",
 	"record-noeditor": "N'eus bet kavet embanner ebet",
 	"record-noeditor-tooltip": "Dilamet eo bet an adweladur-mañ, sur a-walc'h, ha ne c'haller ket mui kavout anezhañ en diaz roadennoù.",
 	"article": "Pennad",
@@ -94,5 +94,8 @@
 	"permalink": "Peurliamm",
 	"show-all-records": "Diskouez an holl enrolladennoù",
 	"access-blocked": "Emaoc'h evit poent $1 diwar $2 ha ne c'hallit ket ober gant CopyPatrol.",
-	"blocked": "stanket"
+	"blocked": "stanket",
+	"tags": "Tikedennoù",
+	"undo": "dizober",
+	"delete": "diverkañ"
 }

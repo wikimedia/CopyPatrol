@@ -92,6 +92,7 @@
 	"js-dberror": "Houbo un erro coa conexión á base de datos.",
 	"js-undo-own-only": "Só podes desfacer as túas propias revisións.",
 	"js-unknown-error": "Houbo un erro descoñecido durante a carga dos resultados. Por favor, inténtao de novo.",
+	"js-self-review": "Non podes revisar as edicións propias.",
 	"permalink": "Ligazón permanente",
 	"show-all-records": "Amosar tódolos rexistros",
 	"access-blocked": "Actualmente estás $1 en $2 e non podes usar CopyPatrol.",

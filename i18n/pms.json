@@ -92,6 +92,7 @@
 	"js-dberror": "A-i é staje n'eror durant la conession a la base ëd dàit.",
 	"js-undo-own-only": "A peul mach anulé soe pròpie verìfiche.",
 	"js-unknown-error": "A-i é staje n'eror ësconossù durant ël cariament ëd j'arzultà. Për piasì, ch'a preuva torna.",
+	"js-self-review": "A peul nen revisioné soe pròpie modìfiche.",
 	"permalink": "Liura permanenta",
 	"show-all-records": "Smon-e tuti ij dàit argistrà",
 	"access-blocked": "Chiel a l'é al moment $1 su $2 e a peul nen dovré CopyPatrol.",

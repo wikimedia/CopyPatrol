@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Andibing",
+			"Benjamin Ejuojo",
 			"Dejavu",
 			"Janezdrilc",
 			"Mako001"
@@ -94,6 +95,7 @@
 	"js-dberror": "There was an error in connecting to database.",
 	"js-undo-own-only": "You can only undo your own reviews.",
 	"js-unknown-error": "An unknown error occurred when loading results. Please try again.",
+	"js-self-review": "Ẹneke dábílí ẹnwú kẹ nwọché",
 	"permalink": "Permalink",
 	"show-all-records": "Show all records",
 	"access-blocked": "You are currently $1 on $2 and are unable to use CopyPatrol.",
