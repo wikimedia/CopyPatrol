@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Iamthedutchdude",
 			"Justman10000",
 			"Metalhead64"
 		]
@@ -61,7 +62,7 @@
 	"record-editcount": "Bearbeitungszähler:",
 	"compare": "Vergleichen",
 	"record-ithenticate": "iThenticate-Bericht",
-	"record-url-text": "$1 der Bearbeitung ($2 Wörter)",
+	"record-url-text": "$1 der Bearbeitung",
 	"record-noeditor": "Keinen Autor gefunden",
 	"record-noeditor-tooltip": "Die Version könnte gelöscht worden sein oder die Daten sind in der Labs-Datenbank noch nicht verfügbar.",
 	"article": "Artikel",
@@ -92,8 +93,12 @@
 	"js-dberror": "Bei der Verbindung zur Datenbank gab es einen Fehler.",
 	"js-undo-own-only": "Du kannst nur deine eigenen Überprüfungen rückgängig machen.",
 	"js-unknown-error": "Beim Laden der Ergebnisse ist ein unbekannter Fehler aufgetreten. Bitte erneut versuchen.",
+	"js-self-review": "Sie können Ihre eigenen Änderungen nicht überprüfen.",
 	"permalink": "Permanentlink",
 	"show-all-records": "Alle Aufzeichnungen anzeigen",
 	"access-blocked": "Du bist derzeit auf $2 $1 und du kannst CopyPatrol nicht verwenden.",
-	"blocked": "gesperrt"
+	"blocked": "gesperrt",
+	"edit-summary": "Bearbeitungszusammenfassung",
+	"undo": "rückgängig machen",
+	"delete": "löschen"
 }
