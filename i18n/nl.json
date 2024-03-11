@@ -96,6 +96,7 @@
 	"js-dberror": "Er is een fout opgetreden bij het verbinden met de database.",
 	"js-undo-own-only": "U kunt alleen uw eigen beoordelingen ongedaan maken.",
 	"js-unknown-error": "Er is een onbekende fout opgetreden bij het laden van de resultaten. Probeer het opnieuw.",
+	"js-self-review": "U kunt uw eigen bewerkingen niet controleren.",
 	"permalink": "Permanente koppeling",
 	"show-all-records": "Alle records weergeven",
 	"access-blocked": "U bent nu $1 op $2 en niet in staat om CopyPatrol te gebruiken.",
