@@ -8,6 +8,7 @@
 			"Darafsh",
 			"Darknessswamp8",
 			"Dejavu",
+			"Ebraminio",
 			"Jeeputer",
 			"Mohammad ebz"
 		]
@@ -58,7 +59,7 @@
 	"editor": "ویرایشگر",
 	"review": "بازبینی",
 	"review-fixed": "صفحه تعمیر شد",
-	"review-fixed-tooltip": "این ویرایش ناقض حق تکثیر بوده و واگردانی شده‌است",
+	"review-fixed-tooltip": "این ویرایش ناقض حق تکثیر بوده و واگردانی شده است",
 	"review-false": "اقدامی لازم نیست",
 	"review-false-tooltip": "این ویرایش یک مثبت کاذب است، نیاز به انجام کاری نیست",
 	"review-by": "بازبینی شده توسط:",
@@ -89,7 +90,7 @@
 	"lboard-month": "پرونده‌های بسته‌شده در ۳۰ روز گذشته",
 	"lboard-alltime": "تمام پرونده‌های بسته‌شده",
 	"lboard-back": "بازگشت به کپی‌پاترل",
-	"lboard-count-title": "نمایش $1 موردی که این کاربر بررسی کرده‌است",
+	"lboard-count-title": "نمایش $1 موردی که این کاربر بررسی کرده است",
 	"close": "بستن",
 	"imageattr-title": "تخصیص تصویر",
 	"imageattr-logo": "نماد کپی‌پاترل",
