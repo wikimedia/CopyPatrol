@@ -4,7 +4,8 @@
 			"JohnsonLee01",
 			"Leducthn",
 			"Minh Nguyen",
-			"Nguyenphutrong2"
+			"Nguyenphutrong2",
+			"Quangkhanhhuynh"
 		]
 	},
 	"documentation": "Tài liệu hướng dẫn",
@@ -63,7 +64,7 @@
 	"record-editcount": "Số lần sửa đổi:",
 	"compare": "So sánh",
 	"record-ithenticate": "Báo cáo iThenticate",
-	"record-url-text": "$1 của sửa đổi ($2 từ)",
+	"record-url-text": "$1 của sửa đổi",
 	"record-noeditor": "Không tìm thấy người sửa đổi",
 	"record-noeditor-tooltip": "Bản sửa đổi có thể đã bị xóa hoặc dữ liệu chưa có sẵn trong cơ sở dữ liệu Labs.",
 	"article": "Bài viết",
