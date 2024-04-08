@@ -3,7 +3,8 @@
 		"authors": [
 			"Iamthedutchdude",
 			"Justman10000",
-			"Metalhead64"
+			"Metalhead64",
+			"TomatoCake"
 		]
 	},
 	"documentation": "Dokumentation",
@@ -40,7 +41,7 @@
 	"fa-wikipedia": "Persischsprachige Wikipedia",
 	"ru-wikipedia": "Russischsprachige Wikipedia",
 	"tr-wikipedia": "Türkischsprachige Wikipedia",
-	"simple-wikipedia": "Einfache englische Wikipedia",
+	"simple-wikipedia": "Simple-English-Wikipedia",
 	"form-all": "Alle Fälle",
 	"form-open": "Offene Fälle",
 	"form-reviewed": "Überprüfte Fälle",
@@ -93,11 +94,13 @@
 	"js-dberror": "Bei der Verbindung zur Datenbank gab es einen Fehler.",
 	"js-undo-own-only": "Du kannst nur deine eigenen Überprüfungen rückgängig machen.",
 	"js-unknown-error": "Beim Laden der Ergebnisse ist ein unbekannter Fehler aufgetreten. Bitte erneut versuchen.",
-	"js-self-review": "Sie können Ihre eigenen Änderungen nicht überprüfen.",
+	"js-self-review": "Du kannst deine eigenen Änderungen nicht überprüfen.",
 	"permalink": "Permanentlink",
 	"show-all-records": "Alle Aufzeichnungen anzeigen",
 	"access-blocked": "Du bist derzeit auf $2 $1 und du kannst CopyPatrol nicht verwenden.",
 	"blocked": "gesperrt",
+	"non-internet-source": "(keine Internetquelle)",
+	"tags": "Markierungen",
 	"edit-summary": "Bearbeitungszusammenfassung",
 	"undo": "rückgängig machen",
 	"delete": "löschen"
