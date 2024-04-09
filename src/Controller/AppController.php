@@ -26,7 +26,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AppController extends AbstractController {
 
-	public const ITHENTICATE_V2_TIMESTAMP = '2023-04-09T12:00:00Z';
+	public const ITHENTICATE_V2_TIMESTAMP = '2024-04-09T17:36:59Z';
 	public const ERROR_WRONG_USER = 'wrong_user';
 	public const ERROR_NOT_LOGGED_IN = 'unauthorized';
 	public const ERROR_DATABASE = 'database';
