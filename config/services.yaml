@@ -12,6 +12,9 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         public: false
         bind:
+            $appVersion: '%env(APP_VERSION)%'
+            $tcaDomain: '%env(TCA_DOMAIN)%'
+            $tcaKey: '%env(TCA_KEY)%'
             $iThenticateUser: '%env(ITHENTICATE_USERNAME)%'
             $iThenticatePassword: '%env(ITHENTICATE_PASSWORD)%'
 

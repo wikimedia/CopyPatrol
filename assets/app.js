@@ -101,7 +101,7 @@ class CopyPatrol {
 	saveStatus( e ) {
 		const status = parseInt( e.target.dataset.status, 10 ),
 			submissionId = e.target.dataset.submissionId,
-			currentStatus = parseInt( $( `.record-${submissionId}` ).data( 'status' ), 10 );
+			currentStatus = parseInt( $( `.record-${ submissionId }` ).data( 'status' ), 10 );
 		let reviewFn;
 
 		$( e.target ).addClass( 'loading' );
@@ -157,7 +157,7 @@ class CopyPatrol {
 
 		return $.ajax( {
 			method: 'PUT',
-			url: `/${wikiLang}/review_add/${submissionId}/${status}`,
+			url: `/${ wikiLang }/review_add/${ submissionId }/${ status }`,
 			dataType: 'json'
 		} ).done( ( ret ) => {
 			const $reviewerNode = $( '.status-div-reviewer-' + submissionId );
@@ -179,10 +179,10 @@ class CopyPatrol {
 	undoReview( submissionId ) {
 		return $.ajax( {
 			method: 'PUT',
-			url: `/${wikiLang}/review_undo/${submissionId}`,
+			url: `/${ wikiLang }/review_undo/${ submissionId }`,
 			dataType: 'json'
 		} ).done( () => {
-			const $reviewerNode = $( `.status-div-reviewer-${submissionId}` );
+			const $reviewerNode = $( `.status-div-reviewer-${ submissionId }` );
 			$reviewerNode.fadeOut( 'slow' );
 			this.setReviewStatus( submissionId, this.STATUS_READY );
 		} );
@@ -199,7 +199,7 @@ class CopyPatrol {
 			.removeClass( 'record-status-0' )
 			.removeClass( 'record-status-1' )
 			.removeClass( 'record-status-2' )
-			.addClass( `record-status-${status}` )
+			.addClass( `record-status-${ status }` )
 			.data( 'status', status );
 	}
 
@@ -211,7 +211,7 @@ class CopyPatrol {
 		const lastId = $( '.record:last' ).data( 'diffId' ),
 			params = new URLSearchParams( location.search );
 		params.set( 'lastid', lastId );
-		$.ajax( { url: `/${wikiLang}?${params}` } ).done( ( ret ) => {
+		$.ajax( { url: `/${ wikiLang }?${ params }` } ).done( ( ret ) => {
 			$( '#btn-load-more' ).text( 'Load More' )
 				.removeClass( 'btn-loading' );
 			const $newRecords = $( ret ).find( '.record-container' );

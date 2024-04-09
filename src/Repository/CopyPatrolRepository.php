@@ -62,12 +62,12 @@ class CopyPatrolRepository {
 	public function getPlagiarismRecords( array $options = [], int $limit = 50 ): array {
 		$outerQuery = $this->client->createQueryBuilder();
 		$diffsQb = $this->client->createQueryBuilder()
-			->select( [
+			->select(
 				// There's two submission_id columns so we need to specify all the columns that we want.
 				'diff_id', 'project', 'lang', 'page_namespace', 'page_title', 'rev_id', 'rev_parent_id',
 				'rev_timestamp', 'rev_user_text', 'd.submission_id', 'status', 'status_timestamp',
 				'status_user_text',
-			] )
+			)
 			->from( 'diffs', 'd' )
 			->orderBy( 'diff_id', 'DESC' )
 			->setMaxResults( $limit );

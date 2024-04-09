@@ -115,7 +115,7 @@ class WikiRepository {
 			return [];
 		}
 		$qb = $this->getConnection()->createQueryBuilder()
-			->select( [ 'p.page_namespace', 'p.page_title' ] )
+			->select( 'p.page_namespace', 'p.page_title' )
 			->from( "{$this->getDb()}.page", 'p' );
 
 		if ( $this->hasWikiProjects() ) {
@@ -163,7 +163,7 @@ class WikiRepository {
 			return [];
 		}
 		$qb = $this->getConnection()->createQueryBuilder()
-			->select( [
+			->select(
 				'revs.rev_id',
 				'revs.rev_deleted',
 				'(CAST(revs.rev_len AS SIGNED) - IFNULL(parentrevs.rev_len, 0)) AS `length_change`',
@@ -173,8 +173,8 @@ class WikiRepository {
 					FROM {$this->getDb()}.change_tag
 					JOIN {$this->getDb()}.change_tag_def ON ct_tag_id = ctd_id
 					WHERE ct_rev_id = revs.rev_id
-				 ) AS `tags`",
-			] )
+				 ) AS `tags`"
+			)
 			->from( "{$this->getDb()}.revision", 'revs' )
 			->leftJoin( 'revs', "{$this->getDb()}.revision", 'parentrevs', 'revs.rev_parent_id = parentrevs.rev_id' )
 			->leftJoin( 'revs', "{$this->getDb()}.comment", 'comment', 'revs.rev_comment_id = comment.comment_id' )

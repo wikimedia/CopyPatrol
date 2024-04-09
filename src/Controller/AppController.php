@@ -26,7 +26,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AppController extends AbstractController {
 
-	public const ITHENTICATE_V2_TIMESTAMP = '2023-07-15T12:00:00Z';
+	public const ITHENTICATE_V2_TIMESTAMP = '2023-04-09T12:00:00Z';
 	public const ERROR_WRONG_USER = 'wrong_user';
 	public const ERROR_NOT_LOGGED_IN = 'unauthorized';
 	public const ERROR_DATABASE = 'database';
@@ -320,6 +320,9 @@ class AppController extends AbstractController {
 	 * @param RequestStack $requestStack
 	 * @param CopyPatrolRepository $copyPatrolRepo
 	 * @param Intuition $intuition
+	 * @param string $appVersion
+	 * @param string $tcaDomain
+	 * @param string $tcaKey
 	 * @param string $iThenticateUser
 	 * @param string $iThenticatePassword
 	 * @param string $submissionId
@@ -331,6 +334,9 @@ class AppController extends AbstractController {
 		RequestStack $requestStack,
 		CopyPatrolRepository $copyPatrolRepo,
 		Intuition $intuition,
+		string $appVersion,
+		string $tcaDomain,
+		string $tcaKey,
 		string $iThenticateUser,
 		string $iThenticatePassword,
 		string $submissionId
@@ -347,7 +353,15 @@ class AppController extends AbstractController {
 					] )
 				] );
 			}
-			return $this->redirectToTcaViewer( $httpClient, $loggedInUser, $intuition->getLang(), $submissionId );
+			return $this->redirectToTcaViewer(
+				$httpClient,
+				$appVersion,
+				$tcaDomain,
+				$tcaKey,
+				$loggedInUser,
+				$intuition->getLang(),
+				$submissionId
+			);
 		}
 
 		$client = new Client( 'https://api.ithenticate.com/rpc' );
@@ -367,6 +381,9 @@ class AppController extends AbstractController {
 
 	/**
 	 * @param HttpClientInterface $client
+	 * @param string $appVersion
+	 * @param string $tcaDomain
+	 * @param string $tcaKey
 	 * @param string $loggedInUser
 	 * @param string $locale
 	 * @param string $id
@@ -375,29 +392,29 @@ class AppController extends AbstractController {
 	 */
 	private function redirectToTcaViewer(
 		HttpClientInterface $client,
+		string $appVersion,
+		string $tcaDomain,
+		string $tcaKey,
 		string $loggedInUser,
 		string $locale,
 		string $id,
 		int $retries = 0
 	): RedirectResponse {
-		// Load config settings. This lives in .copypatrol.ini and is shared with the bot.
-		$projectDir = $this->getParameter( 'kernel.project_dir' );
-		$config = parse_ini_file( "$projectDir/.copypatrol.ini" );
 		// Request the viewer URL from Turnitin.
 		$response = $client->request(
 			'POST',
-			"https://{$config['domain']}/api/v1/submissions/$id/viewer-url",
+			"https://{$tcaDomain}/api/v1/submissions/$id/viewer-url",
 			[
 				'json' => [
 					'viewer_user_id' => $loggedInUser,
 					'locale' => $locale,
 				],
 				'headers' => [
-					'Authorization' => "Bearer {$config['key']}",
+					'Authorization' => "Bearer {$tcaKey}",
 					'From' => 'copypatrol@toolforge.org',
-					'User-Agent' => "copypatrol/{$config['version']}",
+					'User-Agent' => 'copypatrol/frontend',
 					'X-Turnitin-Integration-Name' => 'CopyPatrol',
-					'X-Turnitin-Integration-Version' => $config['version'],
+					'X-Turnitin-Integration-Version' => $appVersion,
 				],
 			]
 		);
@@ -410,7 +427,16 @@ class AppController extends AbstractController {
 				);
 			}
 			sleep( $retries + 1 );
-			return $this->redirectToTcaViewer( $client, $loggedInUser, $locale, $id, $retries + 1 );
+			return $this->redirectToTcaViewer(
+				$client,
+				$appVersion,
+				$tcaDomain,
+				$tcaKey,
+				$loggedInUser,
+				$locale,
+				$id,
+				$retries + 1
+			);
 		}
 
 		return $this->redirect( json_decode( $response->getContent() )->viewer_url );
