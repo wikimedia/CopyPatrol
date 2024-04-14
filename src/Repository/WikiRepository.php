@@ -135,7 +135,9 @@ class WikiRepository {
 		}
 
 		foreach ( $titlesByNs as $nsId => $titles ) {
-			$titles = array_unique( $titles );
+			$titles = array_map( static function ( $title ) {
+				return str_replace( ' ', '_', $title );
+			}, array_unique( $titles ) );
 			$qb->orWhere( "(
 				page_namespace = :ns_$nsId
 				AND page_title IN (:titles_$nsId)

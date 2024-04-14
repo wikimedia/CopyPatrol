@@ -185,13 +185,13 @@ class AppController extends AbstractController {
 				// Basic revision info all goes in the $row data.
 				$row = array_merge( $row, $extraData );
 			}
-
+			$revUserTextUnderscored = str_replace( ' ', '_', $row['rev_user_text'] );
 			return new Record(
 				$row,
 				$editCounts[$row['rev_user_text']] ?? null,
 				isset( $livePages[$row['page_namespace']][$row['page_title']] ),
-				isset( $livePages['2'][$row['rev_user_text']] ),
-				isset( $livePages['3'][$row['rev_user_text']] ),
+				isset( $livePages['2'][$revUserTextUnderscored] ),
+				isset( $livePages['3'][$revUserTextUnderscored] ),
 				$livePages[$row['page_namespace']][$row['page_title']] ?? []
 			);
 		}, $newRows );
