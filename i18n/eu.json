@@ -9,7 +9,7 @@
 			"Xabier Armendaritz"
 		]
 	},
-	"name": "Patruiloa kopiatu",
+	"name": "CopyPatrol",
 	"documentation": "Dokumentazioa",
 	"feedback": "Atzeraelikadura",
 	"leaderboard": "Lider-arbela",
@@ -98,6 +98,7 @@
 	"js-dberror": "Datu baseara konektatzean errore bat gertatu da.",
 	"js-undo-own-only": "Bakarrik zure berrikusketak atzera bota ditzakezu.",
 	"js-unknown-error": "Errore ezezagun bat gertatu da emaitzak kargatzerakoan. Saia zaitez berriro mesedez.",
+	"js-self-review": "Ezin dituzu zure aldaketak berrikusi.",
 	"permalink": "Esteka iraunkorra",
 	"show-all-records": "Grabaketa guztiak erakutsi",
 	"access-blocked": "$2 domainuan $1-rekin zaude eta ezin duzu CopyPatrol erabili.",
