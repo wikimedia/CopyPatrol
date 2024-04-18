@@ -92,6 +92,7 @@
 	"js-dberror": "Un error ha occurrite in le connexion al base de datos.",
 	"js-undo-own-only": "Tu pote solmente disfacer tu proprie revisiones.",
 	"js-unknown-error": "Un error incognite ha occurrite durante le cargamento del resultatos. Per favor tenta lo de novo.",
+	"js-self-review": "Tu non pote revider tu proprie modificationes.",
 	"permalink": "Permaligamine",
 	"show-all-records": "Monstrar tote le registros",
 	"access-blocked": "Tu es actualmente $1 sur $2 e non pote usar CopyPatrol.",
