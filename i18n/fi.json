@@ -66,5 +66,8 @@
 	"open-font-license": "Open Font -lisenssi",
 	"js-unauthorized": "Sinun täytyy olla kirjautuneena sisään voidakseen tarkastella.",
 	"permalink": "Ikilinkki",
-	"blocked": "estetty"
+	"blocked": "estetty",
+	"edit-summary": "Muokkausyhteenveto",
+	"undo": "kumoa",
+	"delete": "poista"
 }
