@@ -44,8 +44,10 @@ integration, and instead connect to the existing user database on Toolforge (mor
 3. Open up an SSH tunnel to access the databases on Toolforge. This assumes you have left
    the `REPLICAS_HOST_*` and `REPLICAS_PORT_*` variables at their defaults.
    ```bash
-   symfony console toolforge:ssh --trove=copypatrol-dev-db-01
+   symfony console toolforge:ssh --trove=hxmnwriu2vm.svc.trove.eqiad1.wikimedia.cloud
    ```
+   Review [OpenStack browser](https://openstack-browser.toolforge.org/project/copypatrol/database/copypatrol-dev-db-01)
+   for the current Trove host name if the above does not work.
 4. Start the Symfony web server with `symfony serve`
 5. Visit the URL provided by the Symfony CLI to access the application.
 
