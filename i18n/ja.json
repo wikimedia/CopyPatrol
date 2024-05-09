@@ -99,6 +99,7 @@
 	"js-dberror": "データベースへの接続中にエラーが発生しました。",
 	"js-undo-own-only": "取り消しの対象は自分の査読のみです。",
 	"js-unknown-error": "結果の読み込み中に不明のエラーが発生しました。もう一度やり直してください。",
+	"js-self-review": "自分の編集を確認することはできません。",
 	"permalink": "固定リンク",
 	"show-all-records": "全記録を表示",
 	"access-blocked": "現在、$2の$1状態のため、CopyPatrolは利用できません。",
