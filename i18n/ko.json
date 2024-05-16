@@ -4,6 +4,7 @@
 			"Jerrykim306",
 			"Revi",
 			"SeoJeongHo",
+			"Suleiman the Magnificent Television",
 			"Ykhwong",
 			"그냥기여자"
 		]
@@ -64,7 +65,7 @@
 	"record-editcount": "편집 수:",
 	"compare": "비교하기",
 	"record-ithenticate": "iTehticate 보고서",
-	"record-url-text": "편집 중 $1 ($2개 단어)",
+	"record-url-text": "$1의 편집",
 	"record-noeditor": "편집자가 없습니다",
 	"record-noeditor-tooltip": "이 판이 이미 삭제되었거나 아직 랩스 데이터베이스에 제공되지 않았습니다.",
 	"article": "문서",
@@ -93,8 +94,12 @@
 	"js-dberror": "데이터베이스에 연결하는 데 문제가 있었습니다.",
 	"js-undo-own-only": "당신은 당신의 검토만 취소할 수 있습니다.",
 	"js-unknown-error": "결과를 불러오는 동안 알 수 없는 오류가 발생했습니다. 다시 시도해 주십시오.",
+	"js-self-review": "자기 편집을 검토할 수 없습니다.",
 	"permalink": "고유링크",
 	"show-all-records": "모든 레코드 보기",
 	"access-blocked": "당신은 현재 $2의 $1이며 CopyPatrol을 사용할 수 없습니다.",
-	"blocked": "차단됨"
+	"blocked": "차단됨",
+	"tags": "태그",
+	"undo": "해제",
+	"delete": "삭제"
 }
