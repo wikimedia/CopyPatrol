@@ -29,14 +29,14 @@ class ApiController extends AppController {
 	 *     schema=@OA\Schema(type="string", enum={"all", "open", "reviewed"})
 	 * )
 	 * @OA\Parameter(
-	 *     name="filter_user",
+	 *     name="filterUser",
 	 *     in="query",
 	 *     description="Filter the results by reviewer",
 	 *     required=false,
 	 *     schema=@OA\Schema(type="string")
 	 * )
 	 * @OA\Parameter(
-	 *     name="filter_page",
+	 *     name="filterPage",
 	 *     in="query",
 	 *     description="Filter by page title. This is a **case-sensitive** substring match.",
 	 *     required=false,
