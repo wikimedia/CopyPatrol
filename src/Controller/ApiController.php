@@ -84,7 +84,8 @@ class ApiController extends AppController {
 		$records = array_values( array_map( static function ( Record $record ) {
 			return $record->toArray();
 		}, $this->decorateRecords( $rows, $wikiRepo ) ) );
-		return new JsonResponse( $records );
+
+		return new JsonResponse( $records, 200, [ 'Access-Control-Allow-Origin' => '*.wikipedia.org' ] );
 	}
 
 	/**
@@ -132,6 +133,6 @@ class ApiController extends AppController {
 		}
 		$wikiRepo->setLang( $row[0]['lang'] );
 		$record = array_values( $this->decorateRecords( [ $row[0] ], $wikiRepo ) )[ 0 ];
-		return new JsonResponse( $record->toArray() );
+		return new JsonResponse( $record->toArray(), 200, [ 'Access-Control-Allow-Origin' => '*.wikipedia.org' ] );
 	}
 }
