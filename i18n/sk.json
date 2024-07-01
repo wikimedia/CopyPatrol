@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Jaroslav.micek",
+			"Oujon",
 			"TomášPolonec",
 			"Yardom78"
 		]
@@ -61,7 +62,7 @@
 	"record-editcount": "Počet úprav:",
 	"compare": "Porovnať",
 	"record-ithenticate": "Hlásenie z iThenticate",
-	"record-url-text": "$1 úprav ($2 slov)",
+	"record-url-text": "$1 úpravy",
 	"record-noeditor": "Editor nebol nájdený",
 	"record-noeditor-tooltip": "Revízia mohla byť vymazaná alebo dáta ešte nie sú dostupné v databáze Labs.",
 	"article": "Článok",
