@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Bada Kaji",
+			"पर्वत सुबेदी",
 			"बडा काजी",
 			"सरोज कुमार ढकाल",
 			"हिमाल सुबेदी"
@@ -42,6 +43,7 @@
 	"fa-wikipedia": "फारसी विकिपिडिया",
 	"ru-wikipedia": "रूसी विकिपिडिया",
 	"tr-wikipedia": "तुर्की विकिपिडिया",
+	"simple-wikipedia": "सरल अङ्ग्रेजी विकिपिडिया",
 	"form-all": "सबै मुद्दाहरू",
 	"form-open": "बाँकी मुद्दाहरू खोल्नुहोस्",
 	"form-reviewed": "हेरेर सकिएको मुद्दाहरू",
@@ -55,17 +57,22 @@
 	"review-fixed": "बनाइएको पृष्ठहरू",
 	"review-fixed-tooltip": "यो सम्पादन प्रतिलिपी अधिकार हनन थियो त उल्ट्याइएको छ",
 	"review-false": "कुनै पनि कार्य  आवश्यक छैन",
+	"review-false-tooltip": "सम्पादन गलत सकारात्मक छ, केही गर्न आवश्यक छैन",
 	"review-by": "पुनरावलोकनकर्ता:",
 	"history": "इतिहास",
 	"talk": "वार्तालाप गर्नुहोस्",
 	"contribs": "योगदानहरू",
 	"record-editcount": "सम्पादन गणना:",
 	"compare": "तुलना गर्नुहोस्",
+	"record-url-text": "सम्पादनको $1",
 	"record-noeditor": "कुनै पनि सम्पादक भेटिएन",
+	"record-noeditor-tooltip": "संशोधन मेटिएको हुन सक्छ वा डाटा अझै प्रयोगशाला डाटाबेसमा उपलब्ध छैन।",
 	"article": "लेख",
+	"compare-article-loading": "लेख संशोधन तान्दै...",
 	"footer-loadmore": "थप लोड गर्नुहोस्",
 	"footer-nomore": "कुनै पनि अभिलेख भेटिएन!",
 	"footer-broughtby": "$1 द्वारा ल्याइएको",
+	"footer-poweredby": "$1 र $2द्वारा सञ्चालित",
 	"filter-page": "पृष्ठ शीर्षकबाट खोज्नुहोस्:",
 	"source": "स्रोत",
 	"phabricator": "फेब्रिकेटर",
@@ -83,5 +90,9 @@
 	"js-unknown-error": "An unknown error occurred when loading results. कृपया पुनः प्रयास गर्नुहोस् ।",
 	"permalink": "स्थायी लिङ्क",
 	"show-all-records": "सबै रेकर्ड देखाउनुहोस्",
-	"blocked": "निषेधित"
+	"blocked": "निषेधित",
+	"tags": "चिनोहरू",
+	"edit-summary": "सम्पादन सारांश",
+	"undo": "रद्द गर्नुहोस्",
+	"delete": "मेटाउनु"
 }
