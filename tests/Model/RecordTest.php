@@ -173,15 +173,50 @@ class RecordTest extends TestCase {
 	}
 
 	public function testParseWikitext(): void {
+		// XSS
 		static::assertEquals(
 			"&lt;script&gt;alert(\"XSS baby\")&lt;/script&gt; " .
 			"<a target='_blank' href='https://en.wikipedia.org/wiki/Test_page'>test page</a>",
 			$this->record->parseWikitext( '<script>alert("XSS baby")</script> [[test page]]' )
 		);
 
+		// Wikilink
 		static::assertEquals(
-			'<a target="_blank" href="https://example.org">https://example.org</a>',
-			$this->record->parseWikitext( 'https://example.org' )
+			"<a target='_blank' href='https://en.wikipedia.org/wiki/MediaWiki'>MediaWiki</a>",
+			$this->record->parseWikitext( "[[MediaWiki]]" )
+		);
+
+		// Wikilink (starting with `:`)
+		static::assertEquals(
+			"<a target='_blank' href='https://en.wikipedia.org/wiki/MediaWiki'>MediaWiki</a>",
+			$this->record->parseWikitext( "[[:MediaWiki]]" )
+		);
+
+		// Raw link
+		static::assertEquals(
+			"<a target='_blank' rel='nofollow' href='https://example.org'>https://example.org</a>",
+			$this->record->parseWikitext( "https://example.org" )
+		);
+
+		// Masked external link
+		static::assertEquals(
+			"[<a target='_blank' rel='nofollow' href='https://example.org'>https://example.org</a> test]",
+			$this->record->parseWikitext( "[https://example.org test]" )
+		);
+
+		// == WITH MASKED EXTERNAL LINKS ==
+
+		// Masked external link
+		static::assertEquals(
+			"<a target='_blank' rel='nofollow' href='https://example.org'>test</a>",
+			$this->record->parseWikitext( "[https://example.org test]", true )
+		);
+
+		// Misleading masked external link
+		static::assertEquals(
+			"[<a target='_blank' rel='nofollow' href='https://evil.example.org'>https://evil.example.org</a> "
+				. "<a target='_blank' rel='nofollow' href='https://example.org'>https://example.org</a>]",
+			$this->record->parseWikitext( "[https://evil.example.org https://example.org]", true )
 		);
 	}
 
