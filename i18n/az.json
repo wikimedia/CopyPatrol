@@ -3,7 +3,8 @@
 		"authors": [
 			"NMW03",
 			"Nemoralis",
-			"Neriman2003"
+			"Neriman2003",
+			"Wertuose"
 		]
 	},
 	"documentation": "Sənədləşdirmə",
@@ -90,7 +91,7 @@
 	"open-font-license": "Font Lisenziyasını aç",
 	"imageattr-paragraph1": "$1 mövcuddur $2 nəzakətlidir $3 və $4-də",
 	"imageattr-paragraph2": "$3 və $2-nin nəzakəti altında $1 azad oldu",
-	"js-unauthorized": "Baxmaq üçün daxil olmanız lazımdır.",
+	"js-unauthorized": "Yoxlaya bilmək üçün istifadəçi hesabınıza daxil olmalısınız.",
 	"js-dberror": "Verilənlər bazasına qoşulmaqda bir xəta baş verdi.",
 	"js-undo-own-only": "Yalnız öz baxışlarınızı geri ala bilərsiniz.",
 	"js-unknown-error": "Nəticələri yükləyərkən bilinməyən bir səhv baş verdi. Zəhmət olmasa bir daha cəhd edin.",
