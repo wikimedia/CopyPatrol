@@ -192,7 +192,7 @@ class Record {
 	 */
 	public function getTagLabels(): array {
 		return array_map( function ( $tag ) {
-			return $this->parseWikitext( $tag );
+			return $this->parseWikitext( $tag, true );
 		}, $this->data['tags_labels'] ?? [] );
 	}
 
@@ -202,17 +202,60 @@ class Record {
 	 *
 	 * @see https://github.com/x-tools/xtools/blob/4795fb88dd392bb0474219be3ef9a1fc019a228b/src/Model/Edit.php#L336
 	 * @param string $wikitext
+	 * @param bool $includeExternalLinks Whether to include masked external links as part of parsing.
 	 * @return string
 	 */
-	public function parseWikitext( string $wikitext ): string {
+	public function parseWikitext( string $wikitext, bool $includeExternalLinks = false ): string {
 		$wikitext = htmlspecialchars( html_entity_decode( $wikitext ), ENT_NOQUOTES );
+		// Hold a list of tokens so that we don't end up replacing the same thing twice.
+		$tokenList = [];
 
-		// First link raw URLs. Courtesy of https://stackoverflow.com/a/11641499/604142
-		$wikitext = preg_replace(
-			'%\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))%s',
-			'<a target="_blank" href="$1">$1</a>',
+		// This regex is from https://stackoverflow.com/a/6041965/604142
+		// This should only have one capture group: the whole URL.
+		// Ensure all other groups are (?:non-capturing).
+		$urlRegex = '\b((?:[\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|(?:[^[:punct:]\s]|/)))';
+
+		// Process masked external links, if requested.
+		// This goes before we process raw links, so that we don't convert both.
+		if ( $includeExternalLinks ) {
+			$wikitext = preg_replace_callback(
+				"%\[$urlRegex ([^]]+)]%s",
+				static function ( $matches ) use ( &$tokenList, $urlRegex ) {
+					// Do not convert if label URL match is `1` (is a URL) or
+					// `false` (failure), for safety
+					if ( preg_match( "%$urlRegex%s", $matches[2] ) !== 0 ) {
+						return $matches[0];
+					}
+
+					do {
+						$id = rand();
+					} while ( isset( $tokenList[$id] ) );
+					$token = '<!--copypatrol:token:' . $id . '-->';
+					$tokenList[$id] = "<a target='_blank' rel='nofollow' href='${matches[1]}'>${matches[2]}</a>";
+					return $token;
+				},
+				$wikitext
+			);
+		}
+
+		// Link raw URLs.
+		$wikitext = preg_replace_callback(
+			"%$urlRegex%s",
+			static function ( $matches ) use ( &$tokenList ) {
+				do {
+					$id = rand();
+				} while ( isset( $tokenList[$id] ) );
+				$token = '<!--copypatrol:token:' . $id . '-->';
+				$tokenList[$id] = "<a target='_blank' rel='nofollow' href='${matches[1]}'>${matches[1]}</a>";
+				return $token;
+			},
 			$wikitext
 		);
+
+		// Replace all tokens from previous two steps.
+		foreach ( $tokenList as $id => $replacement ) {
+			$wikitext = str_replace( '<!--copypatrol:token:' . $id . '-->', $replacement, $wikitext );
+		}
 
 		$sectionMatch = null;
 		$isSection = preg_match_all( "/^\/\* (.*?) \*\//", $wikitext, $sectionMatch );
