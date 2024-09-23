@@ -3,6 +3,7 @@
 		"authors": [
 			"AguzulH",
 			"Brahim-essaidi",
+			"Reda Tris",
 			"Ya2sine"
 		]
 	},
@@ -40,12 +41,16 @@
 	"fa-wikipedia": "ⵡⵉⴽⵉⴱⵉⴷⵢⴰ ⵙ ⵜⴼⴰⵔⵙⵉⵜ",
 	"ru-wikipedia": "ⵡⵉⴽⵉⴱⵉⴷⵢⴰ ⵙ ⵜⵔⵓⵙⵉⵜ",
 	"tr-wikipedia": "ⵡⵉⴽⵉⴱⵉⴷⵢⴰ ⵙ ⵜⴻⵜⵓⵔⴽⵉⵜ",
+	"simple-wikipedia": "ⵡⵉⴽⵉⴱⵉⴷⵢⴰ ⵙ ⵜⵏⴳⵍⵉⵣⵜ ⵜⴰⴼⵔⴰⵔⵜ",
+	"form-all": "ⴰⴷⴷⴰⴷⵏ ⴰⴽⴽⵯ",
 	"page": "ⵜⴰⵙⵏⴰ",
 	"editor": "ⴰⵎⵙⵙⵏⴼⵍ",
 	"review-false": "ⵡⴰⵍⵓ ⵜⵉⴳⴰⵡⵜ ⵉⵅⵚⵚⴰⵏ",
 	"history": "ⴰⵎⵣⵔⵓⵢ",
 	"talk": "ⵎⵙⴰⵡⴰⵍ",
 	"contribs": "ⵜⵓⵎⵓⵜⵉⵏ",
+	"record-editcount": "ⴰⵎⴹⴰⵏ ⵏ ⵉⵙⵏⴼⵍⵏ:",
+	"compare": "ⵙⵎⵣⴰⵣⴰⵍ",
 	"record-url-text": "$1 ⵏ ⵓⵙⵏⴼⵍ ($2 ⵜⴳⵓⵔⵉⵡⵉⵏ)",
 	"record-noeditor": "ⵡⴰⵍⵓ ⴰⵎⵙⵙⵏⴼⵍ ⵉⵜⵜⵢⴰⴼⴰⵏ",
 	"article": "ⴰⵎⴳⵔⴰⴷ",
@@ -53,5 +58,6 @@
 	"filter-page": "ⵔⵣⵓ ⵙ ⵓⵣⵡⵍ ⵏ ⵜⴰⵙⵏⴰ:",
 	"lboard-title": "ⵜⴰⴼⵍⵡⵉⵜ ⵏ ⵉⵎⵣⵡⵓⵔⴰ",
 	"close": "ⵔⴳⵍ",
-	"blocked": "ⵉⵜⵜⵓⴳⴷⵍ"
+	"blocked": "ⵉⵜⵜⵓⴳⴷⵍ",
+	"delete": "ⴽⴽⵙ"
 }
