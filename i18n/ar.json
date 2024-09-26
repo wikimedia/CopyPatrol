@@ -5,6 +5,7 @@
 			"Dr-Taher",
 			"Ideophagous",
 			"MRidhaAJ",
+			"Meno25",
 			"Mohanad",
 			"Mohanad Kh",
 			"Sandra Hanbo",
@@ -101,6 +102,7 @@
 	"js-dberror": "كان هناك خطأ في الاتصال بقاعدة البيانات.",
 	"js-undo-own-only": "يمكنك فقط التراجع عن مراجعاتك الخاصة.",
 	"js-unknown-error": "حدث خطأ غير معروف عند تحميل النتائج; حاول مرة اخرى.",
+	"js-self-review": "لا يمكنك مراجعة تعديلاتك الخاصة.",
 	"permalink": "وصلة دائمة",
 	"show-all-records": "عرض كل السجلات",
 	"access-blocked": "أنت حاليا $1 في $2 ولا يمكنك استخدام CopyPatrol.",
@@ -108,6 +110,7 @@
 	"non-internet-source": "(مصدر غير من الإنترنت)",
 	"tags": "الوسوم",
 	"edit-summary": "ملخص التعديل",
+	"revdel": "رفديل",
 	"undo": "رجوع",
 	"delete": "حذف"
 }
