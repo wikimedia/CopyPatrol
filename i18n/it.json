@@ -3,6 +3,7 @@
 		"authors": [
 			"Albe Albe460",
 			"Beta16",
+			"Egidio24",
 			"Gianfranco",
 			"Nemo bis",
 			"Redredsonia"
@@ -75,6 +76,7 @@
 	"footer-broughtby": "Creato per te dalla $1",
 	"footer-poweredby": "Fornito da $1 e $2",
 	"filter-page": "Cerca il titolo della pagina:",
+	"filter-user": "Cerca recensioni per utente:",
 	"source": "Sorgente",
 	"footer-imageattr": "Attribuzione immagine",
 	"lboard-title": "Classifica",
@@ -82,6 +84,7 @@
 	"lboard-month": "Casi chiusi negli ultimi 30 giorni",
 	"lboard-alltime": "Tutti i casi chiusi",
 	"lboard-back": "Torna a CopyPatrol",
+	"lboard-count-title": "Vedi i casi $1 recensiti da questo utente",
 	"close": "Chiudi",
 	"imageattr-title": "Attribuzione immagine",
 	"imageattr-logo": "logo CopyPatrol",
