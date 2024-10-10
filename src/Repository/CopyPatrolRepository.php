@@ -4,6 +4,7 @@ declare( strict_types=1 );
 
 namespace App\Repository;
 
+use DateInterval;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
@@ -126,6 +127,42 @@ class CopyPatrolRepository {
 			->join( 'a', 'report_sources', 's', 'a.submission_id = s.submission_id' )
 			->executeQuery()
 			->fetchAllAssociative();
+	}
+
+	/**
+	 * Fetch the count of records from the CopyPatrol database, up to $limit.
+	 *
+	 * @param array $options filter and filter user options, should look like:
+	 *   string 'filter' Filter to show a certain status: 'all', 'open', or 'reviewed'
+	 *   string 'filter_user' Filter SQL to only return records reviewed by given user
+	 *   string 'filter_page' Search string (page title)
+	 *   boolean 'drafts' returns only records that are in the Draft namespace
+	 *   integer 'last_id' offset of where to start fetching records, going by 'diff_id'
+	 *   integer 'id' exact submission_id of a record. This will override all other filter options
+	 *   string 'lang' The language code of the Wikipedia to query for
+	 * @param int $limit Number of records asked for
+	 * @param string $cacheExpiry Cache expiry time (default 15 minutes)
+	 * @return int Count of CopyPatrol db records.
+	 */
+	public function getPlagiarismRecordsCount(
+		array $options = [],
+		int $limit = 200,
+		string $cacheExpiry = 'PT15M'
+	): int {
+		// If the count is already cached, return it
+		if ( $this->cache->hasItem( md5( serialize( $options ) . $limit ) ) ) {
+			return $this->cache->getItem( md5( serialize( $options ) . $limit ) )->get();
+		}
+
+		// Else, calculate the count and cache it
+		$count = count( $this->getPlagiarismRecords( $options, $limit ) );
+		$cacheItem = $this->cache
+			->getItem( md5( serialize( $options ) . $limit ) )
+			->set( $count )
+			// cache for 15 minutes
+			->expiresAfter( new DateInterval( $cacheExpiry ) );
+		$this->cache->save( $cacheItem );
+		return $this->cache->getItem( md5( serialize( $options ) . $limit ) )->get();
 	}
 
 	/**
