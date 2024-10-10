@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Cabal",
 			"Innocentbunny",
 			"Sachinkatiyar",
 			"SatyamMishra",
@@ -45,6 +46,7 @@
 	"fa-wikipedia": "फ़ारसी विकिपीडिया",
 	"ru-wikipedia": "रूसी विकिपीडिया",
 	"tr-wikipedia": "तुर्की विकिपीडिया",
+	"simple-wikipedia": "सरल अंग्रेज़ी विकिपीडिया",
 	"form-all": "सभी प्रकरण",
 	"form-open": "खुले प्रकरण",
 	"form-reviewed": "पुनरीक्षित प्रकरण",
@@ -66,7 +68,7 @@
 	"record-editcount": "संपादन संख्या:",
 	"compare": "तुलना करें",
 	"record-ithenticate": "iThenticate रिपोर्ट",
-	"record-url-text": "सम्पादन का $1 ($2 शब्द)",
+	"record-url-text": "$1 का संपादन",
 	"record-noeditor": "कोई संपादक नहीं मिला",
 	"record-noeditor-tooltip": "शायद अवतरण हट चुका है या यह डेटा Labs के डाटाबेस में उपलब्ध नहीं है।",
 	"article": "लेख",
@@ -78,6 +80,7 @@
 	"footer-commtech": "तकनीकी समुदाय",
 	"footer-poweredby": "$1 और $2 द्वारा प्रस्तुत",
 	"filter-page": "पृष्ठ शीर्षक खोजें:",
+	"filter-user": "उपयोगकर्ता द्वारा समीक्षाएँ खोजें:",
 	"source": "स्रोत",
 	"phabricator": "फेब्रिकेटर",
 	"footer-imageattr": "छवि का श्रेय",
@@ -97,8 +100,14 @@
 	"js-dberror": "डाटाबेस से जुड़ने में त्रुटि हुई है।",
 	"js-undo-own-only": "आप केवल अपनी समीक्षा को वापस कर सकते हैं।",
 	"js-unknown-error": "परिणाम लोड करते समय कोई अज्ञात त्रुटि हुई। कृपया दुबारा प्रयास करें।",
+	"js-self-review": "आप अपने स्वयं के संपादनों की समीक्षा नहीं कर सकते।",
 	"permalink": "स्थायी कड़ी",
 	"show-all-records": "सभी रिकॉर्ड दिखाएँ",
 	"access-blocked": "वर्तमान में आप $2 पर $1 हैं, और कॉपीपैट्रोल उपयोग करने में अक्षम हैं।",
-	"blocked": "अवरोधित"
+	"blocked": "अवरोधित",
+	"non-internet-source": "(गैर-इंटरनेट स्रोत)",
+	"edit-summary": "संपादन सारांश",
+	"revdel": "इस संशोधन को हटाएँ",
+	"undo": "पूर्ववत करें",
+	"delete": "मिटाएँ"
 }
