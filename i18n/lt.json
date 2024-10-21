@@ -94,9 +94,15 @@
 	"js-dberror": "Įvyko klaida jungiantis prie duomenų bazės.",
 	"js-undo-own-only": "Galite anuliuoti tik savo peržiūras.",
 	"js-unknown-error": "Įvyko nežinoma klaida įkeliant rezultatus. Prašome bandyti dar kartą.",
+	"js-self-review": "Negalite peržiūrėti savo pakeitimų.",
 	"permalink": "Nuoroda į šią vietą",
 	"show-all-records": "Rodyti visus įrašus",
 	"access-blocked": "Šiuo metu esate $1 $2 ir negalite naudoti CopyPatrol.",
 	"blocked": "užblokuotas",
-	"non-internet-source": "(ne interneto šaltinis)"
+	"non-internet-source": "(ne interneto šaltinis)",
+	"tags": "Žymos",
+	"edit-summary": "Keitimo santrauka",
+	"revdel": "v. trynimas",
+	"undo": "anuliuoti",
+	"delete": "ištrinti"
 }
