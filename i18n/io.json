@@ -61,7 +61,7 @@
 	"record-editcount": "Konto di redakturi:",
 	"compare": "Komparez",
 	"record-ithenticate": "raporto de iThenticate",
-	"record-url-text": "$1 di la redakto ($2 vorti)",
+	"record-url-text": "$1 di la redakto",
 	"record-noeditor": "Nula redaktero trovesis",
 	"record-noeditor-tooltip": "Posible la revizo efacesis, o la dato ne esas disponebla che datumaro-laboratorio.",
 	"article": "Artiklo",
@@ -93,8 +93,15 @@
 	"js-dberror": "Eventis eroro dum konekto a la datumaro.",
 	"js-undo-own-only": "Vu nur povas desfacar vua revizi.",
 	"js-unknown-error": "Eventis nekonocata eroro dum charjado di rezulti. Voluntez probar itere.",
+	"js-self-review": "Vu ne povas revizar vua propra redakturi.",
 	"permalink": "Permananta ligilo",
 	"show-all-records": "Montrez omna enrejistruri",
 	"access-blocked": "Vu nun esas $1 che $2 e ne povas uzar CopyPatrol",
-	"blocked": "blokusita"
+	"blocked": "blokusita",
+	"non-internet-source": "(sen fonto che interreto)",
+	"tags": "Etiketi",
+	"edit-summary": "Rezumo pri redakto",
+	"revdel": "supresar revizuro",
+	"undo": "desfacar",
+	"delete": "efacar"
 }
