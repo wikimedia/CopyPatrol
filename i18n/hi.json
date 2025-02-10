@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Bunnypranav",
 			"Cabal",
 			"Innocentbunny",
 			"Sachinkatiyar",
@@ -89,6 +90,7 @@
 	"lboard-month": "पिछले तीस दिनों के बंद प्रकरण",
 	"lboard-alltime": "हर समय के बंद प्रकरण",
 	"lboard-back": "कॉपीपैट्रोल पर वापस",
+	"lboard-count-title": "इस उपयोगकर्ता द्वारा समीक्षित $1 मामले देखें",
 	"close": "बंद करें",
 	"imageattr-title": "छवि का श्रेय",
 	"imageattr-logo": "कॉपीपैट्रोल का लोगो",
@@ -106,6 +108,7 @@
 	"access-blocked": "वर्तमान में आप $2 पर $1 हैं, और कॉपीपैट्रोल उपयोग करने में अक्षम हैं।",
 	"blocked": "अवरोधित",
 	"non-internet-source": "(गैर-इंटरनेट स्रोत)",
+	"tags": "टैग्स",
 	"edit-summary": "संपादन सारांश",
 	"revdel": "इस संशोधन को हटाएँ",
 	"undo": "पूर्ववत करें",
