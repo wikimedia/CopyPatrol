@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ajeje Brazorf"
+			"Ajeje Brazorf",
+			"GianAntonucci"
 		]
 	},
 	"documentation": "Ducumintazzioni",
@@ -47,7 +48,7 @@
 	"contribs": "Cuntribbuti",
 	"record-url-text": "$1 dû canciamentu ($2 palori)",
 	"article": "Vuci",
-	"source": "Surgenti",
+	"source": "Còdici",
 	"footer-imageattr": "Attribbuzzioni mmàggini",
 	"close": "Chiudi",
 	"imageattr-title": "Attribbuzzioni mmàggini",
