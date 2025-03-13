@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Blackisnewyellow",
+			"З. ӘЙЛЕ",
+			"Ильгиз",
+			"Ильнар"
+		]
+	},
+	"documentation": "Документация",
+	"feedback": "Кире элемтә",
+	"leaderboard": "Алдынгылар исемлеге",
+	"zh-wikipedia": "Кытай Википедиясе",
+	"ja-wikipedia": "Япон Википедиясе",
+	"th-wikipedia": "Тай Википедиясе",
+	"en-wikipedia": "Инглиз Википедиясе",
+	"ko-wikipedia": "Корея Википедиясе",
+	"ca-wikipedia": "Каталан Википедиясе",
+	"hr-wikipedia": "Хорват Википедиясе",
+	"cs-wikipedia": "Чех Википедиясе",
+	"form-all": "Барлык битләр",
+	"form-drafts": "Караламалар гына",
+	"wikiprojects": "Википроектлар",
+	"submit": "Җибәр",
+	"page": "Бит",
+	"diff": "Аерма",
+	"review-fixed": "Бит төзәтелде",
+	"history": "Тарих",
+	"talk": "Бәхәс",
+	"contribs": "Кертемнәр",
+	"record-editcount": "Төзәтмәләр хисабы:",
+	"compare": "Чагыштыр",
+	"article": "Мәкалә",
+	"filter-user": "Кулланучының эзләүләре:"
+}
