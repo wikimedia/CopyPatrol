@@ -95,8 +95,8 @@ class WikiRepository {
 	 */
 	public function isUserBlocked( string $username ): bool {
 		$sql = "SELECT 1
-			FROM {$this->getDb()}.ipblocks_ipindex
-			WHERE ipb_address = :username
+			FROM {$this->getDb()}.block_target_ipindex
+			WHERE bt_user_text = :username
 			LIMIT 1";
 
 		return (bool)$this->executeQuery( $sql, [ 'username' => $username ] )
