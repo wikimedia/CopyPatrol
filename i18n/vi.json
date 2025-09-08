@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Bapham123",
 			"JohnsonLee01",
 			"Leducthn",
 			"Minh Nguyen",
@@ -72,16 +73,25 @@
 	"compare-source-loading": "Đang tải nguồn có thể bị vi phạm bản quyền…",
 	"footer-loadmore": "Tải thêm",
 	"footer-nomore": "Không có thêm hồ sơ!",
+	"footer-broughtby": "Được mang đến cho bạn bởi $1",
 	"footer-commtech": "Cộng đồng công nghệ",
+	"footer-poweredby": "Được hỗ trợ bởi $1 và $2",
 	"filter-page": "Tìm kiếm tiêu đề trang:",
 	"source": "Nguồn",
+	"footer-imageattr": "Thuộc tính hình ảnh",
+	"lboard-title": "Bảng xếp hạng",
 	"lboard-back": "Quay lại CopyPatrol",
 	"close": "Đóng",
 	"imageattr-title": "Thuộc tính hình ảnh",
 	"imageattr-logo": "Logo CopyPatrol",
 	"public-domain": "phạm vi công cộng",
 	"open-font-license": "Bản quyền Phông chữ Mở",
+	"js-dberror": "Đã xảy ra lỗi khi kết nối với cơ sở dữ liệu.",
 	"permalink": "Liên kết thường trực",
 	"show-all-records": "Hiển thị tất cả các bản ghi",
-	"blocked": "Đã bị cấm"
+	"blocked": "Đã bị cấm",
+	"tags": "Thẻ",
+	"edit-summary": "Tóm lược sửa đổi",
+	"undo": "hoàn tác",
+	"delete": "xóa"
 }

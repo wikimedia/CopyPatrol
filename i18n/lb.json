@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"GilPe",
 			"Les Meloures",
 			"Robby",
 			"Soued031",
@@ -79,7 +80,7 @@
 	"lboard-week": "Fäll, déi an de leschte 7 Deeg zougemaach goufen",
 	"lboard-month": "Fäll déi  an de leschten 30 Deeg zougemaach goufen",
 	"lboard-alltime": "All Fäll déi vum Ufank un zougemaach goufen",
-	"lboard-back": "Zréck op CopyPatrol",
+	"lboard-back": "Zeréck op CopyPatrol",
 	"close": "Zoumaachen",
 	"imageattr-logo": "CopyPatrol-Logo",
 	"public-domain": "ëffentlechen Domaine",
@@ -92,7 +93,7 @@
 	"js-unknown-error": "Beim Luede vun de Resultater ass en onbekannte Feeler geschitt. Probéiert wgl. nach eng Kéier.",
 	"permalink": "Permanentlink",
 	"blocked": "gespaart",
-	"edit-summary": "Resumé vun der Ännerung",
+	"edit-summary": "Resümmee vun der Ännerung",
 	"undo": "réckgängeg maachen",
 	"delete": "läschen"
 }
