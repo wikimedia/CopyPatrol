@@ -4,6 +4,7 @@
 			"Akmaie Ajam",
 			"DARMAS BUDI SANTOSO",
 			"Hidayatsrf",
+			"Penyuwangi",
 			"Sonic Speedy",
 			"Veracious"
 		]
@@ -54,7 +55,7 @@
 	"editor": "Penyunting",
 	"review": "Tinjauan",
 	"review-fixed": "Perbaiki halaman",
-	"review-fixed-tooltip": "Hasil edit adalah pelanggaran hak cipta dan telah dikembalikan",
+	"review-fixed-tooltip": "Suntingan tersebut adalah pelanggaran hak cipta dan telah dikembalikan",
 	"review-false": "Tidak ada tindakan yang diperlukan",
 	"review-false-tooltip": "Hasil suntingannya positif palsu, tidak ada yang perlu dilakukan",
 	"review-by": "Diulas oleh:",
