@@ -3,6 +3,7 @@
 		"authors": [
 			"Bengtsson96",
 			"Sabelöga",
+			"Stefan2255",
 			"WikiPhoenix"
 		]
 	},
@@ -40,6 +41,7 @@
 	"fa-wikipedia": "Persiskspråkiga Wikipedia",
 	"ru-wikipedia": "Ryskspråkiga Wikipedia",
 	"tr-wikipedia": "Turkiskspråkiga Wikipedia",
+	"simple-wikipedia": "Enkel engelsk Wikipedia",
 	"form-all": "Alla fall",
 	"form-open": "Öppna fall",
 	"form-reviewed": "Granskade fall",
@@ -61,7 +63,7 @@
 	"record-editcount": "Antal redigeringar:",
 	"compare": "Jämför",
 	"record-ithenticate": "iThenticate-rapport",
-	"record-url-text": "$1 % av redigeringen ($2 ord)",
+	"record-url-text": "$1 av redigering",
 	"record-noeditor": "Ingen redigerare hittades",
 	"record-noeditor-tooltip": "Ändringen kan ha rullats tillbaka, eller har uppdateringen inte registrerats än i Labs databas.",
 	"article": "Artikel",
@@ -72,6 +74,7 @@
 	"footer-broughtby": "Tillhandahålls av $1",
 	"footer-poweredby": "Drivs av $1 och $2",
 	"filter-page": "Sök efter sidtitel:",
+	"filter-user": "Sök recensioner efter användare:",
 	"source": "Källa",
 	"footer-imageattr": "Bildattribution",
 	"lboard-title": "Topplista",
@@ -79,6 +82,7 @@
 	"lboard-month": "Stängda fall under de senaste 30 dygnen",
 	"lboard-alltime": "Alla stängda tidsfall",
 	"lboard-back": "Tillbaka till CopyPatrol",
+	"lboard-count-title": "Se $1 ärenden som granskats av den här användaren",
 	"close": "Stäng",
 	"imageattr-title": "Bildattribution",
 	"imageattr-logo": "CopyPatrols logotyp",
@@ -90,8 +94,15 @@
 	"js-dberror": "Ett fel uppstod vid anslutning till databasen.",
 	"js-undo-own-only": "Du kan endast ångra dina egna granskningar.",
 	"js-unknown-error": "Ett okänt fel uppstod när resultaten lästes in. Var god försök igen.",
+	"js-self-review": "Du kan inte granska dina egna redigeringar.",
 	"permalink": "Permanent länk",
 	"show-all-records": "Visa alla poster",
 	"access-blocked": "Du är för närvarande $1 på $2 och kan inte använda CopyPatrol.",
-	"blocked": "blockerad"
+	"blocked": "blockerad",
+	"non-internet-source": "(ej internetkälla)",
+	"tags": "Taggar",
+	"edit-summary": "Redigeringssammanfattning",
+	"revdel": "revdel",
+	"undo": "ångra",
+	"delete": "radera"
 }
