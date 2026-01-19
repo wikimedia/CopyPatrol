@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Atvalerie",
 			"Chrumps",
 			"DeRudySoulStorm",
 			"Superjurek",
@@ -65,7 +66,7 @@
 	"record-editcount": "Liczba edycji:",
 	"compare": "Porównaj",
 	"record-ithenticate": "Raport iThenticate",
-	"record-url-text": "$1 edycji ($2 {{PLURAL:$2|wyraz|wyrazy|wyrazów}})",
+	"record-url-text": "$1 edycji",
 	"record-noeditor": "Nie znaleziono autora",
 	"record-noeditor-tooltip": "Wersja mogła zostać usunięta lub dane nie są jeszcze dostępne w bazie danych.",
 	"article": "Artykuł",
