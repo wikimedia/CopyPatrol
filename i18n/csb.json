@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kaszeba"
+			"Kaszeba",
+			"Orbitminis"
 		]
 	},
 	"documentation": "Dokùmentacëjô",
@@ -38,6 +39,7 @@
 	"fa-wikipedia": "Wikipedijô w persczim jãzëkù",
 	"ru-wikipedia": "Wikipedijô w rusczim jãzëkù",
 	"tr-wikipedia": "Wikipedijô w tërecczim jãzëkù",
+	"simple-wikipedia": "Wikipediô w prostim anielsczim jãzëkù (Simple English)",
 	"form-all": "Wszëtczé przëtrôfczi",
 	"form-open": "Òtemkłé przëtrôfczi",
 	"form-reviewed": "Przezdrzóné przëtrôfczi",
@@ -59,7 +61,7 @@
 	"record-editcount": "Wielëna edicëji:",
 	"compare": "Przërówny",
 	"record-ithenticate": "Rapòrt iThenticate",
-	"record-url-text": "$1 edycëji ($2 {{PLURAL:$2|słowò|słowa|słowów}})",
+	"record-url-text": "$1 edicji",
 	"record-noeditor": "Felënk ùsôdzcë",
 	"record-noeditor-tooltip": "Na wersëjô òsta mòże rëmniãtô abò ne pòdôwczi nie są jesz przistãpné w baze pòdôwków Labs.",
 	"article": "Artikel",
@@ -70,6 +72,7 @@
 	"footer-broughtby": "Przëniosłé do ce przez $1",
 	"footer-poweredby": "Wspiéróné przez $1 ë $2",
 	"filter-page": "Szëkba za titlama starnów:",
+	"filter-user": "Wëszëkôj recenzje wedle brëkòwnika:",
 	"source": "Zdrój",
 	"footer-imageattr": "Òpisanié òbrôzka",
 	"lboard-title": "Tafla liderów",
@@ -77,6 +80,7 @@
 	"lboard-month": "Przëtrôfczi zamkłé w slédnych 30 dniach",
 	"lboard-alltime": "Wszëtczé czasowé przëtrôfczi zamkłé",
 	"lboard-back": "Nazôd do CopyPatrol",
+	"lboard-count-title": "Òbôczë przëpisë $1 markòwóné bez tegò brëkòwnika",
 	"close": "Zamkni",
 	"imageattr-title": "Òpisanié òbrôzka",
 	"imageattr-logo": "Logò CopyPatrol",
@@ -88,8 +92,15 @@
 	"js-dberror": "Fela przë sparłãczeniém z bazą pòdôwków.",
 	"js-undo-own-only": "Mòżesz copac le swòjé przezdrzénia.",
 	"js-unknown-error": "Nieznónô fela przë wladënkù wińdzenia. Spróbùjë znowa.",
+	"js-self-review": "Ni mòżesz przezérac swòjich edicjów.",
 	"permalink": "Prosti lënk",
 	"show-all-records": "Wëskrzëni wszëtczé zapisenczi",
 	"access-blocked": "Jes terô na $2 $1 ë ni mòżesz ùżëwac CopyPatrol.",
-	"blocked": "zablokòwóné"
+	"blocked": "zablokòwóné",
+	"non-internet-source": "(zdrzódło w Internece)",
+	"tags": "Znakòwniczi",
+	"edit-summary": "Pòdrechòwaníé edicji",
+	"revdel": "revdel",
+	"undo": "doprowadzë nazôd",
+	"delete": "rëmôj"
 }
