@@ -4,6 +4,7 @@
 			"شاه زمان پټان"
 		]
 	},
+	"name": "لمېسل‌څارونکي",
 	"documentation": "لاسوند",
 	"feedback": "غبرگون",
 	"leaderboard": "سرمشريزه",
@@ -69,10 +70,12 @@
 	"footer-loadmore": "نور بار کړئ",
 	"footer-nomore": "نور هېڅ ريکارډونه نشته",
 	"footer-broughtby": "تاسو ته $1 لخوا راوړل شوی",
+	"footer-commtech": "تخنيکي ټولنه",
 	"footer-poweredby": "د $1 او $2 له خوا وړاندې شوی",
 	"filter-page": "مخ سرليک پلټل:",
 	"filter-user": "د کارن له خوا د بياکتنو پلټل:",
 	"source": "سرچينه",
+	"phabricator": "فابريکيټر",
 	"footer-imageattr": "د انځور منسوبول",
 	"lboard-title": "سرمشريزه",
 	"lboard-week": "په تېرو ۷ ورځو کې تړل شوې ونگې",
