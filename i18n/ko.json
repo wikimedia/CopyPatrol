@@ -5,6 +5,7 @@
 			"Revi",
 			"SeoJeongHo",
 			"Suleiman the Magnificent Television",
+			"Tensama0415",
 			"YeBoy371",
 			"Ykhwong",
 			"그냥기여자"
@@ -94,7 +95,7 @@
 	"public-domain": "퍼블릭 도메인",
 	"open-font-license": "오픈 폰트 라이선스",
 	"imageattr-paragraph1": "$3과 $4의 후원으로 $1이 $2에 제공됩니다",
-	"imageattr-paragraph2": "$3의 허락을 받아 $1은 $2에 따라 공개되었습니다",
+	"imageattr-paragraph2": "$1은(는) $3님의 허락을 받아 $2에 따라 공개되었습니다",
 	"js-unauthorized": "검토하려면 로그인해야 합니다.",
 	"js-dberror": "데이터베이스에 연결하는 데 문제가 있었습니다.",
 	"js-undo-own-only": "당신은 당신의 검토만 취소할 수 있습니다.",
