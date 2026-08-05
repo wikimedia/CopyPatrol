@@ -2,21 +2,21 @@
 
 namespace App\Twig;
 
+use DateTimeImmutable;
 use Krinkle\Intuition\Intuition;
 use NumberFormatter;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension {
 
-	protected Intuition $i18n;
 	protected NumberFormatter $numFormatter;
 
-	/**
-	 * @param Intuition $intuition
-	 */
-	public function __construct( Intuition $intuition ) {
-		$this->i18n = $intuition;
+	public function __construct(
+		protected Intuition $i18n,
+		protected string $appVersion
+	) {
 		$this->numFormatter = new NumberFormatter( $this->i18n->getLang(), NumberFormatter::DECIMAL );
 	}
 
@@ -26,7 +26,17 @@ class AppExtension extends AbstractExtension {
 	 */
 	public function getFilters(): array {
 		return [
-			new TwigFilter( 'diff_format', [ $this, 'diffFormat' ], [ 'is_safe' => [ 'html' ] ] )
+			new TwigFilter( 'diff_format', $this->diffFormat(...), [ 'is_safe' => [ 'html' ] ] ),
+		];
+	}
+
+	/**
+	 * @return TwigFunction[]
+	 * @codeCoverageIgnore
+	 */
+	public function getFunctions(): array {
+		return [
+			new TwigFunction( 'version', $this->version( ... ), [ 'is_safe' => [ 'html' ] ] ),
 		];
 	}
 
@@ -53,5 +63,19 @@ class AppExtension extends AbstractExtension {
 		$size = $this->numFormatter->format( $size );
 
 		return "<div class='$class'" . ( $this->i18n->isRTL() ? " dir='rtl'" : '' ) . ">$size</div>";
+	}
+
+	/**
+	 * Return the CalVer as it is set in .env
+	 *
+	 * @param bool $formatted Whether to return the formatted version or the actual version.
+	 * @return string
+	 */
+	public function version( bool $formatted = true ): string {
+		if ( $formatted ) {
+			return DateTimeImmutable::createFromFormat( 'Y.m.d', $this->appVersion )
+				->format( 'Y-m-d' );
+		}
+		return $this->appVersion;
 	}
 }
