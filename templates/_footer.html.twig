@@ -1,4 +1,8 @@
 <footer class="app-footer">
+	<a target="_blank" href="https://github.com/wikimedia/CopyPatrol/tree/{{ version( formatted = false ) }}">
+		{{ msg( 'version', [version()] ) }}
+	</a>
+	&bull;
 	{% set broughtby %}
 		<a href="https://meta.wikimedia.org/wiki/Community_Tech">{{ msg('footer-commtech') }}</a>
 	{% endset %}

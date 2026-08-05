@@ -106,5 +106,6 @@
 	"edit-summary": "Edit summary",
 	"revdel": "revdel",
 	"undo": "undo",
-	"delete": "delete"
+	"delete": "delete",
+	"version": "Version $1"
 }

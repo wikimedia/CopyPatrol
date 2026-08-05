@@ -117,5 +117,6 @@
 	"edit-summary": "Label for the edit summary.",
 	"revdel": "Text for link to delete a revision. See [[mw:Manual:RevisionDelete]]. This message should be as short as possible.",
 	"undo": "Text for link to undo a revision.\n{{Identical|Undo}}",
-	"delete": "Text for link to delete a page.\n{{Identical|Delete}}"
+	"delete": "Text for link to delete a page.\n{{Identical|Delete}}",
+	"version": "Version of the application, shown in the footer. This is a string that is updated with each release.\n\nParameters:\n* $1 – datestamp in ISO 8601 format.\n{{Identical|Version}}"
 }
