@@ -109,5 +109,6 @@
 	"edit-summary": "Oggetto della modifica",
 	"revdel": "revdel",
 	"undo": "annulla",
-	"delete": "cancella"
+	"delete": "cancella",
+	"version": "Versione $1"
 }

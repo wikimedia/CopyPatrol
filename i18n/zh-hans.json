@@ -110,5 +110,6 @@
 	"edit-summary": "编辑摘要",
 	"revdel": "修订版本删除",
 	"undo": "撤销",
-	"delete": "删除"
+	"delete": "删除",
+	"version": "版本$1"
 }

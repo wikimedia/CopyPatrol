@@ -95,5 +95,6 @@
 	"blocked": "gespaart",
 	"edit-summary": "Resümmee vun der Ännerung",
 	"undo": "réckgängeg maachen",
-	"delete": "läschen"
+	"delete": "läschen",
+	"version": "Versioun $1"
 }
