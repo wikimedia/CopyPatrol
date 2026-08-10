@@ -110,5 +110,6 @@
 	"edit-summary": "편집 요약",
 	"revdel": "판 삭제",
 	"undo": "해제",
-	"delete": "삭제"
+	"delete": "삭제",
+	"version": "버전 $1"
 }

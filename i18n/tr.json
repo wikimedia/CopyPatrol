@@ -111,5 +111,6 @@
 	"edit-summary": "Değişiklik özeti",
 	"revdel": "revizyon sil",
 	"undo": "geri al",
-	"delete": "sil"
+	"delete": "sil",
+	"version": "Sürüm $1"
 }

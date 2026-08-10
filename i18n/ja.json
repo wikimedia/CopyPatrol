@@ -3,6 +3,7 @@
 		"authors": [
 			"Aefgh39622",
 			"Chqaz",
+			"Dacchi Hii",
 			"LaMagiaaa",
 			"MathXplore",
 			"Omotecho",
@@ -109,5 +110,6 @@
 	"edit-summary": "編集の要約",
 	"revdel": "版指定削除",
 	"undo": "取り消し",
-	"delete": "削除"
+	"delete": "削除",
+	"version": "バージョン$1"
 }

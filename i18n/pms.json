@@ -102,5 +102,6 @@
 	"edit-summary": "Modifiché ël resumé",
 	"revdel": "anulé na revision",
 	"undo": "buté 'me ch'a l'era",
-	"delete": "dëscancelé"
+	"delete": "dëscancelé",
+	"version": "Version $1"
 }

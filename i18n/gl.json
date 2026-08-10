@@ -102,5 +102,6 @@
 	"edit-summary": "Resumo de edición",
 	"revdel": "borrar revisión",
 	"undo": "desfacer",
-	"delete": "borrar"
+	"delete": "borrar",
+	"version": "Versión $1"
 }

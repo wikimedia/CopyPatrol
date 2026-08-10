@@ -106,5 +106,6 @@
 	"edit-summary": "Bewerkingssamenvatting",
 	"revdel": "versiewissen",
 	"undo": "ongedaan maken",
-	"delete": "verwijderen"
+	"delete": "verwijderen",
+	"version": "Versie $1"
 }

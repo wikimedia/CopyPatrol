@@ -101,5 +101,6 @@
 	"edit-summary": "Achoimre a chur in eagar",
 	"revdel": "revdel",
 	"undo": "cealaigh",
-	"delete": "scrios"
+	"delete": "scrios",
+	"version": "Leagan $1"
 }
