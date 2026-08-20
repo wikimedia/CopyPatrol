@@ -106,5 +106,6 @@
 	"edit-summary": "Uah ringkesan",
 	"revdel": "revdel",
 	"undo": "ulihang",
-	"delete": "usap"
+	"delete": "usap",
+	"version": "Vérsi $1"
 }
