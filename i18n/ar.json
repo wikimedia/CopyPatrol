@@ -115,5 +115,6 @@
 	"edit-summary": "ملخص التعديل",
 	"revdel": "رفديل",
 	"undo": "رجوع",
-	"delete": "حذف"
+	"delete": "حذف",
+	"version": "الإصدار $1"
 }
