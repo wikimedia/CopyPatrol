@@ -52,7 +52,7 @@
 									<label>
 										<input type="radio" name="filter" value="{{ type }}"
 											{% if filter == type %} checked="checked"{% endif %}
-										/> {{ msg('form-'~type) }}
+										/> {{ msg('form-'~type) }} {% if type == "open" %} (<span id="open_records_count" data-count="{{ open_records_count }}">{{ open_records_count }}</span>) {% endif %}
 									</label>
 								</span>
 							{% endfor %}

@@ -106,6 +106,21 @@ class AppController extends AbstractController {
 		// Add the logged in user's rights to the response, so we can conditionally show links for sysops.
 		$ret['user_rights'] = $currentUser ? $wikiRepo->getUserRights( $currentUser->username ) : [];
 
+		$open_records_count = $copyPatrolRepo->getPlagiarismRecordsCount(
+			array_merge(
+				$options,
+				[
+					'filter' => CopyPatrolRepository::FILTER_OPEN
+				]
+			)
+		);
+		// If there are 200 (or more) open records, we just show "200+".
+		if ( $open_records_count >= 200 ) {
+			$ret['open_records_count'] = "200+";
+		} else {
+			$ret['open_records_count'] = $open_records_count;
+		}
+
 		return $this->render( 'feed.html.twig', $ret );
 	}
 
