@@ -1,45 +1,47 @@
 #!/usr/bin/env bash
 
-TOOLSDB_PORT=4720
-TOOLSDB_PORT_HEX=1270
+TROVE_HOST=${TROVE_REMOTE_HOST:-${TROVE_HOST:-"$(grep TROVE_REMOTE_HOST= /app/.env | cut -c 19-)"}}
+TROVE_PORT=4721
+TROVE_PORT_HEX=1271
 # Also includes the rem_address column field to ensure that we're
 # checking the local_address column
-TOOLSDB_PORT_REGEX="0100007F:$TOOLSDB_PORT_HEX\s[0-9A-F]+:[0-9A-F]+"
+TROVE_PORT_REGEX="0100007F:$TROVE_PORT_HEX\s[0-9A-F]+:[0-9A-F]+"
 
-if [ $1 == "serve" ] || [ -z $1 ]; then
-    if [ -z $SKIP_PORT_CHECK ]; then
+if [ "$1" == "serve" ] || [ -z "$1" ]; then
+    if [ -d "/ssh" ] && [ -z "$SKIP_PORT_CHECK" ]; then
         echo "Open a new terminal and start the SSH connections."
         echo "See README for more information."
         echo
-        echo "Waiting for ToolsDB SQL port ($TOOLSDB_PORT) to open..."
+        echo "Waiting for TROVE SQL port ($TROVE_PORT) to open..."
         echo "(Set the SKIP_PORT_CHECK environment variable to skip this.)"
         trap "exit" SIGINT SIGTERM
-        while [ ! "$(grep -Pc "$TOOLSDB_PORT_REGEX" /proc/net/tcp)" -ge 1 ]; do
+        while [ ! "$(grep -Pc "$TROVE_PORT_REGEX" /proc/net/tcp)" -ge 1 ]; do
             # Waiting...
             sleep 1
         done
         trap SIGINT SIGTERM
-        echo "Port ($TOOLSDB_PORT) opened, serving..."
+        echo "Port ($TROVE_PORT) opened, serving..."
     fi
-    exec symfony serve
-elif [ $1 == "ssh" ]; then
+    exec sudo -u copypatrol-ssh symfony serve
+elif [ "$1" == "ssh" ]; then
     # Check for /ssh
     if [ ! -d "/ssh" ]; then
-        echo "/ssh directory not found. Mount your $HOME/.ssh folder to /ssh."
+        # shellcheck disable=SC2016
+        echo '/ssh directory not found. Mount your $HOME/.ssh folder to /ssh.'
         exit 1
     fi
 
     # Copy /ssh
-    cp -r /ssh /root/.ssh
+    rm -rf /home/copypatrol-ssh/.ssh
+    cp -r /ssh /home/copypatrol-ssh/.ssh
 
     # Fix permissions
-    chmod 700 -R /root/.ssh
-
-    # Check for a username provided in the SSH config
-    username=$(ssh -G login.toolforge.org | grep "user " | sed 's/^user //' -)
+    chmod 700 -R /home/copypatrol-ssh/.ssh
+    chown copypatrol-ssh:copypatrol-ssh -R /home/copypatrol-ssh/.ssh
 
     # Start SSH
-    symfony console toolforge:ssh --toolsdb -b 127.0.0.1 $username ${@:2}
+    # shellcheck disable=SC2086
+    exec sudo -u copypatrol-ssh symfony console toolforge:ssh --trove="$TROVE_HOST" -b 127.0.0.1 ${*:2}
 else
     exec $@
 fi
