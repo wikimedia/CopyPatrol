@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"AMAN KUMAR",
 			"Bunnypranav",
 			"Cabal",
 			"Innocentbunny",
@@ -112,5 +113,6 @@
 	"edit-summary": "संपादन सारांश",
 	"revdel": "इस संशोधन को हटाएँ",
 	"undo": "पूर्ववत करें",
-	"delete": "मिटाएँ"
+	"delete": "मिटाएँ",
+	"version": "संस्करण $1"
 }
