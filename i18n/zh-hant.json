@@ -108,5 +108,6 @@
 	"edit-summary": "編輯摘要",
 	"revdel": "修訂刪除",
 	"undo": "撤銷",
-	"delete": "刪除"
+	"delete": "刪除",
+	"version": "版本：$1"
 }
