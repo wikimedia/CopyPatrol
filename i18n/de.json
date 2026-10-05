@@ -5,6 +5,7 @@
 			"Justman10000",
 			"Metalhead64",
 			"RucolaSpacecat",
+			"TigerZhang",
 			"TomatoCake"
 		]
 	},
@@ -54,7 +55,7 @@
 	"editor": "Autor",
 	"review": "Überprüfen",
 	"review-fixed": "Seite behoben",
-	"review-fixed-tooltip": "Die Bearbeitung war eine Urheberrechtsverletzung und wurde rückgängig gemacht.",
+	"review-fixed-tooltip": "Die Bearbeitung war eine Urheberrechtsverletzung und wurde rückgängig gemacht",
 	"review-false": "Keine Aktion erforderlich",
 	"review-false-tooltip": "Die Bearbeitung war falsch positiv. Es muss nichts gemacht werden.",
 	"review-by": "Überprüft von:",
