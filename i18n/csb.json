@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Iketsi",
 			"Kaszeba",
-			"Orbitminis"
+			"Orbitminis",
+			"Terrus38"
 		]
 	},
 	"documentation": "Dokùmentacjô",
@@ -11,7 +13,7 @@
 	"zh-wikipedia": "Wikipediô w chińsczim jãzëkù",
 	"ja-wikipedia": "Wikipediô w japóńsczim jãzëkù",
 	"th-wikipedia": "Wikipediô w tajsczim jãzëkù",
-	"en-wikipedia": "Wikipediô w anielsczim jãzëkù",
+	"en-wikipedia": "Wikipediô w angelsczim jãzëkù",
 	"ko-wikipedia": "Wikipediô w kòreańsczim jãzëkù",
 	"ca-wikipedia": "Wikipediô w katalońsczim jãzëkù",
 	"hr-wikipedia": "Wikipediô w chòrwacczim jãzëkù",
@@ -102,5 +104,6 @@
 	"edit-summary": "Pòdrechòwaníé edicji",
 	"revdel": "revdel",
 	"undo": "doprowadzë nazôd",
-	"delete": "rëmôj"
+	"delete": "rëmôj",
+	"version": "Wersjô $1"
 }
