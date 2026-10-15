@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Disturbingthepeaaaaace",
 			"Framawiki",
 			"Gomoko",
 			"JenyxGym",
@@ -55,7 +56,7 @@
 	"diff": "Diff",
 	"editor": "Rédacteur",
 	"review": "Vérification",
-	"review-fixed": "Page traitée",
+	"review-fixed": "Page corrigée",
 	"review-fixed-tooltip": "Cette modification contenait une violation des droits d’auteur et a été annulée",
 	"review-false": "Aucune action nécessaire",
 	"review-false-tooltip": "Cette modification était un faux-positif, aucune autre action n’est à prendre",
@@ -83,7 +84,7 @@
 	"lboard-title": "Tableau des scores",
 	"lboard-week": "Entrées fermées durant les 7 derniers jours",
 	"lboard-month": "Entrées fermées durant les 30 derniers jours",
-	"lboard-alltime": "Entrées fermées depuis le début",
+	"lboard-alltime": "Nombre d'entrées fermées",
 	"lboard-back": "Revenir à CopyPatrol",
 	"lboard-count-title": "Voir $1 cas examiné(s) par cet utilisateur",
 	"close": "Fermer",
@@ -107,5 +108,6 @@
 	"edit-summary": "Modifier le résumé",
 	"revdel": "supprimer une révision",
 	"undo": "annuler",
-	"delete": "supprimer"
+	"delete": "supprimer",
+	"version": "Version $1"
 }
