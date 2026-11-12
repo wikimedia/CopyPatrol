@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Panasko",
 			"Srdjan m",
 			"Srđan"
 		]
@@ -39,6 +40,7 @@
 	"fa-wikipedia": "Wikipedia na perzijskom jeziku",
 	"ru-wikipedia": "Wikipedia na ruskom jeziku",
 	"tr-wikipedia": "Wikipedia na turskom jeziku",
+	"simple-wikipedia": "Wikipedia na jednostavnom engleskom jeziku",
 	"form-all": "Svi slučajevi",
 	"form-open": "Otvoreni slučajevi",
 	"form-reviewed": "Provjereni slučajevi",
@@ -60,7 +62,7 @@
 	"record-editcount": "Broj izmjena:",
 	"compare": "Uporedi",
 	"record-ithenticate": "Izvještaj iThenticatea",
-	"record-url-text": "$1 od izmjena ($2 riječi)",
+	"record-url-text": "$1 od izmjena",
 	"record-noeditor": "Nije pronađen nijedan urednik",
 	"record-noeditor-tooltip": "Moguće je da je ova izmjena obrisana ili podaci još uvijek nisu dostupni u Labsovoj bazi podataka.",
 	"article": "Članak",
@@ -71,6 +73,8 @@
 	"footer-broughtby": "Omogućila $1",
 	"footer-commtech": "Tehnička zajednica",
 	"footer-poweredby": "Pogon: $1 i $2",
+	"filter-page": "Pretraži naziv stranice:",
+	"filter-user": "Pretraži recenzije po korisniku:",
 	"source": "Izvor",
 	"footer-imageattr": "Autorstvo slike",
 	"lboard-title": "Rang lista",
@@ -78,6 +82,7 @@
 	"lboard-month": "Slučajevi zatvoreni u posljednjih 30 dana",
 	"lboard-alltime": "Svi dosad zatvoreni slučajevi",
 	"lboard-back": "Nazad na CopyPatrol",
+	"lboard-count-title": "Pogledajte slučajeve $1 koje je ovaj korisnik pregledao",
 	"close": "Zatvori",
 	"imageattr-title": "Autorstvo slike",
 	"imageattr-logo": "Logo CopyPatrola",
@@ -89,6 +94,16 @@
 	"js-dberror": "Došlo je do greške pri povezivanju s bazom podataka.",
 	"js-undo-own-only": "Možete poništiti jedino svoje provjere.",
 	"js-unknown-error": "Desila se nepoznata greška pri učitavanju rezultata. Pokušajte ponovo.",
+	"js-self-review": "Ne možete pregledati vlastite izmjene.",
 	"permalink": "Trajni link",
-	"show-all-records": "Prikaži sve zapise"
+	"show-all-records": "Prikaži sve zapise",
+	"access-blocked": "Trenutno imate $1 na $2 i ne možete koristiti CopyPatrol.",
+	"blocked": "Blokiran",
+	"non-internet-source": "(izvor koji nije s interneta)",
+	"tags": "Oznake",
+	"edit-summary": "Sažetak izmjene",
+	"revdel": "revdel",
+	"undo": "poništi",
+	"delete": "izbriši",
+	"version": "Verzija $1"
 }
